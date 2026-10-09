@@ -19,7 +19,7 @@
    no-JS fallback markup). Keep double quotes, no comments inside, no trailing commas.
    ============================================================================= */
 window.V4_ASSETS = {
-  "stage": { "w": 1920, "h": 1080, "mw": 390, "mh": 300 },
+  "stage": { "w": 1920, "h": 1080, "mw": 390, "mh": 250 },
   "cars": {
     "ferrari": {
       "alt": "2007 Ferrari F430 in gunmetal silver, front view",
@@ -48,12 +48,12 @@ window.V4_ASSETS = {
     "F2":   { "ferrari": [182, 842, 730],    "porsche": [1824.5, 875, 711], "ford": [940, 905, 946] },
     "F3":   { "ferrari": [-323, 900, 1026],  "porsche": [2044.5, 920, 934], "ford": [1010, 896, 1039] },
     "EXIT": { "ferrari": [-660, 918, 1120],  "porsche": [2500, 936, 1010],  "ford": [1010, -200, 1154] },
-    "M1":   { "ferrari": [38, 226, 180],     "porsche": [402, 236, 180],    "ford": [190, 252, 280] }
+    "M1":   { "ferrari": [40, 196, 200],     "porsche": [400, 204, 200],    "ford": [195, 228, 330] }
   },
   "photos": {
-    "gauges":    { "jpg": "assets/img/scene/col-gauges.jpg",       "webp": "assets/img/scene/col-gauges.webp",       "w": 1060, "h": 1280, "pos": "0% 100%",  "listing": "635055" },
+    "gauges":    { "jpg": "assets/img/scene/col-gauges.jpg",       "webp": "assets/img/scene/col-gauges.webp",       "w": 1060, "h": 980,  "pos": "0% 0%",    "listing": "635055" },
     "wheel":     { "jpg": "assets/img/scene/col-wheel.jpg",        "webp": "assets/img/scene/col-wheel.webp",        "w": 640,  "h": 940,  "pos": "50% 0%",   "listing": "626613" },
-    "sell":      { "jpg": "assets/img/scene/sell-fordgt-rear.jpg", "webp": "assets/img/scene/sell-fordgt-rear.webp", "w": 1200, "h": 1100, "pos": "50% 4%",   "listing": "628929" },
+    "sell":      { "jpg": "assets/img/scene/sell-dbs-seats.jpg",   "webp": "assets/img/scene/sell-dbs-seats.webp",   "w": 1120, "h": 1280, "pos": "40% 80%",  "listing": "635055" },
     "insurance": { "jpg": "assets/img/scene/svc-insurance.jpg",    "webp": "assets/img/scene/svc-insurance.webp",    "w": 1060, "h": 646,  "pos": "50% 50%",  "listing": "626613" },
     "service":   { "jpg": "assets/img/scene/svc-service.jpg",      "webp": "assets/img/scene/svc-service.webp",      "w": 1400, "h": 854,  "pos": "50% 50%",  "listing": "635055" },
     "ppf":       { "jpg": "assets/img/scene/svc-ppf.jpg",          "webp": "assets/img/scene/svc-ppf.webp",          "w": 1160, "h": 707,  "pos": "50% 50%",  "listing": "617636" }

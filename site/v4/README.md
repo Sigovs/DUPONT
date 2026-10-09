@@ -26,8 +26,8 @@ python -I site/v4/_build/gen.py           # writes index.html + inventory.html f
 
 | # | scene | ground | device | pin |
 |---|---|---|---|---|
-| 01–02 | The Approach: hero F1 → F2 → F3 → the Wake → Collection F5 | ivory | the three cars advance; the Ford exits through the top; P1 is locked to its shadow | 570vh (holds 50/50/40/60 + 100 overlap) |
-| 03 | Available now: inventory rail | graphite | slides over the held Collection; horizontal rail, the card in focus is lit | 40 + 6×(18+40) + 100 cover = 488vh |
+| 01–02 | The Approach: hero F1 → F2 → F3 → the Wake → Collection F5 | ivory | the three cars advance; the Ford exits through the top; P1 is locked to its shadow | 620vh (holds 50/50/40 · F4 stop 30 · 60 + 100 cover) |
+| 03 | Available now: inventory rail | graphite | slides over the held Collection; cars on one floor line, the car in focus full size, neighbours smaller (no chrome, no overlay) | 40 + 5×(12+40) + 100 cover = 400vh |
 | 04 | About + Locations: V1 night map (ported) | charcoal | map rises; lamps light west → east; three cities select | 100vh (hold 70) |
 | 05 | Sell your car | ivory | the photo panel travels in on its own clock; lines from opposite sides | 60vh hold |
 | 06 | Services (Insurance · Service · PPF) + Finance | graphite | three panels rise at three rates | 70vh hold |
@@ -59,4 +59,5 @@ Run the scripts in `_qa/` (they need the server running):
 - Inventory facts come from `data/inventory.json` via `assets/data/inventory.js`, as of 8 Oct 2026.
 - Showroom facts come from `research/brand/PROVENANCE.md`.
 - Reviews and Instagram are visibly labelled **DEMO**.
-- Service copy, SoCal's "ET" hours label, the Miami 615 number and the social handles are visibly marked "to confirm".
+- Service copy, SoCal's "ET" hours label, the Miami 615 number and the social handles carry a † with one legend line per section.
+- Map lamps sit on the simplified drawing's land (gen.py overrides `MAP["pts"]`); `_qa/fix1.cjs` asserts it at five widths.

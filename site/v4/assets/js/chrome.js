@@ -77,6 +77,20 @@
   window.addEventListener('scroll', function () { if (!inkTick) { inkTick = true; requestAnimationFrame(ink); } }, { passive: true });
   ink();
 
+  /* header: retracts while the reader scrolls down, returns on any scroll up (or at the top), so it never
+     rests as a bar over live text. The Approach timeline moves the logo and nav, so .hdr's own transform
+     is free for this. Keyboard focus inside it always brings it back (CSS :focus-within). */
+  var lastY = window.scrollY, hidT = false;
+  function hideTick() {
+    hidT = false;
+    var y = window.scrollY, d = y - lastY;
+    if (Math.abs(d) < 6) return;
+    var hide = d > 0 && y > window.innerHeight * 0.6 && !root.classList.contains('menu-open') && !(subBtn && subBtn.getAttribute('aria-expanded') === 'true');
+    if (hdr) hdr.classList.toggle('is-away', hide);
+    lastY = y;
+  }
+  window.addEventListener('scroll', function () { if (!hidT) { hidT = true; requestAnimationFrame(hideTick); } }, { passive: true });
+
   /* ------------------------------------------------- 4. dropdown + mobile menu */
   var subBtn = hdr && hdr.querySelector('[data-sub-toggle]');
   var sub = subBtn ? document.getElementById(subBtn.getAttribute('aria-controls')) : null;

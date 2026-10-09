@@ -15,7 +15,7 @@ import re
 
 ROOT = "C:/____WORK/DU PONT REGESTRY/"
 V4 = ROOT + "site/v4/"
-VER = "17"
+VER = "20"
 
 
 def load_js_obj(path, var):
@@ -27,6 +27,11 @@ def load_js_obj(path, var):
 DRS = load_js_obj(V4 + "assets/data/inventory.js", "window.DRS")
 ASSETS = load_js_obj(V4 + "assets/js/v4-assets.js", "window.V4_ASSETS")
 MAP = json.load(open(ROOT + "site/_build/us-path.json"))
+# fix1: the shared drawing is simplified (6 % quantile), so true lon/lat projections of Naples and
+# Miami land in the water. V4 places each lamp on the simplified land, verified with isPointInFill
+# (inland ≥ 7.5 drawing units): Naples just inland of the Gulf shore, Miami just inland of the
+# Atlantic shore, Murrieta inland of the LA coast. The shared us-path.json (V1) is untouched.
+MAP["pts"] = dict(MAP["pts"], socal=[128.0, 376.0], naples=[799.0, 556.0], miami=[821.0, 567.0])
 L = DRS["listings"]
 CARS = {c["id"]: c for c in L}
 ASOF = DRS["meta"]["asOf"]
@@ -167,7 +172,7 @@ def fmark(key):
 def footer():
     cards = ""
     for i, s in enumerate(SHOWROOMS):
-        note = f'<span class="tbc">{s["hours_note"]}</span>' if s["hours_note"] else ""
+        note = '<sup class="dag" aria-hidden="true">†</sup>' if s["hours_note"] else ""
         cards += f"""        <article class="loc" aria-labelledby="loc-{s['key']}" data-foot-card>
           <p class="loc__no"><span class="loc__n disp">0{i + 1}</span><span class="t-label">{s["place"]}</span></p>
           <h3 class="loc__city" id="loc-{s['key']}">{s['city']}</h3>
@@ -175,7 +180,7 @@ def footer():
           <address class="loc__addr">{s['addr1']}<br>{s['addr2']}</address>
           <dl class="loc__facts">
             <dt>Hours</dt><dd>{s['hours']}{note}</dd>
-            <dt>Phone</dt><dd class="t-num">{s['phone']}</dd>
+            <dt>Phone</dt><dd class="t-num">{s['phone']}{'<sup class="dag" aria-hidden="true">†</sup>' if s['key'] == 'miami' else ''}</dd>
           </dl>
           <div class="loc__actions">
             <a class="btn btn--line" href="tel:{s['tel']}">Call<span class="vh"> {s['city']}</span></a>
@@ -189,7 +194,7 @@ def footer():
     <div class="foot__in">
       <div class="foot__head">
         <p class="eyebrow t-label"><span class="rule"></span>09 — Showrooms</p>
-        <h2 class="foot__title disp" id="foot-title">Three showrooms. <span class="red-l">One registry.</span></h2>
+        <h2 class="foot__title disp" id="foot-title">Visit a showroom.</h2>
         <p class="foot__asof">As published by duPont REGISTRY.<br>Counts as of {ASOF}.</p>
       </div>
       <div class="foot__locs">
@@ -211,8 +216,9 @@ def footer():
           <li><a href="index.html#locations">Locations</a></li>
           <li><a href="index.html#sell">Sell your car</a></li>
           <li><a href="index.html#showrooms">Contact</a></li></ul></nav>
-        <div><h3 class="t-label">Follow</h3><p><span class="tbc">Social handles to confirm</span></p></div>
+        <div><h3 class="t-label">Follow</h3><p class="foot__soc">Instagram<sup class="dag" aria-hidden="true">†</sup></p></div>
       </div>
+      <p class="tbc foot__tbc">† To confirm before launch: SoCal hours are published as “ET”; the Miami number is published with a 615 area code; social handles.</p>
       <div class="foot__legal"><span>© 2026 duPont REGISTRY Group</span><span>Prices, miles and counts as of {ASOF}. Private prototype for client presentation — not a live site.</span></div>
     </div>
   </footer>
@@ -271,7 +277,7 @@ def hero_and_collection():
       <section class="scene hero" data-scene="hero" data-ink="dark" aria-labelledby="hero-title">
         <div class="hero__cars" data-car-stage aria-hidden="false">{cars}</div>
         <div class="hero__f1" data-f1>
-          <p class="eyebrow t-label at" style="--x:120;--y:200"><span class="rule"></span>{m("Southern California · Naples · Miami")}</p>
+          <p class="eyebrow t-label at" style="--x:120;--y:200"><span class="rule"></span>{m("SoCal · Naples · Miami")}</p>
           <h1 class="hero__h1 disp at" id="hero-title" style="--x:120;--y:312">{m("The Registry,")} {m("Selected.", "red")}</h1>
           <div class="hero__deck at" style="--x:1360;--y:174" data-f1-deck>
             <p class="deck">{m("Exceptional cars, chosen one at a time —")} {m("and three showrooms to see them in.")}</p>
@@ -281,9 +287,9 @@ def hero_and_collection():
           <p class="hero__idx t-label at at-r" style="--x:1800;--y:1032" aria-hidden="true" data-idx>01 / 09</p>
         </div>
         <div class="hero__f2 motion-only" data-f2>
-          <p class="eyebrow t-label at" style="--x:120;--y:176"><span class="rule" data-rule></span>{m("Murrieta, CA · Naples, FL · Miami, FL")}</p>
-          <p class="hero__h2 disp at" style="--x:120;--y:256">{m("Three showrooms.")}</p>
-          <p class="hero__h2 disp at" style="--x:120;--y:324">{m("One collection.", "")}</p>
+          <p class="eyebrow t-label at" style="--x:120;--y:176"><span class="rule" data-rule></span>{m("Select SoCal · Murrieta, CA")}</p>
+          <p class="hero__h2 disp at" style="--x:120;--y:256">{m("Three cars.")}</p>
+          <p class="hero__h2 disp at" style="--x:120;--y:324">{m("The front row.", "")}</p>
         </div>
         <div class="hero__f3 motion-only" data-f3>
           <p class="eyebrow t-label at" style="--x:120;--y:200"><span class="rule" data-rule></span>{m("2006 Ford GT — Select SoCal")}</p>
@@ -298,7 +304,7 @@ def hero_and_collection():
         <div class="col__text" data-col-text>
           <p class="eyebrow t-label at" style="--x:120;--y:196"><span class="rule"></span>{m("02 — The Collection")}</p>
           <h2 class="col__h disp at" id="col-title" style="--x:120;--y:316">{m("Chosen,")}<br>{m('One at a <span class="red">time.</span>')}</h2>
-          <p class="deck at" style="--x:120;--y:468">{m("Every car here was picked by a person, at one of three showrooms.")}</p>
+          <p class="deck at" style="--x:120;--y:468">{m("Every car here was picked by a person.")}</p>
         </div>
         <div class="col__index at" style="--x:120;--y:620" data-col-index>
           <p class="t-label t-mute">Browse by marque</p>
@@ -325,6 +331,9 @@ def picture_car(img, sizes, alt):
 
 
 def rail():
+    """fix1: editorial rail — no card chrome, no chips, one quiet link per car, one section CTA.
+    Motion (>=1280): scenes.js places every car on one floor line; the car in focus is full size,
+    neighbours are smaller photographs with their title and price only (never greyed)."""
     cards = ""
     for i, cid in enumerate(RAIL):
         c = CARS[cid]
@@ -332,33 +341,27 @@ def rail():
         miles = "{:,} miles".format(c["miles"]) if c["miles"] is not None else "Miles not listed"
         drive = re.sub(r"^\w+\s*\((.*)\)$", r"\1", c.get("drive") or "")
         spec = " · ".join(x for x in [c.get("ext") if c.get("ext") not in (None, "Other") else None, c.get("trans"), drive.capitalize() if drive and drive != "Unspecified" else None] if x)
+        # compound terms never break at their hyphen ("Rear-wheel drive" stays whole)
+        spec_html = " · ".join(f'<span class="nw">{esc(x)}</span>' if "-" in x else esc(x) for x in spec.split(" · ")) if spec else ""
         cards += f"""          <li class="rcard" data-rcard>
-            <div class="rcard__ph">{picture_car(c["img"], "(min-width: 1024px) 26vw, 80vw", c["title"] + ", as photographed for its listing")}<span class="rcard__tag t-label">{SHOWNAME[c["loc"]]}</span></div>
+            <div class="rcard__ph">{picture_car(c["img"], "(min-width: 1280px) 38vw, 80vw", c["title"] + ", as photographed for its listing")}</div>
             <div class="rcard__body">
+              <p class="rcard__no t-label"><span class="t-num">0{i + 1}</span> {SHOWNAME[c["loc"]]}</p>
               <h3 class="rcard__title disp">{esc(c["title"])}</h3>
-              <p class="rcard__spec">{esc(miles)}{(" · " + esc(spec)) if spec else ""}</p>
-              <p class="rcard__where">{esc(c["dealer"]["name"])} · {esc(c["dealer"]["city"])}, {esc(c["dealer"]["state"])}</p>
-              <div class="rcard__foot">
-                <p class="rcard__price"><span class="t-num">{money(c["price"])}</span><span class="rcard__asof">as of {ASOF}</span></p>
-                <a class="btn btn--red rcard__go" href="{esc(c["url"])}" data-car="{cid}" target="_blank" rel="noopener">Enquire {ARROW}<span class="vh"> about the {esc(c["title"])}</span></a>
-              </div>
+              <p class="rcard__price"><span class="t-num">{money(c["price"])}</span><span class="rcard__asof rcard__more">as of {ASOF}</span></p>
+              <p class="rcard__spec rcard__more">{esc(miles)}{(" · " + spec_html) if spec else ""}</p>
+              <a class="lnk rcard__go rcard__more" href="{esc(c["url"])}" data-car="{cid}" target="_blank" rel="noopener">View this car {ARROW}<span class="vh"> — the {esc(c["title"])}</span></a>
             </div>
           </li>
 """
-    cards += f"""          <li class="rcard rcard--all" data-rcard>
-            <a class="rcard__allin" href="inventory.html">
-              <span class="t-label t-mute">The full list</span>
-              <span class="rcard__all-h disp">All {TOTAL} cars,<br>three showrooms.</span>
-              <span class="btn btn--red">View inventory {ARROW}</span>
-            </a>
-          </li>
-"""
-    return f"""    <!-- 03 · AVAILABLE NOW — graphite. Pinned horizontal rail; the card in focus is lit, neighbours dimmed (behaviour/layout after Alex's Robb Francis v3 inventory scene; structure only). -->
+    return f"""    <!-- 03 · AVAILABLE NOW — graphite. Pinned rail: the car in focus is full size and lit by its own type;
+         neighbours are smaller photographs (behaviour after Alex's Robb Francis "Available Now." scene). -->
     <section class="scene rail" id="available" data-scene="rail" data-ink="light" aria-labelledby="rail-title">
       <div class="rail__head">
         <p class="eyebrow t-label"><span class="rule"></span>{m("03 — Available now")}</p>
-        <h2 class="rail__h disp" id="rail-title">{m('Available <span class="red-l">now.</span>')}</h2>
-        <p class="rail__asof t-mute">Six of {TOTAL} cars · prices and miles as of {ASOF}</p>
+        <h2 class="rail__h disp" id="rail-title">{m("Available now.")}</h2>
+        <p class="rail__asof">Six of {TOTAL} · prices and miles as of {ASOF}</p>
+        <a class="btn btn--red rail__all" href="inventory.html">View all {TOTAL} cars {ARROW}</a>
       </div>
       <div class="rail__view" data-rail-view data-lenis-prevent-touch>
         <ul class="rail__track" data-rail-track>
@@ -383,10 +386,9 @@ def locations():
         cars = [c for c in L if c["loc"] == k][:3]
         rows = "".join(f'<li><a href="{esc(c["url"])}" data-car="{c["id"]}" target="_blank" rel="noopener"><span>{esc(c["title"])}</span>'
                        f'<span class="t-num t-mute">{money(c["price"])}</span></a></li>' for c in cars)
-        photographed = sum(1 for c in L if c["loc"] == k and c["img"])
         panels += f"""            <div class="spanel" id="panel-{k}" data-panel="{k}" role="region" aria-label="{s['city']} showroom"{'' if k == 'socal' else ' hidden'}>
               <p class="spanel__dealer t-label">{s['dealer']} · {s['place']}</p>
-              <p class="spanel__count">{COUNT[k]} cars{f', {photographed} photographed' if photographed < COUNT[k] else ''}<span class="spanel__asof t-label">as of {ASOF}</span></p>
+              <p class="spanel__count">{COUNT[k]} cars<span class="spanel__asof t-label">as of {ASOF}</span></p>
               <ul class="spanel__cars">{rows}</ul>
               <div class="spanel__go">
                 <a class="lnk" href="inventory.html?showroom={k}">See all {COUNT[k]} {ARROW}</a>
@@ -400,7 +402,7 @@ def locations():
       <span class="anchor" id="about" aria-hidden="true"></span>
       <div class="locs__text" data-locs-text>
         <p class="eyebrow t-label"><span class="rule"></span>{m("04 — About · Locations")}</p>
-        <h2 class="locs__h disp" id="locs-title">{m("One registry.")}<br>{m('Three <span class="red-l">showrooms.</span>')}</h2>
+        <h2 class="locs__h disp" id="locs-title">{m("Three")}<br>{m("showrooms.")}</h2>
         <p class="locs__about deck">{m("duPont REGISTRY Select is the showroom side of duPont REGISTRY — three locations the group calls “physical extensions of the duPont REGISTRY brand.”")}</p>
         <p class="locs__src t-mute">Quoted from duPont REGISTRY News, 2026.</p>
       </div>
@@ -420,10 +422,12 @@ def locations():
 
 
 def sell():
-    return f"""    <!-- 04 · SELL YOUR CAR — ivory. One action, no form. The photo panel travels in on its own clock. -->
+    return f"""    <!-- 05 · SELL YOUR CAR — asymmetric: type on ivory in the Collection's column, a dark close-up on the right 58 %,
+         bleeding right and down from under the header band (the nav stays on ivory). One action, no form. -->
     <section class="scene sell" id="sell" data-scene="sell" data-ink="dark" aria-labelledby="sell-title">
-      <div class="sell__ph" data-sell-ph>{photo("sell", "sell__img", "The 2006 Ford GT from behind, as photographed for its listing")}
-        <p class="cap cap--ink t-label">2006 Ford GT · Select SoCal</p></div>
+      <div class="sell__ph" data-sell-ph>{photo("sell", "sell__img", "Black leather seats with red stitching in the 2009 Aston Martin DBS, as photographed for its listing")}
+</div>
+      <p class="sell__cap t-label t-mute">2009 Aston Martin DBS · Select SoCal</p>
       <div class="sell__text" data-sell-text>
         <p class="eyebrow t-label"><span class="rule"></span>{m("05 — Sell your car")}</p>
         <h2 class="sell__h disp" id="sell-title">{m("Selling a car")}<br>{m('like <span class="red">these?</span>')}</h2>
@@ -435,10 +439,10 @@ def sell():
 
 
 SERVICES = [
-    ("insurance", "Insurance", "Cover for collector and exotic cars, arranged through the showroom.", "insurance",
-     "Front three-quarter of the black 2015 Ferrari 458 Speciale, as photographed for its listing", "2015 Ferrari 458 Speciale"),
     ("service", "Service", "Maintenance and preparation, before delivery and after it.", "service",
      "V12 engine bay of the 2009 Aston Martin DBS, as photographed for its listing", "2009 Aston Martin DBS"),
+    ("insurance", "Insurance", "Cover for collector and exotic cars, arranged through the showroom.", "insurance",
+     "Front three-quarter of the black 2015 Ferrari 458 Speciale, as photographed for its listing", "2015 Ferrari 458 Speciale"),
     ("ppf", "Paint protection film", "Clear film over the paint, fitted before the car leaves.", "ppf",
      "Bonnet and headlamps of the 2018 Porsche 911 GT2 RS, as photographed for its listing", "2018 Porsche 911 GT2 RS"),
 ]
@@ -447,14 +451,14 @@ SERVICES = [
 def services():
     panels = ""
     for i, (sid, name, line, ph, alt, car) in enumerate(SERVICES):
-        panels += f"""        <article class="svc__panel" id="{sid}" data-svc-panel aria-labelledby="svc-{sid}">
+        panels += f"""        <article class="svc__panel{' svc__panel--lead' if i == 0 else ''}" id="{sid}" data-svc-panel aria-labelledby="svc-{sid}">
           <div class="svc__ph">{photo(ph, "svc__img", alt)}</div>
           <div class="svc__body">
             <p class="svc__no t-label">0{i + 1}</p>
-            <h3 class="svc__name disp" id="svc-{sid}">{name}</h3>
+            <h3 class="svc__name disp" id="svc-{sid}">{name}<sup class="dag" aria-hidden="true">†</sup></h3>
             <p class="svc__line">{line}</p>
             <a class="lnk" href="#showrooms" data-goto="showrooms">Ask a showroom {ARROW}</a>
-            <p class="svc__cap t-mute">Photograph: {car}, Select SoCal</p>
+            <p class="svc__cap t-mute">{car} · Select SoCal</p>
           </div>
         </article>
 """
@@ -462,8 +466,8 @@ def services():
     <section class="scene svc" id="services" data-scene="svc" data-ink="light" aria-labelledby="svc-title">
       <div class="svc__head" data-svc-head>
         <p class="eyebrow t-label"><span class="rule"></span>{m("06 — Services")}</p>
-        <h2 class="svc__h disp" id="svc-title">{m('Ownership, <span class="red-l">looked after.</span>')}</h2>
-        <p class="svc__tbc"><span class="tbc">Service copy to confirm with each showroom</span></p>
+        <h2 class="svc__h disp" id="svc-title">{m("Ownership, looked after.")}</h2>
+        <p class="svc__tbc tbc">† Service descriptions to confirm with each showroom.</p>
       </div>
       <div class="svc__band" data-svc-band>
 {panels}      </div>
@@ -537,7 +541,7 @@ def instagram():
     <section class="scene ig" id="instagram" data-scene="ig" data-ink="dark" aria-labelledby="ig-title">
       <div class="ig__head" data-ig-head>
         <p class="eyebrow t-label"><span class="rule"></span>08 — Instagram</p>
-        <h2 class="ig__h disp" id="ig-title">{m('Seen at <span class="red-l">Select.</span>')}</h2>
+        <h2 class="ig__h disp" id="ig-title">{m("Seen at Select.")}</h2>
         <p class="demo">Demo feed · listing photographs from duPont REGISTRY. Instagram handle to confirm.</p>
       </div>
       <div class="ig__wall" data-ig-wall>{html_cols}</div>

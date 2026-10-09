@@ -86,7 +86,7 @@
     return function () {
       ctx.revert();
       root.classList.remove('motion');
-      $$('.rcard__lit').forEach(function (n) { n.remove(); });
+      $$('.rcard__more').forEach(function (n) { n.style.visibility = ''; });
       var ap = $('[data-approach]'); if (ap) delete ap.dataset.inkLive;
       V4.targets = {}; V4.holdList = [];
     };
@@ -133,7 +133,7 @@
   /* ------------------------------------------------ 01 + 02 · THE APPROACH */
   function approach() {
     var ap = $('[data-approach]'); if (!ap) return;
-    var hdr = $('[data-hdr]');
+    var hdr = $$('[data-hdr] .hdr__logo, [data-hdr] .hdr__nav');   // the header's contents (its own transform is chrome.js's)
     var car = { ferrari: $('.car--ferrari', ap), porsche: $('.car--porsche', ap), ford: $('.car--ford', ap) };
     var f1 = $('[data-f1]', ap), f2 = $('[data-f2]', ap), f3 = $('[data-f3]', ap);
     var h1 = lines('.hero__h1', f1), eyebrow1 = lines('.eyebrow', f1), deck = $('[data-f1-deck]', ap);
@@ -151,7 +151,7 @@
     gsap.set(idxBlock, { y: function () { return 470 * U(); }, autoAlpha: 0 });
     gsap.set([f2r, f3r, colRule], { scaleX: 0 });   // line entrance states are set by rise() (immediateRender)
 
-    var tl = V4.tl.approach = pinTL(ap, 470 + COVER);
+    var tl = V4.tl.approach = pinTL(ap, 520 + COVER);
     function carTo(name, frame, at, dur, ease) {
       tl.to(car[name], {
         x: function () { return V4.cars.delta(name, frame).x * U(); },
@@ -201,71 +201,79 @@
     /* F3 hold 250–290 */
     tl.addLabel('F3', 250).to({}, { duration: 40 }, 250); hold(tl, 250, 290);
 
-    /* T3 290–410 · the Passage and the Wake */
-    T = 290; D = 120;
-    tl.to(hdr, { yPercent: -140, duration: D * 0.12, ease: 'power2.in' }, T);
-    tl.to(idx, { y: function () { return 70 * U(); }, duration: D * 0.12, ease: 'power2.in' }, T);
-    tl.to(f3e, { xPercent: -14, opacity: 0, duration: D * 0.1, ease: 'power2.in' }, T);
-    tl.to(f3r, { scaleX: 0, duration: D * 0.12, ease: 'power2.in' }, T);
+    /* T3 290–460 (170vh) · the Passage and the Wake, with a real stop at F4.
+       T3a 290–355: the flanks pass the lens, the Ford accelerates up and settles on the F4 waypoint
+       F4  355–385: pin-stop (30vh, no text on screen) — the red face over the rising Collection
+       T3b 385–460: the Ford accelerates away over the lens; P1 rides its shadow; the type rises in its wake */
+    T = 290;
+    var A0 = 290, A1 = 355, B0 = 385, B1 = 460;
+    tl.to(hdr, { yPercent: -320, duration: 14, ease: 'power2.in' }, T);
+    tl.to(idx, { y: function () { return 70 * U(); }, duration: 14, ease: 'power2.in' }, T);
+    tl.to(f3e, { xPercent: -14, opacity: 0, duration: 12, ease: 'power2.in' }, T);
+    tl.to(f3r, { scaleX: 0, duration: 14, ease: 'power2.in' }, T);
     // the flanks pass the lens at two rates (and grow as they pass): the Ferrari is out first and fastest
-    carTo('ferrari', 'EXIT', T, D * 0.30, 'power2.in');
-    carTo('porsche', 'EXIT', T + D * 0.07, D * 0.40, 'power1.in');
+    carTo('ferrari', 'EXIT', T, 34, 'power2.in');
+    carTo('porsche', 'EXIT', T + 8, 46, 'power1.in');
 
-    // the Ford drives over the lens. One eased progress drives its translation, its scale
-    // and P1 (locked 36 stage px under the shadow's far edge), so car and Collection are one gesture.
-    var EASE = 'sine.inOut';
-    var fordEnd = function () { return { x: 1010, y: -200 - geo.st / U(), W: 1154 }; };
-    var F3f = V4_ASSETS.frames.F3.ford, F1f = V4_ASSETS.frames.F1.ford;
-    var tailF3 = V4.cars.shadowTail('ford', F3f[2]), tailEnd = V4.cars.shadowTail('ford', 1154);
-    var FT = T + D * 0.12, FD = D * 0.68;
-    tl.to(car.ford, {
-      x: function () { return (fordEnd().x - F1f[0]) * U(); },
-      y: function () { return (fordEnd().y - F1f[1]) * U(); },
-      scale: function () { return fordEnd().W / F1f[2]; },
-      duration: FD, ease: EASE
-    }, FT);
-    tl.set(p1, { autoAlpha: 1 }, FT);
-    tl.fromTo(p1, {
-      y: function () { return geo.st + (F3f[1] + tailF3 + 36) * U(); }
-    }, {
-      y: function () { var e = fordEnd(); return geo.st + (e.y + tailEnd + 36) * U(); },
-      duration: FD, ease: EASE, immediateRender: false
-    }, FT);
-    // P2 rises faster than P1 and opens from the left (it belongs to the left-hand column)
-    tl.to(p2, { y: 0, duration: D * 0.40, ease: 'power2.out' }, T + D * 0.20);
-    reveal(tl, p2, T + D * 0.20, D * 0.36, 'left');
-    tl.set(idxBlock, { autoAlpha: 1 }, T + D * 0.30);
-    tl.to(idxBlock, { y: 0, duration: D * 0.40, ease: 'power2.out' }, T + D * 0.30);
+    // the Ford: F3 → F4 → exit, power2.inOut on each leg (it visibly accelerates and brakes).
+    // P1's top edge = the shadow's far edge + 36 stage px on the same eases, so the lock is exact.
+    var F3f = V4_ASSETS.frames.F3.ford, F1f = V4_ASSETS.frames.F1.ford, F4f = [1010, 283, 1103];
+    var fordEnd = function () { return [1010, -200 - geo.st / U(), 1154]; };
+    var tail = function (W) { return V4.cars.shadowTail('ford', W); };
+    var p1y = function (f) { return geo.st + (f[1] + tail(f[2]) + 36) * U(); };
+    function fordLeg(to, at, dur) {
+      tl.to(car.ford, {
+        x: function () { return (to()[0] - F1f[0]) * U(); },
+        y: function () { return (to()[1] - F1f[1]) * U(); },
+        scale: function () { return to()[2] / F1f[2]; },
+        duration: dur, ease: 'power2.inOut'
+      }, at);
+    }
+    fordLeg(function () { return F4f; }, A0 + 8, A1 - A0 - 8);
+    tl.set(p1, { autoAlpha: 1 }, A0 + 8);
+    tl.fromTo(p1, { y: function () { return p1y(F3f); } }, { y: function () { return p1y(F4f); }, duration: A1 - A0 - 8, ease: 'power2.inOut', immediateRender: false }, A0 + 8);
+    // P2 (the wheel) enters whole from the bottom edge once it can show ≥ 320px, stops with F4
+    // (top at stage y 690), then lands with the Collection
+    var p2off = function (yStage) { return geo.st + (yStage - 560) * U(); };
+    tl.fromTo(p2, { y: function () { return VH() - (geo.st + 560 * U()) + 4; } }, { y: function () { return p2off(690); }, duration: 34, ease: 'power3.out', immediateRender: false }, A0 + 21);
+    tl.addLabel('F4', A1).to({}, { duration: B0 - A1 }, A1); hold(tl, A1, B0);
+    fordLeg(fordEnd, B0, 62);
+    tl.fromTo(p1, { y: function () { return p1y(F4f); } }, { y: function () { return p1y(fordEnd()); }, duration: 62, ease: 'power2.inOut', immediateRender: false }, B0);
+    tl.to(p2, { y: 0, duration: 46, ease: 'power2.inOut' }, B0 + 4);
+    // the index stays off-stage until the Ford has gone (no half-cut marque list at the bottom edge)
+    tl.set(idxBlock, { autoAlpha: 1 }, B0 + 34);
+    tl.to(idxBlock, { y: 0, duration: 38, ease: 'power3.out' }, B0 + 34);
 
     // the Wake, extended to the type: each Collection line starts rising as the shadow's far edge
-    // clears it (bottom line first) and follows it upward. Mask bottoms in stage y.
-    var plate0 = F3f[1] + tailF3, plate1 = -200 + tailEnd;
-    function wakeAt(Y) {   // timeline time at which the plate end crosses stage-y Y (inverse of sine.inOut)
-      var e = Math.max(0, Math.min(1, (Y - plate0) / (plate1 - plate0)));
-      return FT + FD * Math.acos(1 - 2 * e) / Math.PI;
+    // clears it (bottom line first) and follows it upward — all of it after F4, so the stop holds no half-glyph
+    var plateA = F4f[1] + tail(F4f[2]), plateB = -200 + tail(1154);
+    function wakeAt(Y) {   // timeline time at which the plate end crosses stage-y Y on the second leg (inverse power2.inOut)
+      var e = Math.max(0, Math.min(1, (Y - plateA) / (plateB - plateA)));
+      var p = e < 0.5 ? Math.sqrt(e / 2) : 1 - Math.sqrt((1 - e) / 2);
+      return B0 + 62 * p;
     }
-    rise(tl, colDeck, wakeAt(486), D * 0.13, 0);
-    rise(tl, colH[1], wakeAt(428), D * 0.13, 0);
-    rise(tl, colH[0], wakeAt(340), D * 0.13, 0);
-    drawRule(tl, colRule, wakeAt(212), D * 0.08);
-    slide(tl, colEye, wakeAt(206), D * 0.13, -1);
-    tl.to(hdr, { yPercent: 0, duration: D * 0.16, ease: 'power2.out' }, T + D * 0.84);
+    rise(tl, colDeck, Math.max(B0 + 6, wakeAt(486)), 15, 0);
+    rise(tl, colH[1], Math.max(B0 + 10, wakeAt(428)), 15, 0);
+    rise(tl, colH[0], wakeAt(340), 15, 0);
+    drawRule(tl, colRule, wakeAt(212), 10);
+    slide(tl, colEye, wakeAt(206), 15, -1);
+    tl.to(hdr, { yPercent: 0, duration: 16, ease: 'power2.out' }, B1 - 16);
 
-    /* F5 hold 410–470, then 470–570 the rail sheet covers the Collection as it drifts up */
-    tl.addLabel('F5', 410).to({}, { duration: 60 }, 410); hold(tl, 410, 470);
-    tl.addLabel('cover', 470).to({}, { duration: COVER }, 470);
-    drift(tl, p1, 470, { yPercent: -7 });
-    drift(tl, p2, 470, { yPercent: -16 });
-    drift(tl, colText, 470, { y: function () { return -60 * U(); } });
-    drift(tl, idxBlock, 470, { yPercent: -12 });
+    /* F5 hold 460–520, then 520–620 the rail sheet covers the Collection as it drifts up */
+    tl.addLabel('F5', B1).to({}, { duration: 60 }, B1); hold(tl, B1, B1 + 60);
+    tl.addLabel('cover', B1 + 60).to({}, { duration: COVER }, B1 + 60);
+    drift(tl, p1, B1 + 60, { yPercent: -7 });
+    drift(tl, p2, B1 + 60, { yPercent: -16 });
+    drift(tl, colText, B1 + 60, { y: function () { return -60 * U(); } });
+    drift(tl, idxBlock, B1 + 60, { yPercent: -12 });
 
     // header ink follows the stage (logo over ivory, nav over P1 once the Collection is in)
-    var setInk = function () { ap.dataset.inkLive = tl.time() > T + D * 0.8 ? 'split' : 'dark'; V4.ink(); };
+    var setInk = function () { ap.dataset.inkLive = tl.time() > B0 + 50 ? 'split' : 'dark'; V4.ink(); };
     tl.eventCallback('onUpdate', setInk);
     ap.dataset.inkLive = 'dark';
 
     V4.targets.top = function () { return 0; };
-    V4.targets.collection = function () { return stY(tl, 425); };
+    V4.targets.collection = function () { return stY(tl, 490); };
   }
 
   /* ------------------------------------------------------ 03 · AVAILABLE NOW */
@@ -274,33 +282,45 @@
     var track = $('[data-rail-track]', sec), cards = $$('[data-rcard]', sec), head = $('.rail__head', sec);
     var n = cards.length;
     sheet(sec);
-    var step = function () { return cards[1].offsetLeft - cards[0].offsetLeft; };
-    // the track never travels past its own end: the last cards settle against the right margin
-    // instead of leaving an empty half-screen; focus follows a separate index (proxy.f)
-    var maxShift = function () { return Math.max(0, track.scrollWidth - root.clientWidth); };
+    /* fix1 layout: every car stands on one floor line (stage y 780). The car in focus is full size
+       (720 × 480 stage px, left edge on the focus slot x 760); neighbours are the same photograph at
+       NEAR scale, laid out edge to edge with a fixed gap, so the row has a real rhythm (large · small).
+       Nothing is greyed: "unlit" = smaller photograph + the plate shows only number, title and price,
+       at ≥ 0.66 ink (≥ 5.3 : 1 on graphite); spec line and link appear on the car in focus only. */
+    var FW = 720, GAP = 56, SLOT = 760, NEAR = 0.58, INK = 0.66;
     var proxy = { f: 0 };
-    var lit = cards.map(function (c) {
-      var s = document.createElement('span'); s.className = 'rcard__lit'; s.setAttribute('aria-hidden', 'true'); c.appendChild(s); return s;
-    });
+    var ph = cards.map(function (c) { return $('.rcard__ph', c); });
+    var more = cards.map(function (c) { return $$('.rcard__more', c); });
+    var ink = cards.map(function (c) { return [$('.rcard__no', c), $('.rcard__title', c), $('.rcard__price .t-num', c)]; });
+    // ('scale' is a meta-property: quickSetter does not render it, so scaleX + scaleY)
     var set = cards.map(function (c, i) {
-      return { s: gsap.quickSetter(c, 'scale'), o: gsap.quickSetter(c, 'opacity'), l: gsap.quickSetter(lit[i], 'scaleX') };
+      return { x: gsap.quickSetter(c, 'x', 'px'), sx: gsap.quickSetter(ph[i], 'scaleX'), sy: gsap.quickSetter(ph[i], 'scaleY'), m: gsap.quickSetter(more[i], 'opacity'), k: gsap.quickSetter(ink[i], 'opacity') };
     });
-    // focus: distance from the focus slot in cards, eased (smoothstep) so the light moves like a
-    // lens pulling focus rather than a linear ramp; the focused card carries the red top rule
     function focus() {
+      var u = U(), xs = [], x = 0, sc = cards.map(function (c, i) {
+        var d = Math.min(1, Math.abs(i - proxy.f)), e = d * d * (3 - 2 * d);   // smoothstep: a lens pulling focus
+        return { s: 1 - (1 - NEAR) * e, e: e, d: d, D: Math.abs(i - proxy.f) };
+      });
+      sc.forEach(function (o, i) { xs.push(x); x += (FW * o.s + GAP); });
+      var fl = Math.max(0, Math.min(n - 1, Math.floor(proxy.f))), fr = proxy.f - fl;
+      var at = xs[fl] + (fl < n - 1 ? (xs[fl + 1] - xs[fl]) * fr : 0);
       cards.forEach(function (c, i) {
-        var d = Math.min(1, Math.abs(i - proxy.f)), e = d * d * (3 - 2 * d);
-        set[i].s(1 - 0.12 * e); set[i].o(1 - 0.5 * e); set[i].l(Math.max(0, 1 - 2.2 * d));
+        var o = sc[i];
+        set[i].x((SLOT - at + xs[i]) * u);
+        set[i].sx(o.s); set[i].sy(o.s);
+        var m = Math.max(0, 1 - o.d * 2.4);           // details only near focus
+        set[i].m(m); more[i].forEach(function (el) { el.style.visibility = m < 0.02 ? 'hidden' : ''; });
+        // beyond the first neighbour the plate goes out before it can reach a viewport edge
+        set[i].k(o.D <= 1 ? 1 - (1 - INK) * o.e : INK * Math.max(0, Math.min(1, (1.5 - o.D) / 0.5)));
       });
     }
-    var HOLD = 40, MOVE = 18;
+    var HOLD = 40, MOVE = 12;                        // 40 + 5 × (12 + 40) + 100 cover = 400vh
     var len = HOLD + (n - 1) * (MOVE + HOLD);
     var tl = V4.tl.rail = pinTL(sec, len + COVER, { onRefresh: focus });
     tl.addLabel('hold0', 0).to({}, { duration: HOLD }, 0); hold(tl, 0, HOLD);
     for (var i = 1; i < n; i++) {
       var at = HOLD + (i - 1) * (MOVE + HOLD);
       (function (k) {
-        tl.to(track, { x: function () { return -Math.min(k * step(), maxShift()); }, duration: MOVE, ease: 'power2.inOut' }, at);
         tl.to(proxy, { f: k, duration: MOVE, ease: 'power2.inOut' }, at);
       })(i);
       tl.addLabel('hold' + i, at + MOVE).to({}, { duration: HOLD }, at + MOVE); hold(tl, at + MOVE, at + MOVE + HOLD);
@@ -488,7 +508,6 @@
     if (!ap || !root.classList.contains('intro')) return;
     if (window.scrollY > 40) { root.classList.remove('intro'); return; }
     var f1 = $('[data-f1]', ap), cars = { ferrari: $('.car--ferrari', ap), porsche: $('.car--porsche', ap), ford: $('.car--ford', ap) };
-    var carImgs = function (n) { return $$('img', cars[n]); };
     var lineDrop = function (i, el) { return el.offsetHeight * 1.3; };
     var t = gsap.timeline({ paused: true, defaults: { ease: 'expo.out' }, onComplete: done });
     var rule = $('.rule', f1);
@@ -497,11 +516,12 @@
     t.fromTo(lines('.hero__h1', f1), { y: lineDrop, opacity: 1 }, { y: 0, duration: 1.05, stagger: 0.12 }, 0.14);
     if (mobile) t.fromTo($('.hero__deck .deck', f1), { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out' }, 0.5);
     else t.fromTo(lines('.deck', f1), { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out', stagger: 0.08 }, 0.5);
-    // the cars arrive: flanks first from their own sides, the Ford last, coming forward from behind them
-    // (opacity is short and separate from the travel, so overlapping cut-outs never read as ghosts)
-    [['ferrari', { x: -64 }, 0.42], ['porsche', { x: 64 }, 0.52], ['ford', { y: -22 }, 0.64]].forEach(function (c) {
-      t.fromTo(carImgs(c[0]), c[1], { x: 0, y: 0, duration: 1.2, ease: 'power3.out' }, c[2]);
-      t.fromTo(carImgs(c[0]), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'power1.out' }, c[2]);
+    // the cars arrive back to front, each rising inside its own bottom-edge clip — opaque throughout,
+    // so overlapping cut-outs never show through each other. Their floor shadows come up underneath.
+    [['ferrari', 0.42], ['porsche', 0.56], ['ford', 0.68]].forEach(function (c) {
+      var body = $('.car__body', cars[c[0]]), sh = $('.car__shadow', cars[c[0]]);
+      t.fromTo(body, { opacity: 1, clipPath: 'inset(100% 0% 0% 0%)', y: 46 }, { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 0.95, ease: 'expo.out' }, c[1]);
+      t.fromTo(sh, { opacity: 0 }, { opacity: 1, duration: 0.7, ease: 'power1.out' }, c[1] + 0.1);
     });
     if (mobile) t.fromTo($('.hero__rec', f1), { opacity: 0 }, { opacity: 1, duration: 0.6, ease: 'power1.out' }, 1.1);
     else t.fromTo(lines('.hero__rec', f1).concat($('[data-idx]', ap)), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 1.1);
