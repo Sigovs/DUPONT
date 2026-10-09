@@ -321,6 +321,12 @@
         var ox = (P.inset.x - P.scale * mL) / (1 - P.scale), oy = (P.inset.y - P.scale * mT) / (1 - P.scale);
         A.media.style.transformOrigin = f(ox - mL) + 'px ' + f(oy - mT) + 'px';
         A.media.style.transform = 'scale(' + f(sc) + ')';
+        /* phones/tablets: the plate slides down past the car, so the car is uncovered from the top as it goes —
+           the shrinking frame never sits over the car's silhouette */
+        if (portrait.matches) {
+          var topY = oy + sc * (mT - oy), bT = B.media.offsetTop, bH = B.media.offsetHeight;
+          B.media.style.clipPath = topY >= bT + bH ? '' : 'inset(0 0 ' + f(Math.max(0, bT + bH - topY)) + 'px 0)';
+        } else B.media.style.clipPath = '';
         /* 3 · hairline frame + leader drawn (scrubbed dash offset), then the label */
         var ql = easeInOut(clamp((p - F.line[0]) / (F.line[1] - F.line[0]))), qf = easeInOut(clamp((p - F.frame[0]) / (F.frame[1] - F.frame[0])));
         A.co.querySelectorAll('polyline').forEach(function (pl) { pl.style.strokeDashoffset = f(P.len * (1 - ql)); });

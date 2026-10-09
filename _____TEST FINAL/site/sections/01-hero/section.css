@@ -369,3 +369,22 @@
   .s-hero .scene--cut .scene__media { left: var(--gutter); right: var(--gutter); width: auto; top: var(--hdr-h); bottom: auto; height: calc(var(--plate-h) * 0.9); }
   .s-hero .scene--cut .scene__media img { object-position: 50% 100%; }
 }
+
+/* ---------- round 5: the 458 stands in a room — charcoal wall (Collection's ground), graphite floor plane.
+   The floor plane's horizon sits on the car's sill line (row 417 of 480 in the cut-out), so the flat sill reads as
+   the body meeting the floor; the tyres stand into the plane with their contact row on the shared floor line.
+   No drawn shadow, no gradient — two flat tones and one hard horizon. Car at 54vw, where its edge holds. ---------- */
+.s-hero .scene--cut, .s-hero .scene--cut[data-ink] { background: var(--c-charcoal); }
+.s-hero.hero--live .scene--cut::after {
+  content: ""; position: absolute; z-index: 0; left: 0; right: 0; bottom: 0;
+  top: calc(var(--floor-y) + 1px - 61 * 54vw / 1636);
+  background: var(--c-graphite);
+}
+.s-hero .scene--cut .scene__media { z-index: 1; }
+.s-hero .scene--cut .slot { z-index: 3; }
+@media (min-width: 1101px) {
+  .s-hero.hero--live .scene--cut .scene__media { left: 23vw; width: 54vw; }
+}
+@media (max-width: 1100px) {
+  .s-hero.hero--live .scene--cut::after { top: calc(var(--hdr-h) + var(--plate-h) * 0.9 - 61 * (100vw - 2 * var(--gutter)) / 1636); }
+}

@@ -132,6 +132,11 @@
       return { k: k, co: co, ar: parseFloat(cs.getPropertyValue('--co-ar')) || 2.8, cy: parseFloat(cs.getPropertyValue('--co-cy')) || 1,
                s: Object.assign({}, STATES.pre[k]) };
     }).filter(function (c) { return STATES.pre[c.k]; });
+    // decode every cut-out up front: a car that first appears mid-sequence must not pop in a frame late
+    cars.forEach(function (c) {
+      var m = /url\(["']?([^"')]+)/.exec(getComputedStyle(c.co.querySelector('.co__img')).backgroundImage || '');
+      if (m) { var im = new Image(); im.src = m[1]; if (im.decode) im.decode().catch(function () {}); }
+    });
     // assemble 30 · beat 0 (intro) 52 · move 24 · beat 1 (DBS) 52 · move 24 · beat 2 (812) 52 · move 24 · beat 3 (765LT + browse) 58 = 316vh
     var SEG = [['a', 30], ['h', 52], ['c', 24], ['h', 52], ['c', 24], ['h', 52], ['c', 24], ['h', 58]];
     var TOTAL = SEG.reduce(function (a, s) { return a + s[1]; }, 0);
@@ -145,9 +150,12 @@
     function apply(c) {
       var co = c.co; if (!co || !co.isConnected) return;
       var W = stage.clientWidth, H = stage.clientHeight, s = c.s;
-      s.w = DEPTH * (s.f - HZ) * (0.46 / 0.46);
+      // STATES are authored for a horizon at 46%; when the slot needs more room the floor band is remapped
+      // linearly, which keeps width proportional to depth (perspective stays consistent)
+      s.w = DEPTH * (s.f - 0.46);
+      var fa = HZ + (s.f - 0.46) / 0.54 * (1 - HZ);
       var h = s.w * W / c.ar;
-      co.style.transform = 'translate(' + (s.L * W).toFixed(2) + 'px,' + (s.f * H - h * c.cy).toFixed(2) + 'px) scale(' + s.w.toFixed(5) + ')';
+      co.style.transform = 'translate(' + (s.L * W).toFixed(2) + 'px,' + (fa * H - h * c.cy).toFixed(2) + 'px) scale(' + s.w.toFixed(5) + ')';
       if (s.e <= 0.001) { co.style.visibility = 'hidden'; co.style.clipPath = 'none'; }
       else if (s.e >= 0.999) { co.style.visibility = 'visible'; co.style.clipPath = 'none'; }
       else { co.style.visibility = 'visible'; co.style.clipPath = clipFor(co.offsetWidth, co.offsetHeight, s.e, 'R'); }
