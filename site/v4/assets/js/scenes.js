@@ -1,7 +1,7 @@
 /* =============================================================================
    V4 scene choreography — GSAP + ScrollTrigger (vendored), Lenis via chrome.js.
 
-   Runs only when (min-width: 1024px) and motion is allowed (gsap.matchMedia, G5);
+   Runs only when (min-width: 1280px) and motion is allowed (gsap.matchMedia, G5);
    everything is built inside that context and reverts on exit (G1). Without it the
    page is the static composed build: F1 → F5 → each scene at its held composition.
 
@@ -19,7 +19,7 @@
   ScrollTrigger.addEventListener('refresh', function () { if (window.V4 && window.V4.ink) window.V4.ink(); });
   var V4 = window.V4, geo = V4.geo, root = document.documentElement;
   V4.tl = {};
-  var SCRUB = 0.6;
+  var SCRUB = /[?&]capture/.test(location.search) ? true : 0.6;   // ?capture: exact scrub for frame-stepped recordings
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
   var U = function () { return geo.u; };
@@ -27,7 +27,7 @@
   var lines = function (sel, r) { return $$(sel + ' .l', r); };
 
   var mm = gsap.matchMedia();
-  mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', function () {
+  mm.add('(min-width: 1280px) and (prefers-reduced-motion: no-preference)', function () {
     root.classList.add('motion');
     var ctx = gsap.context(function () { build(); });
     ScrollTrigger.refresh();

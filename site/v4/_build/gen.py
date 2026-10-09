@@ -178,8 +178,8 @@ def footer():
             <dt>Phone</dt><dd class="t-num">{s['phone']}</dd>
           </dl>
           <div class="loc__actions">
-            <a class="btn btn--red" href="tel:{s['tel']}">Call<span class="vh"> {s['city']}</span></a>
-            <a class="btn btn--line" href="{esc(s['maps'])}" target="_blank" rel="noopener">Directions<span class="vh"> to {s['city']} (opens Google Maps)</span></a>
+            <a class="btn btn--line" href="tel:{s['tel']}">Call<span class="vh"> {s['city']}</span></a>
+            <a class="btn btn--line" href="{esc(s['maps'])}" target="_blank" rel="noopener">Directions {NEARR}<span class="vh"> to {s['city']} (opens Google Maps)</span></a>
           </div>
           <a class="loc__more lnk" href="inventory.html?showroom={s['key']}">See {COUNT[s['key']]} cars here {ARROW}</a>
         </article>
@@ -190,7 +190,7 @@ def footer():
       <div class="foot__head">
         <p class="eyebrow t-label"><span class="rule"></span>09 — Showrooms</p>
         <h2 class="foot__title disp" id="foot-title">Three showrooms. <span class="red-l">One registry.</span></h2>
-        <p class="foot__asof">Addresses and phone numbers as published by duPont REGISTRY. Counts as of {ASOF}.</p>
+        <p class="foot__asof">As published by duPont REGISTRY.<br>Counts as of {ASOF}.</p>
       </div>
       <div class="foot__locs">
 {cards}      </div>

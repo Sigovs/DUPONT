@@ -41,7 +41,6 @@ CROPS = [
     ("svc-insurance", "626613_2015-ferrari-458-speciale/06_", (140, 400, 1200, 1046)),
     ("svc-service", "635055_2009-aston-martin-dbs/07_", (300, 100, 1700, 954)),
     ("svc-ppf", "617636_2018-porsche-911-gt2-rs/07_", (400, 470, 1560, 1177)),
-    ("svc-finance", "635055_2009-aston-martin-dbs/08_2009-aston--martin-dbs-187875-827962918.jpg", None),
 ]
 import glob
 def find(rel):

@@ -31,7 +31,7 @@
   window.addEventListener('resize', function () {
     // mobile URL-bar height changes are not geometry changes (G8)
     var w = root.clientWidth, h = window.innerHeight;
-    if (w === lastW && Math.abs(h - lastH) < 120 && w < 1024) return;
+    if (w === lastW && Math.abs(h - lastH) < 120 && w < 1280) return;
     lastW = w; lastH = h;
     measure();
   });
@@ -48,7 +48,7 @@
   }
   V4.scrollTo = function (y, immediate) {
     y = Math.max(0, Math.round(y));
-    if (V4.lenis) V4.lenis.scrollTo(y, immediate ? { immediate: true, force: true } : { duration: 1.4, force: true });
+    if (V4.lenis) { V4.lenis.resize(); V4.lenis.scrollTo(y, immediate ? { immediate: true, force: true } : { duration: 1.4, force: true }); }
     else window.scrollTo({ top: y, behavior: immediate || reduce.matches ? 'auto' : 'smooth' });
   };
 
@@ -132,7 +132,7 @@
     menuBtn.addEventListener('keydown', function (e) {
       if (e.key === 'Tab' && !menu.hidden && !e.shiftKey) { e.preventDefault(); menu.querySelector('a').focus(); }
     });
-    window.matchMedia('(min-width: 1024px)').addEventListener('change', function (m) { if (m.matches && !menu.hidden) setMenu(false); });
+    window.matchMedia('(min-width: 1280px)').addEventListener('change', function (m) { if (m.matches && !menu.hidden) setMenu(false); });
   }
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
@@ -145,7 +145,7 @@
     if (typeof V4.targets[id] === 'function') return V4.targets[id]();
     var el = document.getElementById(id);
     if (!el) return null;
-    var off = window.innerWidth < 1024 ? 64 : 0;
+    var off = window.innerWidth < 1280 ? 64 : 0;
     return el.getBoundingClientRect().top + window.scrollY - off;
   }
   V4.go = function (id, immediate) {

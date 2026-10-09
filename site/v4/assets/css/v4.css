@@ -1,7 +1,7 @@
 /* =============================================================================
    duPont REGISTRY Select — V4 "The Approach"
-   1. tokens · 2. base · 3. chrome · 4. components · 5. desktop stage scenes (≥1024)
-   6. mobile / tablet flow (<1024) · 7. reduced motion · 8. dialog
+   1. tokens · 2. base · 3. chrome · 4. components · 5. desktop stage scenes (≥1280)
+   6. mobile / tablet flow (<1280) · 7. reduced motion · 8. dialog
    Desktop scenes are composed on a 1920×1080 stage (STORYBOARD.md coordinates):
    --u = one stage px, --sl / --st = stage offset inside the viewport (set by chrome.js;
    CSS fallback below). Every stage element uses .at with --x / --y (y = text baseline).
@@ -73,7 +73,7 @@ address { font-style: normal; }
 .rule { position: absolute; left: 0; width: 24px; height: 2px; background: var(--red); top: calc(-1 * 26px); transform-origin: 0 50%; }
 
 .tbc, .demo { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; letter-spacing: .04em; line-height: 1.3; color: var(--red); border: 1px solid var(--red); padding: 5px 10px; text-transform: none; }
-.demo::before { content: "DEMO"; font-size: 12px; letter-spacing: .16em; background: var(--red); color: var(--ivory); padding: 2px 6px; margin-left: -4px; }
+.demo::before { content: "DEMO"; font-size: 14px; letter-spacing: .16em; background: var(--red); color: var(--ivory); padding: 2px 6px; margin-left: -4px; }
 .demo--dark { color: var(--ivory); border-color: var(--silver); }
 .scene[data-ink="light"] .tbc { color: var(--ivory); border-color: var(--silver); }
 
@@ -83,6 +83,7 @@ address { font-style: normal; }
 /* --------------------------------------------------------------- 3. chrome */
 .hdr { position: fixed; inset: 0 0 auto 0; z-index: 90; height: calc(max(64px, 128 * var(--u))); pointer-events: none; color: var(--graphite); transition: color var(--dur-2) linear; }
 .hdr > * { pointer-events: auto; }
+html:not(.js) .hdr { position: absolute; }   /* no-JS: no ink switching, so the header stays with the ivory hero */
 .hdr__logo { position: absolute; left: calc(var(--sl) + 120 * var(--u)); top: max(16px, calc(40 * var(--u))); height: max(34px, calc(48 * var(--u))); color: inherit; display: block; transition: color var(--dur-2) linear; }
 .hdr__logo svg { height: 100%; width: auto; }
 .hdr__nav { position: absolute; right: calc(var(--sl) + 120 * var(--u)); top: max(28px, calc(70 * var(--u))); transform: translateY(calc(-1em * var(--bl-text))); transition: color var(--dur-2) linear; }
@@ -99,7 +100,7 @@ address { font-style: normal; }
 .hdr__menu { display: none; }
 /* between pins content travels under the header: on every scene but the Approach the header
    carries its scene's ground, so nothing passes behind the logo or nav (seam hygiene) */
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .hdr { transition: color var(--dur-2) linear, background-color var(--dur-1) linear; }
   .hdr[data-ground="rail"], .hdr[data-ground="svc"] { background: var(--graphite); }
   .hdr[data-ground="locs"] { background: var(--charcoal); }
@@ -149,15 +150,14 @@ html.menu-open { overflow: hidden; }
 .motion-only { display: none; }
 
 /* =========================================================================
-   5. DESKTOP STAGE (≥1024 px wide): every scene is one full screen
+   5. DESKTOP STAGE (≥1280 px wide): every scene is one full screen
    ========================================================================= */
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .scene:not(.foot) { height: var(--vh); }
   .at { position: absolute; left: calc(var(--sl) + var(--x, 0) * var(--u)); top: calc(var(--st) + var(--y, 0) * var(--u)); margin-top: calc(-1em * var(--bl-text)); white-space: nowrap; z-index: 20; }
   .at.disp { margin-top: calc(-1em * var(--bl-disp)); }
   .at-r { left: auto; right: calc(var(--sl) + (1920 - var(--x)) * var(--u)); }
-  .rule { top: calc(var(--bl-text) * 1em - 26 * var(--u)); width: calc(24 * var(--u)); min-width: 18px; }
-  .eyebrow:not(.at) .rule { top: calc(var(--bl-text) * 1em - 26 * var(--u)); }
+  .rule { top: calc(var(--bl-text) * 1em - max(22px, 26 * var(--u))); width: calc(24 * var(--u)); min-width: 18px; }
 
   /* ---------- 01 hero (F1 / F2 / F3) */
   .hero__cars { position: absolute; inset: 0; z-index: 1; }
@@ -269,7 +269,8 @@ html.menu-open { overflow: hidden; }
   .foot__head { display: grid; grid-template-columns: 1fr auto; align-items: end; column-gap: 48px; }
   .foot__head .eyebrow { grid-column: 1 / -1; }
   .foot__title { font-size: calc(72 * var(--u)); margin-top: calc(84 * var(--u) - 0.8625em); }
-  .foot__asof { color: var(--silver); font-size: 14px; max-width: 44ch; text-align: right; }
+  .foot__asof { color: var(--silver); font-size: 14px; text-align: right; }
+  .foot__title { white-space: nowrap; }
   .foot__locs { margin-top: calc(72 * var(--u)); display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--hair-dark); }
   .loc { padding: calc(32 * var(--u)) calc(40 * var(--u)) calc(8 * var(--u)); border-left: 1px solid var(--hair-dark); }
   .loc:first-child { border-left: 0; padding-left: 0; }
@@ -277,7 +278,7 @@ html.menu-open { overflow: hidden; }
   .foot__legal { margin-top: calc(56 * var(--u)); }
 }
 
-@media (min-width: 1024px) and (max-width: 1279.98px) {
+@media (min-width: 1280px) and (max-width: 1439.98px) {
   .col__p1 .cap { bottom: calc(var(--st) + 40 * var(--u) + 26px); }
   .spanel { gap: 8px; }
   .spanel__cars li:nth-child(n+3) { display: none; }
@@ -288,7 +289,7 @@ html.menu-open { overflow: hidden; }
 
 /* footer pieces (all widths) */
 .loc { display: grid; align-content: start; gap: 12px; }
-.loc__no { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; color: var(--silver); padding-bottom: 14px; border-bottom: 2px solid var(--red); width: 100%; }
+.loc__no { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; color: var(--silver); padding-bottom: 14px; border-bottom: 1px solid var(--silver); width: 100%; }
 .loc__n { font-size: 56px; color: var(--ivory); letter-spacing: 0; }
 .fmark { width: 128px; height: 80px; }
 .fmark__land { fill: #2B2A28; stroke: rgb(167 169 173 / 0.4); stroke-width: 1; vector-effect: non-scaling-stroke; }
@@ -303,7 +304,8 @@ html.menu-open { overflow: hidden; }
 .loc__facts dd { display: grid; gap: 6px; justify-items: start; }
 .loc__facts .tbc { font-size: 14px; }
 .loc__actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
-.loc__actions .btn { flex: 1 1 auto; }
+.loc__actions .btn { flex: 1 1 auto; color: var(--ivory); border-color: rgb(240 238 233 / 0.55); }
+.loc__actions .btn:hover { border-color: var(--ivory); background: rgb(240 238 233 / 0.06); }
 .loc__more { justify-self: start; }
 .foot__logo { display: block; width: 240px; color: var(--ivory); }
 .foot__logo svg { width: 100%; height: auto; }
@@ -341,9 +343,9 @@ html.menu-open { overflow: hidden; }
 .spanel__go { display: grid; justify-items: start; }
 
 /* =========================================================================
-   6. MOBILE / TABLET (<1024): authored flow, no pin, no stage
+   6. MOBILE / TABLET (<1280): authored flow, no pin, no stage
    ========================================================================= */
-@media (max-width: 1023.98px) {
+@media (max-width: 1279.98px) {
   .hdr { height: 64px; background: var(--hdr-bg, var(--ivory)); border-bottom: 1px solid var(--hdr-hair, var(--hair-ivory)); pointer-events: auto; }
   .hdr[data-ink="light"] { --hdr-bg: var(--charcoal); --hdr-hair: var(--hair-dark); }
   .hdr[data-ink="split"] { color: var(--graphite); }
@@ -354,9 +356,12 @@ html.menu-open { overflow: hidden; }
   .eyebrow { padding-top: 14px; }
   .rule { top: 0; }
   .at { position: static; }
+  .eyebrow.at { position: relative; }
   .disp { letter-spacing: .01em; }
 
-  .hero { padding-bottom: 32px; }
+  .hero { padding-bottom: 32px; display: flex; flex-direction: column; }
+  .hero__f1 { order: 1; }
+  .hero__cars { order: 2; }
   .hero__f1 { display: flex; flex-direction: column; }
   .hero__h1 { order: 1; margin-top: 18px; font-size: clamp(44px, 11.4vw, 88px); line-height: 1.02; }
   .hero__h1 .m { display: block; }
@@ -375,9 +380,12 @@ html.menu-open { overflow: hidden; }
   .car__shadow { mix-blend-mode: normal; }
 
   .col { display: flex; flex-direction: column; padding-top: 40px; }
-  .col__p1 { order: 3; position: relative; margin: 32px calc(-1 * var(--gutter)) 0; aspect-ratio: 4 / 5; }
-  .col__p2 { order: 4; position: relative; width: 72%; margin: -22% 0 0 0; aspect-ratio: 640 / 600; z-index: 2; }
-  .col__p1 .cap, .col__p2 .cap { left: 16px; bottom: 14px; white-space: normal; }
+  .col__p1 { order: 3; position: relative; margin: 32px calc(-1 * var(--gutter)) 0; }
+  .col__p1 .ph { aspect-ratio: 4 / 5; height: auto; }
+  .col__p2 { order: 4; position: relative; width: 78%; margin: 20px 0 0 auto; }
+  .col__p2 .ph { aspect-ratio: 640 / 520; height: auto; }
+  .col__p1 .cap, .col__p2 .cap { position: static; display: block; margin-top: 10px; color: var(--pewter); white-space: normal; font-size: 14px; letter-spacing: .08em; line-height: 1.4; }
+  .col__p1 .cap { padding: 0 var(--gutter); }
   .col__text { order: 1; }
   .col__h { font-size: clamp(44px, 11.4vw, 88px); margin-top: 18px; }
   .col__h br { display: none; }
@@ -449,7 +457,13 @@ html.menu-open { overflow: hidden; }
   .foot__legal { margin-top: 40px; }
   .m { overflow: visible; }
 }
-@media (min-width: 640px) and (max-width: 1023.98px) {
+@media (min-width: 640px) and (max-width: 1279.98px) {
+  .hero__cars { width: min(100% + 2 * var(--gutter), 96vh); margin-left: auto; margin-right: auto; }
+  .col__p1 .ph { aspect-ratio: 16 / 10; }
+  .col__p2 { width: 52%; }
+  .sell__ph { aspect-ratio: 16 / 10; }
+  .locs__map { max-width: 760px; }
+  .locs__panels { max-width: 560px; }
   .locs__cities { grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .svc__band { grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .svc__ph { margin: 0; }
@@ -495,7 +509,7 @@ html.motion .rail, html.motion .locs, html.motion .sell, html.motion .svc, html.
 .car-dialog__actions .link { display: inline-flex; align-items: center; gap: 6px; min-height: var(--tap); font-size: 14px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; }
 .car-dialog__actions .link:hover { text-decoration: underline; text-underline-offset: 5px; }
 html.dialog-open { overflow: hidden; }
-@media (max-width: 1023.98px) {
+@media (max-width: 1279.98px) {
   .car-dialog { width: 100vw; max-width: 100vw; height: 100svh; max-height: 100svh; margin: 0; overflow-y: auto; }
   .car-dialog__inner { grid-template-columns: 1fr; max-height: none; }
   .car-dialog__media { padding: 64px var(--gutter) 16px; overflow: visible; }
@@ -511,7 +525,7 @@ html.dialog-open { overflow: hidden; }
 .rcard { flex: 0 0 auto; background: var(--charcoal); border: 1px solid var(--hair-dark); display: flex; flex-direction: column; transform-origin: 50% 0; }
 .rcard__ph { position: relative; background: #fff; aspect-ratio: 3 / 2; overflow: hidden; }
 .rcard__ph img { width: 100%; height: 100%; object-fit: cover; }
-.rcard__tag { position: absolute; left: 14px; top: 14px; background: rgb(35 36 40 / 0.88); color: var(--ivory); padding: 7px 10px; font-size: 12px; letter-spacing: .16em; }
+.rcard__tag { position: absolute; left: 14px; top: 14px; background: rgb(35 36 40 / 0.88); color: var(--ivory); padding: 7px 10px; font-size: 14px; letter-spacing: .16em; }
 .rcard__body { display: grid; gap: 10px; padding: 24px 24px 22px; }
 .rcard__title { font-size: 28px; line-height: 1.08; letter-spacing: .01em; }
 .rcard__spec { font-size: 15px; line-height: 1.45; color: var(--silver); }
@@ -525,7 +539,7 @@ html.dialog-open { overflow: hidden; }
 .rcard__all-h { font-size: 40px; line-height: 1.06; }
 .rail .t-mute { color: var(--silver); }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .rail__head { position: absolute; left: calc(var(--sl) + 120 * var(--u)); top: calc(var(--st) + 196 * var(--u)); margin-top: calc(-1em * var(--bl-text)); z-index: 3; }
   .rail__h { font-size: calc(72 * var(--u)); margin-top: calc(84 * var(--u) - 0.8625em); }
   .rail__asof { margin-top: calc(22 * var(--u)); font-size: 14px; }
@@ -537,11 +551,44 @@ html.dialog-open { overflow: hidden; }
   html.motion .rail__view { overflow: visible; scroll-snap-type: none; }
   html.motion .rail__track { padding-left: calc(var(--sl) + 560 * var(--u)); padding-bottom: 0; }
 }
-@media (max-width: 1023.98px) {
+@media (max-width: 1279.98px) {
   .rail__h { font-size: clamp(40px, 10vw, 72px); margin-top: 18px; }
   .rail__asof { margin-top: 12px; font-size: 14px; }
   .rail__view { margin: 28px calc(-1 * var(--gutter)) 0; overflow-x: auto; scroll-snap-type: x mandatory; }
   .rail__track { gap: 16px; padding: 0 var(--gutter) 12px; width: max-content; }
   .rcard { width: min(80vw, 380px); scroll-snap-align: start; scroll-margin-left: var(--gutter); }
   .rcard__foot { flex-wrap: wrap; }
+}
+
+/* =========================================================================
+   Micro-interactions (genjutsu:cast, light scope) — transform/opacity only,
+   140ms on the snappy curve; reduced motion keeps colour states only.
+   ========================================================================= */
+:root { --ease-snap: cubic-bezier(.2, 0, 0, 1); --dur-micro: 140ms; }
+.btn { transition: background-color var(--dur-1) linear, border-color var(--dur-1) linear, transform var(--dur-micro) var(--ease-snap); }
+.btn:active { transform: translateY(1px) scale(.985); }
+.lnk .arr, .btn .arr { transition: transform var(--dur-micro) var(--ease-snap); }
+/* rail cards: the photo moves inside its own hard-edged window; the card lifts */
+.rcard__ph img { transition: transform 420ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .rcard:not(.rcard--all):hover .rcard__ph img { transform: scale(1.02); }
+  .rcard:not(.rcard--all) .rcard__body { transition: transform var(--dur-micro) var(--ease-snap); }
+  .rcard:not(.rcard--all):hover .rcard__body { transform: translateY(-3px); }
+  .rcard__allin:hover .btn .arr { transform: translateX(3px); }
+  .ig__tile img { transition: transform 420ms var(--ease-out); }
+  .ig__tile a { overflow: hidden; }
+}
+/* marques: a red 2px rule draws from the left instead of an underline */
+@media (min-width: 1280px) {
+  .col__marques a { position: relative; text-decoration: none !important; }
+  .col__marques a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 3px; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: 0 50%; transition: transform 220ms var(--ease-snap); }
+  .col__marques a:hover::after, .col__marques a:focus-visible::after { transform: scaleX(1); }
+}
+/* the selected city steps forward */
+.city__name { display: inline-block; transition: color var(--dur-2) linear, transform 220ms var(--ease-snap); }
+.city[aria-pressed="true"] .city__name { transform: translateX(6px); }
+.city:active .city__name { transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) {
+  .btn:active, .city[aria-pressed="true"] .city__name, .rcard:hover .rcard__ph img, .rcard:hover .rcard__body { transform: none !important; }
+  .col__marques a::after { transition: none; }
 }
