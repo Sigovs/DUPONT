@@ -27,13 +27,15 @@ python -I site/v4/_build/gen.py           # writes index.html + inventory.html f
 | # | scene | ground | device | pin |
 |---|---|---|---|---|
 | 01–02 | The Approach: hero F1 → F2 → F3 → the Wake → Collection F5 | ivory | the three cars advance; the Ford exits through the top; P1 is locked to its shadow | 570vh (holds 50/50/40/60 + 100 overlap) |
-| 03 | Available now: inventory rail | graphite | slides over the held Collection; horizontal rail, the card in focus is lit | 40 + 6×(16+40) = 376vh |
+| 03 | Available now: inventory rail | graphite | slides over the held Collection; horizontal rail, the card in focus is lit | 40 + 6×(18+40) + 100 cover = 488vh |
 | 04 | About + Locations: V1 night map (ported) | charcoal | map rises; lamps light west → east; three cities select | 100vh (hold 70) |
 | 05 | Sell your car | ivory | the photo panel travels in on its own clock; lines from opposite sides | 60vh hold |
 | 06 | Services (Insurance · Service · PPF) + Finance | graphite | three panels rise at three rates | 70vh hold |
 | 07 | Reviews (DEMO) | near-black | the quote's lines alternate direction | 60vh hold |
 | 08 | Instagram (DEMO) | ivory | three mosaic columns travel at three rates | 100vh (hold 60) |
 | 09 | Showrooms footer | near-black | cards rise as it arrives | not pinned |
+
+Every chapter after the Approach arrives as a sheet over the held previous one; each pinned chapter adds a 100vh `cover` segment at its end (the next sheet's travel).
 
 The motion designer works on `assets/js/scenes.js`:
 
@@ -48,7 +50,9 @@ Run the scripts in `_qa/` (they need the server running):
 - `shots.cjs` takes stop screenshots.
 - `full.cjs` takes full-page screenshots.
 - `func.cjs` runs filters, nav, dialog and menu.
-- `record2.cjs` records the videos frame by frame at 30 fps (`?capture` = exact scrub). `record.cjs` is the real-time variant.
+- `record2.cjs <w> <h> <out> [dpr]` records deterministically at 30 fps: faked page clock + `?capture` exact scrub; the hero arrival, then a steady camera that eases into a pause at every reading stop (`V4.holds()`).
+- `motion-qa.cjs` — overflow/errors at six widths, holds pixel-still, forward == reverse frames, resize after scroll, anchors through Lenis, fast scroll, 390 touch, reduced motion.
+- `final-shots.cjs` — every scene and key transition at 1920 and 1440, flow shots at 390 → `_qa/final/`. `frametimes.cjs` — rAF stats during a real wheel scroll.
 
 ## Facts
 

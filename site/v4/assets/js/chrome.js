@@ -60,7 +60,7 @@
   function ink() {
     inkTick = false;
     if (!hdr) return;
-    var probe = 40, val = 'dark';
+    var probe = Math.max(32, 64 * geo.u), val = 'dark';   // the logo's centre line: ink flips as a sheet edge crosses it
     hdr.dataset.ground = '';
     for (var i = scenes.length - 1; i >= 0; i--) {   // later scenes sit on top (overlap seams)
       var b = scenes[i].getBoundingClientRect();

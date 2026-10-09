@@ -15,7 +15,7 @@ import re
 
 ROOT = "C:/____WORK/DU PONT REGESTRY/"
 V4 = ROOT + "site/v4/"
-VER = "12"
+VER = "17"
 
 
 def load_js_obj(path, var):
@@ -91,7 +91,7 @@ def head(title, desc, css, extra=""):
   <meta name="description" content="{desc}">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="data:,">
-  <script>document.documentElement.classList.add('js');</script>
+  <script>(function(d){{d.classList.add('js');try{{if(!/inventory/.test(location.pathname)&&!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches){{d.classList.add('intro');setTimeout(function(){{d.classList.remove('intro');}},3000);}}}}catch(e){{}}}})(document.documentElement);</script>
   <link rel="preload" href="assets/fonts/bodoni-moda-opsz-roman-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/manrope-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 {extra}  <link rel="stylesheet" href="assets/vendor/lenis.css">

@@ -84,7 +84,17 @@
     dlg.querySelector('[data-close]').focus();
     return true;
   }
-  function close() { dlg.close(); }
+  // leaves one step faster than it arrived (v4.css .is-closing); instant under reduced motion
+  var reduceQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function close() {
+    if (!dlg.open || dlg.classList.contains('is-closing')) return;
+    if (reduceQ.matches) { dlg.close(); return; }
+    dlg.classList.add('is-closing');
+    var done = function () { dlg.removeEventListener('animationend', done); clearTimeout(t); dlg.classList.remove('is-closing'); dlg.close(); };
+    var t = setTimeout(done, 400);
+    dlg.addEventListener('animationend', done);
+  }
+  dlg.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
   dlg.addEventListener('close', function () {
     root.classList.remove('dialog-open');
     if (window.V4 && V4.lenis) V4.lenis.start();
