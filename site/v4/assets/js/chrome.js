@@ -72,6 +72,7 @@
     }
     if (document.body.classList.contains('srp-page') && val === 'dark') val = 'dark';
     hdr.dataset.ink = val;
+    hdr.classList.toggle('is-scrolled', window.scrollY > 4);   // fix3: the hairline shows only over scrolled content
   }
   V4.ink = ink;
   window.addEventListener('scroll', function () { if (!inkTick) { inkTick = true; requestAnimationFrame(ink); } }, { passive: true });
