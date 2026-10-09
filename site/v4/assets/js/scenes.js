@@ -127,6 +127,7 @@
     services();
     reviews();
     instagram();
+    closing();
     footer();
   }
 
@@ -208,7 +209,7 @@
     T = 290;
     var A0 = 290, A1 = 355, B0 = 385, B1 = 460;
     tl.to(hdr, { yPercent: -320, duration: 14, ease: 'power2.in' }, T);
-    tl.to(idx, { y: function () { return 70 * U(); }, duration: 14, ease: 'power2.in' }, T);
+    tl.to(idx, { yPercent: 160, autoAlpha: 0, duration: 12, ease: 'power2.in' }, T);   // fully gone by T3 + 12vh (never over the F5 captions)
     tl.to(f3e, { xPercent: -14, opacity: 0, duration: 12, ease: 'power2.in' }, T);
     tl.to(f3r, { scaleX: 0, duration: 14, ease: 'power2.in' }, T);
     // the flanks pass the lens at two rates (and grow as they pass): the Ferrari is out first and fastest
@@ -262,8 +263,8 @@
     /* F5 hold 460–520, then 520–620 the rail sheet covers the Collection as it drifts up */
     tl.addLabel('F5', B1).to({}, { duration: 60 }, B1); hold(tl, B1, B1 + 60);
     tl.addLabel('cover', B1 + 60).to({}, { duration: COVER }, B1 + 60);
-    drift(tl, p1, B1 + 60, { yPercent: -7 });
-    drift(tl, p2, B1 + 60, { yPercent: -16 });
+    drift(tl, p1, B1 + 60, { yPercent: -18 });
+    drift(tl, p2, B1 + 60, { yPercent: -30 });
     drift(tl, colText, B1 + 60, { y: function () { return -60 * U(); } });
     drift(tl, idxBlock, B1 + 60, { yPercent: -12 });
 
@@ -282,12 +283,12 @@
     var track = $('[data-rail-track]', sec), cards = $$('[data-rcard]', sec), head = $('.rail__head', sec);
     var n = cards.length;
     sheet(sec);
-    /* fix1 layout: every car stands on one floor line (stage y 780). The car in focus is full size
-       (720 × 480 stage px, left edge on the focus slot x 760); neighbours are the same photograph at
-       NEAR scale, laid out edge to edge with a fixed gap, so the row has a real rhythm (large · small).
-       Nothing is greyed: "unlit" = smaller photograph + the plate shows only number, title and price,
-       at ≥ 0.66 ink (≥ 5.3 : 1 on graphite); spec line and link appear on the car in focus only. */
-    var FW = 720, GAP = 56, SLOT = 760, NEAR = 0.58, INK = 0.66;
+    /* fix2 layout: every car (keyed layer + its own floor shadow) stands on one floor line (stage y 760, the
+       tyre contact at 86 % of each canvas). The car in focus is 860 stage px wide, left edge on the focus slot
+       x 760; neighbours are the same layer at NEAR scale, edge to edge with a fixed gap (large · small rhythm).
+       Nothing is greyed: "unlit" = smaller car + the plate shows only number, title and price at 0.78 ink
+       (graphite on ivory ≥ 6 : 1); spec line and link appear on the car in focus only. */
+    var FW = 860, GAP = 64, SLOT = 760, NEAR = 0.55, INK = 0.78;   // fix2: ivory floor, keyed cars (graphite ink 0.78 ≥ 6 : 1)
     var proxy = { f: 0 };
     var ph = cards.map(function (c) { return $('.rcard__ph', c); });
     var more = cards.map(function (c) { return $$('.rcard__more', c); });
@@ -314,7 +315,7 @@
         set[i].k(o.D <= 1 ? 1 - (1 - INK) * o.e : INK * Math.max(0, Math.min(1, (1.5 - o.D) / 0.5)));
       });
     }
-    var HOLD = 40, MOVE = 12;                        // 40 + 5 × (12 + 40) + 100 cover = 400vh
+    var HOLD = 40, MOVE = 12;                        // 5 cars: 40 + 4 × (12 + 40) + 100 cover = 348vh
     var len = HOLD + (n - 1) * (MOVE + HOLD);
     var tl = V4.tl.rail = pinTL(sec, len + COVER, { onRefresh: focus });
     tl.addLabel('hold0', 0).to({}, { duration: HOLD }, 0); hold(tl, 0, HOLD);
@@ -334,8 +335,8 @@
     // arrival: the rail rides over the held Collection; the cards travel a little behind the sheet
     // and their photographs open left → right in reading order; the head lands with the sheet
     var c = coverTL(sec);
-    c.fromTo(track, { y: function () { return 0.12 * VH(); } }, { y: 0, duration: 1, ease: 'power2.out' }, 0);
-    reveal(c, $$('.rcard__ph', sec), 0.12, 0.46, 'left', 0.07);
+    // the cars roll in from the right along the floor line while the sheet rises (cut-outs are never clipped)
+    c.fromTo(track, { y: function () { return 0.1 * VH(); }, x: function () { return 0.42 * geo.vw; } }, { y: 0, x: 0, duration: 1, ease: 'power3.out' }, 0);
     drawRule(c, $('.rule', head), 0.22, 0.2);
     slide(c, lines('.eyebrow', head), 0.26, 0.3, -1);
     rise(c, lines('.rail__h', head), 0.34, 0.44, -1);
@@ -480,6 +481,33 @@
     V4.targets.instagram = function () { return stY(tl, 40); };
   }
 
+  /* --------------------------------------------- 08b · CLOSE (fix2, layout hooks) */
+  // The bookend arrives as a sheet like every chapter and holds; the motion-designer owns its choreography.
+  // Hooks: V4.tl.close (labels "hold", "cover"), [data-close-car] x3, [data-close-text].
+  function closing() {
+    var sec = $('[data-scene="close"]'); if (!sec) return;
+    var text = $('[data-close-text]', sec), cars = $$('[data-close-car]', sec);
+    sheet(sec);
+    var c = coverTL(sec);
+    // the trio drives away from the lens into its final composition: each car starts nearer (larger, lower)
+    // and recedes to its floor line — flanks first, the Ford (in front) last; then the line, then the CTA
+    gsap.set(cars, { transformOrigin: '50% 100%' });
+    cars.forEach(function (car, i) {
+      var k = i === 1 ? 2 : i === 0 ? 0 : 1;   // settle order: Ferrari, Porsche, Ford
+      c.fromTo(car, { scale: 1.32 - 0.04 * k, y: function () { return (0.22 + 0.04 * k) * VH(); } },
+        { scale: 1, y: 0, duration: 0.7 + 0.1 * k, ease: 'power2.out' }, 0.06 * k);
+    });
+    rise(c, lines('.close__h', text), 0.56, 0.36, 0);
+    soft(c, $('.close__line', text), 0.7, 0.24);
+    c.fromTo($('.close__cta', text), { y: 18, clipPath: 'inset(100% 0% 0% 0%)' }, { y: 0, clipPath: 'inset(0% 0% 0% 0%)', duration: 0.22, ease: 'power3.out', immediateRender: true }, 0.78);
+    var tl = V4.tl.close = pinTL(sec, 60 + COVER);
+    tl.addLabel('hold', 0).to({}, { duration: 60 }, 0); hold(tl, 0, 60);
+    tl.addLabel('cover', 60).to({}, { duration: COVER }, 60);
+    drift(tl, cars, 60, { yPercent: -10 });
+    drift(tl, text, 60, { y: function () { return -48 * U(); } });
+    V4.targets.close = function () { return stY(tl, 1); };
+  }
+
   /* ------------------------------------------------------- 09 · FOOTER */
   function footer() {
     var sec = $('[data-scene="foot"]'); if (!sec) return;
@@ -516,16 +544,23 @@
     t.fromTo(lines('.hero__h1', f1), { y: lineDrop, opacity: 1 }, { y: 0, duration: 1.05, stagger: 0.12 }, 0.14);
     if (mobile) t.fromTo($('.hero__deck .deck', f1), { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out' }, 0.5);
     else t.fromTo(lines('.deck', f1), { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out', stagger: 0.08 }, 0.5);
-    // the cars arrive back to front, each rising inside its own bottom-edge clip — opaque throughout,
-    // so overlapping cut-outs never show through each other. Their floor shadows come up underneath.
-    [['ferrari', 0.42], ['porsche', 0.56], ['ford', 0.68]].forEach(function (c) {
-      var body = $('.car__body', cars[c[0]]), sh = $('.car__shadow', cars[c[0]]);
-      t.fromTo(body, { opacity: 1, clipPath: 'inset(100% 0% 0% 0%)', y: 46 }, { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 0.95, ease: 'expo.out' }, c[1]);
-      t.fromTo(sh, { opacity: 0 }, { opacity: 1, duration: 0.7, ease: 'power1.out' }, c[1] + 0.1);
+    // the shadows land first; then each car descends onto its own shadow inside a top-down clip (roof first,
+    // so no orphan bumper and no flat-cut roof is ever on screen) — opaque throughout, back to front
+    [['ferrari', 0.3], ['porsche', 0.36], ['ford', 0.42]].forEach(function (c) {
+      t.fromTo($('.car__shadow', cars[c[0]]), { opacity: 0, scaleX: 0.72, transformOrigin: '50% 50%' }, { opacity: 1, scaleX: 1, duration: 0.5, ease: 'power2.out' }, c[1]);
+    });
+    [['ferrari', 0.5], ['porsche', 0.62], ['ford', 0.74]].forEach(function (c) {
+      var body = $('.car__body', cars[c[0]]);
+      t.fromTo(body, { opacity: 1, clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.5, ease: 'power3.out' }, c[1]);
+      t.fromTo(body, { yPercent: -4 }, { yPercent: 0, duration: 0.8, ease: 'expo.out' }, c[1]);
     });
     if (mobile) t.fromTo($('.hero__rec', f1), { opacity: 0 }, { opacity: 1, duration: 0.6, ease: 'power1.out' }, 1.1);
-    else t.fromTo(lines('.hero__rec', f1).concat($('[data-idx]', ap)), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 1.1);
-    t.fromTo($('.hero__cta', f1), { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' }, 1.22);
+    else {
+      t.fromTo(lines('.hero__rec', f1), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 1.1);
+      t.fromTo($('[data-idx]', ap), { opacity: 0 }, { opacity: 1, duration: 0.6, ease: 'power1.out' }, 1.1);
+    }
+    // the CTA settles last, rising inside its own clip
+    t.fromTo($('.hero__cta', f1), { opacity: 1, y: 18, clipPath: 'inset(100% 0% 0% 0%)' }, { y: 0, clipPath: 'inset(0% 0% 0% 0%)', duration: 0.6, ease: 'expo.out' }, 1.28);
     root.classList.remove('intro');
     V4.intro = V4.introTL = t;
     function done() { window.removeEventListener('scroll', cut); V4.intro = null; }

@@ -128,10 +128,14 @@ html:not(.js) .hdr { position: absolute; }   /* no-JS: no ink switching, so the 
 /* every pinned chapter arrives as a sheet and leaves by being covered, so nothing passes under the
    header except the flowing footer — only the footer needs the header to carry its ground */
 @media (min-width: 1280px) {
-  .hdr[data-ground="foot"] { background: var(--nearblack); }
-  html:not(.motion) .hdr[data-ground="rail"], html:not(.motion) .hdr[data-ground="svc"] { background: var(--graphite); }
+  .hdr[data-ground="foot"] { background: var(--nearblack); box-shadow: 0 1px 0 rgb(167 169 173 / 0.18); }   /* fix2: a ground reads as a surface */
+  html:not(.motion) .hdr[data-ground="svc"] { background: var(--graphite); }
+  html:not(.motion) .hdr[data-ground="rail"] { background: var(--ivory); }
   html:not(.motion) .hdr[data-ground="locs"] { background: var(--charcoal); }
-  html:not(.motion) .hdr[data-ground="ig"] { background: var(--ivory); }
+  html:not(.motion) .hdr[data-ground="ig"], html:not(.motion) .hdr[data-ground="close"] { background: var(--ivory); }
+  /* fix2: any header ground carries a 1px hairline so it reads as a surface, never as a slice of the page */
+  html:not(.motion) .hdr[data-ground="ig"], html:not(.motion) .hdr[data-ground="close"], html:not(.motion) .hdr[data-ground="rail"] { box-shadow: 0 1px 0 var(--hair-ivory); }
+  html:not(.motion) .hdr[data-ground="svc"], html:not(.motion) .hdr[data-ground="locs"], html:not(.motion) .hdr[data-ground="rev"] { box-shadow: 0 1px 0 rgb(167 169 173 / 0.18); }
   html:not(.motion) .hdr[data-ground="rev"] { background: var(--nearblack); }
 }
 .hdr[data-ink="light"] { color: var(--ivory); }
@@ -169,7 +173,9 @@ html.menu-open { overflow: hidden; }
 
 /* ------------------------------------------------ scene grounds (all widths) */
 .scene { position: relative; overflow: clip; }
-.hero, .col, .sell, .ig { background: var(--ivory); color: var(--graphite); }
+.hero, .col, .sell, .ig, .close { background: var(--ivory); color: var(--graphite); }
+/* an ivory sheet arriving over an ivory chapter carries a hairline edge, so the handover reads as a surface */
+html.motion .close { box-shadow: inset 0 1px 0 var(--hair-ivory); }
 .locs { background: var(--charcoal); color: var(--ivory); }
 .svc { background: var(--graphite); color: var(--ivory); }
 .rev { background: var(--nearblack); color: var(--ivory); }
@@ -291,9 +297,18 @@ html.menu-open { overflow: hidden; }
   .ig__cap { display: block; margin-top: 10px; font-size: 14px; line-height: 1.3; }
   .ig__tile a:hover .ig__cap { color: var(--graphite); text-decoration: underline; text-underline-offset: 4px; }
 
+  /* ---------- 08b close: the hero trio from behind, centred under one line and the CTA (STORYBOARD §8).
+     Cars: canvas W x 0.80W, tyre contact at 80 % (0.64W below the top); --cx / --cy = contact centre in stage px. */
+  .close__text { position: absolute; left: 0; right: 0; top: calc(var(--st) + 214 * var(--u)); text-align: center; z-index: 3; }
+  .close__h { font-size: calc(72 * var(--u)); }
+  .close__line { margin-top: calc(26 * var(--u)); font-size: max(15px, calc(17 * var(--u))); color: var(--pewter); }
+  .close__cta { margin-top: calc(34 * var(--u)); min-height: 44px; height: calc(52 * var(--u)); }
+  .close__car { position: absolute; max-width: none; left: calc(var(--sl) + (var(--cx) - var(--w) / 2) * var(--u)); top: calc(var(--st) + (var(--cy) - var(--w) * 0.64) * var(--u)); width: calc(var(--w) * var(--u)); height: auto; }
+
   /* ---------- 08 footer: dense editorial grid (flows, min one screen) */
   .foot { min-height: var(--vh); }
-  .foot__in { padding: calc(max(120px, 170 * var(--u))) calc(var(--sl) + 120 * var(--u)) calc(48 * var(--u)); }
+  /* fix2: the eyebrow's rule clears the header band (max(64px, 128u)) by >= 40 px at every stage size */
+  .foot__in { padding: calc(max(64px, 128 * var(--u)) + 72px) calc(var(--sl) + 120 * var(--u)) calc(48 * var(--u)); }
   .foot__head { display: grid; grid-template-columns: 1fr auto; align-items: end; column-gap: 48px; }
   .foot__head .eyebrow { grid-column: 1 / -1; }
   .foot__title { font-size: calc(72 * var(--u)); margin-top: calc(84 * var(--u) - 0.8625em); }
@@ -515,6 +530,17 @@ html:not(.motion) .lamp { transition: opacity var(--dur-3) var(--ease-out); }
   .rev__q--3 { margin-left: 24px; }
 }
 
+/* close (flow, <1280): the stage window x 180–1740, y 500–960 scaled to the column width */
+@media (max-width: 1279.98px) {
+  .close__line { margin-top: 14px; color: var(--pewter); line-height: 1.5; }
+  .close__line .m, .close__line .l { display: inline; overflow: visible; white-space: normal; }
+  .close__h { font-size: clamp(40px, 10vw, 72px); margin-top: 0; line-height: 1.02; }
+  .close__cta { margin-top: 22px; }
+  .close__cars { position: relative; margin: 36px calc(-1 * var(--gutter)) 0; aspect-ratio: 1560 / 460; container-type: inline-size; overflow: clip; }
+  .close__car { --k: calc(100cqw / 1560); position: absolute; max-width: none; left: calc((var(--cx) - 180 - var(--w) / 2) * var(--k)); top: calc((var(--cy) - 500 - var(--w) * 0.64) * var(--k)); width: calc(var(--w) * var(--k)); height: auto; }
+}
+.scene, .foot { scroll-margin-top: 64px; }
+
 /* ------------------------------------------------------- motion mode hooks */
 html.motion .motion-only { display: block; }
 html.motion .approach { position: relative; height: var(--vh); }
@@ -523,7 +549,7 @@ html.motion .approach > .col { background: transparent; }
 /* while motion runs, line masks clip vertically only: a line rises inside its mask, and its small
    sideways drift is never cut into half-words */
 html.motion .m, html.mrise .disp .m { overflow-x: visible; overflow-y: clip; }
-html.motion .rail, html.motion .locs, html.motion .sell, html.motion .svc, html.motion .rev, html.motion .ig, html.motion .foot { z-index: 2; }
+html.motion .rail, html.motion .locs, html.motion .sell, html.motion .svc, html.motion .rev, html.motion .ig, html.motion .close, html.motion .foot { z-index: 2; }
 
 /* hero intro: the load state before scenes.js plays the arrival (head script adds .intro only when
    motion is allowed; it removes itself after 3s whatever happens, so a script failure never hides the hero) */
@@ -570,20 +596,22 @@ html.dialog-open { overflow: hidden; }
 /* =========================================================================
    03 · AVAILABLE NOW — inventory rail (graphite)
    ========================================================================= */
-.rail { background: var(--graphite); color: var(--ivory); }
-/* fix1: no card chrome — a photograph, then a type plate. No border, no box, no chip, no overlay. */
+/* fix2: the rail is the Approach's ivory studio floor. Cars are keyed layers with their own floor shadow
+   (canvas 100:36, tyre contact at 86 %), so no photo rectangle ever meets the ground. The sheet's leading
+   edge carries one hairline so it reads as a surface sliding over the Collection. */
+.rail { background: var(--ivory); color: var(--graphite); box-shadow: inset 0 1px 0 var(--hair-ivory); }
 .rail__track { display: flex; align-items: flex-start; }
 .rcard { flex: 0 0 auto; display: flex; flex-direction: column; }
-.rcard__ph { position: relative; background: #ECECEC; aspect-ratio: 3 / 2; overflow: hidden; }
-.rcard__ph img { width: 100%; height: 100%; object-fit: cover; }
+.rcard__ph { position: relative; aspect-ratio: 100 / 36; }
+.rcard__ph img { width: 100%; height: auto; }
 .rcard__body { display: grid; justify-items: start; padding-top: 22px; hyphens: none; -webkit-hyphens: none; }
-.rcard__no { color: var(--ivory); display: flex; gap: 14px; }   /* ivory, so the neighbour ink (0.66) stays ≥ 5.3 : 1 */
+.rcard__no { color: var(--graphite); display: flex; gap: 14px; }   /* graphite at the neighbour ink (0.78) stays ≥ 6 : 1 on ivory */
 .rcard__title { margin-top: 14px; font-size: 30px; line-height: 1.08; letter-spacing: .01em; }
 .rcard__price { margin-top: 10px; display: flex; align-items: baseline; gap: 12px; font-size: 18px; line-height: 1.3; }
-.rcard__asof { font-size: 14px; color: var(--silver); }
-.rcard__spec { margin-top: 6px; font-size: 15px; line-height: 1.45; color: var(--silver); }
+.rcard__asof { font-size: 14px; color: var(--pewter); }
+.rcard__spec { margin-top: 6px; font-size: 15px; line-height: 1.45; color: var(--pewter); }
 .rcard__go { margin-top: 4px; }
-.rail__asof { color: var(--silver); font-size: 14px; }
+.rail__asof { color: var(--pewter); font-size: 14px; }
 .rail__all { margin-top: 28px; }
 
 @media (min-width: 1280px) {
@@ -596,15 +624,15 @@ html.dialog-open { overflow: hidden; }
   /* static (reduced motion / no JS): a scrollable row — the first car large, the rest on its floor line */
   .rail__view { position: absolute; left: 0; right: 0; top: calc(var(--st) + 480 * var(--u)); bottom: 0; overflow-x: auto; overflow-y: clip; scroll-snap-type: x mandatory; scrollbar-width: thin; }
   .rail__track { gap: calc(48 * var(--u)); padding: 0 calc(var(--sl) + 120 * var(--u)) 24px; width: max-content; }
-  .rcard { width: calc(400 * var(--u)); min-width: 300px; margin-top: calc(107 * var(--u)); scroll-snap-align: start; scroll-margin-left: calc(var(--sl) + 120 * var(--u)); }
-  .rcard:first-child { width: calc(560 * var(--u)); margin-top: 0; }
+  .rcard { width: calc(420 * var(--u)); min-width: 300px; margin-top: calc(65 * var(--u)); scroll-snap-align: start; scroll-margin-left: calc(var(--sl) + 120 * var(--u)); }
+  .rcard:first-child { width: calc(630 * var(--u)); margin-top: 0; }   /* contact 0.3096 × W: 195 vs 130 → +65 */
   /* motion: scenes.js places every car (translateX) and scales its photograph from the floor line.
-     Focus = 720 x 480 stage px, photo bottom on stage y 780; the type plate hangs under the floor. */
+     Focus = 860 stage px wide (canvas 860 x 310), tyre contact on the floor line, stage y 760. */
   html.motion .rail__view { inset: 0; overflow: visible; scroll-snap-type: none; }
   html.motion .rail__track { position: absolute; inset: 0; padding: 0; width: auto; display: block; }
-  html.motion .rcard { position: absolute; left: var(--sl); top: calc(var(--st) + 300 * var(--u)); width: calc(720 * var(--u)); min-width: 0; margin: 0; will-change: transform; }
-  html.motion .rcard__ph { transform-origin: 0 100%; will-change: transform; }
-  html.motion .rcard__body { position: absolute; left: 0; top: calc(480 * var(--u)); width: calc(440 * var(--u)); padding-top: calc(32 * var(--u)); }
+  html.motion .rcard { position: absolute; left: var(--sl); top: calc(var(--st) + 494 * var(--u)); width: calc(860 * var(--u)); min-width: 0; margin: 0; will-change: transform; }
+  html.motion .rcard__ph { transform-origin: 0 86%; will-change: transform; }
+  html.motion .rcard__body { position: absolute; left: 0; top: calc(310 * var(--u)); width: calc(440 * var(--u)); padding-top: calc(14 * var(--u)); }
 }
 @media (max-width: 1279.98px) {
   .rail__h { font-size: clamp(40px, 10vw, 72px); margin-top: 18px; }
@@ -621,6 +649,9 @@ html.dialog-open { overflow: hidden; }
    ========================================================================= */
 .btn { transition: background-color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out); }
 .btn:active { transform: translateY(1px); transition-duration: 60ms; }
+/* buttons that scenes.js moves own no CSS transform transition (a transition would lag the scrubbed value) */
+.hero__cta, .close__cta { transition: background-color var(--dur-1) var(--ease-out); }
+.hero__cta:active, .close__cta:active { transform: none; }
 .lnk .arr, .btn .arr { transition: transform var(--dur-1) var(--ease-out); }
 /* rail: the photograph is the card — the link underline is the only hover state */
 .rcard { position: relative; }

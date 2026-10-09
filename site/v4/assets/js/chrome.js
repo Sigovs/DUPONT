@@ -77,15 +77,21 @@
   window.addEventListener('scroll', function () { if (!inkTick) { inkTick = true; requestAnimationFrame(ink); } }, { passive: true });
   ink();
 
-  /* header: retracts while the reader scrolls down, returns on any scroll up (or at the top), so it never
-     rests as a bar over live text. The Approach timeline moves the logo and nav, so .hdr's own transform
-     is free for this. Keyboard focus inside it always brings it back (CSS :focus-within). */
-  var lastY = window.scrollY, hidT = false;
+  /* header policy: visible and still through every pinned scene (they are composed with a free nav band).
+     It retracts on scroll-down only where content flows under it — the footer, and the inventory page —
+     and returns on any scroll up or keyboard focus (CSS :focus-within). The Approach timeline moves the
+     logo and nav inside it, so .hdr's own transform belongs to this rule alone. */
+  var lastY = window.scrollY, hidT = false, srp = document.body.classList.contains('srp-page');
+  var foot = document.querySelector('[data-scene="foot"]');
+  function inFlow() {
+    if (srp) return window.scrollY > window.innerHeight * 0.6;
+    return !!foot && foot.getBoundingClientRect().top < window.innerHeight * 0.5;
+  }
   function hideTick() {
     hidT = false;
     var y = window.scrollY, d = y - lastY;
     if (Math.abs(d) < 6) return;
-    var hide = d > 0 && y > window.innerHeight * 0.6 && !root.classList.contains('menu-open') && !(subBtn && subBtn.getAttribute('aria-expanded') === 'true');
+    var hide = d > 0 && inFlow() && !root.classList.contains('menu-open') && !(subBtn && subBtn.getAttribute('aria-expanded') === 'true');
     if (hdr) hdr.classList.toggle('is-away', hide);
     lastY = y;
   }

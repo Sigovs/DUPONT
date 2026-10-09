@@ -28,20 +28,6 @@
   ]
  },
  {
-  "file": "assets/img/scene/svc-insurance.jpg",
-  "source": "assets/source/626613_2015-ferrari-458-speciale\\06_2015-ferrari-458--speciale-1369075-1059166736.jpg",
-  "window": [
-   140,
-   400,
-   1200,
-   1046
-  ],
-  "size": [
-   1060,
-   646
-  ]
- },
- {
   "file": "assets/img/scene/svc-service.jpg",
   "source": "assets/source/635055_2009-aston-martin-dbs\\07_2009-aston--martin-dbs-187875-168943525.jpg",
   "window": [
@@ -160,20 +146,6 @@
   ]
  },
  {
-  "file": "assets/img/scene/col-gauges.jpg",
-  "source": "assets/source\\635055_2009-aston-martin-dbs\\06_2009-aston--martin-dbs-187875-827962918.jpg",
-  "window": [
-   0,
-   300,
-   1060,
-   1280
-  ],
-  "size": [
-   1060,
-   980
-  ]
- },
- {
   "file": "assets/img/scene/sell-dbs-seats.jpg",
   "source": "assets/source\\635055_2009-aston-martin-dbs\\08_2009-aston--martin-dbs-187875-2126351282.jpg",
   "window": [
@@ -185,6 +157,34 @@
   "size": [
    1120,
    1280
+  ]
+ },
+ {
+  "file": "assets/img/scene/col-gauges.jpg",
+  "source": "assets/source\\635055_2009-aston-martin-dbs\\06_2009-aston--martin-dbs-187875-827962918.jpg",
+  "window": [
+   80,
+   200,
+   1140,
+   1280
+  ],
+  "size": [
+   1060,
+   1080
+  ]
+ },
+ {
+  "file": "assets/img/scene/svc-insurance.jpg",
+  "source": "assets/source\\626613_2015-ferrari-458-speciale\\06_2015-ferrari-458--speciale-1369075-1059166736.jpg",
+  "window": [
+   800,
+   480,
+   1440,
+   972
+  ],
+  "size": [
+   640,
+   492
   ]
  }
 ]

@@ -15,7 +15,7 @@ import re
 
 ROOT = "C:/____WORK/DU PONT REGESTRY/"
 V4 = ROOT + "site/v4/"
-VER = "20"
+VER = "23"
 
 
 def load_js_obj(path, var):
@@ -318,7 +318,10 @@ def hero_and_collection():
 
 
 
-RAIL = ["638928", "602202", "584674", "616146", "635440", "635078"]
+# fix2: five SoCal studio listings (one cyc), keyed with the non-AI pipeline (_build/rail_cutout.py) and
+# standing on the ivory floor. White cars key out with the cyc and daylight frames don't match - they stay in
+# inventory.html. Layers: assets/img/rail/{id}-{800,1600}.webp (canvas 100:36, tyre contact at 86 %).
+RAIL = ["602202", "626613", "635078", "636828", "617636"]
 SHOWNAME = {"socal": "Select SoCal", "naples": "Select Naples", "miami": "Miami"}
 
 
@@ -344,7 +347,7 @@ def rail():
         # compound terms never break at their hyphen ("Rear-wheel drive" stays whole)
         spec_html = " · ".join(f'<span class="nw">{esc(x)}</span>' if "-" in x else esc(x) for x in spec.split(" · ")) if spec else ""
         cards += f"""          <li class="rcard" data-rcard>
-            <div class="rcard__ph">{picture_car(c["img"], "(min-width: 1280px) 38vw, 80vw", c["title"] + ", as photographed for its listing")}</div>
+            <div class="rcard__ph"><img src="assets/img/rail/{cid}-1600.webp" srcset="assets/img/rail/{cid}-800.webp 800w, assets/img/rail/{cid}-1600.webp 1600w" sizes="(min-width: 1280px) 45vw, 80vw" width="1600" height="576" alt="{esc(c["title"])} in profile, from its listing photograph (temporary cut-out)" loading="lazy" decoding="async"></div>
             <div class="rcard__body">
               <p class="rcard__no t-label"><span class="t-num">0{i + 1}</span> {SHOWNAME[c["loc"]]}</p>
               <h3 class="rcard__title disp">{esc(c["title"])}</h3>
@@ -354,13 +357,13 @@ def rail():
             </div>
           </li>
 """
-    return f"""    <!-- 03 · AVAILABLE NOW — graphite. Pinned rail: the car in focus is full size and lit by its own type;
+    return f"""    <!-- 03 · AVAILABLE NOW — ivory studio floor (fix2). Pinned rail: the car in focus is full size and lit by its own type;
          neighbours are smaller photographs (behaviour after Alex's Robb Francis "Available Now." scene). -->
-    <section class="scene rail" id="available" data-scene="rail" data-ink="light" aria-labelledby="rail-title">
+    <section class="scene rail" id="available" data-scene="rail" data-ink="dark" aria-labelledby="rail-title">
       <div class="rail__head">
         <p class="eyebrow t-label"><span class="rule"></span>{m("03 — Available now")}</p>
         <h2 class="rail__h disp" id="rail-title">{m("Available now.")}</h2>
-        <p class="rail__asof">Six of {TOTAL} · prices and miles as of {ASOF}</p>
+        <p class="rail__asof">Five of {TOTAL} · prices and miles as of {ASOF}</p>
         <a class="btn btn--red rail__all" href="inventory.html">View all {TOTAL} cars {ARROW}</a>
       </div>
       <div class="rail__view" data-rail-view data-lenis-prevent-touch>
@@ -442,7 +445,7 @@ SERVICES = [
     ("service", "Service", "Maintenance and preparation, before delivery and after it.", "service",
      "V12 engine bay of the 2009 Aston Martin DBS, as photographed for its listing", "2009 Aston Martin DBS"),
     ("insurance", "Insurance", "Cover for collector and exotic cars, arranged through the showroom.", "insurance",
-     "Front three-quarter of the black 2015 Ferrari 458 Speciale, as photographed for its listing", "2015 Ferrari 458 Speciale"),
+     "Door and shield of the black 2015 Ferrari 458 Speciale, as photographed for its listing", "2015 Ferrari 458 Speciale"),
     ("ppf", "Paint protection film", "Clear film over the paint, fitted before the car leaves.", "ppf",
      "Bonnet and headlamps of the 2018 Porsche 911 GT2 RS, as photographed for its listing", "2018 Porsche 911 GT2 RS"),
 ]
@@ -455,8 +458,8 @@ def services():
           <div class="svc__ph">{photo(ph, "svc__img", alt)}</div>
           <div class="svc__body">
             <p class="svc__no t-label">0{i + 1}</p>
-            <h3 class="svc__name disp" id="svc-{sid}">{name}<sup class="dag" aria-hidden="true">†</sup></h3>
-            <p class="svc__line">{line}</p>
+            <h3 class="svc__name disp" id="svc-{sid}">{name}</h3>
+            <p class="svc__line">{line}<sup class="dag" aria-hidden="true">†</sup></p>
             <a class="lnk" href="#showrooms" data-goto="showrooms">Ask a showroom {ARROW}</a>
             <p class="svc__cap t-mute">{car} · Select SoCal</p>
           </div>
@@ -549,13 +552,39 @@ def instagram():
 """
 
 
+# fix2 · closing bookend (STORYBOARD §8, the Forge finale held for the close): the hero trio from the REAR,
+# small, on the ivory floor. Rear frames 04 of the three listings, keyed like the hero (rear_cutout.py).
+# Stage: Ford centre-front (contact y 900), flanks a step back (y 884) and tucked 48 px behind it.
+CLOSE = [("624911", 490, 884, 500, 1), ("628929", 960, 900, 600, 3), ("636254", 1430, 884, 500, 2)]
+
+
+def closer():
+    cars = ""
+    for cid, cx, cy, w, z in CLOSE:
+        c = CARS[cid]
+        cars += (f'<img class="close__car" data-close-car="{cid}" src="assets/img/rail/rear-{cid}-1200.webp" '
+                 f'srcset="assets/img/rail/rear-{cid}-600.webp 600w, assets/img/rail/rear-{cid}-1200.webp 1200w" sizes="(min-width: 1280px) 32vw, 40vw" '
+                 f'width="1200" height="960" style="--cx:{cx};--cy:{cy};--w:{w};z-index:{z}" '
+                 f'alt="{esc(c["title"])} from behind (temporary cut-out of its listing photograph)" loading="lazy" decoding="async">')
+    return f"""    <!-- 08b · CLOSE — ivory. The page ends on the three cars it opened with, now seen from behind (bookend). -->
+    <section class="scene close" id="close" data-scene="close" data-ink="dark" aria-labelledby="close-title">
+      <div class="close__text" data-close-text>
+        <h2 class="close__h disp" id="close-title">{m("See them in person.")}</h2>
+        <p class="close__line">{m("2007 Ferrari F430 · 2006 Ford GT · 2023 Porsche 911 Sport Classic — at Select SoCal")}</p>
+        <a class="btn btn--red close__cta" href="#showrooms" data-goto="showrooms">Find a showroom {ARROW}</a>
+      </div>
+      <div class="close__cars" data-close-cars>{cars}</div>
+    </section>
+"""
+
+
 def index_page():
     preload = ('  <link rel="preload" as="image" href="assets/img/hero/ford_body.webp" type="image/webp" fetchpriority="high">\n')
     out = head("duPont REGISTRY Select — Exotic and collector cars",
                "duPont REGISTRY Select: exotic and collector cars at three showrooms — Southern California, Naples and Miami.",
                ["v4.css"], preload)
     out += '<body class="home">\n' + nav("home") + '  <main id="main">\n'
-    out += hero_and_collection() + rail() + locations() + sell() + services() + reviews() + instagram()
+    out += hero_and_collection() + rail() + locations() + sell() + services() + reviews() + instagram() + closer()
     out += "  </main>\n" + footer()
     out += SCRIPTS + f"""  <script src="assets/js/cars.js?v={VER}" defer></script>
   <script src="assets/js/map.js?v={VER}" defer></script>

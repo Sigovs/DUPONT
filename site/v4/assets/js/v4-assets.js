@@ -51,10 +51,10 @@ window.V4_ASSETS = {
     "M1":   { "ferrari": [40, 196, 200],     "porsche": [400, 204, 200],    "ford": [195, 228, 330] }
   },
   "photos": {
-    "gauges":    { "jpg": "assets/img/scene/col-gauges.jpg",       "webp": "assets/img/scene/col-gauges.webp",       "w": 1060, "h": 980,  "pos": "0% 0%",    "listing": "635055" },
+    "gauges":    { "jpg": "assets/img/scene/col-gauges.jpg",       "webp": "assets/img/scene/col-gauges.webp",       "w": 1060, "h": 1080, "pos": "0% 0%",    "listing": "635055" },
     "wheel":     { "jpg": "assets/img/scene/col-wheel.jpg",        "webp": "assets/img/scene/col-wheel.webp",        "w": 640,  "h": 940,  "pos": "50% 0%",   "listing": "626613" },
     "sell":      { "jpg": "assets/img/scene/sell-dbs-seats.jpg",   "webp": "assets/img/scene/sell-dbs-seats.webp",   "w": 1120, "h": 1280, "pos": "40% 80%",  "listing": "635055" },
-    "insurance": { "jpg": "assets/img/scene/svc-insurance.jpg",    "webp": "assets/img/scene/svc-insurance.webp",    "w": 1060, "h": 646,  "pos": "50% 50%",  "listing": "626613" },
+    "insurance": { "jpg": "assets/img/scene/svc-insurance.jpg",    "webp": "assets/img/scene/svc-insurance.webp",    "w": 640, "h": 492,  "pos": "50% 50%",  "listing": "626613" },
     "service":   { "jpg": "assets/img/scene/svc-service.jpg",      "webp": "assets/img/scene/svc-service.webp",      "w": 1400, "h": 854,  "pos": "50% 50%",  "listing": "635055" },
     "ppf":       { "jpg": "assets/img/scene/svc-ppf.jpg",          "webp": "assets/img/scene/svc-ppf.webp",          "w": 1160, "h": 707,  "pos": "50% 50%",  "listing": "617636" }
   }

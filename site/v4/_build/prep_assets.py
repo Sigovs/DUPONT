@@ -35,11 +35,11 @@ for n in ("ford", "f430", "p911"):
 
 # scene crops: (out name, source, window x0,y0,x1,y1)
 CROPS = [
-    ("col-gauges", "635055_2009-aston-martin-dbs/06_2009-aston--martin-dbs-187875-827962918.jpg", (0, 300, 1060, 1280)),   # fix1: rim + stitching above the nav band
+    ("col-gauges", "635055_2009-aston-martin-dbs/06_2009-aston--martin-dbs-187875-827962918.jpg", (80, 200, 1140, 1280)),   # fix2: original 1:1 window slid 80 px right (stitching left of the nav)
     ("col-wheel", "626613_2015-ferrari-458-speciale/07_2015-ferrari-458--speciale-1369075-1861828170.jpg", (640, 340, 1280, 1280)),
     ("sell-fordgt-rear", "628929_2006-ford-gt/04_", (360, 180, 1560, 1280)),   # retired from Sell in fix1 (kept for history)
     ("sell-dbs-seats", "635055_2009-aston-martin-dbs/08_", (600, 0, 1720, 1280)),   # fix1: dark close-up for Sell
-    ("svc-insurance", "626613_2015-ferrari-458-speciale/06_", (140, 400, 1200, 1046)),
+    ("svc-insurance", "626613_2015-ferrari-458-speciale/06_", (800, 480, 1440, 972)),   # fix2: door + shield, cyc 1.7 %
     ("svc-service", "635055_2009-aston-martin-dbs/07_", (300, 100, 1700, 954)),
     ("svc-ppf", "617636_2018-porsche-911-gt2-rs/07_", (400, 470, 1560, 1177)),
 ]
