@@ -31,6 +31,15 @@ Full brief: BRIEF.md.
 - Frozen, not developed further: V1 `site/`, V2 `site/v2/`, Head-On `prototype/hero-forge/`,
   Step Back `direction/hero-storyboard/`, static concepts `direction/hero-explore/`.
 
+## Status 2026-10-09 (end of autonomous production rounds)
+Live: https://sigovs.github.io/DUPONT/ . Independent design-critic (jury rubric) scored V4 6.1 → 6.6 → **7.0/10**:
+"presentable to the luxury client once the intro white plates are fixed". Done: map pins on land, editorial ivory-floor
+inventory rail with temp cut-outs, Sell/Services recomposed, rear-trio closing bookend, Wake 170vh, header behaviour,
+all reading stops pixel-still, 0 console errors / 0 overflow at 6 widths. **Open:** intro white plate under the cars
+during the clip reveal (motion round 3 was interrupted by a session limit); closing trio should rhyme with the hero
+(Ford on the "SELECTED." axis, same line-mask reveal); Porsche splitter halo; Alex's final high-res cut-outs
+(single swap in site/v4/assets/js/v4-assets.js — see site/v4/ASSETS.md). Reviews: review/v4/CRITIQUE-V4*.md (local).
+
 ## Where things live
 research/ (brand, provenance, colour), data/inventory.json (48 listings with provenance), assets/source/ (dR photos),
 direction/ (art-direction files), review/ (critiques, brief compliance, videos), INSPIRATION/ (Alex's AI concept
