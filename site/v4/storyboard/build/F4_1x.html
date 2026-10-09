@@ -1,0 +1,43 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=1920"><title>V4 storyboard r2 F4</title><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..900&family=Manrope:wght@400;500;600&display=block" rel="stylesheet"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#F0EEE9}
+body{font-family:Manrope,"Helvetica Neue",Arial,sans-serif;color:#303137;-webkit-font-smoothing:antialiased}
+.stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:#F0EEE9;isolation:isolate}
+.abs{position:absolute;white-space:nowrap;z-index:20}
+.car{position:absolute;inset:0;pointer-events:none}
+.car img,.col{position:absolute;display:block}
+.car__shadow{mix-blend-mode:multiply}
+.lbl{font-size:14px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1}
+.disp{font-family:"Bodoni Moda",serif;font-variation-settings:"opsz" 96;font-weight:400;text-transform:uppercase;line-height:1}
+.chrome{position:absolute;inset:0;z-index:50;pointer-events:none}
+.logo-wrap{position:absolute;left:120px;top:40px;height:48px;display:block}
+.logo{height:48px;width:auto;display:block}
+.nav{position:absolute;list-style:none;display:flex;gap:40px;white-space:nowrap}
+.nav li{display:flex;align-items:center;gap:8px}
+.idx{position:absolute}
+.rule{position:absolute;width:24px;height:2px;background:#AC1D28;z-index:20}
+.deck{font-size:17px;line-height:28px;font-weight:400}
+.cta{position:absolute;display:flex;align-items:center;justify-content:center;gap:12px;background:#AC1D28;color:#F0EEE9;width:268px;height:52px;z-index:20}
+.mq{font-size:15px;font-weight:500;letter-spacing:.08em;line-height:1}
+.rec{font-size:14px;font-weight:500;letter-spacing:.04em;line-height:1}
+</style></head><body><div class="stage"><div class="car car--ford" data-anchor-x="1010" data-anchor-y="283" data-w="1103"><img class="car__shadow" src="img2/ford_car__shadow_1119x216.png" alt="" data-anchor="966.0,962" data-bbox="381,900,1552,1126" style="left:451px;top:224px;width:1119px;height:216px;z-index:0"><img class="car__body" src="img2/ford_car__body_1103x633.png" alt="" data-anchor="966.0,962" data-bbox="389,300,1543,962" style="left:458px;top:-350px;width:1103px;height:633px;z-index:3"></div><img class="col col--gauges" src="img2/gauges_1060x1080.jpg" alt="" style="left:860px;top:476px;width:1060px;height:1080px;z-index:1"><img class="col col--wheel" src="img2/wheel_640x520.jpg" alt="" style="left:520px;top:690px;width:640px;height:520px;z-index:2"><div class="abs lbl" data-baseline="875" style="left:120px;color:#66676B">Browse by marque</div><div class="abs mq" data-baseline="915" style="left:120px;">FERRARI</div><div class="abs mq" data-baseline="947" style="left:120px;">PORSCHE</div><div class="abs mq" data-baseline="979" style="left:120px;">LAMBORGHINI</div><div class="abs mq" data-baseline="1011" style="left:120px;">McLAREN</div><div class="abs mq" data-baseline="1043" style="left:120px;">ASTON MARTIN</div><div class="abs mq" data-baseline="1075" style="left:120px;">FORD</div><div class="abs lbl" data-baseline="1131" style="left:120px;color:#66676B">SoCal · Naples · Miami</div><div class="cta lbl" style="left:120px;top:1195px">View all inventory<svg class="arr" viewBox="0 0 16 10" width="16" height="10" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></div></div><script>
+async function layout(){
+  await document.fonts.ready;
+  for (const el of document.querySelectorAll('[data-baseline]')){
+    const probe=document.createElement('span');
+    probe.style.cssText='display:inline-block;width:0;height:0;vertical-align:baseline';
+    (el.tagName==='UL'?el.lastElementChild:el).appendChild(probe);
+    el.style.top='0px';
+    const b=probe.getBoundingClientRect().top - el.getBoundingClientRect().top;
+    el.style.top=(+el.dataset.baseline - b)+'px';
+    probe.remove();
+  }
+  for (const el of document.querySelectorAll('[data-right]')){
+    const ls=parseFloat(getComputedStyle(el).letterSpacing)||0;
+    const w=el.getBoundingClientRect().width;
+    el.style.left=(+el.dataset.right - w + (ls>0?ls:0))+'px';
+  }
+  document.body.dataset.ready='1';
+}
+layout();
+</script></body></html>

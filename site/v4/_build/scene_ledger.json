@@ -1,0 +1,176 @@
+[
+ {
+  "file": "assets/img/scene/col-gauges.jpg",
+  "source": "assets/source/635055_2009-aston-martin-dbs/06_2009-aston--martin-dbs-187875-827962918.jpg",
+  "window": [
+   0,
+   0,
+   1060,
+   1280
+  ],
+  "size": [
+   1060,
+   1280
+  ]
+ },
+ {
+  "file": "assets/img/scene/col-wheel.jpg",
+  "source": "assets/source/626613_2015-ferrari-458-speciale/07_2015-ferrari-458--speciale-1369075-1861828170.jpg",
+  "window": [
+   640,
+   340,
+   1280,
+   1280
+  ],
+  "size": [
+   640,
+   940
+  ]
+ },
+ {
+  "file": "assets/img/scene/sell-fordgt-rear.jpg",
+  "source": "assets/source/628929_2006-ford-gt\\04_2006-ford-gt-700073-1849756790.jpg",
+  "window": [
+   360,
+   180,
+   1560,
+   1280
+  ],
+  "size": [
+   1200,
+   1100
+  ]
+ },
+ {
+  "file": "assets/img/scene/svc-insurance.jpg",
+  "source": "assets/source/626613_2015-ferrari-458-speciale\\06_2015-ferrari-458--speciale-1369075-1059166736.jpg",
+  "window": [
+   140,
+   400,
+   1200,
+   1046
+  ],
+  "size": [
+   1060,
+   646
+  ]
+ },
+ {
+  "file": "assets/img/scene/svc-service.jpg",
+  "source": "assets/source/635055_2009-aston-martin-dbs\\07_2009-aston--martin-dbs-187875-168943525.jpg",
+  "window": [
+   300,
+   100,
+   1700,
+   954
+  ],
+  "size": [
+   1400,
+   854
+  ]
+ },
+ {
+  "file": "assets/img/scene/svc-ppf.jpg",
+  "source": "assets/source/617636_2018-porsche-911-gt2-rs\\07_2018-porsche-911--gt2--rs-739955-373207049.jpg",
+  "window": [
+   400,
+   470,
+   1560,
+   1177
+  ],
+  "size": [
+   1160,
+   707
+  ]
+ },
+ {
+  "file": "assets/img/scene/svc-finance.jpg",
+  "source": "assets/source/635055_2009-aston-martin-dbs\\08_2009-aston--martin-dbs-187875-2126351282.jpg",
+  "window": null,
+  "size": [
+   1920,
+   1280
+  ]
+ },
+ {
+  "file": "assets/img/scene/ig-dbs-cabin.jpg",
+  "source": "assets/source/635055_2009-aston-martin-dbs\\05_2009-aston--martin-dbs-187875-1705763726.jpg",
+  "window": null,
+  "size": [
+   720,
+   480
+  ]
+ },
+ {
+  "file": "assets/img/scene/ig-sto-rear.jpg",
+  "source": "assets/source/619511_2021-lamborghini-huracan-sto\\05_2021-lamborghini-huracan--sto-0-1803094344.jpg",
+  "window": null,
+  "size": [
+   720,
+   480
+  ]
+ },
+ {
+  "file": "assets/img/scene/ig-190sl.jpg",
+  "source": "assets/source/602011_1961-mercedes-benz-190-sl\\02_1961-mercedes-benz-190--sl-150479-1923690470.jpg",
+  "window": null,
+  "size": [
+   720,
+   480
+  ]
+ },
+ {
+  "file": "assets/img/scene/ig-sto-front.jpg",
+  "source": "assets/source/619511_2021-lamborghini-huracan-sto\\07_2021-lamborghini-huracan--sto-0-305909851.jpg",
+  "window": null,
+  "size": [
+   720,
+   480
+  ]
+ },
+ {
+  "file": "assets/img/scene/ig-458-front.jpg",
+  "source": "assets/source/626613_2015-ferrari-458-speciale\\06_2015-ferrari-458--speciale-1369075-1059166736.jpg",
+  "window": null,
+  "size": [
+   720,
+   480
+  ]
+ },
+ {
+  "file": "assets/img/scene/ig-190sl-top.jpg",
+  "source": "assets/source/602011_1961-mercedes-benz-190-sl\\03_1961-mercedes-benz-190--sl-150479-183385495.jpg",
+  "window": null,
+  "size": [
+   720,
+   480
+  ]
+ },
+ {
+  "file": "assets/img/scene/ig-sto-side.jpg",
+  "source": "assets/source/619511_2021-lamborghini-huracan-sto\\02_2021-lamborghini-huracan--sto-0-2026409407.jpg",
+  "window": null,
+  "size": [
+   720,
+   480
+  ]
+ },
+ {
+  "file": "assets/img/scene/ig-revuelto-doors.jpg",
+  "source": "assets/source/616146_2024-lamborghini-revuelto\\04_2024-lamborghini-revuelto-660075-2010568576.jpg",
+  "window": null,
+  "size": [
+   720,
+   480
+  ]
+ },
+ {
+  "file": "assets/img/scene/ig-fordgt-rear.jpg",
+  "source": "assets/source/628929_2006-ford-gt\\04_2006-ford-gt-700073-1849756790.jpg",
+  "window": null,
+  "size": [
+   720,
+   480
+  ]
+ }
+]

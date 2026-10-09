@@ -1,0 +1,82 @@
+V4 "The Approach" storyboard: provenance and method log (revision 2)
+Rendered 2026-10-09 by the designer from STORYBOARD.md rev 2. Static frames only, no GSAP, no site code.
+The v1 renders and v1 provenance are archived in v1/ (PROVENANCE-v1.txt).
+Facts were checked against data/inventory.json (lastUpdated 2026-10-08). The frames contain no prices, counts or dates.
+The odometer reading in the gauges photo is the listing photo's own, not a claim.
+
+IMAGES USED (client-authorised duPont REGISTRY listings, private prototype use only)
+- car--ford: 2006 Ford GT, Red, SoCal, P4087, listing 628929
+  assets/source/628929_2006-ford-gt/07_2006-ford-gt-700073-837676577.jpg
+- car--ferrari: 2007 Ferrari F430, Silver (gunmetal), SoCal, P4092, listing 624911
+  assets/source/624911_2007-ferrari-f430/08_2007-ferrari-f430-290071-1881447063.jpg
+- car--porsche: 2023 Porsche 911 Sport Classic, Green, SoCal, stock 241, listing 636254
+  assets/source/636254_2023-porsche-911-sport-classic/07_2023-porsche-911--sport--classic-720075-396410551.jpg
+  https://www.dupontregistry.com/car/porsche/911--sport--classic/2023/WP0AG2A99PS252241/636254
+- col--gauges (P1): 2009 Aston Martin DBS, listing 635055
+  06_2009-aston--martin-dbs-187875-827962918.jpg, window src x 0–1060, y 200–1280, at 1:1
+- col--wheel (P2): 2015 Ferrari 458 Speciale, listing 626613
+  07_2015-ferrari-458--speciale-1369075-1861828170.jpg, window src x 640–1280, y 340–860, at 1:1
+- The Speciale front 09_… (imported for v1, sidecar .source.txt) is no longer used in the frames.
+- Logo: research/out-of-scope/west-coast/logos/dupont-registry-select_lockup_white.svg, fill swapped to graphite.
+- Fonts: Bodoni Moda and Manrope from Google Fonts (OFL).
+- No generated imagery, no AI, no paid services.
+
+CUT-OUTS (TEMPORARY: Alex's professional cut-outs replace them)
+- Method: build/cutout.py. Local and deterministic (numpy/scipy/Pillow).
+  - Cyc model plus colour-distance flood fill, seeded at the border.
+  - Ring-line removal.
+  - Scripted pockets and edge cleanup, standing in for GIMP.
+  - 1 px choke with ≤1 px anti-aliasing, no blur or feather. Interior pixels are untouched.
+  - Multiply ground plate: levels set so the darkest border floor value maps to 255, body painted white.
+- Porsche (new): fuzz 22 / floor 70, flank scans y 600–1000.
+  - The cut line follows the bumper and splitter (src y 1018 at the sides, 1052 at the centre), so the
+    under-bumper shadow lives on the plate.
+  - Plate levels v = 230. Plate border pixels ≠ 255: 0.
+  - Known residue: two tiny grey tags at the splitter ends (temporary asset, accepted).
+- Measured body bboxes (src px): Ford 389–1543 × 300–962 (1154 × 662), anchor (966, 962);
+  Ferrari 390–1530 × 302–992 (1140 × 690), anchor (960, 992); Porsche 453–1472 × 349–1052 (1019 × 703),
+  anchor (962.5, 1052). The AD's Porsche figures were 1015 wide with the anchor at y 1060.
+
+LAYER SYSTEM (drop-in ready): build/gen2.py
+- Each car is <div class="car car--{ferrari|ford|porsche}"> holding img.car__shadow (z 0, multiply) and
+  img.car__body (z 1 / 3 / 2).
+- Each img carries data-anchor and data-bbox in its own pixels. Layout = FRAMES table of (anchor x, anchor y, W).
+- To drop in final art, edit ASSETS (file, bbox, anchor, shadow file and box) only. The layout is unchanged.
+- Per-frame scales: build/layers_r2.json.
+
+VERIFIED ON THE RENDER (Playwright, 1920×1080 CSS, DPR 1 and 2; no console errors; fonts loaded)
+- F1 alignment:
+  - "SELECTED." measures 707–1107, so its optical centre is about 906.
+  - The car group was shifted +3 px, putting the Ford centre at 884 (Δ about 22, inside ±24).
+  - The Porsche's right edge lands on 1800 exactly, so +3 is the most the margin allows.
+- F1 geometry:
+  - The headline ends at x 1107 (the AD estimated about 1085).
+  - Type-to-roof air: 97 px.
+  - Ford mirror to Porsche: 48 px.
+- Porsche lamps: both whole in F1. The left lamp is whole in F2 and F3, as specified.
+- F2: "ONE COLLECTION." ends at x about 695 (the AD estimated about 670). That is about 55 px diagonally
+  from the Ford roof, above the 40 px floor.
+- F4 Wake lock: the Ford's shadow ends at y 440 and P1's top is at 476 (+36). Measured, exact.
+- Contrast, measured against the worst background pixel under each label (from a text-less render):
+  - ivory nav over P1: lowest 7.74 ("INVENTORY" over the red stitching);
+  - P1 caption 7.41;
+  - P2 caption 5.75;
+  - pewter labels 4.87;
+  - graphite on ivory 11.18.
+  All AA.
+- 1x: every layer ≤ 1:1.
+- @2x upsampling (the photographs are 1:1 at 1920, so at DPR 2 they are 2.0×):
+  - F1: Ford 1.32;
+  - F2: Ford 1.64, Porsche 1.40, Ferrari 1.28;
+  - F3: Ford 1.80, Porsche 1.83, Ferrari 1.80;
+  - F4: Ford 1.91;
+  - P1 and P2: 2.0.
+
+DEVIATIONS / NOTES FOR ART DIRECTION
+- P2 wheel window (640 px) is narrower than the wheel (about 750 px at source). The rim is cut on both sides,
+  so "wheel: whole width" does not hold with the specified window.
+- F4: the index block (offset +235) shows the label and marques down to FORD (cut at the bottom edge).
+  The upper-left quadrant (x 0–450, y 0–850) is open ivory. It is the largest empty area in the sequence.
+- The Ford GT fender keeps its real studio-white highlight rim (real paint reflection, not cyc).
+- No placeholder labels appear in the images. Placeholder copy: all headlines and decks (Alex to confirm).
+  Verified copy: car names, years, SoCal, and cities.

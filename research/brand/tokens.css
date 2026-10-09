@@ -1,0 +1,102 @@
+/* =============================================================================
+   duPont REGISTRY Select — extracted token layer (brand-extractor, 2026-10-08)
+   EXTRACTION ONLY. Every value is measured from a shipped duPont REGISTRY
+   property, or marked ABSENT. Nothing here is a design decision.
+
+   IMPORTANT
+   - No duPont REGISTRY Select brand book was available. There is no Select-
+     specific palette, type spec or spacing system anywhere in the source.
+   - Values below are what PARENT-brand properties SHIP (evidence), not what the
+     Select brand MANDATES. BRIEF.md: other duPont divisions' identity is not
+     automatically binding on Select.
+   - West Coast Exotic Cars site (westcoastexoticcars.com) is NOT a reference
+     (client instruction 2026-10-08); nothing below comes from it.
+   - Sources (accessed 2026-10-08, Chrome 154, 1920x1080):
+       [M]  https://www.dupontregistry.com/            compiled CSS custom props (Next.js chunks
+            /_next/static/chunks/0u3u8kycz1msa.css, 0ke8asqqllke6.css) + computed styles.
+            Page served data-theme="dark" data-skin="default" because the browser sent
+            Sec-CH-Prefers-Color-Scheme: dark. A light theme also ships (values noted).
+       [L]  https://live.dupontregistry.com/           computed styles (MUI app)
+       [LG] logo files in research/brand/logos/
+   - Contrast ratios: WCAG 2.x relative luminance, computed from the hex values.
+   ============================================================================= */
+
+:root {
+  /* ---------------------------------------------------------------- RED ---- */
+  /* No red exists in the dR marketplace DEFAULT skin. Red ships only as the
+     "auction" skin on [M] and as the primary action colour on [L] (dR Live).  */
+  --dr-red-live:        #C10E34; /* [M] --auction-live / auction --secondary  hsl(347.26 86.47% 40.59%)
+                                    [L] computed rgb(193,14,52) on CTA bg + text. MEASURED, two sources agree.
+                                    white on it 6.21:1 (AA body pass) | on #000 3.38:1 (large/UI only, fails body)
+                                    | on #0D0D0D 3.13:1 (large/UI only) */
+  --dr-red-live-alt:    #C10E33; /* [L] computed rgb(193,14,51) on 3 elements — 1-unit drift from #C10E34. CONTRADICTION (minor), reported not resolved. */
+  --dr-red-accent:      #E4002B; /* [M] auction --secondary-alt / --auction-live-accent  hsl(348.68 100% 44.71%)
+                                    white on it 4.85:1 | on #000 4.33:1 (fails 4.5 body; passes large/UI) */
+  --dr-red-deep:        #7A0822; /* [M] --auction-live-deep / auction --secondary-container  hsl(346.32 87.69% 25.49%)
+                                    white on it 11.14:1 */
+  --dr-red-glow:        #820A26; /* [M] --auction-glow  hsl(346 85.71% 27.45%) */
+  --dr-red-glow-deep:   #5A061A; /* [M] --auction-glow-deep  hsl(345.71 87.5% 18.82%) */
+  /* Raster evidence only: [M] CMS image "desktop auction background image.webp" has a baked red
+     gradient, darkest-red corner sampled #BD0F33 — a photo pixel, NOT a token. */
+  /* --select-red: ABSENT. No Select-specific red is defined on any in-scope property. */
+
+  /* ------------------------------------------------- GROUNDS (dark theme) -- */
+  --dr-bg:              #000000; /* [M] --background (dark)  0 0% 0%; body computed rgb(0,0,0) */
+  --dr-surface:         #0D0D0D; /* [M] --surface (dark) 0 0% 5% */
+  --dr-surface-1:       #141414; /* [M] 0 0% 8% */
+  --dr-surface-2:       #1C1C1C; /* [M] 0 0% 11% */
+  --dr-surface-3:       #212121; /* [M] 0 0% 13% */
+  --dr-surface-variant: #464648; /* [M] 240 1.42% 27.85%; footer bg computed rgb(70,70,72); white on it 9.42:1 */
+  --dr-scrim:           rgba(0,0,0,.6); /* [M] --scrim (dark) #0009 */
+  --dr-live-navy:       #1F1F37; /* [L] computed bg rgb(31,31,55) — dR Live only */
+
+  /* ---------------------------------------------------- TEXT (dark theme) -- */
+  --dr-fg:              #FFFFFF; /* [M] --foreground (dark); on #000 21:1 */
+  --dr-on-surface:      #F2F2F2; /* [M] 0 0% 95%; on #000 18.76:1 */
+  --dr-on-surface-var:  #C5C5C9; /* [M] 240 4% 78%; computed on 61 elements; on #000 12.2:1, on #0D0D0D 11.29:1 */
+  --dr-outline:         #999999; /* [M] 0 0% 60%; on #000 7.37:1 */
+  --dr-outline-variant: #5C5C60; /* [M] 240 2% 37%; on #000 3.15:1 (UI pass) | on #0D0D0D 2.92:1 (FAILS 3:1 UI) */
+
+  /* ------------------------------------------- MARKETPLACE ACCENT (not red) -- */
+  --dr-accent-dark:     #BDBDFF; /* [M] --secondary (dark) 240 100% 87%; primary pill CTA bg, computed */
+  --dr-on-accent-dark:  #000052; /* [M] --on-secondary (dark); CTA text on #BDBDFF 10.6:1 */
+  --dr-accent-light:    #2A2AD5; /* [M] --secondary (light) 240 67% 50%; white on it 8.78:1 */
+  --dr-gold:            #AE9142; /* [M] --gold 44 45% 47% (usage not observed on page) */
+  --dr-error-dark:      #FF8080; /* [M] --error (dark) */
+  --dr-error-light:     #C20000; /* [M] --error (light) */
+
+  /* ---------------------------------------------------------- TYPOGRAPHY -- */
+  --dr-font-heading: "Manrope", sans-serif; /* [M] --font-heading; h1–h3 computed. Google Fonts, SIL OFL (free, web OK) */
+  --dr-font-body:    "Roboto", sans-serif;  /* [M] --font-body; body/p/buttons computed. Google Fonts, OFL/Apache (free, web OK) */
+  /* [L] dR Live ships "Public Sans" 600 and "PlusJakartaSans-Variable" 100–900 (both OFL) — CONTRADICTION across properties. */
+  /* Logo wordmark "duPont REGISTRY": outlined vector paths, high-contrast serif; typeface NOT identified — ABSENT.
+     "SELECT" in the Select lockup: wide geometric caps; typeface NOT identified — ABSENT. Do not set either as live text. */
+  --dr-h1-size:  60px;  /* [M] computed at 1920; token --text-h1 fluid: 32 / 36@640 / 44@768 / 52@1024 / 56@1280 / 60@1536 */
+  --dr-h1-lh:    72px;  /* [M] computed (1.2) */
+  --dr-h2-size:  48px;  /* [M] computed at 1920; --text-h2: 24 / 28 / 32 / 38 / 44 / 48 */
+  --dr-h2-lh:    57.6px;
+  --dr-h3-size:  24px;  /* [M] computed; lh 33.6px */
+  --dr-body-size: 16px; /* [M] computed; lh 24px */
+  --dr-weight-heading: 700; /* [M] Manrope weights loaded: 500, 600, 700 */
+  --dr-weights-body: 400 500 600 700; /* [M] Roboto weights in computed use (only 400 reported 'loaded' via FontFace API) */
+  --dr-letter-spacing: normal; /* [M] all measured headings */
+  /* --select-type-scale: ABSENT */
+
+  /* ---------------------------------------------- SHAPE / SPACE (as shipped) -- */
+  --dr-radius:        0.75rem; /* [M] --radius; inventory cards + hero container computed 12px */
+  --dr-radius-pill:   9999px;  /* [M] primary CTAs computed border-radius 9999px */
+  --dr-btn-pad:       12px 32px; /* [M] "Get Your Offer" pill, height 50px, Roboto 600 16px */
+  --dr-btn-pad-sm:    8px 16px;  /* [M] "Check Availability", height 42px */
+  --dr-gutter:        24px;    /* [M] .container padding-left/right at 1920 */
+  --dr-header-h:      72px;    /* [M] header height, bg #000 */
+  --dr-logo-h:        40px;    /* [M] header logo rendered 112.94 x 40 */
+  /* --dr-container-max: ABSENT — at 1920 the containers run full-bleed minus 24px gutters (no max-width measured). */
+  /* --select-spacing-scale: ABSENT */
+
+  /* -------------------------------------------------------------- LOGOS ---- */
+  /* see research/brand/logos/ and PROVENANCE.md §Logos. Vector: dR wordmark only (white). Select lockup: raster only (black on white, 600x400). */
+}
+
+/* Light theme also ships on [M] (served when prefers-color-scheme: light) — key values:
+   --background #FFFFFF, --foreground #000000, --surface hsl(0 0% 98%), --secondary #2A2AD5,
+   --on-surface-variant #444446, --surface-variant #DFDFE5. Not measured in render. */

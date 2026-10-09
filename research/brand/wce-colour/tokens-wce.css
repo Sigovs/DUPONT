@@ -1,0 +1,42 @@
+/* West Coast Exotic Cars (duPont REGISTRY Select dealer site) — MEASURED colour values only.
+   Source: https://www.westcoastexoticcars.com/ homepage, computed styles @1920x1080, 2026-10-08.
+   Ledger + contrast + contradictions: ./PALETTE.md.  These are what a reference site SHIPS,
+   not brand-mandated values. Nothing here is chosen, harmonised or corrected. Not for direct use
+   in site/ until art-director decides. Third-party widget colours omitted (see PALETTE.md). */
+
+:root {
+  /* --- Red (accent) --- */
+  --wce-red:            #AC1D28; /* theme style.css: .primary-btn, nav hover/current bg, a, rules, 51 uses; 1.39% px */
+  --wce-red-alt:        #AC1E28; /* CONTRADICTION C1: inline footer/newsletter styles only */
+  --wce-red-deep:       #560F14; /* authored gradient stop (VDP gallery arrows), not rendered on homepage */
+  /* hover / pressed / focus red: ABSENT — primary buttons do not change on hover */
+
+  /* --- Dark grounds --- */
+  --wce-ground-black:   #000000; /* header (rest + scrolled), footer, price plate, card title band; 16.2% px */
+  --wce-ground:         #303137; /* html/body bg, card body, slider item; 16.0% px  (CONTRADICTION C2) */
+  --wce-field-dark:     #303030; /* newsletter inputs (incidental) */
+  /* raised surface / dark ladder: ABSENT */
+
+  /* --- Ink on dark --- */
+  --wce-ink:            #FFFFFF; /* dominant text, ~65% of rendered chars */
+  --wce-ink-feature:    #E6E6E6; /* .feature-section h3 */
+  --wce-ink-about:      #CECECE; /* .about-section p */
+  --wce-ink-footer:     #AFAFAF; /* footer links */
+  --wce-ink-label:      #ACACAC; /* .label-text YEAR/MILES */
+
+  /* --- Light surfaces --- */
+  --wce-surface-white:  #FFFFFF; /* inventory card photo area, .contact-btn bg */
+  --wce-field-light:    #EBEBEB; /* sell-form selects/inputs */
+
+  /* --- Rules / borders --- */
+  --wce-rule-red:       #AC1D28; /* .section-title:after 100x5px bars */
+  --wce-rule-red-footer:#AC1E28; /* footer col-title underline, copyright border-top */
+  --wce-rule-card:      #474A5A; /* .view-details-btn border */
+  --wce-border-field:   #8D8D8D; /* newsletter inputs */
+
+  /* Measured pairs (WCAG 2.x):
+     #FFFFFF / #AC1D28  7.09  pass     |  #FFFFFF / #303137 12.96 pass  |  #FFFFFF / #000 21.00 pass
+     #AFAFAF / #000000  9.57  pass     |  #ACACAC / #303137  5.71 pass  |  #CECECE / #303137 8.24 pass*
+     #AC1E28 / #000000  2.97  FAIL (13px footer legal)  |  #AC1D28 / #303137 1.83 FAIL (70px "YOUR CAR")*
+     * ground behind a background image — nominal, not glyph-measured. */
+}

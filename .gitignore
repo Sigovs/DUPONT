@@ -1,0 +1,32 @@
+# Media stays local (client photography: private prototype only; large files)
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.avif
+*.gif
+*.mp4
+*.webm
+*.mov
+*.psd
+*.pdf
+**/_qa/
+**/node_modules/
+**/__pycache__/
+**/.gates/
+*.log
+.DS_Store
+Thumbs.db
+
+# Repo carries only the current version (V4) + project memory. Older versions stay local.
+/site/*
+!/site/v4/
+/prototype/
+/direction/
+/review/
+/_____TEST FINAL/
+/INSPIRATION/
+/assets/
+/research/out-of-scope/
+/site/v4/storyboard/v1/
+/site/v4/storyboard/STORYBOARD-v1.md

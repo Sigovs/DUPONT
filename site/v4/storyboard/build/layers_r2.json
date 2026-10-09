@@ -1,0 +1,210 @@
+{
+ "F1": {
+  "ferrari.car__shadow": {
+   "scale": 0.4202,
+   "dpr2_upsample": 1,
+   "box": [
+    189,
+    724,
+    675,
+    815
+   ]
+  },
+  "ferrari.car__body": {
+   "scale": 0.4202,
+   "dpr2_upsample": 1,
+   "box": [
+    192,
+    473,
+    671,
+    763
+   ]
+  },
+  "porsche.car__shadow": {
+   "scale": 0.4779,
+   "dpr2_upsample": 1,
+   "box": [
+    1303,
+    753,
+    1808,
+    842
+   ]
+  },
+  "porsche.car__body": {
+   "scale": 0.4779,
+   "dpr2_upsample": 1,
+   "box": [
+    1313,
+    451,
+    1800,
+    787
+   ]
+  },
+  "ford.car__shadow": {
+   "scale": 0.6603,
+   "dpr2_upsample": 1.32,
+   "box": [
+    498,
+    805,
+    1271,
+    954
+   ]
+  },
+  "ford.car__body": {
+   "scale": 0.6603,
+   "dpr2_upsample": 1.32,
+   "box": [
+    503,
+    409,
+    1265,
+    846
+   ]
+  }
+ },
+ "F2": {
+  "ferrari.car__shadow": {
+   "scale": 0.6404,
+   "dpr2_upsample": 1.28,
+   "box": [
+    -188,
+    783,
+    553,
+    922
+   ]
+  },
+  "ferrari.car__body": {
+   "scale": 0.6404,
+   "dpr2_upsample": 1.28,
+   "box": [
+    -183,
+    400,
+    547,
+    842
+   ]
+  },
+  "porsche.car__shadow": {
+   "scale": 0.6977,
+   "dpr2_upsample": 1.4,
+   "box": [
+    1454,
+    825,
+    2191,
+    955
+   ]
+  },
+  "porsche.car__body": {
+   "scale": 0.6977,
+   "dpr2_upsample": 1.4,
+   "box": [
+    1469,
+    384,
+    2180,
+    875
+   ]
+  },
+  "ford.car__shadow": {
+   "scale": 0.8198,
+   "dpr2_upsample": 1.64,
+   "box": [
+    460,
+    854,
+    1420,
+    1039
+   ]
+  },
+  "ford.car__body": {
+   "scale": 0.8198,
+   "dpr2_upsample": 1.64,
+   "box": [
+    467,
+    362,
+    1413,
+    905
+   ]
+  }
+ },
+ "F3": {
+  "ferrari.car__shadow": {
+   "scale": 0.9,
+   "dpr2_upsample": 1.8,
+   "box": [
+    -843,
+    817,
+    198,
+    1012
+   ]
+  },
+  "ferrari.car__body": {
+   "scale": 0.9,
+   "dpr2_upsample": 1.8,
+   "box": [
+    -836,
+    279,
+    190,
+    900
+   ]
+  },
+  "porsche.car__shadow": {
+   "scale": 0.9166,
+   "dpr2_upsample": 1.83,
+   "box": [
+    1558,
+    854,
+    2526,
+    1025
+   ]
+  },
+  "porsche.car__body": {
+   "scale": 0.9166,
+   "dpr2_upsample": 1.83,
+   "box": [
+    1578,
+    276,
+    2512,
+    920
+   ]
+  },
+  "ford.car__shadow": {
+   "scale": 0.9003,
+   "dpr2_upsample": 1.8,
+   "box": [
+    483,
+    840,
+    1537,
+    1043
+   ]
+  },
+  "ford.car__body": {
+   "scale": 0.9003,
+   "dpr2_upsample": 1.8,
+   "box": [
+    490,
+    300,
+    1529,
+    896
+   ]
+  }
+ },
+ "F4": {
+  "ford.car__shadow": {
+   "scale": 0.9558,
+   "dpr2_upsample": 1.91,
+   "box": [
+    451,
+    224,
+    1570,
+    440
+   ]
+  },
+  "ford.car__body": {
+   "scale": 0.9558,
+   "dpr2_upsample": 1.91,
+   "box": [
+    458,
+    -350,
+    1561,
+    283
+   ]
+  }
+ }
+}
