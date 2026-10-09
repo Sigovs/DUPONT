@@ -1,0 +1,119 @@
+<section id="collection" data-section="02-collection" class="s-collection" aria-labelledby="cl-title">
+  <!-- 02 THE COLLECTION — one picture, three cars, a camera that moves at every text beat.
+       One ground plane: charcoal wall, graphite floor, a hairline horizon under the text; every car stands on the
+       floor and its size follows its depth. Dominant: 2009 Aston Martin DBS (black), front three-quarter, lower left.
+       Second: 2021 Ferrari 812 GTS (blue), profile, further back = smaller and higher. Third: 2021 McLaren 765LT
+       (orange), front three-quarter, nearest of all — a crop cut by the frame edge that opens up over two beats.
+       Beats: intro (wide) → 01 DBS comes forward → 02 the camera shifts to the 812, the DBS runs out of frame left →
+       03 the 765LT crop opens, the 812 recedes; the close carries "Browse all 64 cars".
+       Every car is one CSS variable block in section.css (generated from site/assets/cutouts/MANIFEST.json —
+       temporary cut-outs, final files by Alex). Positions per beat live in section.js (STATES) and, for the static
+       page, as CSS % of one 16:9 box. Facts: data/inventory-rebuild.json, as of 8 Oct 2026. -->
+  <div class="cl__stage">
+    <div class="cl__slot">
+      <div class="sl sl--intro" data-step="0">
+        <p class="cl__eyebrow"><span class="m"><span class="ln">One inventory · three Select showrooms</span></span></p>
+        <h2 class="cl__head" id="cl-title"><span class="m"><span class="ln">The collection.</span></span></h2>
+        <form class="fs" action="inventory.html" method="get" role="search" aria-label="Find a car" data-inv-form>
+          <span class="m"><span class="ln fs__line">
+            <span class="fs__w" aria-hidden="true">Show me</span>
+            <label class="sr" for="cl-make">Make</label>
+            <span class="fs__sel"><select id="cl-make" name="make" data-fd-make><option value="">any make</option>
+              <!--@make-options--><option value="Aston Martin">Aston Martin</option>
+<option value="Audi">Audi</option>
+<option value="BMW">BMW</option>
+<option value="Cadillac">Cadillac</option>
+<option value="Chevrolet">Chevrolet</option>
+<option value="Dodge">Dodge</option>
+<option value="Drakan">Drakan</option>
+<option value="Ferrari">Ferrari</option>
+<option value="Ford">Ford</option>
+<option value="Jeep">Jeep</option>
+<option value="Karma">Karma</option>
+<option value="Lamborghini">Lamborghini</option>
+<option value="Land Rover">Land Rover</option>
+<option value="Mazda">Mazda</option>
+<option value="McLaren">McLaren</option>
+<option value="Mercedes-Benz">Mercedes-Benz</option>
+<option value="Nissan">Nissan</option>
+<option value="Porsche">Porsche</option>
+<option value="RAM">RAM</option><!--/@make-options-->
+            </select><svg class="fs__caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span>
+            <label class="sr" for="cl-model">Model</label>
+            <span class="fs__sel"><select id="cl-model" name="model" data-fd-model><option value="">any model</option>
+              <!--@model-options--><optgroup label="Aston Martin"><option value="DBS">DBS</option></optgroup>
+<optgroup label="Audi"><option value="R8">R8</option></optgroup>
+<optgroup label="BMW"><option value="Z8">Z8</option></optgroup>
+<optgroup label="Cadillac"><option value="CT5">CT5</option></optgroup>
+<optgroup label="Chevrolet"><option value="C10">C10</option><option value="Corvette">Corvette</option><option value="Corvette Z06">Corvette Z06</option><option value="Corvette ZR1">Corvette ZR1</option></optgroup>
+<optgroup label="Dodge"><option value="Viper">Viper</option></optgroup>
+<optgroup label="Drakan"><option value="Spyder">Spyder</option></optgroup>
+<optgroup label="Ferrari"><option value="458 Speciale">458 Speciale</option><option value="458 Spider">458 Spider</option><option value="488 Pista">488 Pista</option><option value="488 Spider">488 Spider</option><option value="812 GTS">812 GTS</option><option value="F430">F430</option><option value="GTC4Lusso T">GTC4Lusso T</option></optgroup>
+<optgroup label="Ford"><option value="GT">GT</option><option value="Mustang Shelby GT350">Mustang Shelby GT350</option><option value="Mustang Shelby GT500">Mustang Shelby GT500</option><option value="Mustang Shelby Super Snake">Mustang Shelby Super Snake</option></optgroup>
+<optgroup label="Jeep"><option value="Wrangler">Wrangler</option></optgroup>
+<optgroup label="Karma"><option value="Revero">Revero</option></optgroup>
+<optgroup label="Lamborghini"><option value="Huracan STO">Huracan STO</option><option value="Revuelto">Revuelto</option><option value="Urus">Urus</option><option value="Urus SE">Urus SE</option></optgroup>
+<optgroup label="Land Rover"><option value="Range Rover">Range Rover</option></optgroup>
+<optgroup label="Mazda"><option value="MX-5 Miata">MX-5 Miata</option></optgroup>
+<optgroup label="McLaren"><option value="765LT">765LT</option></optgroup>
+<optgroup label="Mercedes-Benz"><option value="190 SL">190 SL</option><option value="AMG G 63">AMG G 63</option><option value="AMG SL 55">AMG SL 55</option><option value="Maybach S 580">Maybach S 580</option></optgroup>
+<optgroup label="Nissan"><option value="GT-R">GT-R</option></optgroup>
+<optgroup label="Porsche"><option value="718 Boxster">718 Boxster</option><option value="718 Cayman GTS">718 Cayman GTS</option><option value="911 Carrera GTS">911 Carrera GTS</option><option value="911 GT2 RS">911 GT2 RS</option><option value="911 GT3">911 GT3</option><option value="911 GT3 RS">911 GT3 RS</option><option value="911 Speedster">911 Speedster</option><option value="911 Sport Classic">911 Sport Classic</option><option value="911 Targa 4S">911 Targa 4S</option><option value="918 Spyder">918 Spyder</option><option value="Cayenne Turbo">Cayenne Turbo</option><option value="Macan GTS">Macan GTS</option></optgroup>
+<optgroup label="RAM"><option value="2500">2500</option></optgroup><!--/@model-options-->
+            </select><svg class="fs__caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span>
+            <label class="sr" for="cl-q">Keyword</label>
+            <input class="fs__q" id="cl-q" name="q" type="search" autocomplete="off" placeholder="keyword" data-fd-q>
+            <button class="cl-btn cl-btn--red fs__go" type="submit" data-fd-submit><span data-fd-label><!--@count-all-->64<!--/@count-all--> cars</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+          </span></span>
+          <p class="fs__none" data-fd-none hidden>No exact match — the inventory page will help you widen it.</p>
+        </form>
+        <span class="m"><nav class="rm" aria-label="Inventory by showroom">
+          <span class="rm__k">By showroom</span>
+          <a class="rm__a" href="inventory.html?showroom=socal" data-inv-link>Southern California <b><!--@count-socal-->52<!--/@count-socal--></b></a>
+          <a class="rm__a" href="inventory.html?showroom=miami" data-inv-link>Miami <b><!--@count-miami-->5<!--/@count-miami--></b></a>
+          <a class="rm__a" href="inventory.html?showroom=naples" data-inv-link>Naples <b><!--@count-naples-->7<!--/@count-naples--></b></a>
+        </nav></span>
+      </div>
+
+      <article class="sl sl--car" data-step="1" data-car="dbs" aria-label="2009 Aston Martin DBS">
+        <span class="pl__car" aria-hidden="true"><span class="co__img" data-co="dbs"></span></span>
+        <p class="pl__eye"><span class="m"><span class="ln">01 / 03 · 2009 · Aston Martin · Southern California</span></span></p>
+        <h3 class="pl__t"><span class="m"><span class="ln">DBS.</span></span></h3>
+        <p class="pl__d"><span class="m"><span class="ln"><span>$187,875</span><span>25,406 mi</span><span>As of 8 Oct 2026</span></span></span></p>
+        <div class="pl__acts"><span class="m m--act pl__go"><a class="cl-btn cl-btn--line" href="https://www.dupontregistry.com/car/aston--martin/dbs/2009/SCFAB05D09GE00711/635055" target="_blank" rel="noopener">View listing <span aria-hidden="true">↗</span><span class="sr"> — 2009 Aston Martin DBS on duPont REGISTRY, opens in a new tab</span></a></span></div>
+      </article>
+
+      <article class="sl sl--car" data-step="2" data-car="812" aria-label="2021 Ferrari 812 GTS">
+        <span class="pl__car" aria-hidden="true"><span class="co__img" data-co="812"></span></span>
+        <p class="pl__eye"><span class="m"><span class="ln">02 / 03 · 2021 · Ferrari · Southern California</span></span></p>
+        <h3 class="pl__t"><span class="m"><span class="ln">812 GTS.</span></span></h3>
+        <p class="pl__d"><span class="m"><span class="ln"><span>$770,075</span><span>4,433 mi</span><span>As of 8 Oct 2026</span></span></span></p>
+        <div class="pl__acts"><span class="m m--act pl__go"><a class="cl-btn cl-btn--line" href="https://www.dupontregistry.com/car/ferrari/812--gts/2021/ZFF97CMA7M0260572/616145" target="_blank" rel="noopener">View listing <span aria-hidden="true">↗</span><span class="sr"> — 2021 Ferrari 812 GTS on duPont REGISTRY, opens in a new tab</span></a></span></div>
+      </article>
+
+      <article class="sl sl--car" data-step="3" data-car="765lt" aria-label="2021 McLaren 765LT">
+        <span class="pl__car" aria-hidden="true"><span class="co__img" data-co="765lt"></span></span>
+        <p class="pl__eye"><span class="m"><span class="ln">03 / 03 · 2021 · McLaren · Southern California</span></span></p>
+        <h3 class="pl__t"><span class="m"><span class="ln">765LT.</span></span></h3>
+        <p class="pl__d"><span class="m"><span class="ln"><span>$799,987</span><span>8,195 mi</span><span>As of 8 Oct 2026</span></span></span></p>
+        <div class="pl__acts"><span class="m m--act pl__go"><a class="cl-btn cl-btn--line" href="https://www.dupontregistry.com/car/mclaren/765lt/2021/SBM14RCAXMW765633/635078" target="_blank" rel="noopener">View listing <span aria-hidden="true">↗</span><span class="sr"> — 2021 McLaren 765LT on duPont REGISTRY, opens in a new tab</span></a></span>
+          <span class="m m--act pl__go pl__go--all"><a class="cl-btn cl-btn--red" href="inventory.html" data-inv-link>Browse all <!--@count-all-->64<!--/@count-all--> cars <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></span></div>
+      </article>
+    </div>
+
+    <div class="cl__tab" role="group" aria-label="Three cars from the collection">
+      <div class="cl__floor" aria-hidden="true"></div>
+      <figure class="co" data-co="812" data-car="812">
+        <a class="co__a" href="https://www.dupontregistry.com/car/ferrari/812--gts/2021/ZFF97CMA7M0260572/616145" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><span class="co__img" role="img" aria-label="2021 Ferrari 812 GTS in blue, side profile"></span></a>
+      </figure>
+      <figure class="co" data-co="dbs" data-car="dbs">
+        <a class="co__a" href="https://www.dupontregistry.com/car/aston--martin/dbs/2009/SCFAB05D09GE00711/635055" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><span class="co__img" role="img" aria-label="2009 Aston Martin DBS in black, front three-quarter"></span></a>
+      </figure>
+      <figure class="co" data-co="765lt" data-car="765lt">
+        <a class="co__a" href="https://www.dupontregistry.com/car/mclaren/765lt/2021/SBM14RCAXMW765633/635078" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><span class="co__img" role="img" aria-label="2021 McLaren 765LT in orange, front three-quarter, its nose entering the frame"></span></a>
+      </figure>
+      <p class="cl__credit">Temporary cut-outs · photographs duPont REGISTRY listings, 8 Oct 2026</p>
+    </div>
+  </div>
+  <!--@finder-index--><script type="application/json" data-finder-index>[["Porsche", "718 Boxster", "socal", "2021 2021 Porsche 718 Boxster Silver  WP0CD2A89MS232687  Southern California"], ["Ferrari", "488 Pista", "socal", "2020 2020 Ferrari 488 Pista White Automatic ZFF90HLAXL0252273 CW252273 Southern California"], ["BMW", "Z8", "naples", "2002 2002 BMW Z8 Silver Automatic WBAEJ13442AH61652 CNH61652 Naples"], ["Mercedes-Benz", "AMG SL 55", "miami", "2022 2022 Mercedes-Benz AMG SL 55 Black Automatic W1KVK8AB8NF007383 PM007383 Miami"], ["Porsche", "911 Speedster", "socal", "2019 2019 Porsche 911 Speedster Silver Manual WP0CF2A98KS172451 CW172451 Southern California"], ["Ferrari", "458 Spider", "socal", "2013 2013 Ferrari 458 Spider Red Automatic ZFF68NHA5D0190771 D190771 Southern California"], ["Ford", "GT", "naples", "2005 2005 Ford GT White Automatic 1FAFP90S95Y401251 PN401251 Naples"], ["Ferrari", "488 Spider", "naples", "2019 2019 Ferrari 488 Spider White Automatic ZFF80AMA4K0238188 PN238188 Naples"], ["Lamborghini", "Urus SE", "miami", "2025 2025 Lamborghini Urus SE Gray Automatic ZPBUD6ZL0SLA37095 PMA37095 Miami"], ["Porsche", "911 Sport Classic", "socal", "2023 2023 Porsche 911 Sport Classic Green Automatic WP0AG2A99PS252241 241 Southern California"], ["Porsche", "911 GT3", "socal", "2022 2022 Porsche 911 GT3 Silver Automatic WP0AC2A97NS270584 0584 Southern California"], ["Porsche", "911 GT2 RS", "naples", "2018 2018 Porsche 911 GT2 RS  Automatic WP0AE2A9XJS185288 PN185288 Naples"], ["Aston Martin", "DBS", "socal", "2009 2009 Aston Martin DBS Silver Automatic SCFAB05D29GE00516 CE4038 Southern California"], ["Ford", "Mustang Shelby GT500", "socal", "2021 2021 Ford Mustang Shelby GT500 Silver Automatic 1FA6P8SJ0M5501902 CB4073 Southern California"], ["McLaren", "765LT", "socal", "2021 2021 McLaren 765LT Orange Automatic SBM14RCAXMW765633 PW765633 Southern California"], ["Porsche", "911 GT3 RS", "socal", "2016 2016 Porsche 911 GT3 RS Orange Automatic WP0AF2A91GS192099 PW192099 Southern California"], ["Aston Martin", "DBS", "socal", "2009 2009 Aston Martin DBS Black Automatic SCFAB05D09GE00711 CE4039 Southern California"], ["Ford", "Mustang Shelby GT500", "socal", "2021 2021 Ford Mustang Shelby GT500 Red Automatic 1FA6P8SJXM5503141 PW503141 Southern California"], ["Porsche", "Cayenne Turbo", "socal", "2024 2024 Porsche Cayenne Turbo Black Automatic WP1BM2AY8RDA71271 CWA71271 Southern California"], ["Ford", "Mustang Shelby GT350", "socal", "2020 2020 Ford Mustang Shelby GT350 Silver Manual 1FA6P8JZ7L5550696 TW550696 Southern California"], ["Porsche", "911 GT2 RS", "naples", "2018 2018 Porsche 911 GT2 RS Black Automatic WP0AE2A90JS186109 PN186109 Naples"], ["Porsche", "718 Cayman GTS", "socal", "2022 2022 Porsche 718 Cayman GTS White Automatic WP0AD2A88NS268363 CW268363 Southern California"], ["Mazda", "MX-5 Miata", "socal", "2016 2016 Mazda MX-5 Miata Red Manual JM1NDAD77G0115793 CB4098 Southern California"], ["Porsche", "911 GT3 RS", "socal", "2019 2019 Porsche 911 GT3 RS Blue Automatic WP0AF2A94KS165391 P Southern California"], ["Audi", "R8", "socal", "2011 2011 Audi R8 White Automatic WUATNAFG8BN000412 P1312 Southern California"], ["Chevrolet", "Corvette ZR1", "socal", "2027 2027 Chevrolet Corvette ZR1 Silver Automatic 1G1YR2D7XV5900035 P4067 Southern California"], ["Ford", "GT", "socal", "2006 2006 Ford GT Red Manual 1FAFP90S76Y401802 P4087 Southern California"], ["Porsche", "911 GT3 RS", "naples", "2025 2025 Porsche 911 GT3 RS Black Automatic WP0AF2A95SS279318 PN279318 Naples"], ["Ferrari", "458 Speciale", "socal", "2015 2015 Ferrari 458 Speciale Black Automatic ZFF75VFA7F0204804 P4064 Southern California"], ["Cadillac", "CT5", "miami", "2024 2024 Cadillac CT5 White Automatic 1G6D35R61R0810430 PM810430 Miami"], ["Drakan", "Spyder", "socal", "2015 2015 Drakan Spyder Green Automatic 215S0004 P3297 Southern California"], ["Ferrari", "F430", "socal", "2007 2007 Ferrari F430 Silver Automatic ZFFEW58A870155177 P4092 Southern California"], ["Porsche", "911 Carrera GTS", "socal", "2017 2017 Porsche 911 Carrera GTS Black Automatic WP0AB2A99HS124789 CA4094 Southern California"], ["Mercedes-Benz", "AMG G 63", "socal", "2025 2025 Mercedes-Benz AMG G 63 Gray Automatic W1NWH5AB5SX028783 DR028783 Southern California"], ["Lamborghini", "Urus", "socal", "2024 2024 Lamborghini Urus White  ZPBUB3ZL0RLA32025  Southern California"], ["Audi", "R8", "socal", "2012 2012 Audi R8 Blue  WUAGNAFG0CN002741  Southern California"], ["Ferrari", "488 Spider", "socal", "2017 2017 Ferrari 488 Spider White Automatic ZFF80AMA6H0228111 P4083 Southern California"], ["Jeep", "Wrangler", "naples", "2023 2023 Jeep Wrangler Gray Automatic 1C4HJXFGXPW697133 CN697133 Naples"], ["Land Rover", "Range Rover", "socal", "2024 2024 Land Rover Range Rover White  SAL1P9EU5RA400264  Southern California"], ["Lamborghini", "Huracan STO", "socal", "2021 2021 Lamborghini Huracan STO White Automatic ZHWUA6ZX3MLA17567 PN4063 Southern California"], ["Ford", "Mustang Shelby Super Snake", "socal", "2019 2019 Ford Mustang Shelby Super Snake   1FA6P8CF7K5190041  Southern California"], ["Porsche", "911 GT2 RS", "socal", "2018 2018 Porsche 911 GT2 RS Yellow Automatic WP0AE2A9XJS186084 P4084 Southern California"], ["Lamborghini", "Revuelto", "socal", "2024 2024 Lamborghini Revuelto White Automatic ZHWUC1ZM9RLA00363 CB4079 Southern California"], ["Ferrari", "812 GTS", "socal", "2021 2021 Ferrari 812 GTS Blue Automatic ZFF97CMA7M0260572 P4078 Southern California"], ["Chevrolet", "Corvette Z06", "socal", "2026 2026 Chevrolet Corvette Z06   1G1YF2D37T5602878  Southern California"], ["Porsche", "911 GT3", "socal", "2018 2018 Porsche 911 GT3 Orange Automatic WP0AC2A92JS176865 P2585 Southern California"], ["Audi", "R8", "socal", "2011 2011 Audi R8 Orange  WUAGNAFG6BN003035  Southern California"], ["Porsche", "Macan GTS", "socal", "2022 2022 Porsche Macan GTS White  WP1AF2A52NLB31363  Southern California"], ["Porsche", "911 GT2 RS", "socal", "2018 2018 Porsche 911 GT2 RS Silver  WP0AE2A92JS185110  Southern California"], ["Chevrolet", "Corvette", "socal", "1960 1960 Chevrolet Corvette Red Automatic 00867S104559 DR104559 Southern California"], ["RAM", "2500", "socal", "2024 2024 RAM 2500   3C6UR5FJ0RG254862  Southern California"], ["Porsche", "918 Spyder", "socal", "2015 2015 Porsche 918 Spyder Yellow Automatic WP0CA2A16FS800439 DR800439 Southern California"], ["Mercedes-Benz", "190 SL", "socal", "1961 1961 Mercedes-Benz 190 SL White Automatic 121401000698 DR000698 Southern California"], ["Porsche", "911 GT3", "socal", "2018 2018 Porsche 911 GT3 White Automatic WP0AC2A99JS176555 P4025 Southern California"], ["Ferrari", "GTC4Lusso T", "socal", "2019 2019 Ferrari GTC4Lusso T Blue  ZFF82YNAXK0239928  Southern California"], ["Mercedes-Benz", "Maybach S 580", "miami", "2024 2024 Mercedes-Benz Maybach S 580 Silver Automatic W1K6X7GB5RA281201 D281201 Miami"], ["Dodge", "Viper", "socal", "1999 1999 Dodge Viper Red  1B3ER69E8XV503965  Southern California"], ["Porsche", "911 GT3", "socal", "2018 2018 Porsche 911 GT3 Black  WP0AC2A9XJS175236  Southern California"], ["Ford", "Mustang Shelby GT500", "socal", "2021 2021 Ford Mustang Shelby GT500 Orange  1FA6P8SJ8M5502330  Southern California"], ["Porsche", "911 GT3", "miami", "2024 2024 Porsche 911 GT3 Silver Automatic WP0AC2A95RS263428 C263428 Miami"], ["Nissan", "GT-R", "socal", "2000 2000 Nissan GT-R White Manual BNR34006058 CB3952 Southern California"], ["Porsche", "911 Targa 4S", "socal", "2022 2022 Porsche 911 Targa 4S Silver Automatic WP0BB2A95NS231306 P3908 Southern California"], ["Chevrolet", "C10", "socal", "1971 1971 Chevrolet C10 Orange Automatic CE141B613226 CV3617 Southern California"], ["Karma", "Revero", "socal", "2025 2025 Karma Revero Black  50GRE4SLXSA000028  Southern California"]]</script><!--/@finder-index-->
+</section>

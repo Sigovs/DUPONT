@@ -1,0 +1,116 @@
+/* 04 · THE ART OF SELLING — one composition, one CTA, no form. MIRRORED (round 3): the hero opening owns
+   type-left / macro-right, so here the photograph is the LEFT panel and the type the RIGHT column.
+   Night field on the right holds the slot (header + 6vh, right column ending at the 120px gutter): a three-line didone staircase,
+   one line of lead, one red CTA. The photograph is a panel on the right whose left edge leans at the house angle
+   (16% of the stage width over its height — the blade's lean). All type sits on solid ground: no scrim, no overlay.
+   Motion (section.js): the panel opens behind the angled edge from the right while the photo drifts in more slowly;
+   the slot staircases in from the left; then a still hold ≥45vh. */
+
+.s-sell {
+  --sell-top: 52%;                           /* the panel's slanted RIGHT edge: x at the top … */
+  --sell-bot: 36%;                           /* … and at the bottom (16% lean, the blade's "/") */
+  --sell-col: min(36vw, 700px);              /* the type column, right-aligned to the gutter */
+  --sell-drift: 6vw;                         /* how far the photo drifts behind the edge on entry */
+  position: relative;
+  background: var(--c-night);
+  color: var(--c-ivory);
+}
+.s-sell .sell-stage {
+  position: relative;
+  height: 100vh; height: 100svh; min-height: 640px;
+  overflow: hidden;
+}
+
+/* ---------- photo panel ---------- */
+.s-sell .sell-panel {
+  position: absolute; z-index: 1; margin: 0;
+  left: 0; right: 0; top: 0; bottom: 0;          /* full stage: the lean is the blade's; the header covers the top band */
+  clip-path: polygon(0 0, var(--sell-top) 0, var(--sell-bot) 100%, 0 100%);
+}
+.s-sell .sell-photo {
+  position: absolute; top: var(--hdr-h); bottom: 0; right: 0;   /* the frame starts under the header: air above the flip-cover */
+  left: 0; right: calc(100% - var(--sell-top) - 2%);
+}
+.s-sell .sell-photo img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: var(--sell-op, 30% 0%);
+}
+
+/* ---------- slot ---------- */
+.s-sell .sell-slot {
+  position: absolute; z-index: 2;
+  left: calc(100% - var(--gutter) - var(--sell-col)); top: calc(var(--hdr-h) + 6vh);
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.s-sell .m { display: block; overflow: hidden; padding: 0.1em 0.5em 0.14em; margin: -0.1em -0.5em -0.14em; }
+.s-sell .m--act { padding: 8px 12px; margin: -8px -12px; }
+.s-sell .m > .ln { display: block; width: fit-content; }
+.s-sell .sell-eyebrow {
+  margin: 0 0 var(--s-5);
+  font-size: var(--fs-ui); font-weight: 600; line-height: 1.6;
+  letter-spacing: 0.22em; text-transform: uppercase;
+}
+.s-sell .sell-head {
+  margin: 0;
+  font-family: var(--f-display); font-weight: 500; font-optical-sizing: auto;
+  font-size: min(8.4vw, 15svh); line-height: 0.92; letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.s-sell .sell-lead {
+  margin: var(--s-7) 0 0; max-width: 32em;
+  font-size: var(--fs-rec); line-height: var(--lh-body);
+}
+.s-sell .m--act { margin-top: calc(var(--s-6) - 8px); }
+.s-sell .sell-acts { margin: 0; }
+.s-sell .sell-btn {
+  display: inline-flex; align-items: center; gap: var(--s-4);
+  height: 56px; padding: 0 var(--s-6);
+  background: var(--c-red); color: var(--c-ivory);
+  font-family: var(--f-body); font-size: var(--fs-ui); font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
+  transition: background-color var(--dur-ui) var(--ease-out);
+}
+.s-sell .sell-btn svg { width: 16px; height: 16px; transition: transform var(--dur-ui) var(--ease-out); }
+.s-sell .sell-btn:hover { background: var(--c-red-deep); }
+.s-sell .sell-btn:hover svg, .s-sell .sell-btn:focus-visible svg { transform: translateX(4px); }
+
+/* the caption: the bottom bar, on the night field, like the hero's showroom line */
+.s-sell .sell-cap {
+  position: absolute; z-index: 2; margin: 0;
+  left: calc(100% - var(--gutter) - var(--sell-col)); bottom: var(--bar-b);
+  max-width: var(--sell-col);
+  font-size: var(--fs-ui); font-weight: 600; letter-spacing: 0.14em; line-height: 1.6; text-transform: uppercase;
+  color: var(--c-silver);
+}
+
+/* motion mode: sticky stage over a 60vh runway */
+.s-sell.is-live { height: calc(100vh + var(--sell-run, 60vh)); height: calc(100svh + var(--sell-run, 60vh)); }
+.s-sell.is-live .sell-stage { position: sticky; top: 0; }
+.js-motion .s-sell.is-live .ln, .js-motion .s-sell.is-live .sell-photo { will-change: transform; }
+
+/* =====================================================================
+   Narrow + portrait: the photograph is a plate under the header with the angled
+   lower edge; the slot sits below it on the night ground. No pin.
+   ===================================================================== */
+@media (max-width: 1100px), (orientation: portrait) {
+  .s-sell .sell-stage { height: auto; min-height: 0; overflow: visible; padding-bottom: var(--s-9); }
+  .s-sell .sell-panel {
+    position: relative; top: auto; height: min(62svh, 120vw); margin-top: var(--hdr-h);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 9vw));
+  }
+  .s-sell .sell-photo { left: 0; right: 0; top: 0; }
+  .s-sell .sell-photo img { object-position: var(--sell-op-m, 46% 0%); }
+  .s-sell .sell-slot { position: relative; left: auto; top: auto; padding: var(--s-7) var(--gutter) 0; }
+  .s-sell .sell-head { font-size: clamp(56px, 15vw, 132px); }
+  .s-sell .sell-lead { margin-top: var(--s-6); }
+  .s-sell .sell-cap { position: relative; left: auto; bottom: auto; max-width: none; padding: var(--s-8) var(--gutter) 0; }
+}
+@media (max-width: 520px) {
+  .s-sell .m--act, .s-sell .sell-acts, .s-sell .sell-btn { width: 100%; }
+  .s-sell .m--act { width: calc(100% + 24px); }
+  .s-sell .sell-btn { justify-content: space-between; }
+}
+@media (max-width: 1100px), (orientation: portrait) {
+  .s-sell .m { padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; }   /* no staircase here: no clip pad needed */
+}
+.s-sell .nw { white-space: nowrap; }

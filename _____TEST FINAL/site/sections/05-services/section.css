@@ -1,0 +1,136 @@
+/* 05 · BEYOND THE DRIVE — Services. One held field: type slot top-left and the chapter index low-left on night;
+   the photograph is a real mass — half the width, bled to the right edge and the bottom, straight-edged (Sell owns
+   the angled photo-left panel). Every selector is scoped to .s-services. */
+
+.s-services {
+  --sv-h: calc(100svh - var(--hdr-h));            /* the visible field under the header */
+  --sv-photo: 50vw;                               /* photo mass: half the width, bled right */
+  --sv-head: calc(var(--fs-display) * 0.8);       /* 83px at 1920 */
+  --sv-ix: calc(var(--fs-display) * 0.4);         /* index names: 42px at 1920 */
+  --sv-run: 210svh;                               /* three chapters x 70svh of stillness */
+  position: relative;
+  background: var(--c-night);
+  color: var(--c-ivory);
+}
+
+/* ---------- photographs (low-key crops: no studio-cyc pixel in any frame) ---------- */
+.s-services .sv__fig { position: relative; margin: 0; overflow: hidden; background: var(--c-charcoal); }
+.s-services .sv__fig img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--op, 50% 50%); }
+
+/* ---------- type ---------- */
+.s-services .sv__ch > * { margin: 0; }
+.s-services .sv__ch { display: flex; flex-direction: column; align-items: flex-start; }
+.s-services .sv__eye, .s-services .sv__cap, .s-services .sv__ix-h, .s-services .sv__index span {
+  font-size: var(--fs-ui); font-weight: 600; line-height: var(--lh-caps);
+  letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+}
+.s-services i { font-style: normal; }
+.s-services .nw { white-space: nowrap; }
+.s-services .sv__head {
+  margin-top: var(--s-5) !important;
+  font-family: var(--f-display); font-weight: 500;
+  font-size: var(--sv-head); line-height: var(--lh-head); letter-spacing: -0.005em; text-transform: uppercase;
+}
+.s-services .sv__lead { margin-top: var(--s-6) !important; max-width: 26em; font-size: var(--fs-rec); line-height: var(--lh-body); text-wrap: pretty; }
+.s-services .sv__tbc { margin-top: var(--s-3) !important; max-width: 30em; font-size: var(--fs-body); color: var(--c-silver); text-wrap: pretty; }
+.s-services .sv__tbc span { border-bottom: 1px dashed var(--c-line-strong); }
+.s-services .sv__act { margin-top: var(--s-7) !important; }
+.s-services .sv__cap { margin-top: var(--s-7) !important; color: var(--c-silver); letter-spacing: var(--tr-plate); text-wrap: balance; }
+
+.s-services .sv__btn {
+  display: inline-flex; align-items: center; gap: var(--s-4);
+  height: var(--ctl-row); padding: 0 var(--s-6); white-space: nowrap;
+  font-size: var(--fs-ui); font-weight: 600; letter-spacing: var(--tr-cta); text-transform: uppercase;
+  color: var(--c-ivory); text-decoration: none; border: 1px solid rgba(242, 238, 230, 0.7);
+  transition: background-color var(--dur-ui) var(--ease-out);
+}
+.s-services .sv__btn svg { width: 16px; height: 16px; transition: transform var(--dur-ui) var(--ease-out); }
+.s-services .sv__btn:hover { background: rgba(242, 238, 230, 0.1); }
+.s-services .sv__btn:hover svg { transform: translateX(4px); }
+
+.s-services .sv__anchor { position: absolute; left: 0; width: 1px; height: 1px; top: calc(-1 * var(--hdr-h)); }
+.s-services .sv__index { display: none; }
+
+/* =====================================================================
+   STATIC (reduced motion, no JS): one frame per chapter — type left, photo mass right.
+   ===================================================================== */
+.s-services .sv__plate, .s-services .sv__slot { display: contents; }
+.s-services .sv__pin { display: grid; }
+@media (min-width: 1024px) {
+  .s-services .sv__pin {
+    grid-template-columns: minmax(0, 1fr) var(--sv-photo);
+    column-gap: var(--s-9);
+    padding: var(--hdr-h) 0 0 var(--gutter);
+  }
+  .s-services .sv__fig { grid-column: 2; height: var(--sv-h); }
+  .s-services .sv__ch { grid-column: 1; min-height: var(--sv-h); padding-top: max(var(--s-6), calc(15.9svh - var(--hdr-h))); }
+  .s-services .sv__fig[data-k="0"], .s-services .sv__ch[data-k="0"] { grid-row: 1; }
+  .s-services .sv__fig[data-k="1"], .s-services .sv__ch[data-k="1"] { grid-row: 2; }
+  .s-services .sv__fig[data-k="2"], .s-services .sv__ch[data-k="2"] { grid-row: 3; }
+}
+
+/* =====================================================================
+   LIVE (>=1024px, motion): the field is held (CSS sticky inside the runway); chapters cut in place.
+   ===================================================================== */
+@media (min-width: 1024px) {
+  .s-services.is-live { height: calc(var(--hdr-h) + var(--sv-h) + var(--sv-run)); }
+  .s-services.is-live .sv__pin {
+    position: sticky; top: var(--hdr-h);
+    height: var(--sv-h); margin-top: var(--hdr-h);
+    padding-top: 0;
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+  .s-services.is-live .sv__fig { grid-row: 1 / -1; grid-column: 2; height: auto; }
+  .s-services.is-live .sv__fig img { will-change: transform; }
+  .s-services.is-live .sv__fig { clip-path: inset(100% 0 0 0); }
+  .s-services.is-live .sv__fig.is-on { clip-path: none; }
+  .s-services.is-live .sv__ch { grid-row: 1; grid-column: 1; min-height: 0; visibility: hidden; }
+  .s-services.is-live .sv__ch.is-on { visibility: visible; }
+
+  .s-services.is-live .sv__index {
+    display: block; grid-row: 2; grid-column: 1; align-self: end;
+    padding-bottom: var(--s-8);
+  }
+  .s-services .sv__ix-h { margin: 0 0 var(--s-4); color: var(--c-silver); }
+  .s-services .sv__index ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-7); }
+  .s-services .sv__index a {
+    position: relative; display: inline-flex; align-items: baseline; gap: var(--s-3);
+    min-height: var(--tap); padding-top: var(--s-4);
+    color: var(--c-silver); text-decoration: none;
+    transition: color var(--dur-ui) var(--ease-out);
+  }
+  .s-services .sv__index b {
+    font-family: var(--f-display); font-weight: 500; font-size: var(--sv-ix); line-height: 1.1; letter-spacing: -0.005em;
+    font-optical-sizing: none; font-variation-settings: var(--fv-display);
+  }
+  /* the active rule: a 2px red line over the active name */
+  .s-services .sv__index a::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px;
+    background: var(--c-red); transform: scaleX(0); transform-origin: left;
+    transition: transform var(--dur-ui) var(--ease-out);
+  }
+  .s-services .sv__index a:hover, .s-services .sv__index a[aria-current="true"] { color: var(--c-ivory); }
+  .s-services .sv__index a[aria-current="true"]::before { transform: none; }
+}
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .s-services .sv__pin { column-gap: var(--s-7); }
+  .s-services { --sv-head: clamp(48px, 5vw, 68px); --sv-ix: clamp(26px, 2.6vw, 34px); }
+  .s-services .sv__index ol { gap: var(--s-2) var(--s-6); }
+}
+
+/* =====================================================================
+   ≤1023px: authored stack — photo band, then type on night
+   ===================================================================== */
+@media (max-width: 1023px) {
+  .s-services { padding: var(--s-8) 0 var(--s-9); }
+  .s-services .sv__pin { grid-template-columns: minmax(0, 1fr); }
+  .s-services .sv__fig { aspect-ratio: 4 / 5; max-height: 72svh; width: 100%; }
+  .s-services .sv__ch { padding: var(--s-7) var(--gutter) var(--s-9); }
+  .s-services .sv__fig[data-k="0"] { grid-row: 1; } .s-services .sv__ch[data-k="0"] { grid-row: 2; }
+  .s-services .sv__fig[data-k="1"] { grid-row: 3; } .s-services .sv__ch[data-k="1"] { grid-row: 4; }
+  .s-services .sv__fig[data-k="2"] { grid-row: 5; } .s-services .sv__ch[data-k="2"] { grid-row: 6; }
+  .s-services .sv__head { font-size: clamp(44px, 9vw, 72px); }
+}
+@media (max-width: 599px) {
+  .s-services .sv__btn { width: 100%; justify-content: space-between; }
+}

@@ -1,0 +1,51 @@
+<section id="about" data-section="03-locations" class="s-locations" aria-label="About and locations">
+  <!-- Two stops, one scene.
+       Stop A (#about = the section top): the statement over the Naples showroom photograph (a full-width band).
+       Stop B (#locations = the anchor below, placed at the start of the second hold): three destinations — the map
+       draws, the three rooms rise, and the same photograph flies down into the row as the Naples plate.
+       Photo: listing 607112, frame 009, taken at the Naples building (see _build/build.py). Swap via {{IMG}} only. -->
+  <span id="locations" class="loc-anchor-b" aria-hidden="true"></span>
+  <div class="loc-stage" data-stage>
+
+    <div class="loc-frame loc-frame--a" data-frame="a">
+      <div class="loc-slot loc-slot--a">
+        <p class="loc-eyebrow">{{EYEBROW_A}}</p>
+        <h2 class="loc-head loc-head--a" id="loc-ha">{{HEAD_A}}</h2>
+      </div>
+      <div class="loc-side">
+        <p class="loc-cap">{{CAP_A}}</p>
+        <div class="m"><p class="ln loc-lead">duPont REGISTRY Select is one registry of exotic and collector cars, shown in three showrooms on two coasts. Every car is listed once, with the showroom where it&nbsp;stands.</p></div>
+      </div>
+      <figure class="loc-band" data-band>
+        <img src="{{IMG}}-1920.webp" srcset="{{SRCSET}}" sizes="100vw" width="1920" height="1280" loading="lazy" decoding="async" alt="{{ALT}}">
+      </figure>
+    </div>
+
+    <div class="loc-frame loc-frame--b" data-frame="b">
+      <div class="loc-slot loc-slot--b">
+        <p class="loc-eyebrow">{{EYEBROW_B}}</p>
+        <h2 class="loc-head" id="loc-hb">{{HEAD_B}}</h2>
+      </div>
+
+      <div class="loc-map" data-map>
+        <svg class="loc-map__svg" viewBox="0 0 {{W}} {{H}}" aria-hidden="true" focusable="false">
+          <path class="loc-map__states" d="{{STATES}}"/>
+          <path class="loc-map__nation" d="{{NATION}}"/>
+        </svg>
+        {{MARKERS}}
+      </div>
+
+      <div class="loc-row">
+        <figure class="loc-plate" data-plate>
+          <figcaption class="loc-plate__cap">{{CAP_PLATE}}</figcaption>
+          <div class="loc-plate__img" data-plate-img>
+            <img src="{{IMG}}-1080.webp" srcset="{{SRCSET}}" sizes="40vw" width="1920" height="1280" loading="lazy" decoding="async" alt="">
+          </div>
+        </figure>
+        <ol class="loc-rooms" data-rooms aria-label="Select showrooms, west to east">{{ROOMS}}
+        </ol>
+      </div>
+    </div>
+
+  </div>
+</section>

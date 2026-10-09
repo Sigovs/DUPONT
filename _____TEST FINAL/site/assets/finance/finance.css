@@ -1,0 +1,74 @@
+/* finance.html — one held field (type slot upper-left, a TEMPORARY cut-out in a leaning graphite window on the right,
+   standing on a floor hairline), then the practical sheet from 08. Tokens only. */
+
+.fin { background: var(--c-night); color: var(--c-ivory); }
+.fin__scene {
+  --fin-win-h: min(64svh, 700px);
+  --fin-lean: calc(var(--fin-win-h) * 0.284);
+  position: relative;
+  min-height: 100svh;
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--s-9); align-items: start;
+  padding: max(calc(var(--hdr-h) + var(--s-6)), 15.9svh) var(--gutter) var(--s-9);
+}
+.fin i { font-style: normal; }
+.fin__slot > * { margin: 0; }
+.fin__eye, .fin__cap {
+  font-size: var(--fs-ui); font-weight: 600; line-height: var(--lh-caps); letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+}
+.fin__head {
+  margin-top: var(--s-5) !important;
+  font-family: var(--f-display); font-weight: 500;
+  font-size: var(--fs-display); line-height: var(--lh-head); letter-spacing: -0.005em; text-transform: uppercase;
+}
+.fin__lead { margin-top: var(--s-6) !important; max-width: 26em; font-size: var(--fs-rec); line-height: var(--lh-body); }
+.fin__tbc { margin-top: var(--s-3) !important; font-size: var(--fs-body); color: var(--c-silver); }
+.fin__tbc span { border-bottom: 1px dashed var(--c-line-strong); }
+.fin__acts { margin-top: var(--s-7) !important; display: flex; flex-wrap: wrap; gap: var(--s-4); }
+.fin__btn {
+  display: inline-flex; align-items: center; gap: var(--s-4);
+  height: var(--ctl-row); padding: 0 var(--s-6); white-space: nowrap;
+  font-size: var(--fs-ui); font-weight: 600; letter-spacing: var(--tr-cta); text-transform: uppercase;
+  color: var(--c-ivory); text-decoration: none; border: 1px solid rgba(242, 238, 230, 0.7);
+  transition: background-color var(--dur-ui) var(--ease-out);
+}
+.fin__btn svg { width: 16px; height: 16px; }
+.fin__btn:hover { background: rgba(242, 238, 230, 0.1); }
+.fin__btn--red { background: var(--c-red); border-color: var(--c-red); }
+.fin__btn--red:hover { background: var(--c-red-deep); border-color: var(--c-red-deep); }
+
+/* the window: a graphite field bled to the right edge, its left edge leaning at the house angle; the car stands
+   on the floor hairline, nose toward the type */
+.fin__fig { margin: 0 calc(-1 * var(--gutter)) 0 0; }
+.fin__win {
+  position: relative;
+  height: var(--fin-win-h); min-height: 360px;
+  background: var(--c-graphite);
+  clip-path: polygon(var(--fin-lean) 0, 100% 0, 100% 100%, 0 100%);
+}
+.fin__floor { position: absolute; left: 0; right: 0; bottom: 20%; height: 1px; background: var(--c-line); }
+.fin__car {
+  position: absolute; left: calc(50% + var(--fin-lean) * 0.25); bottom: 20%; transform: translateX(-50%);
+  width: 76%; height: auto; max-width: none;
+}
+.fin__cap {
+  margin-top: var(--s-4); padding-right: var(--gutter);
+  color: var(--c-silver); letter-spacing: var(--tr-plate); text-wrap: balance;
+}
+
+.sh--foot { padding-top: 0; }
+.sh--foot .sh__sheet { margin-top: 0; }
+
+@media (max-width: 1023px) {
+  .fin__scene { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); min-height: 0; padding-top: calc(var(--hdr-h) + var(--s-8)); }
+  .fin__win { height: auto; aspect-ratio: 4 / 3; min-height: 0; }
+  .fin__scene { --fin-lean: 48px; }
+  .fin__head { font-size: clamp(56px, 14vw, 96px); }
+}
+@media (max-width: 599px) {
+  .fin__btn { width: 100%; justify-content: space-between; }
+  .fin__win { aspect-ratio: 1 / 1; }
+  .fin__car { width: 96%; }
+}
+@media (max-width: 599px) {
+  .fin__car { width: 86%; left: calc(50% + var(--fin-lean) * 0.25); }
+}

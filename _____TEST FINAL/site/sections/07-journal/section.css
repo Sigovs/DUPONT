@@ -1,0 +1,87 @@
+/* 07 · THE SELECT JOURNAL — three daylight frames graded as one family, layered on charcoal. Desktop planes sit on a
+   1920-unit field (--u) so the drawing scales as one; the two accent planes rise past the aerial at their own rates.
+   Every selector is scoped to .s-journal. */
+
+.s-journal {
+  --u: calc(100vw / 1920);                     /* one design pixel at 1920 */
+  --jn-head: var(--fs-display);
+  position: relative;
+  background: var(--c-charcoal);
+  color: var(--c-ivory);
+  overflow: hidden;                            /* planes travel; nothing may widen the page */
+}
+.s-journal .jn__p { margin: 0; }
+.s-journal .jn__p img { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--c-graphite); }
+.s-journal .jn__p figcaption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- type ---------- */
+.s-journal .jn__slot > * { margin: 0; }
+.s-journal i { font-style: normal; }
+.s-journal .jn__eye, .s-journal .jn__ig {
+  font-size: var(--fs-ui); font-weight: 600; line-height: var(--lh-caps); letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+  width: fit-content;
+}
+.s-journal .jn__head {
+  margin-top: var(--s-5) !important;
+  font-family: var(--f-display); font-weight: 500;
+  font-size: var(--jn-head); line-height: var(--lh-head); letter-spacing: -0.005em; text-transform: uppercase;
+}
+.s-journal .jn__head span { display: block; width: fit-content; }
+.s-journal .jn__lead { margin-top: var(--s-6) !important; max-width: 28em; font-size: var(--fs-rec); line-height: var(--lh-body); text-wrap: pretty; }
+.s-journal .jn__acts { margin-top: var(--s-7) !important; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-6); }
+.s-journal .jn__btn {
+  display: inline-flex; align-items: center; gap: var(--s-4);
+  height: var(--ctl-row); padding: 0 var(--s-6);
+  font-size: var(--fs-ui); font-weight: 600; letter-spacing: var(--tr-cta); text-transform: uppercase; white-space: nowrap;
+  color: var(--c-ivory); text-decoration: none; border: 1px solid rgba(242, 238, 230, 0.7);
+  transition: background-color var(--dur-ui) var(--ease-out);
+}
+.s-journal .jn__btn svg { width: 14px; height: 14px; }
+.s-journal .jn__btn:hover { background: rgba(242, 238, 230, 0.1); }
+.s-journal .jn__ig { letter-spacing: var(--tr-cta); }
+.s-journal .jn__ig span { color: var(--c-silver); border-bottom: 1px dashed var(--c-line-strong); }
+.s-journal .jn__credit { max-width: 34em; font-size: var(--fs-ui); line-height: 1.5; color: var(--c-silver); }
+
+/* =====================================================================
+   ≥1024px: two columns inside the gutters — the slot left; the aerial and, under it, the GT2 RS pair right
+   (both on the aerial's two edges). Units: 1920 design px.
+   ===================================================================== */
+@media (min-width: 1024px) {
+  .s-journal {
+    display: grid; grid-template-columns: minmax(0, 1fr) calc(960 * var(--u)); column-gap: calc(96 * var(--u));
+    align-items: start;
+    padding: max(calc(var(--hdr-h) + var(--s-8)), calc(172 * var(--u))) var(--gutter) var(--s-10);
+  }
+  .s-journal .jn__slot { grid-column: 1; grid-row: 1; }
+  .s-journal .jn__p--1 { grid-column: 2; grid-row: 1; aspect-ratio: 3 / 2; }
+  /* row 2: the dark detail, wide, from the gutter across under the aerial (a diagonal: text and aerial above,
+     detail below-left); the credit closes the lower-right beside it */
+  .s-journal .jn__planes {
+    grid-column: 1 / -1; grid-row: 2; margin-top: calc(96 * var(--u));
+    display: grid; grid-template-columns: calc(1104 * var(--u)) minmax(0, 1fr); column-gap: calc(96 * var(--u)); align-items: end;
+  }
+  .s-journal .jn__p--2 { grid-column: 1; grid-row: 1; width: 100%; aspect-ratio: 3 / 2; }
+  .s-journal .jn__planes .jn__credit { grid-column: 2; grid-row: 1; margin: 0 !important; padding-bottom: var(--s-2); }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .s-journal { --jn-head: clamp(44px, 5vw, 64px); }
+  .s-journal .jn__lead { font-size: var(--fs-body); }
+  .s-journal .jn__btn { padding: 0 var(--s-4); letter-spacing: 0.1em; }
+}
+
+/* =====================================================================
+   ≤1023px: authored stack
+   ===================================================================== */
+@media (max-width: 1023px) {
+  .s-journal { padding: var(--s-9) var(--gutter); display: flex; flex-direction: column; }
+  .s-journal .jn__slot { order: 1; }
+  .s-journal .jn__head { font-size: clamp(44px, 10vw, 80px); }
+  .s-journal .jn__credit { margin-top: var(--s-6) !important; }
+  .s-journal .jn__p--1 { order: 2; margin-top: var(--s-8); aspect-ratio: 3 / 2; }
+  .s-journal .jn__planes { order: 3; margin-top: var(--s-4); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
+  .s-journal .jn__p--2 { aspect-ratio: 3 / 2; width: 82%; justify-self: end; }
+}
+@media (max-width: 599px) {
+  .s-journal .jn__eye { letter-spacing: 0.16em; }
+  .s-journal .jn__btn { width: 100%; justify-content: space-between; padding: 0 var(--s-5); letter-spacing: 0.12em; }
+}

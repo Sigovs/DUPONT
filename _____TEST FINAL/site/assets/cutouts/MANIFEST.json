@@ -1,0 +1,1278 @@
+{
+ "status": "TEMPORARY cut-outs - non-AI local key (flood-fill of white cyc + 1px choke + colour decontamination). Final high-quality cut-outs will be supplied later; replace files 1:1 by name.",
+ "generated_by": "site/assets/cutouts/_build/cutout.py (review sheet: _build/review.py -> _review.jpg)",
+ "rules": "Crisp edge (<=1px AA), no feather/blur/glow/drawn shadow, never mirrored or distorted. Floor reflection removed at the tyre-contact line.",
+ "coords": "bbox_in_source = [x0,y0,x1,y1] in source px; tyre_contact_y = px from the top of the cut-out to the lowest tyre row (car stands on this row); tyre_contacts = [x,y] per wheel in cut-out px; -960 file = same crop scaled to 960 px wide.",
+ "rejected": [
+  {
+   "listing_id": "638928",
+   "car": "Ferrari 488 Pista",
+   "reason": "White paint on white cyc - silhouette cannot be separated without AI matting."
+  },
+  {
+   "listing_id": "584674",
+   "car": "Porsche 911 GT3 (Miami)",
+   "reason": "Silver car on light grey gradient seamless, sources only 1024x~670 - body highlights equal the background; not keyable without AI."
+  },
+  {
+   "listing_id": "635440",
+   "car": "Porsche 911 GT2 RS (Naples)",
+   "reason": "Outdoor photos on pavers with fence/trees/sky (639x426) - no cyc to key; needs AI or manual mask."
+  },
+  {
+   "listing_id": "626613/635055 etc.",
+   "car": "frontal/rear views not listed",
+   "reason": "Not cut (not requested); 458 frontal #09 and others can be added to FR in _build/cutout.py."
+  }
+ ],
+ "cutouts": [
+  {
+   "file": "626613-profile.webp",
+   "file_960": "626613-profile-960.webp",
+   "listing_id": "626613",
+   "car": "Ferrari 458 Speciale",
+   "angle": "profile",
+   "facing": "left",
+   "source": "assets/source/626613_2015-ferrari-458-speciale/05_2015-ferrari-458--speciale-1369075-2061967696.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1636,
+    480
+   ],
+   "size_960_px": [
+    960,
+    282
+   ],
+   "bbox_in_source": [
+    156,
+    438,
+    1792,
+    918
+   ],
+   "tyre_contact_y": 478,
+   "tyre_contacts": [
+    [
+     334,
+     478
+    ],
+    [
+     1394,
+     465
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     852.0
+    ],
+    [
+     1919,
+     850.032967032967
+    ]
+   ],
+   "ring_points": 33,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Nose tip leading edge slightly keyed; hood louvres and screen top keep the photographed cyc reflection. Floor/sill shadow removed (cut polyline)."
+  },
+  {
+   "file": "626613-front34.webp",
+   "file_960": "626613-front34-960.webp",
+   "listing_id": "626613",
+   "car": "Ferrari 458 Speciale",
+   "angle": "front34",
+   "facing": "left",
+   "source": "assets/source/626613_2015-ferrari-458-speciale/06_2015-ferrari-458--speciale-1369075-1059166736.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1642,
+    559
+   ],
+   "size_960_px": [
+    960,
+    327
+   ],
+   "bbox_in_source": [
+    148,
+    437,
+    1790,
+    996
+   ],
+   "tyre_contact_y": 557,
+   "tyre_contacts": [
+    [
+     712,
+     557
+    ],
+    [
+     1532,
+     441
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     878.0
+    ],
+    [
+     1919,
+     840.0625
+    ]
+   ],
+   "ring_points": 34,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Glossy top edges keep the photographed cyc reflection (light paint, not a halo). Cut polyline under splitter."
+  },
+  {
+   "file": "635055-front34.webp",
+   "file_960": "635055-front34-960.webp",
+   "listing_id": "635055",
+   "car": "Aston Martin DBS",
+   "angle": "front34",
+   "facing": "left",
+   "source": "assets/source/635055_2009-aston-martin-dbs/04_2009-aston--martin-dbs-187875-1649375302.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1642,
+    603
+   ],
+   "size_960_px": [
+    960,
+    353
+   ],
+   "bbox_in_source": [
+    145,
+    431,
+    1787,
+    1034
+   ],
+   "tyre_contact_y": 601,
+   "tyre_contacts": [
+    [
+     645,
+     601
+    ],
+    [
+     1515,
+     482
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     925.0
+    ],
+    [
+     1919,
+     860.0588235294117
+    ]
+   ],
+   "ring_points": 35,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Hood top edge is light paint reflecting the cyc; small cowl notch at windscreen base. Otherwise clean; cut polyline under splitter/sills."
+  },
+  {
+   "file": "635055-rear34.webp",
+   "file_960": "635055-rear34-960.webp",
+   "listing_id": "635055",
+   "car": "Aston Martin DBS",
+   "angle": "rear34",
+   "facing": "right",
+   "source": "assets/source/635055_2009-aston-martin-dbs/03_2009-aston--martin-dbs-187875-1915993492.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1648,
+    638
+   ],
+   "size_960_px": [
+    960,
+    372
+   ],
+   "bbox_in_source": [
+    133,
+    439,
+    1781,
+    1077
+   ],
+   "tyre_contact_y": 636,
+   "tyre_contacts": [
+    [
+     97,
+     490
+    ],
+    [
+     927,
+     636
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     925.0
+    ],
+    [
+     1919,
+     895.0625
+    ]
+   ],
+   "ring_points": 34,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Floor shows between diffuser fins (correct); glossy roof edge light. Cut polyline."
+  },
+  {
+   "file": "628929-profile.webp",
+   "file_960": "628929-profile-960.webp",
+   "listing_id": "628929",
+   "car": "Ford GT",
+   "angle": "profile",
+   "facing": "right",
+   "source": "assets/source/628929_2006-ford-gt/02_2006-ford-gt-700073-1980698815.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1666,
+    440
+   ],
+   "size_960_px": [
+    960,
+    254
+   ],
+   "bbox_in_source": [
+    127,
+    436,
+    1793,
+    876
+   ],
+   "tyre_contact_y": 438,
+   "tyre_contacts": [
+    [
+     293,
+     438
+    ],
+    [
+     1323,
+     426
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     879.8932038834953
+    ],
+    [
+     1919,
+     857.5359223300972
+    ]
+   ],
+   "ring_points": 33,
+   "pockets_removed": [],
+   "quality": "clean",
+   "note": "Thin dark underbody shadow kept between tyres."
+  },
+  {
+   "file": "628929-front34.webp",
+   "file_960": "628929-front34-960.webp",
+   "listing_id": "628929",
+   "car": "Ford GT",
+   "angle": "front34",
+   "facing": "left",
+   "source": "assets/source/628929_2006-ford-gt/06_2006-ford-gt-700073-1935098049.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1639,
+    551
+   ],
+   "size_960_px": [
+    960,
+    323
+   ],
+   "bbox_in_source": [
+    147,
+    430,
+    1786,
+    981
+   ],
+   "tyre_contact_y": 549,
+   "tyre_contacts": [
+    [
+     723,
+     549
+    ],
+    [
+     1533,
+     406
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     880.0
+    ],
+    [
+     1919,
+     810.0333333333333
+    ]
+   ],
+   "ring_points": 36,
+   "pockets_removed": [],
+   "quality": "clean",
+   "note": "Cut polyline under splitter/sills."
+  },
+  {
+   "file": "628929-frontal.webp",
+   "file_960": "628929-frontal-960.webp",
+   "listing_id": "628929",
+   "car": "Ford GT",
+   "angle": "frontal",
+   "facing": "front",
+   "source": "assets/source/628929_2006-ford-gt/07_2006-ford-gt-700073-837676577.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1144,
+    669
+   ],
+   "size_960_px": [
+    960,
+    561
+   ],
+   "bbox_in_source": [
+    394,
+    300,
+    1538,
+    969
+   ],
+   "tyre_contact_y": 667,
+   "tyre_contacts": [
+    [
+     36,
+     662
+    ],
+    [
+     1076,
+     667
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     968.0
+    ],
+    [
+     1919,
+     968.0
+    ]
+   ],
+   "ring_points": 96,
+   "pockets_removed": [],
+   "quality": "clean",
+   "note": "Flat cut at tyre contact."
+  },
+  {
+   "file": "635078-profile.webp",
+   "file_960": "635078-profile-960.webp",
+   "listing_id": "635078",
+   "car": "McLaren 765LT",
+   "angle": "profile",
+   "facing": "right",
+   "source": "assets/source/635078_2021-mclaren-765lt/02_2021-mclaren-765lt-799987-959625950.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1658,
+    486
+   ],
+   "size_960_px": [
+    960,
+    281
+   ],
+   "bbox_in_source": [
+    134,
+    433,
+    1792,
+    919
+   ],
+   "tyre_contact_y": 484,
+   "tyre_contacts": [
+    [
+     246,
+     484
+    ],
+    [
+     1296,
+     460
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     926.6857142857145
+    ],
+    [
+     1919,
+     882.8228571428576
+    ]
+   ],
+   "ring_points": 34,
+   "pockets_removed": [],
+   "quality": "clean",
+   "note": ""
+  },
+  {
+   "file": "635078-profile-l.webp",
+   "file_960": "635078-profile-l-960.webp",
+   "listing_id": "635078",
+   "car": "McLaren 765LT",
+   "angle": "profile-l",
+   "facing": "left",
+   "source": "assets/source/635078_2021-mclaren-765lt/07_2021-mclaren-765lt-799987-1385787625.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1652,
+    488
+   ],
+   "size_960_px": [
+    960,
+    284
+   ],
+   "bbox_in_source": [
+    135,
+    430,
+    1787,
+    918
+   ],
+   "tyre_contact_y": 486,
+   "tyre_contacts": [
+    [
+     345,
+     486
+    ],
+    [
+     1415,
+     464
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     926.8691588785043
+    ],
+    [
+     1919,
+     887.4130841121494
+    ]
+   ],
+   "ring_points": 35,
+   "pockets_removed": [],
+   "quality": "clean",
+   "note": ""
+  },
+  {
+   "file": "635078-front34.webp",
+   "file_960": "635078-front34-960.webp",
+   "listing_id": "635078",
+   "car": "McLaren 765LT",
+   "angle": "front34",
+   "facing": "left",
+   "source": "assets/source/635078_2021-mclaren-765lt/08_2021-mclaren-765lt-799987-1216898755.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1642,
+    604
+   ],
+   "size_960_px": [
+    960,
+    353
+   ],
+   "bbox_in_source": [
+    134,
+    430,
+    1776,
+    1034
+   ],
+   "tyre_contact_y": 602,
+   "tyre_contacts": [
+    [
+     796,
+     602
+    ],
+    [
+     1556,
+     455
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     935.0
+    ],
+    [
+     1919,
+     840.0714285714286
+    ]
+   ],
+   "ring_points": 32,
+   "pockets_removed": [],
+   "quality": "clean",
+   "note": "Cut polyline under splitter."
+  },
+  {
+   "file": "635078-rear34.webp",
+   "file_960": "635078-rear34-960.webp",
+   "listing_id": "635078",
+   "car": "McLaren 765LT",
+   "angle": "rear34",
+   "facing": "right",
+   "source": "assets/source/635078_2021-mclaren-765lt/06_2021-mclaren-765lt-799987-1401117373.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1651,
+    619
+   ],
+   "size_960_px": [
+    960,
+    360
+   ],
+   "bbox_in_source": [
+    141,
+    430,
+    1792,
+    1049
+   ],
+   "tyre_contact_y": 617,
+   "tyre_contacts": [
+    [
+     129,
+     485
+    ],
+    [
+     969,
+     617
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     850.0
+    ],
+    [
+     1919,
+     850.0615384615385
+    ]
+   ],
+   "ring_points": 36,
+   "pockets_removed": [],
+   "quality": "clean",
+   "note": "Cut polyline under diffuser."
+  },
+  {
+   "file": "602202-profile.webp",
+   "file_960": "602202-profile-960.webp",
+   "listing_id": "602202",
+   "car": "Porsche 918 Spyder",
+   "angle": "profile",
+   "facing": "right",
+   "source": "assets/source/602202_2015-porsche-918-spyder/02_2015-porsche-918--spyder-2990070-1214548845.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1661,
+    469
+   ],
+   "size_960_px": [
+    960,
+    271
+   ],
+   "bbox_in_source": [
+    128,
+    431,
+    1789,
+    900
+   ],
+   "tyre_contact_y": 467,
+   "tyre_contacts": [
+    [
+     272,
+     467
+    ],
+    [
+     1372,
+     444
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     907.3636363636361
+    ],
+    [
+     1919,
+     867.2390909090909
+    ]
+   ],
+   "ring_points": 20,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Light sliver between rear-wing struts (cyc seen through)."
+  },
+  {
+   "file": "602202-profile-l.webp",
+   "file_960": "602202-profile-l-960.webp",
+   "listing_id": "602202",
+   "car": "Porsche 918 Spyder",
+   "angle": "profile-l",
+   "facing": "left",
+   "source": "assets/source/602202_2015-porsche-918-spyder/07_2015-porsche-918--spyder-2990070-1643695682.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1652,
+    454
+   ],
+   "size_960_px": [
+    960,
+    264
+   ],
+   "bbox_in_source": [
+    139,
+    435,
+    1791,
+    889
+   ],
+   "tyre_contact_y": 452,
+   "tyre_contacts": [
+    [
+     301,
+     452
+    ],
+    [
+     1391,
+     452
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     888.0
+    ],
+    [
+     1919,
+     888.0
+    ]
+   ],
+   "ring_points": 23,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Light sliver between rear-wing struts (cyc seen through)."
+  },
+  {
+   "file": "602202-front34.webp",
+   "file_960": "602202-front34-960.webp",
+   "listing_id": "602202",
+   "car": "Porsche 918 Spyder",
+   "angle": "front34",
+   "facing": "left",
+   "source": "assets/source/602202_2015-porsche-918-spyder/08_2015-porsche-918--spyder-2990070-1882969943.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1647,
+    580
+   ],
+   "size_960_px": [
+    960,
+    338
+   ],
+   "bbox_in_source": [
+    140,
+    432,
+    1787,
+    1012
+   ],
+   "tyre_contact_y": 578,
+   "tyre_contacts": [
+    [
+     760,
+     578
+    ],
+    [
+     1520,
+     446
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     900.0
+    ],
+    [
+     1919,
+     845.0344827586207
+    ]
+   ],
+   "ring_points": 33,
+   "pockets_removed": [],
+   "quality": "clean",
+   "note": "Cut polyline under splitter."
+  },
+  {
+   "file": "636254-profile.webp",
+   "file_960": "636254-profile-960.webp",
+   "listing_id": "636254",
+   "car": "Porsche 911 Sport Classic",
+   "angle": "profile",
+   "facing": "right",
+   "source": "assets/source/636254_2023-porsche-911-sport-classic/02_2023-porsche-911--sport--classic-720075-1280454409.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1543,
+    478
+   ],
+   "size_960_px": [
+    960,
+    297
+   ],
+   "bbox_in_source": [
+    169,
+    487,
+    1712,
+    965
+   ],
+   "tyre_contact_y": 476,
+   "tyre_contacts": [
+    [
+     301,
+     476
+    ],
+    [
+     1221,
+     474
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     965.0217391304351
+    ],
+    [
+     1919,
+     960.8500000000001
+    ]
+   ],
+   "ring_points": 45,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Some photographed floor shadow left under the sills (generic cut, no polyline)."
+  },
+  {
+   "file": "636254-profile-l.webp",
+   "file_960": "636254-profile-l-960.webp",
+   "listing_id": "636254",
+   "car": "Porsche 911 Sport Classic",
+   "angle": "profile-l",
+   "facing": "left",
+   "source": "assets/source/636254_2023-porsche-911-sport-classic/08_2023-porsche-911--sport--classic-720075-2060954922.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1560,
+    484
+   ],
+   "size_960_px": [
+    960,
+    298
+   ],
+   "bbox_in_source": [
+    174,
+    476,
+    1734,
+    960
+   ],
+   "tyre_contact_y": 482,
+   "tyre_contacts": [
+    [
+     296,
+     477
+    ],
+    [
+     1216,
+     482
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     951.4456521739131
+    ],
+    [
+     1919,
+     961.8750000000003
+    ]
+   ],
+   "ring_points": 43,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Some photographed floor shadow left under the sills (generic cut, no polyline)."
+  },
+  {
+   "file": "636254-front34.webp",
+   "file_960": "636254-front34-960.webp",
+   "listing_id": "636254",
+   "car": "Porsche 911 Sport Classic",
+   "angle": "front34",
+   "facing": "left",
+   "source": "assets/source/636254_2023-porsche-911-sport-classic/06_2023-porsche-911--sport--classic-720075-1171845760.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1481,
+    570
+   ],
+   "size_960_px": [
+    960,
+    369
+   ],
+   "bbox_in_source": [
+    193,
+    467,
+    1674,
+    1037
+   ],
+   "tyre_contact_y": 567,
+   "tyre_contacts": [
+    [
+     727,
+     567
+    ],
+    [
+     1367,
+     477
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     985.0
+    ],
+    [
+     1919,
+     905.0392156862745
+    ]
+   ],
+   "ring_points": 53,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Small notch at nose top-left; cut polyline under bumper."
+  },
+  {
+   "file": "616145-profile.webp",
+   "file_960": "616145-profile-960.webp",
+   "listing_id": "616145",
+   "car": "Ferrari 812 GTS",
+   "angle": "profile",
+   "facing": "left",
+   "source": "_____TEST FINAL/assets/source/616145_2021-ferrari-812-gts/006_2021-ferrari-812--gts-770075-1220401349.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1682,
+    488
+   ],
+   "size_960_px": [
+    960,
+    279
+   ],
+   "bbox_in_source": [
+    129,
+    438,
+    1811,
+    926
+   ],
+   "tyre_contact_y": 486,
+   "tyre_contacts": [
+    [
+     281,
+     486
+    ],
+    [
+     1341,
+     475
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     929.2547169811321
+    ],
+    [
+     1919,
+     909.3405660377358
+    ]
+   ],
+   "ring_points": 17,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Glossy blue top edges light; small light bit at rear bumper."
+  },
+  {
+   "file": "616145-front34.webp",
+   "file_960": "616145-front34-960.webp",
+   "listing_id": "616145",
+   "car": "Ferrari 812 GTS",
+   "angle": "front34",
+   "facing": "left",
+   "source": "_____TEST FINAL/assets/source/616145_2021-ferrari-812-gts/007_2021-ferrari-812--gts-770075-36896449.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1653,
+    594
+   ],
+   "size_960_px": [
+    960,
+    345
+   ],
+   "bbox_in_source": [
+    137,
+    436,
+    1790,
+    1030
+   ],
+   "tyre_contact_y": 592,
+   "tyre_contacts": [
+    [
+     683,
+     592
+    ],
+    [
+     1493,
+     464
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     912.0
+    ],
+    [
+     1919,
+     860.0571428571428
+    ]
+   ],
+   "ring_points": 32,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Bonnet glare keyed out in places - jagged light edge on the hood line. Avoid at large scale."
+  },
+  {
+   "file": "616145-frontal.webp",
+   "file_960": "616145-frontal-960.webp",
+   "listing_id": "616145",
+   "car": "Ferrari 812 GTS",
+   "angle": "frontal",
+   "facing": "front",
+   "source": "_____TEST FINAL/assets/source/616145_2021-ferrari-812-gts/010_2021-ferrari-812--gts-770075-1094595091.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1136,
+    742
+   ],
+   "size_960_px": [
+    960,
+    627
+   ],
+   "bbox_in_source": [
+    395,
+    345,
+    1531,
+    1087
+   ],
+   "tyre_contact_y": 740,
+   "tyre_contacts": [
+    [
+     25,
+     740
+    ],
+    [
+     1105,
+     709
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     1086.0
+    ],
+    [
+     1919,
+     1086.0
+    ]
+   ],
+   "ring_points": 95,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Dark photographed shadow slab under the splitter kept (flat cut at tyre contact)."
+  },
+  {
+   "file": "624911-profile.webp",
+   "file_960": "624911-profile-960.webp",
+   "listing_id": "624911",
+   "car": "Ferrari F430",
+   "angle": "profile",
+   "facing": "right",
+   "source": "assets/source/624911_2007-ferrari-f430/02_2007-ferrari-f430-290071-239175384.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1658,
+    496
+   ],
+   "size_960_px": [
+    960,
+    287
+   ],
+   "bbox_in_source": [
+    132,
+    427,
+    1790,
+    923
+   ],
+   "tyre_contact_y": 494,
+   "tyre_contacts": [
+    [
+     268,
+     494
+    ],
+    [
+     1318,
+     487
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     924.6666666666663
+    ],
+    [
+     1919,
+     911.873333333333
+    ]
+   ],
+   "ring_points": 32,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Some floor shadow under sills/rear."
+  },
+  {
+   "file": "624911-front34.webp",
+   "file_960": "624911-front34-960.webp",
+   "listing_id": "624911",
+   "car": "Ferrari F430",
+   "angle": "front34",
+   "facing": "left",
+   "source": "assets/source/624911_2007-ferrari-f430/07_2007-ferrari-f430-290071-1878952074.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1659,
+    587
+   ],
+   "size_960_px": [
+    960,
+    340
+   ],
+   "bbox_in_source": [
+    135,
+    436,
+    1794,
+    1023
+   ],
+   "tyre_contact_y": 585,
+   "tyre_contacts": [
+    [
+     735,
+     585
+    ],
+    [
+     1535,
+     467
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     910.0
+    ],
+    [
+     1919,
+     860.0625
+    ]
+   ],
+   "ring_points": 33,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "Small notches at nose/bumper edge; cut polyline."
+  },
+  {
+   "file": "626613-profile-v2.webp",
+   "file_960": "626613-profile-v2-960.webp",
+   "listing_id": "626613",
+   "car": "Ferrari 458 Speciale",
+   "angle": "profile",
+   "facing": "left",
+   "source": "assets/source/626613_2015-ferrari-458-speciale/05_2015-ferrari-458--speciale-1369075-2061967696.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1636,
+    480
+   ],
+   "size_960_px": [
+    960,
+    282
+   ],
+   "bbox_in_source": [
+    156,
+    438,
+    1792,
+    918
+   ],
+   "tyre_contact_y": 478,
+   "tyre_contacts": [
+    [
+     334,
+     478
+    ],
+    [
+     1394,
+     465
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     852.0
+    ],
+    [
+     1919,
+     850.032967032967
+    ]
+   ],
+   "ring_points": 33,
+   "pockets_removed": [],
+   "quality": "local repair (hero)",
+   "note": "Copy of 626613-profile.webp with the top silhouette re-fitted (running median 31 / mean 15, 1px AA alpha), a pale-fringe pass on the first 4 rows under the roof/windscreen/nose edge, and nose-tip residue removed. Script: _build/defringe_626613.py. No AI, no blur, no feather. Geometry, tyre contacts and size unchanged."
+  },
+  {
+   "file": "616145-profile-v2.webp",
+   "file_960": null,
+   "listing_id": "616145",
+   "car": "Ferrari 812 GTS",
+   "angle": "profile",
+   "facing": "left",
+   "source": "_____TEST FINAL/assets/source/616145_2021-ferrari-812-gts/006_2021-ferrari-812--gts-770075-1220401349.jpg",
+   "source_px": [
+    1920,
+    1280
+   ],
+   "size_px": [
+    1682,
+    488
+   ],
+   "size_960_px": [
+    960,
+    279
+   ],
+   "bbox_in_source": [
+    129,
+    438,
+    1811,
+    926
+   ],
+   "tyre_contact_y": 486,
+   "tyre_contacts": [
+    [
+     281,
+     486
+    ],
+    [
+     1341,
+     475
+    ]
+   ],
+   "cut_line_source": [
+    [
+     0,
+     929.2547169811321
+    ],
+    [
+     1919,
+     909.3405660377358
+    ]
+   ],
+   "ring_points": 17,
+   "pockets_removed": [],
+   "quality": "minor fringe",
+   "note": "v2 (designer, 2026-10-09): local non-AI cleanup of 616145-profile.webp by _build/clean_alpha.py - alpha<24 set to 0, colour of transparent pixels zeroed, lossless WebP (critic r4: faint rectangular tone around the car when scaled)."
+  }
+ ]
+}

@@ -1,0 +1,222 @@
+/* 08 · THREE SHOWROOMS + the practical sheet. Three windows leaning at the house angle, each a car facing you;
+   one open at a time. The photograph is held at one scale (the open window's) so a window opens AROUND a car that
+   stays still. Every selector is scoped to .s-showrooms. */
+
+.s-showrooms {
+  --sh-gap: var(--s-3);
+  --sh-open: 2.6;                                              /* flex-grow of the open window */
+  --sh-win: clamp(220px, 30svh, 340px);                        /* window height */
+  --sh-lean: calc(var(--sh-win) * 0.284);                      /* the house lean */
+  --sh-ow: calc((100vw - 2 * var(--gutter) - 2 * var(--sh-gap)) * var(--sh-open) / (var(--sh-open) + 2));
+  --sh-city: calc(var(--fs-display) * 0.46);                   /* 48px at 1920 */
+  position: relative;
+  background: var(--c-night);
+  color: var(--c-ivory);
+  padding: calc(var(--hdr-h) + var(--s-7)) var(--gutter) 0;
+}
+
+
+/* ---------- head ---------- */
+.s-showrooms .sh__top {
+  display: grid; grid-template-columns: 1fr minmax(0, 30em); align-items: end; column-gap: var(--s-9);
+}
+.s-showrooms .sh__top > * { margin: 0; }
+.s-showrooms .sh__eye, .s-showrooms .sh__h, .s-showrooms dt {
+  font-size: var(--fs-ui); font-weight: 600; line-height: 1.6; letter-spacing: 0.22em; text-transform: uppercase;
+}
+.s-showrooms .sh__eye { grid-column: 1; width: fit-content; }
+.s-showrooms i { font-style: normal; margin: 0 0.25em; }
+.s-showrooms .sh__head {
+  grid-column: 1; margin-top: var(--s-5) !important; width: fit-content;
+  font-family: var(--f-display); font-weight: 500; font-optical-sizing: auto;
+  font-size: calc(var(--fs-display) * 0.8); line-height: 0.94; letter-spacing: -0.005em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.s-showrooms .sh__lead {
+  grid-column: 2; grid-row: 1 / span 2; align-self: end;
+  font-size: var(--fs-rec); line-height: var(--lh-body); color: var(--c-ivory);
+}
+
+/* ---------- the three windows ---------- */
+.s-showrooms .sh__row { display: flex; gap: var(--sh-gap); margin-top: var(--s-7); }
+.s-showrooms .sh__room {
+  position: relative; min-width: 0;
+  flex: 1 1 0;
+  container-type: inline-size;
+  transition: flex-grow 400ms var(--ease-out);
+}
+.s-showrooms .sh__room.is-open { flex-grow: var(--sh-open); }
+.s-showrooms .sh__win {
+  position: relative; height: var(--sh-win); overflow: hidden;
+  clip-path: polygon(var(--sh-lean) 0, 100% 0, calc(100% - var(--sh-lean)) 100%, 0 100%);
+  background: var(--c-charcoal);
+}
+.s-showrooms .sh__photo {
+  /* one image language: a tight dark crop held at one scale (the open window's width x zoom), so a window opens
+     around a still picture; never a zoom */
+  position: absolute; left: 50%; top: var(--oy, 50%);
+  width: calc(var(--sh-ow) * var(--zoom, 1)); max-width: none; height: auto;
+  transform: translate(-50%, calc(-1 * var(--oy, 50%)));
+}
+
+.s-showrooms .sh__info { display: grid; grid-template-columns: minmax(0, 1fr); padding: var(--s-5) var(--s-5) 0 0; }
+.s-showrooms .sh__room.is-shown .sh__info { grid-template-columns: max-content minmax(0, 1fr); column-gap: var(--s-8); }
+.s-showrooms .sh__room[data-room="socal"] .sh__name { width: min-content; }
+
+.s-showrooms .sh__city { margin: 0; }
+.s-showrooms .sh__city button {
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-3);
+  max-width: 100%; min-height: var(--tap); padding: 0; margin: 0;
+  background: none; border: 0; cursor: pointer; text-align: left; color: var(--c-ivory);
+}
+.s-showrooms .sh__city button:focus-visible { outline-offset: 6px; }
+.s-showrooms .sh__lbl {
+  display: inline-flex; align-items: center; gap: var(--s-3);
+  font-family: var(--f-body); font-size: var(--fs-ui); font-weight: 600; line-height: var(--lh-caps);
+  letter-spacing: var(--tr-eyebrow); text-transform: uppercase; color: var(--c-silver);
+}
+.s-showrooms .sh__room.is-open .sh__is-closed, .s-showrooms .sh__room:not(.is-open) .sh__is-open { display: none; }
+.s-showrooms .sh__room.is-open .sh__aff { display: none; }
+.s-showrooms .sh__name {
+  font-family: var(--f-display); font-weight: 500;
+  font-optical-sizing: none; font-variation-settings: var(--fv-display);
+  /* never wider than its window: scales down with a narrow (closed) window, capped at the city step */
+  font-size: min(var(--sh-city), 12.5cqi); line-height: 0.98; letter-spacing: -0.005em; text-transform: uppercase;
+}
+/* affordance: a + drawn in 1.5px strokes, the size of the label's cap height */
+.s-showrooms .sh__aff { position: relative; flex: none; width: 12px; height: 12px; color: var(--c-ivory); }
+.s-showrooms .sh__aff::before, .s-showrooms .sh__aff::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; margin-top: -0.75px; background: currentColor;
+}
+.s-showrooms .sh__aff::after { transform: rotate(90deg); }
+.s-showrooms .sh__room:not(.is-open) .sh__city button:hover .sh__lbl { color: var(--c-ivory); }
+
+
+.s-showrooms .sh__quick {
+  margin: var(--s-4) 0 0; display: flex; flex-direction: column; gap: var(--s-1);
+  font-size: var(--fs-body);
+}
+.s-showrooms .sh__quick a { width: fit-content; font-weight: 600; text-decoration: none; font-variant-numeric: tabular-nums; }
+.s-showrooms .sh__quick a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.s-showrooms .sh__quick span { color: var(--c-silver); font-size: var(--fs-ui); }
+
+/* details: present only in the open window, after its width has settled */
+.s-showrooms .sh__more { display: none; }
+.s-showrooms .sh__room.is-shown .sh__more { display: contents; }
+.s-showrooms .sh__room.is-shown .sh__facts { grid-column: 2; grid-row: 1; }
+.s-showrooms .sh__room.is-shown .sh__acts { grid-column: 1 / -1; grid-row: 2; }
+.s-showrooms .sh__facts {
+  margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5) var(--s-7);
+}
+.s-showrooms .sh__facts > div:nth-child(3):last-child,
+.s-showrooms .sh__fact--wide { grid-column: 1 / -1; }
+.s-showrooms dt { color: var(--c-silver); letter-spacing: 0.18em; }
+.s-showrooms dd { margin: var(--s-1) 0 0; font-size: var(--fs-body); line-height: 1.5; }
+.s-showrooms .sh__tbc { color: var(--c-silver); border-bottom: 1px dashed var(--c-line-strong); }
+
+.s-showrooms .sh__acts { margin: var(--s-6) 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); }
+.s-showrooms .sh__btn {
+  display: inline-flex; align-items: center; gap: var(--s-3);
+  height: 56px; padding: 0 var(--s-5);
+  font-size: var(--fs-ui); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap;
+  color: var(--c-ivory); text-decoration: none; border: 1px solid rgba(242, 238, 230, 0.7);
+  transition: background-color var(--dur-ui) var(--ease-out);
+}
+.s-showrooms .sh__btn:hover { background: rgba(242, 238, 230, 0.1); }
+.s-showrooms .sh__btn--red { background: var(--c-red); border-color: var(--c-red); font-variant-numeric: tabular-nums; }
+.s-showrooms .sh__btn--red:hover { background: var(--c-red-deep); border-color: var(--c-red-deep); }
+.s-showrooms .sh__btn svg, .s-showrooms .sh__link svg, .s-showrooms .sh__col svg { width: 14px; height: 14px; flex: none; }
+.s-showrooms .sh__link {
+  display: inline-flex; align-items: center; gap: var(--s-3); min-height: 44px;
+  font-size: var(--fs-ui); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap;
+  color: var(--c-ivory); text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px;
+}
+.s-showrooms .sh__link svg { transition: transform var(--dur-ui) var(--ease-out); }
+.s-showrooms .sh__link:hover svg { transform: translateX(4px); }
+
+/* ---------- the practical sheet ---------- */
+.s-showrooms .sh__sheet { margin-top: var(--s-10); border-top: 1px solid var(--c-line); padding: var(--s-8) 0 var(--s-7); }
+.s-showrooms .sh__cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: var(--s-7); }
+.s-showrooms .sh__col p, .s-showrooms .sh__col ul { margin: 0; }
+.s-showrooms .sh__logo {
+  display: block; width: 185px; height: 40px;
+  background: url("../../assets/img/dupont-registry-select_lockup_white.svg") left center / contain no-repeat;
+}
+.s-showrooms .sh__col--brand p { margin-top: var(--s-5); color: var(--c-silver); font-size: var(--fs-body); }
+.s-showrooms .sh__h { color: var(--c-silver); }
+.s-showrooms .sh__col ul { list-style: none; padding: 0; margin-top: var(--s-4); display: grid; gap: var(--s-1); }
+.s-showrooms .sh__col li { font-size: var(--fs-body); line-height: 1.5; }
+.s-showrooms .sh__col a { display: inline-flex; align-items: center; gap: var(--s-2); min-height: 32px; text-decoration: none; }
+.s-showrooms .sh__col a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.s-showrooms .sh__fin { padding-top: 5px; }
+.s-showrooms .sh__legal {
+  margin: var(--s-9) 0 0; max-width: none;
+  font-size: var(--fs-ui); line-height: 1.6; color: var(--c-silver);
+}
+
+/* ---------- 1024–1439: the open window keeps its details in one column ---------- */
+@media (max-width: 1439px) {
+  .s-showrooms { --sh-open: 2.9; --sh-city: clamp(32px, 3.2vw, 44px); }
+  .s-showrooms .sh__room.is-shown .sh__info { grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr); column-gap: var(--s-6); }
+}
+@media (max-width: 1279px) {
+  .s-showrooms { --sh-open: 2.2; }
+  .s-showrooms .sh__top { grid-template-columns: 1fr; }
+  .s-showrooms .sh__lead { grid-column: 1; grid-row: auto; margin-top: var(--s-6) !important; max-width: 34em; }
+  .s-showrooms .sh__room.is-shown .sh__info { grid-template-columns: minmax(0, 1fr); }
+  .s-showrooms .sh__room.is-shown .sh__facts { grid-column: 1; grid-row: 2; margin-top: var(--s-6); }
+  .s-showrooms .sh__room.is-shown .sh__acts { grid-row: 3; }
+}
+
+/* ---------- ≤1023px: every showroom open, stacked ---------- */
+@media (max-width: 1023px) {
+  .s-showrooms { padding-top: var(--s-9); --sh-win: clamp(200px, 52vw, 420px); }
+  .s-showrooms .sh__head { font-size: clamp(44px, 10vw, 80px); }
+  .s-showrooms .sh__row { flex-direction: column; gap: var(--s-9); }
+  .s-showrooms .sh__room, .s-showrooms .sh__room.is-open { flex: none; }
+  .s-showrooms .sh__win { clip-path: polygon(var(--sh-lean) 0, 100% 0, 100% 100%, 0 100%); }
+  .s-showrooms .sh__photo { width: 100%; height: 100%; object-fit: cover; left: 0; top: 0; transform: none; }
+  .s-showrooms .sh__city button { font-size: clamp(32px, 7vw, 48px); }
+  .s-showrooms .sh__room .sh__info { grid-template-columns: minmax(0, 1fr); }
+  .s-showrooms .sh__cols { grid-template-columns: 1fr 1fr; }
+  .s-showrooms .sh__col--brand { grid-column: 1 / -1; }
+}
+@media (max-width: 599px) {
+  .s-showrooms .sh__facts { grid-template-columns: minmax(0, 1fr); }
+  .s-showrooms .sh__acts .sh__btn { flex: 1 1 100%; justify-content: center; }
+  .s-showrooms .sh__eye { letter-spacing: 0.16em; }
+  .s-showrooms .sh__btn { letter-spacing: 0.12em; }
+}
+
+/* mobile: every showroom's details are present; a heading button collapses one if the visitor wants */
+@media (max-width: 1023px) {
+  .s-showrooms .sh__more { display: block; margin-top: var(--s-6); }
+  .s-showrooms .sh__room.is-shown .sh__more { display: block; }
+  .s-showrooms .sh__room .sh__facts, .s-showrooms .sh__room .sh__acts { grid-column: auto; grid-row: auto; margin-top: 0; }
+  .s-showrooms .sh__room .sh__acts { margin-top: var(--s-6); }
+  .s-showrooms .sh__room.is-collapsed .sh__more { display: none; }
+  .s-showrooms .sh__room .sh__is-closed, .s-showrooms .sh__room .sh__aff { display: none; }
+  .s-showrooms .sh__room .sh__is-open { display: inline; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .s-showrooms .sh__room { transition: none; }
+}
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .s-showrooms .sh__room:not(.is-open) .sh__is-closed { display: none; }
+}
+
+/* ≥1440: the open window's facts sit in one row (address · hours · pictured) so the CTA row stays in the first view */
+@media (min-width: 1440px) {
+  .s-showrooms .sh__room.is-shown .sh__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--s-6); }
+  .s-showrooms .sh__room.is-shown .sh__facts > div:nth-child(3):last-child { grid-column: auto; }
+  .s-showrooms .sh__room.is-shown .sh__facts > .sh__fact--wide { grid-column: 1 / -1; }
+}
+@media (max-width: 1023px) { .s-showrooms .sh__head { white-space: normal; } }
+@media (min-width: 1440px) and (max-width: 1679px) {
+  .s-showrooms { --sh-win: 25svh; --sh-open: 3.2; }
+  .s-showrooms .sh__row { margin-top: var(--s-6); }
+  .s-showrooms .sh__room.is-shown .sh__info { grid-template-columns: minmax(0, 1fr); }
+  .s-showrooms .sh__room.is-shown .sh__facts { grid-column: 1; grid-row: 2; margin-top: var(--s-5); }
+  .s-showrooms .sh__room.is-shown .sh__acts { grid-row: 3; margin-top: var(--s-5); }
+  .s-showrooms .sh__room.is-shown .sh__quick { flex-direction: row; gap: var(--s-5); align-items: baseline; }
+}

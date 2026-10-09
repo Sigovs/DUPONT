@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07-journal - demo</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/chrome.css">
+<link rel="stylesheet" href="../../sections/07-journal/section.css">
+<script src="../../assets/vendor/gsap.min.js" defer></script>
+<script src="../../assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="../../assets/vendor/lenis.min.js" defer></script>
+<script src="../../assets/js/core.js" defer></script>
+<script src="../../assets/js/chrome.js" defer></script>
+<script src="../../sections/07-journal/section.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+  <header class="hdr">
+    <div class="hdr__in">
+      <a class="hdr__logo" href="../../index.html" aria-label="duPont REGISTRY Select — home">
+        <img src="../../assets/img/dupont-registry-select_lockup_white.svg" alt="duPont REGISTRY | Select" width="185" height="40">
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="../../inventory.html">Inventory</a></li>
+          <li><a class="nav__link" href="#locations">Locations</a></li>
+          <li class="nav__item--drop" data-drop>
+            <button class="nav__link nav__trigger" type="button" aria-expanded="false" aria-controls="nav-services">
+              Services
+              <svg class="nav__caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+            </button>
+            <ul class="nav__drop" id="nav-services">
+              <li><a href="#insurance">Insurance</a></li>
+              <li><a href="#service">Service</a></li>
+              <li><a href="#ppf">Paint protection film (PPF)</a></li>
+            </ul>
+          </li>
+          <li><a class="nav__link" href="../../finance.html">Finance</a></li>
+          <li><a class="nav__link" href="#about">About</a></li>
+          <li><a class="nav__link" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="hdr__mobile">
+        <a class="hdr__icon" href="tel:+19512926100" aria-label="Call Southern California showroom, (951) 292-6100">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h3l1.5 4-2 1.3a10.5 10.5 0 0 0 6.1 6.1l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </a>
+        <button class="hdr__menu" type="button" aria-expanded="false" aria-controls="mnav" data-menu>
+          <span class="hdr__menu-label">Menu</span>
+          <span class="hdr__burger" aria-hidden="true"><i></i><i></i></span>
+        </button>
+      </div>
+    </div>
+    <div class="mnav" id="mnav" hidden>
+      <ul class="mnav__list">
+        <li><a href="../../inventory.html">Inventory</a></li>
+        <li><a href="#locations">Locations</a></li>
+        <li><a href="#insurance">Insurance</a></li>
+        <li><a href="#service">Service</a></li>
+        <li><a href="#ppf">Paint protection film</a></li>
+        <li><a href="../../finance.html">Finance</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <ul class="mnav__rooms" aria-label="Showrooms">
+        <li><span>Southern California</span><a href="tel:+19512926100">(951) 292-6100</a><small>26900 Jefferson Ave, Murrieta, CA</small></li>
+        <li><span>Miami</span><a href="tel:+16154710221">(615) 471-0221</a><small>5972 NE 4th Ave, Miami, FL</small></li>
+        <li><span>Naples</span><a href="tel:+12394499191">(239) 449-9191</a><small>2365 Linwood Ave, Naples, FL</small></li>
+      </ul>
+    </div>
+  </header>
+
+<main id="main">
+<section id="journal" data-section="07-journal" class="s-journal" aria-labelledby="jn-title">
+  <!-- Two photographs, one hard-daylight family: the aerial (news.dupontregistry.com) holds the right column; one
+       dark close detail (a GT2 RS sill in low sun, facebook.com/dupontregistry) closes the left column under the text,
+       its top tucked under the aerial's lower half. A selection, not a feed. -->
+  <figure class="jn__p jn__p--1" data-rate="0" data-reveal>
+    <img src="../../sections/07-journal/img/j1-drone.webp" alt="Overhead drone view of about a dozen hypercars parked in two rows, surrounded by a crowd" width="1440" height="960">
+    <figcaption>news.dupontregistry.com</figcaption>
+  </figure>
+
+  <div class="jn__slot">
+    <p class="jn__eye" data-ln>Instagram <i aria-hidden="true">·</i> Facebook <i aria-hidden="true">·</i> News</p>
+    <h2 class="jn__head" id="jn-title"><span data-ln>The Select</span> <span data-ln>journal.</span></h2>
+    <p class="jn__lead" data-ln>A selection from duPont REGISTRY&rsquo;s own channels: cars and gatherings, chosen for this page. Not a live feed.</p>
+    <div class="jn__acts" data-ln>
+      <a class="jn__btn" href="https://www.facebook.com/dupontregistry" target="_blank" rel="noopener">duPont REGISTRY on Facebook<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span class="sr"> (opens in a new tab)</span></a>
+      <p class="jn__ig">Instagram <span>[handle: awaiting client]</span></p>
+    </div>
+  </div>
+
+  <div class="jn__planes">
+    <figure class="jn__p jn__p--2" data-rate="0.5">
+      <img src="../../sections/07-journal/img/j2-gt2rs-sill.webp" alt="Carbon door sill of a yellow Porsche 911 GT2 RS, the GT2RS script lit by low sun" width="1536" height="1024" loading="lazy">
+      <figcaption>facebook.com/dupontregistry</figcaption>
+    </figure>
+    <p class="jn__credit" aria-hidden="true">Aerial: news.dupontregistry.com.<br>Porsche 911 GT2 RS sill: facebook.com/dupontregistry.</p>
+  </div>
+</section>
+
+</main>
+
+</body>
+</html>

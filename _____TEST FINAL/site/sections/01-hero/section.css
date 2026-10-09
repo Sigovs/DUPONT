@@ -1,0 +1,370 @@
+/* 01-hero — "Every detail, one registry". Ported from _____TEST FINAL/hero (standalone reference).
+   Every selector scoped under .s-hero. Shared tokens/base/header live in assets/css. */
+.s-hero {
+  --runway: 154vh;    /* 2 holds × 47 (508px at 1080) + 1 flight cut × 60 (vh): the hero is 2.54 viewports */
+  --band-top: calc(var(--hdr-h) + 29vh);   /* the one band line every whole-car scene shares */
+  --c-ink-light: #303137;
+}
+
+/* =====================================================================
+   HERO — default (no JS / reduced motion): each chapter is one screen,
+   macro and whole car side by side. Motion mode (.hero--live) stacks all
+   six scenes in one pinned stage and the red blade cuts between them.
+   ===================================================================== */
+.s-hero { position: relative; background: var(--c-night); }
+.s-hero .hero__stage { position: relative; }
+.s-hero .chap {
+  position: relative;
+  display: grid; grid-template-columns: 1fr 1fr;
+  height: 100vh; height: 100svh; min-height: 640px;
+}
+.s-hero .scene { position: relative; overflow: hidden; background: var(--c-night); }
+.s-hero .scene[data-ink="light"] { background: #E9E9E7; }
+.s-hero .scene__media { position: absolute; inset: 0; margin: 0; overflow: hidden; }
+.s-hero .scene__plate { position: absolute; inset: 0; }
+.s-hero .scene__media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: var(--op, 50% 50%);
+  transform: scale(var(--sc, 1));
+  transform-origin: var(--to, 50% 50%);
+}
+
+/* ---------- the one text slot ---------- */
+.s-hero .slot {
+  position: absolute; z-index: 3;
+  left: var(--gutter); top: var(--slot-top, calc(var(--hdr-h) + 6vh));
+  width: min(60vw, 1000px);
+  display: flex; flex-direction: column; align-items: flex-start;
+  color: var(--c-ivory);
+}
+.s-hero .scene[data-ink="light"] .slot { color: var(--c-ink-light); }
+.s-hero .eyebrow {
+  margin: 0 0 var(--s-5);
+  font-size: var(--fs-ui); font-weight: 600; line-height: 1.6;
+  letter-spacing: 0.22em; text-transform: uppercase;
+}
+.s-hero .head {
+  margin: 0;
+  font-family: var(--f-display); font-weight: 500; font-optical-sizing: none; font-variation-settings: var(--fv-display);
+  font-size: var(--fs-display); line-height: 0.94; letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+.s-hero .head__red { color: var(--c-red); }
+.s-hero .scene[data-ink="dark"] .head__red { color: inherit; }
+
+/* #AC1D28 cannot reach 3:1 on a dark photo (max 2.96:1 on pure black) */
+.s-hero .body {
+  margin: var(--s-6) 0 0; max-width: 30em;
+  font-size: var(--fs-body); line-height: var(--lh-body);
+}
+.s-hero .plate {
+  margin: var(--s-6) 0 0;
+  display: flex; flex-wrap: wrap; gap: 0 var(--s-5);
+  font-size: var(--fs-ui); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+.s-hero .plate span + span::before { content: "\00B7"; margin-right: var(--s-5); }
+.s-hero .acts { display: flex; flex-wrap: wrap; gap: var(--s-4); margin-top: var(--s-7); }
+.s-hero .m { display: block; overflow: hidden; padding: 0.1em 0.5em 0.14em; margin: -0.1em -0.5em -0.14em; }
+.s-hero .m--act { padding: 8px 12px; margin: -8px -12px; }
+.s-hero .m > .ln { display: block; width: fit-content; }
+.s-hero .m > .acts { display: flex; }
+.s-hero .m > .plate { display: flex; }
+
+/* ---------- CTA pair: tracked caps, square corners ---------- */
+.s-hero .btn {
+  display: inline-flex; align-items: center; gap: var(--s-4);
+  height: 56px; padding: 0 var(--s-6);
+  font-family: var(--f-body); font-size: var(--fs-ui); font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
+  border: 1px solid transparent; border-radius: 0;
+  transition: background-color var(--dur-ui) var(--ease-out), border-color var(--dur-ui) var(--ease-out);
+}
+.s-hero .btn svg { width: 16px; height: 16px; transition: transform var(--dur-ui) var(--ease-out); }
+.s-hero .btn:hover svg { transform: translateX(4px); }
+.s-hero .btn--red { background: var(--c-red); color: var(--c-ivory); }
+.s-hero .btn--red:hover { background: var(--c-red-deep); }
+.s-hero .btn--line { border-color: currentColor; color: inherit; }
+.s-hero .scene[data-ink="dark"] .btn--line { border-color: rgba(242, 238, 230, 0.7); }
+.s-hero .btn--line:hover { background: rgba(127, 127, 127, 0.14); }
+
+/* ---------- scroll cue (scene 01 only) ---------- */
+.s-hero .cue {
+  position: absolute; z-index: 3; left: 50%; bottom: var(--bar-b); margin: 0;
+  display: flex; flex-direction: column; align-items: center; gap: var(--s-3);
+  transform: translateX(-50%);
+  font-size: var(--fs-ui); font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-ivory);
+}
+.s-hero .cue__l { width: 1px; height: 48px; background: currentColor; }
+
+/* ---------- the blade (motion mode only) ---------- */
+.s-hero .blade { display: none; }
+
+/* ---------- persistent UI ---------- */
+.s-hero .idx { display: none; }
+.s-hero .rooms {
+  position: absolute; z-index: 3; left: var(--gutter); bottom: var(--bar-b);
+  display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-6);
+  list-style: none; margin: 0; padding: 0;
+  font-size: var(--fs-ui); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--c-ivory);
+}
+.s-hero .rooms a { color: inherit; text-decoration: none; }
+.s-hero .rooms b { font-weight: 600; letter-spacing: 0.06em; color: var(--c-ivory); margin-left: var(--s-2); font-variant-numeric: tabular-nums; }
+
+/* static: the halves carry their own slots */
+.s-hero .chap .slot { --gutter: clamp(20px, 3.2vw, 64px); width: calc(100% - 2 * var(--gutter)); }
+.s-hero .chap .head { font-size: clamp(36px, 3vw, 60px); }
+.s-hero:not(.hero--live) .cue { display: none; }
+
+/* =====================================================================
+   MOTION MODE
+   ===================================================================== */
+.s-hero.hero--live { height: calc(100vh + var(--runway)); height: calc(100svh + var(--runway)); }
+.s-hero.hero--live .hero__stage { position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 600px; overflow: hidden; }
+.s-hero.hero--live .chap { display: contents; }
+.s-hero.hero--live .scene { position: absolute; inset: 0; visibility: hidden; }
+.s-hero.hero--live .scene.is-shown { visibility: visible; }
+.s-hero.hero--live .scene.is-under { z-index: 1; }
+.s-hero.hero--live .scene.is-over { z-index: 2; }
+.s-hero.hero--live .slot { --gutter: clamp(20px, 6.25vw, 120px); width: min(60vw, 1000px); }
+.s-hero.hero--live .head { font-size: var(--fs-display); }
+.s-hero.hero--live .scene__plate,
+.s-hero.hero--live .ln { will-change: transform; }
+.s-hero.hero--live .blade {
+  display: block; position: absolute; z-index: 4; inset: 0;
+  background: var(--c-red);
+  clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+  pointer-events: none;
+}
+.s-hero.hero--live .idx {
+  /* the chapter index lives in the solid header band: contrast never depends on a photograph */
+  display: block; position: absolute; z-index: 1;
+  top: calc(var(--hdr-h) / 2);
+  transition: opacity var(--dur-ui) var(--ease-out); left: calc(var(--gutter) + clamp(140px, 10.5vw, 200px) + var(--s-7));
+  transform: translateY(-50%);
+  color: var(--c-silver);
+}
+.s-hero.is-released .idx { opacity: 0; pointer-events: none; }
+.s-hero .idx ol { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: var(--s-2); }
+.s-hero .idx li + li::before { content: ""; display: inline-block; vertical-align: middle; width: 40px; height: 1px; background: currentColor; opacity: 0.5; margin-right: var(--s-2); }
+.s-hero .idx li { display: flex; align-items: center; }
+.s-hero .idx__a {
+  display: inline-flex; align-items: center; gap: var(--s-3);
+  min-height: 44px; padding: 0 var(--s-2);
+  font-size: var(--fs-ui); font-weight: 600; letter-spacing: 0.14em; font-variant-numeric: tabular-nums;
+  color: inherit; text-decoration: none;
+}
+.s-hero .idx__a.is-active { color: var(--c-ivory); }
+
+/* ---------- whole-car scenes: graphite field + a full-width letterbox band ---------- */
+.s-hero .scene--w,
+.s-hero .scene--w[data-ink] { background: var(--c-graphite); }
+.s-hero.hero--live .scene--w .scene__media { top: var(--band-top); left: 0; right: 0; bottom: 0; }
+.s-hero .scene--w .slot { color: var(--c-ivory); display: grid; grid-template-columns: auto auto; justify-content: start; align-items: center; column-gap: var(--s-7); }
+.s-hero .scene--w .slot > .eyebrow,
+.s-hero .scene--w .slot > .head { grid-column: 1 / -1; }
+.s-hero .scene--w .slot > .m:not(.m--act) { margin-top: calc(var(--s-5) - 0.1em); }
+.s-hero .scene--w .slot .plate { margin-top: 0; }
+.s-hero .scene--w .slot .acts { margin-top: 0; }
+.s-hero .scene--w .slot > .m--act { margin-top: calc(var(--s-5) - 8px); }
+.s-hero .scene--w .btn--line { border-color: rgba(242, 238, 230, 0.7); }
+.s-hero .scene--w .plate { color: var(--c-ivory); }
+.s-hero:not(.hero--live) .scene--w .scene__media { top: 0; bottom: 45%; }
+.s-hero:not(.hero--live) .scene--w .slot { top: calc(55% + var(--s-6)); }
+
+/* reduced motion / no JS: a small red "|" between macro and car */
+.s-hero:not(.hero--live) .chap::after {
+  content: ""; position: absolute; z-index: 4; left: 50%; top: 50%;
+  width: 10px; height: 72px; background: var(--c-red);
+  transform: translate(-50%, -50%) skewX(-15.9deg);
+}
+
+/* =====================================================================
+   RESPONSIVE
+   ===================================================================== */
+@media (max-width: 1600px) {.s-hero .slot { --slot-top: calc(var(--hdr-h) + 5vh); }
+.s-hero .eyebrow { margin-bottom: var(--s-5); }
+.s-hero .plate,
+.s-hero .body { margin-top: var(--s-5); }
+.s-hero .acts { margin-top: var(--s-6); }
+}
+
+/* Portrait: the photograph is a plate under the header; the slot sits below on night ground. */
+@media (max-width: 1100px) {.s-hero { --plate-h: 44svh; }
+.s-hero .chap { grid-template-columns: 1fr; height: auto; }
+.s-hero .chap .scene { height: 100vh; height: 100svh; }
+.s-hero .scene,
+.s-hero .scene[data-ink="light"] { background: var(--c-night); }
+.s-hero .scene__media { top: var(--hdr-h); bottom: auto; height: var(--plate-h); }
+.s-hero .scene__media img { object-position: var(--op-m, var(--op)); transform: none; }
+.s-hero.hero--live .scene--w .scene__media,
+.s-hero:not(.hero--live) .scene--w .scene__media { left: 0; top: var(--hdr-h); bottom: auto; height: var(--plate-h); clip-path: none; }
+.s-hero:not(.hero--live) .scene--w .slot { top: calc(var(--hdr-h) + var(--plate-h) + var(--s-6)); }
+.s-hero .slot,
+.s-hero.hero--live .slot,
+.s-hero .chap .slot {
+    --gutter: clamp(20px, 6.25vw, 48px);
+    top: calc(var(--hdr-h) + var(--plate-h) + var(--s-6));
+    width: calc(100% - 2 * var(--gutter) - 64px);
+  }
+.s-hero .scene[data-ink] .slot { color: var(--c-ivory); }
+.s-hero .scene[data-ink] .head__red { color: inherit; }
+.s-hero .scene--w .slot { display: flex; flex-direction: column; align-items: flex-start; }
+.s-hero .scene--w .slot > .m--act { margin-top: var(--s-4); }
+.s-hero .scene[data-ink] .btn--line { border-color: rgba(242, 238, 230, 0.7); }
+.s-hero .eyebrow { margin-bottom: var(--s-4); }
+.s-hero .rooms,
+.s-hero .cue { display: none; }
+.s-hero.hero--live .idx { position: fixed; left: auto; right: 4px; top: calc(var(--hdr-h) + var(--plate-h) + var(--s-5)); transform: none; }
+.s-hero .idx ol { flex-direction: column; align-items: flex-end; }
+.s-hero .idx li + li::before { display: none; }
+}
+@media (max-width: 1100px) and (orientation: landscape) {.s-hero { --plate-h: 40svh; }
+.s-hero .eyebrow { margin-bottom: var(--s-3); }
+.s-hero .body { margin-top: var(--s-4); }
+.s-hero .acts { margin-top: var(--s-5); }
+}
+@media (max-width: 600px) {.s-hero { --plate-h: 36svh; }
+.s-hero .slot,
+.s-hero.hero--live .slot,
+.s-hero .chap .slot { top: calc(var(--hdr-h) + var(--plate-h) + var(--s-5)); }
+.s-hero.hero--live .head,
+.s-hero .chap .head { font-size: 38px; }
+.s-hero .body { font-size: 15px; line-height: 1.55; margin-top: var(--s-4); }
+.s-hero .plate { margin-top: var(--s-4); }
+.s-hero .acts { margin-top: var(--s-5); gap: var(--s-3); }
+.s-hero .btn { height: 46px; padding: 0 var(--s-4); letter-spacing: 0.14em; }
+.s-hero .acts { margin-top: var(--s-4); }
+}
+
+/* Reduced motion: the side-by-side stack IS the designed state. */
+@media (prefers-reduced-motion: reduce) {
+  .s-hero *, .s-hero *::before, .s-hero *::after { transition-duration: 0.01ms !important; }
+}
+
+/* plate: the date always takes its own line (no orphaned separator when it wraps) */
+.s-hero .plate .plate__date { flex-basis: 100%; margin-top: var(--s-1); }
+.s-hero .plate .plate__date::before { content: none; }
+@media (max-width: 600px) {.s-hero .plate span:nth-child(3) { flex-basis: 100%; }
+.s-hero .plate span:nth-child(3)::before { content: none; }
+}
+
+/* static side-by-side: both halves share one grid — photo above, type below on the dark ground */
+.s-hero:not(.hero--live) .scene--m .scene__media { bottom: 45%; }
+.s-hero:not(.hero--live) .scene--m .scene__media img { object-position: var(--op-m, var(--op)); transform: none; }
+.s-hero:not(.hero--live) .scene--m .slot { top: calc(55% + var(--s-6)); }
+.s-hero:not(.hero--live) .chap::after { top: 27.5%; }
+.s-hero:not(.hero--live) .chap::after { z-index: 6; width: 12px; height: 96px; }
+
+/* ---------- engineering callout (motion mode only): inset plate + leader + label ---------- */
+.s-hero .callout,
+.s-hero .callout__lbl { display: none; }
+.s-hero.hero--live .callout { display: block; position: absolute; left: 0; top: 0; z-index: 3; overflow: visible; pointer-events: none; }
+.s-hero .callout polyline,
+.s-hero .callout rect { fill: none; }
+.s-hero .callout__line,
+.s-hero .callout__frame { stroke: var(--c-ivory); stroke-width: 1; }
+
+/* a graphite hairline paired under the ivory one keeps the rule visible on the light studio wall */
+.s-hero .callout__under,
+.s-hero .callout__frame-u { stroke: var(--c-graphite); stroke-width: 3; }
+.s-hero .callout__dot { fill: var(--c-ivory); stroke: var(--c-graphite); stroke-width: 1.5; }
+.s-hero.hero--live .callout__lbl {
+  display: block; position: absolute; z-index: 3; left: 0; top: 0; white-space: nowrap;
+  font-size: var(--fs-ui); font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-ivory);
+  clip-path: inset(0 100% 0 0);
+}
+
+/* ---------- port: the chapter index sits in the shared header band while the hero is pinned ---------- */
+.s-hero.hero--live .idx { position: fixed; z-index: 51; }
+.s-hero.is-past .idx { opacity: 0; pointer-events: none; }
+
+/* ---------- fix round: macros as a large plate at ≤ native size (never upscaled), slanted left edge ---------- */
+.s-hero .scene__media img { transform: none; }
+@media (min-width: 1101px) {
+  .s-hero.hero--live .scene--m .scene__media { left: 46%; top: var(--hdr-h); right: 0; bottom: 0; }
+  .s-hero.hero--live .scene--m .scene__media img { clip-path: polygon(calc(0.284 * (100vh - var(--hdr-h))) 0, 100% 0, 100% 100%, 0 100%); }
+  .s-hero .cue { left: auto; right: var(--gutter); transform: none; align-items: flex-end; }
+}
+@media (min-width: 1101px) and (max-width: 1600px) {
+  .s-hero.hero--live .scene--m .scene__media { left: 50%; }
+}
+
+/* ---------- fix round: whole cars as cut-outs standing on the dark ground (one replaceable layer each) ---------- */
+.s-hero { --floor-y: calc(100vh - (71vh - var(--hdr-h)) * 0.092); }   /* the shared floor line (same formula as 02 Collection) */
+.s-hero .scene--cut .scene__media img { object-fit: contain; object-position: 100% 100%; }
+@media (min-width: 1101px) {
+  .s-hero.hero--live .scene--cut .scene__media { top: var(--band-top); left: auto; width: 50vw; right: var(--gutter); bottom: calc(100% - var(--floor-y)); }
+}
+@media (max-width: 1100px) {
+  .s-hero .scene--cut .scene__media { left: var(--gutter); right: var(--gutter); height: calc(var(--plate-h) * 0.9); }
+  .s-hero .scene--cut .scene__media img { object-position: 50% 100%; }
+}
+.s-hero:not(.hero--live) .scene--cut .scene__media { left: 6%; right: 6%; }
+.s-hero:not(.hero--live) .scene--cut .scene__media img { object-position: 50% 90%; }
+
+/* whole-car scenes share 02 Collection's ground: charcoal + one floor hairline the tyres stand on */
+.s-hero .scene--w, .s-hero .scene--w[data-ink] { background: var(--c-charcoal); }
+.s-hero.hero--live .scene--cut::before {
+  content: ""; position: absolute; z-index: 0; left: var(--gutter); right: var(--gutter); top: var(--floor-y);
+  height: 1px; background: var(--c-line);
+}
+@media (max-width: 1100px) { .s-hero.hero--live .scene--cut::before { display: none; } }
+
+/* ---------- macro plates: native size (object-fit: none = 1.0, never scaled), framed on the low-key paint only.
+   --ax = the detail's x in the source, --y0 = first source row below the white studio backdrop (measured). ---------- */
+.s-hero .scene--m .scene__media img { object-fit: none; transform: none;
+  object-position: calc(50% - (var(--ax) - 960px)) calc(-1 * var(--y0m)); }
+@media (min-width: 1101px) {
+  .s-hero.hero--live .scene--m .scene__media { top: max(var(--hdr-h), calc(100% - 870px)); }
+  .s-hero.hero--live .scene--m .scene__media img {
+    object-position: calc(27vw - var(--ax)) calc(-1 * var(--y0));
+    clip-path: polygon(calc(0.284 * min(870px, 100vh - var(--hdr-h))) 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+@media (min-width: 1101px) and (max-width: 1600px) {
+  .s-hero.hero--live .scene--m .scene__media img { object-position: calc(25vw - var(--ax)) calc(-1 * var(--y0)); }
+}
+.s-hero:not(.hero--live) .scene--m .scene__media img { object-position: calc(50% - (var(--ax) - 960px)) calc(-1 * var(--y0)); }
+
+/* black cars need a ground lighter than their paint: whole-car scenes sit on graphite; the release into
+   02 Collection (charcoal) is one clean horizontal step at the hero's bottom edge */
+.s-hero .scene--w, .s-hero .scene--w[data-ink] { background: var(--c-graphite); }
+
+/* scroll cue: a quiet row above the showroom line, clear of the plate and the phones */
+@media (min-width: 1101px) {
+  .s-hero .cue { left: var(--gutter); right: auto; bottom: calc(var(--bar-b) + 40px); transform: none;
+    flex-direction: row-reverse; align-items: center; gap: var(--s-4); }
+  .s-hero .cue__l { width: 48px; height: 1px; }
+}
+
+/* ---------- round 3 ---------- */
+/* the temporary cut-out is shown at ≤ its native 960px (its edge holds at that size); no floor hairline: the
+   source was shot on a floor plane, so the far tyre sits 13 source rows higher — one flat line would expose it.
+   The near (front) tyre's lowest opaque row stands on the shared floor line. */
+.s-hero.hero--live .scene--cut::before { display: none; }
+.s-hero .plate__note { color: var(--c-silver); letter-spacing: var(--tr-plate); }
+/* display caps: Bodoni Moda's N carries a wide right side-bearing in caps — let the face kern, tighten a hair */
+.s-hero .head { font-kerning: normal; font-feature-settings: "kern" 1; letter-spacing: -0.012em; }
+@media (max-width: 1100px) {
+  /* the blade stays a device of the photo plate on phones and tablets, never a full-screen mass */
+  .s-hero.hero--live .blade { top: var(--hdr-h); bottom: auto; height: var(--plate-h); }
+}
+/* MANIFEST tyre_contact: the 960 file's front tyre ends on row 280 of 282 — drop the layer by that 1px remainder */
+.s-hero.hero--live .scene--cut .scene__media { bottom: calc(100% - var(--floor-y) - 1px); }
+
+/* round 4: the 458 is the dominant — ≈60% of the width, centred, standing on the floor line; text in the air above */
+@media (min-width: 1101px) {
+  .s-hero.hero--live .scene--cut .scene__media { left: 20vw; right: auto; width: 60vw; }
+  .s-hero .scene--cut .scene__media img { object-position: 50% 100%; }
+}
+/* the 1px remainder below the front tyre (row 478 of 480 in the full file) */
+.s-hero.hero--live .scene--cut .scene__media { bottom: calc(100% - var(--floor-y) - 1px); }
+@media (max-width: 1100px) {
+  /* phones/tablets: the car sits inside the gutters on the photo plate — never touching the screen edges */
+  .s-hero.hero--live .scene--cut .scene__media,
+  .s-hero .scene--cut .scene__media { left: var(--gutter); right: var(--gutter); width: auto; top: var(--hdr-h); bottom: auto; height: calc(var(--plate-h) * 0.9); }
+  .s-hero .scene--cut .scene__media img { object-position: 50% 100%; }
+}

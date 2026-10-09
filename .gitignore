@@ -24,7 +24,14 @@ Thumbs.db
 /prototype/
 /direction/
 /review/
-/_____TEST FINAL/
+/_____TEST FINAL/*
+# TEST FINAL site is published for preview (Alex, 2026-10-09): the site folder + its own media only
+!/_____TEST FINAL/site/
+!/_____TEST FINAL/site/**/*.jpg
+!/_____TEST FINAL/site/**/*.jpeg
+!/_____TEST FINAL/site/**/*.png
+!/_____TEST FINAL/site/**/*.webp
+/_____TEST FINAL/site/assets/cutouts/_review.jpg
 /INSPIRATION/
 /assets/
 /research/out-of-scope/

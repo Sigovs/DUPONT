@@ -1,0 +1,240 @@
+/* 03 · ONE NAME. THREE DESTINATIONS. — About + Locations, two stops in one scene.
+   Stop A (About): graphite field; the constant slot upper-left (header + 6vh, 120px gutter) with "ONE NAME.";
+   the right column carries the photo caption and the About lead; the Naples showroom photograph is a full-width
+   band from header + 25vh to the bottom edge (the hero's letterbox band, same grid).
+   Stop B (Locations): the slot re-sets to "THREE / DESTINATIONS."; the contiguous US is drawn as an ivory hairline
+   (us-atlas, Albers) upper-right with three red-cored markers at their true positions (Naples and Miami separated by
+   leaders, never moved); the ledger row along the bottom: the same photograph as the Naples plate (left) | the three
+   rooms, west to east (right). Marker ⇄ room sync on hover, focus and click. */
+
+.s-locations {
+  --loc-col: max(44.8vw, 700px);                    /* right column: lead (A), drawing + rooms (B) */
+  --loc-map-w: min(var(--loc-col), calc((100svh - var(--hdr-h) - 13vh - 370px) * 1.613));
+  --loc-slot-top: calc(var(--hdr-h) + 6vh);
+  --loc-band-top: calc(var(--hdr-h) + max(25vh, 230px));
+  --loc-op: 50% 52%;                                 /* photo crop: the pillar sign + the whole car */
+  --loc-lean: 0.284;
+  position: relative;
+  background: var(--c-graphite);
+  color: var(--c-ivory);
+}
+.s-locations .loc-anchor-b { position: absolute; left: 0; top: 100vh; width: 1px; height: 1px; }
+.s-locations .loc-stage { position: relative; }
+.s-locations .loc-frame { position: relative; height: 100vh; height: 100svh; min-height: 640px; overflow: hidden; }
+
+/* ---------- shared type ---------- */
+.s-locations .m { display: block; overflow: hidden; padding: 0.1em 0.5em 0.14em; margin: -0.1em -0.5em -0.14em; }
+.s-locations .m > .ln { display: block; width: fit-content; }
+.s-locations .loc-slot {
+  position: absolute; z-index: 2;
+  left: var(--gutter); top: var(--loc-slot-top);
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.s-locations .loc-eyebrow {
+  margin: 0 0 var(--s-5);
+  font-size: var(--fs-ui); font-weight: 600; line-height: 1.6;
+  letter-spacing: 0.22em; text-transform: uppercase;
+}
+.s-locations .loc-head {
+  margin: 0;
+  font-family: var(--f-display); font-weight: 500;
+  font-optical-sizing: none; font-variation-settings: var(--fv-display);
+  font-size: min(var(--fs-display), 6.1vw, 10.4svh); line-height: 0.94; letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+
+/* ---------- stop A ---------- */
+.s-locations .loc-side {
+  position: absolute; z-index: 2;
+  right: var(--gutter); top: var(--loc-slot-top); width: var(--loc-col);
+}
+.s-locations .loc-cap {
+  margin: 0;
+  font-size: var(--fs-ui); font-weight: 600; line-height: 1.6; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--c-silver);
+}
+.s-locations .loc-lead {
+  margin: var(--s-5) 0 0; max-width: 40em;
+  font-size: var(--fs-rec); line-height: var(--lh-body); color: var(--c-ivory);
+}
+.s-locations .m:has(> .loc-lead) { margin-top: calc(var(--s-5) - 0.14em); }
+.s-locations .loc-band {
+  position: absolute; z-index: 3; margin: 0;
+  left: 0; right: 0; top: var(--loc-band-top); bottom: 0;
+  transform-origin: 0 0;
+}
+.s-locations .loc-band img,
+.s-locations .loc-plate__img img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: var(--loc-op);
+}
+
+/* ---------- stop B: the drawing ---------- */
+.s-locations .loc-map {
+  position: absolute; z-index: 1;
+  right: var(--gutter); top: calc(var(--loc-slot-top) + var(--s-4));
+  width: var(--loc-map-w); aspect-ratio: 1000 / 620;
+}
+.s-locations .loc-map__svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.s-locations .loc-map__nation { fill: none; stroke: var(--c-ivory); stroke-width: var(--loc-sw, 1.4); stroke-linejoin: round; stroke-opacity: 0.78; }
+.s-locations .loc-map__states { fill: none; stroke: var(--c-ivory); stroke-width: var(--loc-sw, 1.4); stroke-linejoin: round; stroke-opacity: 0.16; }
+
+/* markers: 44px hit area; 16px ivory ring around a 10px red core at the true geographic point */
+.s-locations .loc-mk {
+  position: absolute; z-index: 2;
+  width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0;
+  background: none; border: 0; border-radius: 50%; cursor: pointer; color: var(--c-ivory);
+}
+.s-locations .loc-mk__dot {
+  position: absolute; left: 14px; top: 14px; width: 16px; height: 16px;
+  border: 1.5px solid var(--c-ivory); border-radius: 50%; background: var(--c-graphite);
+  transition: background-color var(--dur-ui) var(--ease-out);
+}
+.s-locations .loc-mk__dot::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px;
+  border-radius: 50%; background: var(--c-red);
+}
+.s-locations .loc-mk__dot::before {
+  content: ""; position: absolute; inset: -9px; border: 1px solid var(--c-line-strong); border-radius: 50%;
+  opacity: 0; transform: scale(0.6);
+  transition: opacity var(--dur-ui) var(--ease-out), transform var(--dur-ui) var(--ease-out);
+}
+.s-locations .loc-mk.is-on .loc-mk__dot { background: var(--c-ivory); }
+.s-locations .loc-mk.is-on .loc-mk__dot::before { opacity: 1; transform: none; }
+.s-locations .loc-mk:focus-visible { outline: 2px solid var(--c-ivory); outline-offset: 0; }
+.s-locations .loc-mk__l {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  font-size: var(--fs-ui); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; line-height: 1;
+  white-space: nowrap; color: var(--c-ivory);
+}
+/* leaders: Naples and Miami sit 35 map units apart — their labels part on 45° hairlines, the points stay true */
+.s-locations .loc-mk__lead {
+  display: none; position: absolute; left: 50%; top: 50%; width: 34px; height: 1px;
+  background: var(--c-ivory); opacity: 0.7; transform-origin: 0 50%;
+}
+.s-locations .loc-mk--r .loc-mk__l { left: calc(50% + 16px); }
+.s-locations .loc-mk--l .loc-mk__lead { display: block; transform: rotate(135deg); }
+.s-locations .loc-mk--l .loc-mk__l { right: calc(50% + 30px); top: calc(50% + 24px); }
+.s-locations .loc-mk--d .loc-mk__lead { display: block; transform: rotate(45deg); }
+.s-locations .loc-mk--d .loc-mk__l { left: calc(50% + 30px); top: calc(50% + 24px); }
+
+/* ---------- stop B: the ledger row — Naples plate | rooms ---------- */
+.s-locations .loc-row {
+  position: absolute; z-index: 2;
+  left: var(--gutter); right: var(--gutter); bottom: clamp(var(--s-6), 6.5vh, var(--s-9));
+  display: grid; grid-template-columns: minmax(0, 1fr) var(--loc-col); column-gap: var(--s-9); align-items: stretch;
+}
+.s-locations .loc-plate {
+  margin: 0; padding-top: var(--s-5); border-top: 1px solid var(--c-line-strong);
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.s-locations .loc-plate__cap {
+  font-size: var(--fs-ui); font-weight: 600; line-height: 1.6; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--c-silver);
+}
+.s-locations .loc-plate__img {
+  position: relative; margin-top: var(--s-4); width: 100%; flex: 1 1 0; min-height: 0; overflow: hidden;
+}
+.s-locations .loc-plate__img img { position: absolute; inset: 0; }   /* the rooms set the row height, the plate fills it */
+
+.s-locations .loc-rooms {
+  margin: 0; padding: 0; list-style: none;
+  display: grid; grid-template-columns: repeat(3, 1fr); column-gap: clamp(var(--s-5), 1.7vw, var(--s-6));
+}
+.s-locations .loc-room { position: relative; overflow: hidden; padding-top: var(--s-5); border-top: 1px solid var(--c-line-strong); }
+.s-locations .loc-room::before {
+  content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--c-red);
+  transform: scaleX(0); transform-origin: left; transition: transform 400ms var(--ease-out);
+}
+.s-locations .loc-room.is-on::before { transform: none; }
+.s-locations .loc-room__city {
+  margin: 0 0 var(--s-4);
+  font-family: var(--f-display); font-weight: 500;
+  font-optical-sizing: none; font-variation-settings: var(--fv-display);
+  font-size: clamp(26px, 1.75vw, 34px); line-height: 1; letter-spacing: -0.005em; text-transform: uppercase;
+  min-height: 2em;
+}
+.s-locations .loc-room__addr,
+.s-locations .loc-room__tel { margin: 0; font-size: var(--fs-body); line-height: 1.55; color: var(--c-ivory); }
+.s-locations .loc-room__tel a { text-decoration: none; font-variant-numeric: tabular-nums; border-bottom: 1px solid var(--c-line); }
+.s-locations .loc-room__tel a:hover { border-bottom-color: var(--c-ivory); }
+.s-locations .loc-room__n { margin: var(--s-3) 0 0; font-size: var(--fs-ui); line-height: 1.5; color: var(--c-silver); font-variant-numeric: tabular-nums; }
+.s-locations .loc-room__fig { color: var(--c-ivory); font-weight: 600; }
+.s-locations .loc-room__acts { margin: var(--s-4) 0 0; display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-1); }
+.s-locations .loc-link {
+  display: inline-flex; align-items: center; gap: var(--s-2); min-height: 32px;
+  font-size: var(--fs-ui); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  text-decoration: none; color: var(--c-ivory); white-space: nowrap;
+}
+.s-locations .loc-link:not(.loc-link--go) { color: var(--c-silver); }
+.s-locations .loc-link:hover { color: var(--c-ivory); }
+.s-locations .loc-link .ic { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.4; transition: transform var(--dur-ui) var(--ease-out); }
+.s-locations .loc-link:hover .ic, .s-locations .loc-link:focus-visible .ic { transform: translateX(3px); }
+@media (max-width: 1600px) { .s-locations .loc-link { letter-spacing: 0.1em; } }
+
+/* =====================================================================
+   MOTION MODE (section.js, ≥1101px landscape): one sticky stage, both frames overlaid; 160vh runway.
+   ===================================================================== */
+.s-locations.is-live { height: calc(100vh + var(--loc-run, 176vh)); }
+.s-locations.is-live .loc-stage { position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 640px; overflow: hidden; }
+.s-locations.is-live .loc-frame { position: absolute; inset: 0; height: auto; min-height: 0; overflow: visible; }
+.s-locations.is-live .loc-frame--b { z-index: 1; }
+.s-locations.is-live .loc-frame--a { z-index: 2; pointer-events: none; }
+.s-locations.is-live .loc-frame--a > * { pointer-events: auto; }
+.s-locations.is-live .loc-plate__img img { visibility: hidden; }     /* the band itself flies into this box */
+.js-motion .s-locations.is-live .ln,
+.js-motion .s-locations.is-live .loc-room__in,
+.js-motion .s-locations.is-live .loc-band { will-change: transform; }
+
+/* =====================================================================
+   Narrow + portrait: an authored stack, no pin. A: slot → lead → photograph. B: slot → drawing → rooms.
+   ===================================================================== */
+@media (max-width: 1100px), (orientation: portrait) {
+  .s-locations { --loc-col: 100%; --loc-map-w: 100%; }
+  .s-locations .loc-frame { height: auto; min-height: 0; overflow: visible; padding: calc(var(--hdr-h) + var(--s-8)) var(--gutter) 0; }
+  .s-locations .loc-frame--b { padding-bottom: var(--s-9); }
+  .s-locations .loc-slot, .s-locations .loc-side { position: static; width: auto; }
+  .s-locations .m { padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; }
+  .s-locations .loc-head { font-size: clamp(44px, 9.4vw, 92px); }
+  .s-locations .loc-side { margin-top: var(--s-7); }
+  .s-locations .loc-band { position: relative; inset: auto; margin: var(--s-8) calc(-1 * var(--gutter)) 0; aspect-ratio: 3 / 2; }
+  .s-locations .loc-band img { object-position: 50% 60%; }
+  .s-locations .loc-map { position: relative; right: auto; top: auto; width: 100%; margin: var(--s-8) 0 0; }
+  .s-locations .loc-row { position: static; display: block; margin-top: var(--s-9); }
+  .s-locations .loc-plate { display: none; }                      /* the photograph already leads stop A here */
+  .s-locations .loc-rooms { grid-template-columns: 1fr; row-gap: var(--s-7); }
+  .s-locations .loc-room__city { min-height: 0; font-size: clamp(28px, 6vw, 40px); }
+  .s-locations .loc-room__acts { flex-direction: row; flex-wrap: wrap; gap: 0 var(--s-6); }
+  .s-locations .loc-link { min-height: 44px; }
+}
+@media (max-width: 1100px) and (min-width: 700px), (orientation: portrait) and (min-width: 700px) {
+  .s-locations .loc-rooms { grid-template-columns: repeat(3, 1fr); column-gap: var(--s-5); }
+  .s-locations .loc-room__acts { flex-direction: column; gap: 0; }
+  .s-locations .loc-room__city { min-height: 2em; font-size: clamp(24px, 3.2vw, 32px); }
+}
+@media (max-width: 520px) {
+  .s-locations .loc-mk--l .loc-mk__l { right: calc(50% + 26px); }
+  .s-locations .loc-mk--d .loc-mk__l { left: auto; right: -2px; top: calc(50% + 40px); }
+  .s-locations .loc-mk--d .loc-mk__lead { width: 26px; transform: rotate(80deg); }
+}
+.s-locations .nw { white-space: nowrap; }
+/* at phone scale Naples and Miami are 12px apart: the rings give way to the bare 10px red points, which stay apart */
+@media (max-width: 520px) {
+  .s-locations .loc-mk__dot { border-color: transparent; background: none; }
+  .s-locations .loc-mk.is-on .loc-mk__dot { background: none; }
+  .s-locations .loc-mk.is-on .loc-mk__dot::after { box-shadow: 0 0 0 2px var(--c-ivory); }
+}
+
+/* N–A pair in Bodoni caps: the hairline diagonal of N and the left stroke of A leave a hole — close it (render-checked) */
+.s-locations .kna { letter-spacing: -0.075em; }
+.s-locations .kpn { letter-spacing: -0.035em; }
+
+/* motion mode: the ledger rules are drawn (scaleX) with the content they carry, never shown empty */
+.s-locations.is-live .loc-room,
+.s-locations.is-live .loc-plate { position: relative; border-top: 0; padding-top: calc(var(--s-5) + 1px); }
+.s-locations.is-live .loc-room::after,
+.s-locations.is-live .loc-plate::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--c-line-strong);
+  transform: scaleX(var(--rule, 1)); transform-origin: 0 50%;
+}
+.s-locations.is-live .loc-room::before { top: 0; z-index: 1; }
