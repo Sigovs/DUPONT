@@ -51,3 +51,4 @@ scroll; overflow 0; console errors 0; failed requests 0; per-glyph contrast on t
 pixel-stable during holds; reduced-motion screenshot. Put them in `sections\NN-name\_qa\` plus a left-to-right
 `filmstrip.jpg`. Look at every frame yourself as an Art Director; redesign weak frames before reporting.
 Report: what you built, screenshots paths, measurements, deviations, honest weakest point. No essay.
+# Asset paths: always {P}sections/... — never root-absolute (/sections/...): GitHub Pages serves the site under a sub-path.

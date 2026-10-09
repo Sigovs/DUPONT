@@ -1,7 +1,8 @@
 /* 01-hero — "Every detail, one registry". Ported from _____TEST FINAL/hero (standalone reference).
    Every selector scoped under .s-hero. Shared tokens/base/header live in assets/css. */
 .s-hero {
-  --runway: 154vh;    /* 2 holds × 47 (508px at 1080) + 1 flight cut × 60 (vh): the hero is 2.54 viewports */
+  --hold: max(47vh, 560px);   /* every hold ≥ 560px whatever the window height (JS mirrors this) */
+  --runway: calc(2 * var(--hold) + 60vh);
   --band-top: calc(var(--hdr-h) + 29vh);   /* the one band line every whole-car scene shares */
   --c-ink-light: #303137;
 }

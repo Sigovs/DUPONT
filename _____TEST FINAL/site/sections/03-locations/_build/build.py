@@ -29,7 +29,7 @@ ROOMS = [
 e = html.escape
 ARR = '<svg class="ic" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 6h9.5M6.5 2l4 4-4 4"/></svg>'
 OUT = '<svg class="ic" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9l6.5-6.5M4 2.5h5.5V8"/></svg>'
-IMG = "/sections/03-locations/img/naples-showroom"
+IMG = "{P}sections/03-locations/img/naples-showroom"
 SRCSET = f"{IMG}-1080.webp 1080w, {IMG}-1920.webp 1920w"
 ALT = ("The duPont REGISTRY Select Naples showroom at 2365 Linwood Ave.: a red 1960 Corvette on the paved forecourt, "
        "a duPont REGISTRY sign on the dark entrance pillar, red Ferraris visible through the glazing")

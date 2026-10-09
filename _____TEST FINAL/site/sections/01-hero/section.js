@@ -30,7 +30,7 @@
 
   /* ---------------- motion tokens ---------------- */
     var M = {
-      hold: 47,                       /* vh — every hold ≥ 500px at 1080 */
+      hold: 47,                       /* vh — recomputed: max(47vh, 560px), mirrors --hold in section.css */
       flightCut: 60, plainCut: 32,    /* vh — detail→car cuts are longer (they carry the flight) */
       slant: 16, blade: 18,           /* blade: 16% lean, 18% of the stage width */
       /* detail → car: text out, macro flies to its place, blade cuts it away rightwards */
@@ -151,6 +151,7 @@
     }
 
     function measure() {
+      if (typeof runway === 'function') runway();
       /* staircase travel never carries a line past the viewport edge: ≤ 3/4 of the gutter */
       var sl0 = hero.querySelector('.slot'); M.lineTravel = Math.min(64, Math.round((sl0 ? sl0.offsetLeft : 64) * 0.75));
       register();
@@ -233,7 +234,11 @@
     /* ---------------- runway ---------------- */
     function cutLen(k) { return S[k].macro && S[k + 1] && S[k + 1].whole ? M.flightCut : M.plainCut; }
     var STARTS = [], UNITS = 0;
-    (function () { var u = 0; for (var k = 0; k < N; k++) { STARTS.push(u); u += M.hold; if (k < N - 1) u += cutLen(k); } UNITS = u; })();
+    function runway() {
+      M.hold = Math.max(47, 56000 / (window.innerHeight || 1080));
+      STARTS = []; var u = 0; for (var k = 0; k < N; k++) { STARTS.push(u); u += M.hold; if (k < N - 1) u += cutLen(k); } UNITS = u;
+    }
+    runway();
     function segAt(u) {
       for (var k = 0; k < N; k++) {
         var h0 = STARTS[k];
