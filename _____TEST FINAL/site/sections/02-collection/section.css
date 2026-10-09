@@ -191,5 +191,4 @@
   html.js-motion .s-collection .co { display: block; left: 0; top: 0; bottom: auto; width: 100%; transform-origin: 0 0; will-change: transform, clip-path; }
   /* the credit sits in the band between the header and the slot: clear of every eyebrow and every car */
   html.js-motion .s-collection .cl__tab .cl__credit { right: var(--gutter); top: calc(var(--hdr-h) + var(--s-3)); }
-  html.js-motion .s-collection .ln, html.js-motion .s-collection .fs__line { will-change: transform; }
 }

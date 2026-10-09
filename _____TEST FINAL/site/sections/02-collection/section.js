@@ -175,7 +175,7 @@
       var f = slots[i]; if (!f) return; var ls = linesOf(f);
       if (textTl[i]) textTl[i].kill();
       f.classList.add('is-on');
-      textTl[i] = gsap.fromTo(ls, { x: -TRAVEL, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.6, ease: 'power3.out', stagger: 0.07 });
+      textTl[i] = gsap.fromTo(ls, { x: -TRAVEL, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.6, ease: 'power3.out', stagger: 0.07, onComplete: function () { gsap.set(ls, { clearProps: 'transform' }); } });
     }
     function hide(i) {
       var f = slots[i]; if (!f) return; var ls = linesOf(f);
