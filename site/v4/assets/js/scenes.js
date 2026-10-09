@@ -16,6 +16,7 @@
   'use strict';
   if (!window.gsap || !window.ScrollTrigger || !window.V4 || !window.V4.cars) return;
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.addEventListener('refresh', function () { if (window.V4 && window.V4.ink) window.V4.ink(); });
   var V4 = window.V4, geo = V4.geo, root = document.documentElement;
   V4.tl = {};
   var SCRUB = 0.6;
@@ -248,7 +249,7 @@
     var sec = $('[data-scene="sell"]'); if (!sec) return;
     var ph = $('[data-sell-ph]', sec), text = $('[data-sell-text]', sec);
     var hl = lines('.sell__h', text), eye = lines('.eyebrow', text), deck = lines('.deck', text), act = lines('.sell__act', text);
-    var rule = $('.rule', text), cap = $('.sell__cap', text);
+    var rule = $('.rule', text);
     var tl0 = enterTL(sec, 'top bottom');
     // the panel travels on its own clock: it starts lower than the section and catches up
     tl0.fromTo(ph, { y: function () { return 0.5 * VH(); } }, { y: 0, duration: 1 }, 0);
@@ -258,7 +259,6 @@
     tl0.fromTo(hl[1], { xPercent: 105 }, { xPercent: 0, duration: 0.35, ease: 'power3.out' }, 0.5);
     tl0.fromTo(deck, { yPercent: 110 }, { yPercent: 0, duration: 0.25, ease: 'power3.out', stagger: 0.04 }, 0.62);
     tl0.fromTo(act, { xPercent: 110 }, { xPercent: 0, duration: 0.25, ease: 'power3.out' }, 0.7);
-    tl0.fromTo(cap, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.85);
     var tl = V4.tl.sell = pinTL(sec, 60);
     tl.addLabel('hold', 0).to({}, { duration: 60 }, 0);
     V4.targets.sell = function () { return stY(tl, 1); };

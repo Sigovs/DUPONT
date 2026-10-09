@@ -18,6 +18,7 @@ External skills: **authorized 2026-10-08** as supporting specialists (see BRIEF.
 - **Jarvis memory (2026-10-09):** repo https://github.com/Sigovs/DUPONT (PUBLIC — Alex's choice; media ignored).
   Jarvis reads PROJECT.md, BRIEF.md, CLAUDE.md, docs/*.md, research/*.md from git HEAD. Keep PROJECT.md,
   docs/DECISIONS.md and docs/LESSONS.md current (≤6000 chars each) and commit + push after each major decision.
+  **Repo carries ONLY the current version (V4) + memory docs/brief/data** — older versions stay local (.gitignore).
 - **US map: ONCE per page (Alex, 2026-10-09)** — V4 used it ~4 times. Only in About + Locations; no map crops in footer
   cards, no map silhouettes as decoration/backgrounds elsewhere.
 - **Home inventory reference authorised by Alex (2026-10-09):** the "Available Now." section of his build

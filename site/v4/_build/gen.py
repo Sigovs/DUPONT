@@ -422,12 +422,12 @@ def locations():
 def sell():
     return f"""    <!-- 04 · SELL YOUR CAR — ivory. One action, no form. The photo panel travels in on its own clock. -->
     <section class="scene sell" id="sell" data-scene="sell" data-ink="dark" aria-labelledby="sell-title">
-      <div class="sell__ph" data-sell-ph>{photo("sell", "sell__img", "The 2006 Ford GT from behind, as photographed for its listing")}</div>
+      <div class="sell__ph" data-sell-ph>{photo("sell", "sell__img", "The 2006 Ford GT from behind, as photographed for its listing")}
+        <p class="cap cap--ink t-label">2006 Ford GT · Select SoCal</p></div>
       <div class="sell__text" data-sell-text>
         <p class="eyebrow t-label"><span class="rule"></span>{m("05 — Sell your car")}</p>
         <h2 class="sell__h disp" id="sell-title">{m("Selling a car")}<br>{m('like <span class="red">these?</span>')}</h2>
         <p class="deck">{m("Talk to the showroom nearest you about")} {m("selling or trading a car of this calibre.")}</p>
-        <p class="sell__cap t-label t-mute">Pictured: 2006 Ford GT · Select SoCal</p>
         <div class="sell__act">{m(f'<a class="btn btn--red" href="#showrooms" data-goto="showrooms">Talk to a showroom {ARROW}</a>')}</div>
       </div>
     </section>
