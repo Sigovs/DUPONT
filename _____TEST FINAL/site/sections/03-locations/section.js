@@ -2,7 +2,7 @@
    Interaction (every mode): marker ⇄ room sync — hover or focus on either lights the pair (ivory-filled ring + halo,
    red 2px rule over the room); a marker click selects that showroom (aria-pressed) and, on the stacked layout, scrolls
    to its room. Rooms link to inventory.html?showroom=…, tel: and Google Maps directions.
-   Motion (≥1101px landscape): the section is 100vh + 176vh with a sticky stage. IMAGES ARE SCRUBBED, TEXT IS
+   Motion (≥1101px landscape): the section is 100vh + 182vh with a sticky stage. IMAGES ARE SCRUBBED, TEXT IS
    TIME-BASED: the photograph and the map follow the scroll; every text group plays to its end in ~0.6–0.9 s once its
    threshold is crossed and reverses when it is crossed back. The scroll position is never moved by script.
    Positions in vh of travel from "top 85%":
@@ -25,7 +25,7 @@
     var anchorB = el.querySelector('.loc-anchor-b');
     var frameB = el.querySelector('.loc-frame--b');
     var picked = null, live = false;
-    var M = { run: 176, arrive: 85, holdA: 56, cut: 64, holdB: 56, travel: 64, lean: 0.284 };
+    var M = { run: 182, arrive: 85, holdA: 62, cut: 64, holdB: 56, travel: 64, lean: 0.284 };
 
     function hair() {
       var w = map.getBoundingClientRect().width;

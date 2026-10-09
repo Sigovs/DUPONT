@@ -228,7 +228,7 @@
       s.el.style.clipPath = ''; s.el.style.background = '';
       s.plate.style.transform = ''; s.media.style.transform = ''; s.media.style.transformOrigin = '';
       
-      if (s.co) { s.co.style.visibility = 'hidden'; } if (s.lbl) s.lbl.style.clipPath = '';
+      if (s.co) { s.co.style.visibility = 'hidden'; } if (s.lbl) { s.lbl.style.clipPath = ''; s.lbl.style.visibility = ''; }
     }
 
     /* ---------------- runway ---------------- */
@@ -334,7 +334,7 @@
         A.co.querySelector('circle').style.opacity = ql > 0 ? 1 : 0;
         A.co.style.visibility = p >= F.frame[0] ? 'visible' : 'hidden';
         var qb = easeOut(clamp((p - F.label[0]) / (F.label[1] - F.label[0])));
-        A.lbl.style.clipPath = P.side > 0 ? 'inset(0 ' + f(100 - qb * 100) + '% 0 0)' : 'inset(0 0 0 ' + f(100 - qb * 100) + '%)';
+        A.lbl.style.clipPath = 'none'; A.lbl.style.visibility = qb >= 1 ? 'visible' : 'hidden';   /* the label shows only when complete */
       }
       /* 4 · the blade cuts plate, leader and label away (rightwards); the real photo is already there */
       var g = bladeGeo(p, F.blade, F.dir);

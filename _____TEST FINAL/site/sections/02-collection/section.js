@@ -4,7 +4,7 @@
    Live (wide landscape + motion; layout reserved by CSS): pinned, scrubbed. Three cars in one frame, and the frame
    recomposes at every text beat on ONE ground plane (horizon under the text, graphite floor below; car width follows
    depth): wide (intro) -> the DBS comes forward into the lower left -> the camera moves to the 812 while the DBS runs
-   out left and the 765LT nose enters -> the 765LT opens up and the 812 drives forward into the lower left. The cars move only between beats; the slot lines leave
+   out left and the 765LT nose enters -> the camera pulls back: the whole 765LT stands as the subject, the 812 far left. The cars move only between beats; the slot lines leave
    before a move and arrive after it, then everything holds (47vh = 508px at 1080). STATES = the four compositions.
    Static (tablets, reduced motion, no JS): beat 01 as one 16:9 picture, plates in a row. Phones: an authored list. */
 (function () {
@@ -116,11 +116,11 @@
      L = left edge (fraction of W), f = tyre line (fraction of H), e = share uncovered by the angled cut. */
   var DEPTH = 1.245;
   var STATES = {
-    pre: { '812': { L: 0.72, f: 0.60, e: 0 }, dbs: { L: 0.14, f: 0.90, e: 0 }, '765lt': { L: 1.06, f: 1.12, e: 1 } },
-    s0:  { '812': { L: 0.72, f: 0.60, e: 1 }, dbs: { L: 0.14, f: 0.90, e: 1 }, '765lt': { L: 1.06, f: 1.12, e: 1 } },
-    s1:  { '812': { L: 0.76, f: 0.58, e: 1 }, dbs: { L: 0.04, f: 0.99, e: 1 }, '765lt': { L: 1.06, f: 1.12, e: 1 } },
-    s2:  { '812': { L: 0.50, f: 0.72, e: 1 }, dbs: { L: -0.36, f: 1.02, e: 1 }, '765lt': { L: 0.88, f: 1.12, e: 1 } },
-    s3:  { '812': { L: 0.08, f: 0.80, e: 1 }, dbs: { L: -0.80, f: 1.02, e: 1 }, '765lt': { L: 0.60, f: 1.12, e: 1 } }
+    pre: { '812': { L: 0.73, f: 0.62, e: 0 }, dbs: { L: 0.14, f: 0.90, e: 0 }, '765lt': { L: 1.06, f: 1.12, e: 1 } },
+    s0:  { '812': { L: 0.73, f: 0.62, e: 1 }, dbs: { L: 0.14, f: 0.90, e: 1 }, '765lt': { L: 1.06, f: 1.12, e: 1 } },
+    s1:  { '812': { L: 0.71, f: 0.645, e: 1 }, dbs: { L: 0.02, f: 0.99, e: 1 }, '765lt': { L: 1.06, f: 1.12, e: 1 } },
+    s2:  { '812': { L: 0.46, f: 0.76, e: 1 }, dbs: { L: -0.36, f: 1.02, e: 1 }, '765lt': { L: 0.88, f: 1.12, e: 1 } },
+    s3:  { '812': { L: 0.05, f: 0.62, e: 1 }, dbs: { L: -0.80, f: 1.02, e: 1 }, '765lt': { L: 0.32, f: 0.958, e: 1 } }
   };
   function live(ctx) {
     var gsap = ctx.gsap, ST = ctx.ScrollTrigger, el = ctx.el;
@@ -162,9 +162,10 @@
     }
     function applyAll() { cars.forEach(apply); }
 
-    // text windows: lines leave at 10% of a move and arrive at 90% (the cars move between)
+    // text windows: the outgoing plate holds while the cars move (10-80% of a move), so the wall is never empty;
+    // its lines leave at 84% and the next plate's arrive at 90%, after the cars have landed
     var TR = [], t0 = 0;
-    SEG.forEach(function (s) { if (s[0] === 'c') TR.push([t0 + 0.1 * s[1], t0 + 0.9 * s[1]]); t0 += s[1]; });
+    SEG.forEach(function (s) { if (s[0] === 'c') TR.push([t0 + 0.84 * s[1], t0 + 0.9 * s[1]]); t0 += s[1]; });
     var textTl = {}, current = 0;
     function stepAt(pos) {
       var step = 0;
@@ -210,7 +211,7 @@
         } else if (sg[0] === 'c') {
           var from = STATES[order[beat]], to = STATES[order[beat + 1]];
           cars.forEach(function (car) {
-            tl.fromTo(car.s, Object.assign({}, from[car.k]), Object.assign({}, to[car.k], { duration: 0.7 * len, ease: 'power2.inOut' }), t + 0.15 * len);
+            tl.fromTo(car.s, Object.assign({}, from[car.k]), Object.assign({}, to[car.k], { duration: 0.7 * len, ease: 'power2.inOut' }), t + 0.1 * len);
           });
           beat++;
         }

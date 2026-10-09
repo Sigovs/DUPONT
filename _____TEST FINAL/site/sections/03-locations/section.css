@@ -175,7 +175,7 @@
 /* =====================================================================
    MOTION MODE (section.js, ≥1101px landscape): one sticky stage, both frames overlaid; 160vh runway.
    ===================================================================== */
-.s-locations.is-live { height: calc(100vh + var(--loc-run, 176vh)); }
+.s-locations.is-live { height: calc(100vh + var(--loc-run, 182vh)); }
 .s-locations.is-live .loc-stage { position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 640px; overflow: hidden; }
 .s-locations.is-live .loc-frame { position: absolute; inset: 0; height: auto; min-height: 0; overflow: visible; }
 .s-locations.is-live .loc-frame--b { z-index: 1; }

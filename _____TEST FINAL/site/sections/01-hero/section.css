@@ -388,3 +388,28 @@
 @media (max-width: 1100px) {
   .s-hero.hero--live .scene--cut::after { top: calc(var(--hdr-h) + var(--plate-h) * 0.9 - 61 * (100vw - 2 * var(--gutter)) / 1636); }
 }
+
+/* ---------- round 6: a ground-plane value structure, not a glow and not a shadow.
+   The source car stands on a receding floor: the far (rear) tyre touches 13 source rows higher than the near
+   (front) one. So the floor line is set at the FAR contact and the near tyre stands slightly into the plane and
+   occludes the line — perspective-correct, the car stands rather than hovers. Two flat tones with hard edges:
+   the strip between the horizon (sill line) and the floor line is a step lighter (the near floor in the room
+   light), graphite below; one 1px line at the floor line, gutter to gutter, drawn under the car. ---------- */
+.s-hero {
+  --c-floor-near: #3A3B42;
+  --car-k: calc(54vw / 1636);                                  /* cut-out px → screen px */
+  --line-y: calc(var(--floor-y) + 1px - 24 * var(--car-k));    /* far (rear) tyre contact, measured in render */
+  --near: calc(37 * var(--car-k));                              /* sill row 417 → far contact row 454 */
+}
+@media (max-width: 1100px) {
+  .s-hero { --car-k: calc((100vw - 2 * var(--gutter)) / 1636); --line-y: calc(var(--hdr-h) + var(--plate-h) * 0.9 - 24 * var(--car-k)); }
+}
+.s-hero.hero--live .scene--cut::after {
+  background: linear-gradient(to bottom, var(--c-floor-near) 0, var(--c-floor-near) var(--near), var(--c-graphite) var(--near));
+}
+.s-hero.hero--live .scene--cut::before {
+  display: block; content: ""; position: absolute; z-index: 0; left: var(--gutter); right: var(--gutter);
+  top: var(--line-y); height: 1px; background: var(--c-line-strong);
+}
+.s-hero.hero--live .scene--cut::after { z-index: -1; }
+.s-hero.hero--live .scene--cut { isolation: isolate; }

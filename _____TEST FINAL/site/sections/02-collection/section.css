@@ -118,8 +118,8 @@
 /* static frame = beat 01 (the DBS forward), in % of a 16:9 box: left / width / floor (tyre line, from the top) */
 .s-collection .cl__tab { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; }
 /* static = beat 01 on the same ground plane: w = 1.245 x (f - 46%) */
-.s-collection .co[data-car="812"]   { --l: 76%; --w: 14.9%; --f: 58%; z-index: 1; }   /* far: small and high on the floor */
-.s-collection .co[data-car="dbs"]   { --l: 4%;  --w: 66%;   --f: 99%; z-index: 2; }   /* dominant, lower left */
+.s-collection .co[data-car="812"]   { --l: 71%; --w: 23%;   --f: 64.5%; z-index: 1; } /* further back: smaller and higher on the floor */
+.s-collection .co[data-car="dbs"]   { --l: 2%;  --w: 66%;   --f: 99%; z-index: 2; }   /* dominant, lower left */
 .s-collection .co[data-car="765lt"] { display: none; }                                 /* enters at beat 02 (live only) */
 /* the ground plane: charcoal wall, graphite floor, one hairline horizon */
 .s-collection .cl__floor { position: absolute; left: 0; right: 0; bottom: 0; top: var(--hz, 46%); background: var(--c-graphite); border-top: 1px solid var(--c-line); }
@@ -166,7 +166,7 @@
   .s-collection .cl__tab .co { display: none; }
   .s-collection .cl__tab .cl__credit { position: static; text-align: left; }
   .s-collection .sl--car { margin-top: var(--s-9); }
-  .s-collection .pl__car { display: block; margin-bottom: var(--s-5); border-bottom: 1px solid var(--c-line); }
+  .s-collection .pl__car { display: block; width: calc(100% + var(--gutter)); margin: 0 0 var(--s-5) calc(-0.5 * var(--gutter)); border-bottom: 1px solid var(--c-line); }
   .s-collection .fs__line { gap: var(--s-2) var(--s-3); }
   .s-collection .fs__go { margin-left: 0; }
   .s-collection .pl__go--all, .s-collection .pl__go--all .cl-btn { width: 100%; justify-content: space-between; }
