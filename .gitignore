@@ -19,28 +19,30 @@
 Thumbs.db
 
 # Repo carries only the current version (V4) + project memory. Older versions stay local.
-/site/*
-!/site/v4/
+/site_v1/*
+!/site_v1/v4/
 /prototype/
 /direction/
 /review/
 /_____TEST FINAL/*
-# TEST FINAL site is published for preview (Alex, 2026-10-09): the site folder + its own media only
-!/_____TEST FINAL/site/
-!/_____TEST FINAL/site/**/*.jpg
-!/_____TEST FINAL/site/**/*.jpeg
-!/_____TEST FINAL/site/**/*.png
-!/_____TEST FINAL/site/**/*.webp
-/_____TEST FINAL/site/assets/cutouts/_review.jpg
+# TEST FINAL site (now site_v2/) is published for preview (Alex, 2026-10-09): its own media only
+!/site_v2/**/*.jpg
+!/site_v2/**/*.jpeg
+!/site_v2/**/*.png
+!/site_v2/**/*.webp
+/site_v2/assets/cutouts/_review.jpg
 /INSPIRATION/
 /assets/
 /research/out-of-scope/
-/site/v4/storyboard/v1/
-/site/v4/storyboard/STORYBOARD-v1.md
+/site_v1/v4/storyboard/v1/
+/site_v1/v4/storyboard/STORYBOARD-v1.md
 
 # V4 media is published (GitHub Pages) — Alex's decision 2026-10-09
-!/site/v4/assets/**/*.jpg
-!/site/v4/assets/**/*.jpeg
-!/site/v4/assets/**/*.png
-!/site/v4/assets/**/*.webp
-!/site/v4/assets/**/*.avif
+!/site_v1/v4/assets/**/*.jpg
+!/site_v1/v4/assets/**/*.jpeg
+!/site_v1/v4/assets/**/*.png
+!/site_v1/v4/assets/**/*.webp
+!/site_v1/v4/assets/**/*.avif
+
+# V4 Sell loop video is published with the site (Alex, 2026-10-09)
+!/site_v1/v4/assets/video/sell-loop.mp4

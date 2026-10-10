@@ -38,7 +38,7 @@ External skills: **authorized 2026-10-08** as supporting specialists (see BRIEF.
 - **INSPIRATION/ (Alex, 2026-10-09):** use it for LAYOUT, COMPOSITION, visual rhythm and pacing of sections — not for
   its pictures (AI-generated, never used/imitated as photos).
 - **V4 BUILD AUTHORISED (2026-10-09): stop iterating storyboards — build the complete functional prototype in
-  site/v4/.** Storyboard = working foundation, not locked. All sections, fullscreen scroll-driven scenes, GSAP
+  site_v1/v4/.** Storyboard = working foundation, not locked. All sections, fullscreen scroll-driven scenes, GSAP
   ScrollTrigger, directional type, seamless transitions. Car assets independently replaceable; don't improve temp masks
   or resolution (Alex supplies finals). Don't ask approval per frame/section — decide and keep building. Deliver working
   browser prototype + functional nav + full-page scroll recording.
@@ -74,14 +74,14 @@ External skills: **authorized 2026-10-08** as supporting specialists (see BRIEF.
 - **Judge the SEQUENCE, never the single frame (Alex, 2026-10-09):** every scene shares one grid, rhythm and visual row —
   same margins/text slot/floor line/focal line/blade angle; images chosen and cropped for how they sit next to their
   neighbours. Always review a left-to-right filmstrip of all holds + transitions, not isolated screenshots.
-- **V4 (2026-10-09) — `site/v4/`, completely separate; V1/V2/Head-On/Step Back untouched.** Forge interaction principles.
+- **V4 (2026-10-09) — `site_v1/v4/`, completely separate; V1/V2/Head-On/Step Back untouched.** Forge interaction principles.
   HERO: exactly THREE front-facing exotic cars TOGETHER in one composition; on scroll they move toward the viewer, grow
   and exit the frame, revealing the next fullscreen scene. No slideshow/image swap/symmetrical wipe. Whole homepage:
   fullscreen scroll-driven sections, pinned scenes, images moving independently, large photo panels travelling
   vertically, directional text, choreographed transitions, distinct compositions. Sections: Hero, Collection, About +
   Locations (SoCal/Naples/Miami), Sell Your Car, Services (Insurance/Service/PPF), Reviews, Instagram, Locations footer.
   Colours #AC1D28 / #303137 + charcoal, metallic silver, soft ivory; no flat pure black. **Storyboard (hero + transition
-  into next section) first, inside site/v4/; no code/GSAP until Alex approves.**
+  into next section) first, inside site_v1/v4/; no code/GSAP until Alex approves.**
 - **STEP BACK STORYBOARD REJECTED ENTIRELY (2026-10-09):** "rearranged inventory photographs, not a premium automotive
   digital experience" — the repeated mistake is elaborate transitions on visually ordinary layouts. No coding, animation
   planning or detailed technical QA. Visual design first. Root cause found: Forge rests on commissioned low-key
@@ -131,6 +131,16 @@ External skills: **authorized 2026-10-08** as supporting specialists (see BRIEF.
   tableaux (sides, overlap, layering), type slides into editorial positions (sometimes opposite direction) then holds;
   pinned GSAP scrub; full stills (pin-stops); several compositions; seamless handover. NOT a scroll carousel. No blur,
   vignettes, random zooms, cheap fades. Order: art-director shot list + choreography → designer → motion-designer.
+- **Two faces only (Alex, 2026-10-09): Gloock (display) + Inter (text).** No third face (Figtree, Boldonse, Bodoni,
+  Manrope all removed). Self-hosted in site_v1/v4/assets/fonts.
+- **Type roles (Alex, 2026-10-09): one role = one setting, site-wide (system, not per-section).** kicker = Inter 400
+  14 sentence case (e.g. "The Collection"); sub-line = Inter 600 13 CAPS +.01em (e.g. "Five of 48 · prices and miles…",
+  "Every car here was picked by a person."). Defined in the TYPE ROLES block of v4.css; new sections reuse them.
+- **Chapter line (Alex, 2026-10-09): type never crowds the header.** On the 1920×1080 stage a section's first line of
+  type (kicker / eyebrow baseline) sits at stage y ≥ 196 (`--chapter-line` in v4.css); the header band ends ~110, so
+  there is always ≥ 85 stage px of clear air under it. Applies to every section and every new mockup we build.
+  Mirror rule at the bottom: the lowest element of a section (button, card link) keeps ≥ 80 stage px above the
+  screen's bottom edge (`--floor-air`), checked at short viewports too (e.g. 1740×944).
 - **Pin-stop (Alex, 2026-10-08): use pin stops — every text must be readable.** In any pinned/scrubbed sequence the text
   holds completely still (pinned, fully opaque, no motion) for a real dwell long enough to read it before anything moves on.
   No text that is only legible mid-transition; no text passing by while the scroll keeps travelling.
@@ -198,9 +208,9 @@ External skills: **authorized 2026-10-08** as supporting specialists (see BRIEF.
   Fix round 1: T3 = 170vh with a 30vh text-free F4 stop; Ford power2.inOut per leg; intro cars = clip+translate (never
   opacity on overlapping bodies). Round 2: header VISIBLE through pinned scenes, retracts only in the footer / on the SRP;
   intro = shadows land, cars descend in a top-down clip; GSAP-moved buttons carry no CSS transform transition.
-- **V4 build (2026-10-09, designer):** `site/v4/` = working prototype (index + inventory), generated by `site/v4/_build/gen.py`
-  (+ `prep_assets.py`). ONE asset map `site/v4/assets/js/v4-assets.js` (car body/shadow anchor + W per frame; scene crops) —
-  documented in `site/v4/ASSETS.md`. Pinned stage ≥1280px (1920×1080 stage units, `--u/--sl/--st`); <1280 = authored flow, no pins.
+- **V4 build (2026-10-09, designer):** `site_v1/v4/` = working prototype (index + inventory), generated by `site_v1/v4/_build/gen.py`
+  (+ `prep_assets.py`). ONE asset map `site_v1/v4/assets/js/v4-assets.js` (car body/shadow anchor + W per frame; scene crops) —
+  documented in `site_v1/v4/ASSETS.md`. Pinned stage ≥1280px (1920×1080 stage units, `--u/--sl/--st`); <1280 = authored flow, no pins.
   Order: Approach (hero→Wake→Collection) · Available-now rail (Robb Francis v3 behaviour, structure only) · About+Locations
   (V1 map ported — the ONLY map on the page) · Sell · Services 3-panel band + Finance · Reviews DEMO · Instagram DEMO · Showrooms.
   Temp shadows = plates re-encoded black+alpha (multiply breaks inside transformed groups). Text holds ≥40vh; entrances run in seams.

@@ -21,6 +21,8 @@ Chronological. Each line: what, Alex's verdict, why. Source of truth for "what d
 - No blurred/feathered photo edges, vignettes, artificial shadows at image borders, dark overlays hiding integration,
   background extension, fake light. If an effect can't be seamless, simplify it — never degrade the photo.
 - Pin-stops: every pinned text beat holds completely still and readable (≥40–60vh).
+- Chapter line (2026-10-09): a section's first line of type never sits above stage y 196 (≥85 px under the header).
+- Pin-stop docking (2026-10-09, as on Czinger): a pinned section docks — idle scroll near/inside it glides to its stop in the direction of travel; any input cancels.
 - Project isolation: no other client's research/assets/data unless Alex authorises it.
 - US map at most ONCE per page.
 - Verified facts only; placeholders visible; dated figures ("as of 8 Oct 2026").

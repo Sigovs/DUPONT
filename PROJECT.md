@@ -18,14 +18,14 @@ earlier iBuy map concept), Sell Your Car (no form), Reviews, Instagram, Services
 Full brief: BRIEF.md.
 
 ## Current state
-- **Active version: V4** in `site/v4/` (index.html + inventory.html), being built after Alex authorised the build on
+- **Active version: V4** in `site_v1/v4/` (index.html + inventory.html), being built after Alex authorised the build on
   2026-10-09. Hero: three front-facing cars together (Ferrari F430 · red Ford GT centre · Porsche 911 Sport Classic) on
   an ivory studio; pinned scroll — cars advance, grow, side cars leave the frame, Ford exits upward ("The Wake") and the
   Collection rises. Then: Collection, home inventory rail (behaviour borrowed from Alex's Robb Francis v3
   "Available Now."), About + Locations (map used ONCE), Sell Your Car, Services, Reviews (demo), Instagram (demo),
   Locations footer.
-- Storyboard: `site/v4/storyboard/` (F1–F5). Car layers are independently replaceable — Alex will supply final
-  professional cut-outs; asset map documented in `site/v4/ASSETS.md`.
+- Storyboard: `site_v1/v4/storyboard/` (F1–F5). Car layers are independently replaceable — Alex will supply final
+  professional cut-outs; asset map documented in `site_v1/v4/ASSETS.md`.
 - Colours: **Deep Red #AC1D28**, **Graphite #303137** + ivory, charcoal, warm near-black, metallic. No flat #000.
   Red measured from westcoastexoticcars.com (colour-only reference, pending client confirmation).
 - Frozen, not developed further: V1 `site/`, V2 `site/v2/`, Head-On `prototype/hero-forge/`,
@@ -38,7 +38,7 @@ inventory rail with temp cut-outs, Sell/Services recomposed, rear-trio closing b
 all reading stops pixel-still, 0 console errors / 0 overflow at 6 widths. **Open:** intro white plate under the cars
 during the clip reveal (motion round 3 was interrupted by a session limit); closing trio should rhyme with the hero
 (Ford on the "SELECTED." axis, same line-mask reveal); Porsche splitter halo; Alex's final high-res cut-outs
-(single swap in site/v4/assets/js/v4-assets.js — see site/v4/ASSETS.md). Reviews: review/v4/CRITIQUE-V4*.md (local).
+(single swap in site_v1/v4/assets/js/v4-assets.js — see site_v1/v4/ASSETS.md). Reviews: review/v4/CRITIQUE-V4*.md (local).
 
 ## Where things live
 research/ (brand, provenance, colour), data/inventory.json (48 listings with provenance), assets/source/ (dR photos),
