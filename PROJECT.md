@@ -2,6 +2,13 @@
 
 Updated 2026-10-09. Owner: Alex (GDBuro). Design system: design_dna (`C:\____WORK\_____GDBURO SIGOFF\design_dna`).
 
+## DELIVERED TO CLIENT (2026-10-09)
+**Final version sent to the client: https://sigovs.github.io/DUPONT/site_v1/v4/** — repo `site_v1/v4/`,
+commit `382f1b2` ("V4: home only — no link leaves the homepage"). Home page only: all outbound links (SRP, VDP, dealer,
+Instagram, maps, phone) disabled; in-page anchors scroll. Treat this as the delivered baseline: any further change goes
+in a new commit on top and must not silently alter what the client saw. Other builds (site_v2/, _____TEST FINAL/) are
+explorations, not the delivery.
+
 ## What it is
 Presentation prototype (HTML/CSS/JS + GSAP) for **duPont REGISTRY Select** — a national luxury/exotic dealer portal:
 three physical showrooms, one unified inventory. Client: duPont REGISTRY. Deadline was 2026-10-09.

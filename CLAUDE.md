@@ -15,6 +15,8 @@ External skills: **authorized 2026-10-08** as supporting specialists (see BRIEF.
 - `site/` — the prototype (designer / motion-designer)
 
 ## Feedback log
+- **DELIVERED (Alex, 2026-10-09): https://sigovs.github.io/DUPONT/site_v1/v4/ is the final version sent to the client**
+  (commit 382f1b2, home only). It is the baseline — don't change it silently; new work goes on top, after Alex asks.
 - **AUTONOMOUS PRODUCTION MODE (2026-10-09):** finish V4 to client-presentation standard without routine approvals:
   implement → render → inspect → critique → improve → retest. Hero intro (staggered, ≤~2s, never blocks), varied text
   and image motion chosen by composition, designed entrances AND exits, one Lenis+ScrollTrigger controller, full motion
@@ -70,7 +72,11 @@ External skills: **authorized 2026-10-08** as supporting specialists (see BRIEF.
   `site/BUILD-BRIEF.md`, one Lenis+ScrollTrigger core, sections in `site/sections/NN-*`, `_build/gen.py`). Alex's brief:
   temporary car cut-outs allowed (final cut-outs supplied later), NO hard white studio rectangles → whole cars are
   cut-outs on the dark ground; details stay low-key photos. Bodoni Moda display pinned to opsz 18 (auto opsz splits
-  letters at display size). Critic round 1 = 4/10 → fix round running.
+  letters at display size). Critic rounds 4 → 5 → 6 → 6.5 → 7/10 (r5, live). Published by Alex's decision (public,
+  2026-10-09): https://sigovs.github.io/DUPONT/_____TEST%20FINAL/site/index.html — .gitignore opens only
+  `_____TEST FINAL/site/` + its media. Asset paths must be relative ({P}), never root-absolute (Pages sub-path).
+  No script may move the scroll position (no snap/idle-commit): text entrances are time-based past a threshold.
+  Remaining limits are assets: final cut-outs, showroom photography, verified reviews, service imagery.
 - **Judge the SEQUENCE, never the single frame (Alex, 2026-10-09):** every scene shares one grid, rhythm and visual row —
   same margins/text slot/floor line/focal line/blade angle; images chosen and cropped for how they sit next to their
   neighbours. Always review a left-to-right filmstrip of all holds + transitions, not isolated screenshots.
