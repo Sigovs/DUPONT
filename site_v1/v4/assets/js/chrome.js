@@ -7,6 +7,20 @@
    5. anchor navigation (pinned scenes register their own scroll targets in V4.targets)
    ============================================================================= */
 (function () {
+  /* HOME ONLY (Alex, 2026-10-09): for now the prototype is the homepage alone — no link leaves it (SRP, VDP, dealer
+     pages, Instagram, maps, phone). Buttons keep their look; in-page anchors still scroll.
+     window.V4.HOME_ONLY = false undoes it. */
+  (window.V4 = window.V4 || {}).HOME_ONLY = true;
+  document.addEventListener('click', function (e) {
+    var W = window.V4 || {}; if (!W.HOME_ONLY) return;
+    var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+    var url = new URL(a.getAttribute('href'), location.href);
+    var samePage = url.origin === location.origin && url.pathname === location.pathname;
+    if (samePage && url.hash) return;                                   // #locations, index.html#services … scroll as before
+    e.preventDefault(); e.stopImmediatePropagation();
+    if (samePage) { if (W.scrollTo) W.scrollTo(0); else window.scrollTo(0, 0); }   // the logo: back to the top
+  }, true);
+
   'use strict';
   var root = document.documentElement;
   var V4 = window.V4 = window.V4 || {};
