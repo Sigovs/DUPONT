@@ -1330,3 +1330,17 @@ html.motion .igs__head .m { overflow-x: clip; }
 .rcard__allin { color: #fff; border-color: rgb(255 255 255 / .35); }
 .rcard__allin .rcard__all-k { color: rgb(255 255 255 / .78); }
 .rcard__allin .rcard__all-h { color: #fff; }
+
+/* Collection photo tone trial (Alex, 2026-10-10) — opt-in via ?grey=1|2|3; the delivered page is unchanged without it */
+.grey-1 .col__p1 img, .grey-1 .col__p2 img { filter: saturate(.72) contrast(.97) brightness(.98); }
+.grey-2 .col__p1 img, .grey-2 .col__p2 img { filter: saturate(.5) contrast(.95) brightness(.97); }
+.grey-3 .col__p1 img, .grey-3 .col__p2 img { filter: saturate(.28) contrast(.93) brightness(.96); }
+
+/* Available Now · the "All 48 cars" box in the page's darkest tone with an outline button (Alex, 2026-10-10) */
+.rcard__allin { background: var(--night); border-color: var(--night); color: #fff; }
+.rcard__allin .rcard__all-k { color: #b9babe; }
+.rcard__allin .rcard__all-h { color: #fff; }
+.rcard__allin .btn, .rcard__allin .btn.btn--red { background: transparent; border: 1px solid #fff; color: #fff; }
+.rcard__allin:hover .btn, .rcard__allin:focus-visible .btn,
+.rcard__allin:hover .btn.btn--red, .rcard__allin:focus-visible .btn.btn--red { background: #fff; border-color: #fff; color: var(--night); }
+@media (hover: hover) and (pointer: fine) { .rcard__allin:hover { border-color: var(--night); } }

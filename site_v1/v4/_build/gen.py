@@ -96,7 +96,7 @@ def head(title, desc, css, extra=""):
   <meta name="description" content="{desc}">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="data:,">
-  <script>(function(d){{d.classList.add('js');try{{if(!/inventory/.test(location.pathname)&&!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches){{d.classList.add('intro');setTimeout(function(){{d.classList.remove('intro');}},3000);}}}}catch(e){{}}}})(document.documentElement);</script>
+  <script>(function(d){{d.classList.add('js');try{var g=(location.search.match(/[?&]grey=([1-3])/)||[])[1];if(g)d.classList.add('grey-'+g);}catch(e){}try{{if(!/inventory/.test(location.pathname)&&!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches){{d.classList.add('intro');setTimeout(function(){{d.classList.remove('intro');}},3000);}}}}catch(e){{}}}})(document.documentElement);</script>
   <link rel="preload" href="assets/fonts/gloock-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 {extra}  <link rel="stylesheet" href="assets/vendor/lenis.css">
