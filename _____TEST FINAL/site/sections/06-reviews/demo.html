@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06-reviews - demo</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/chrome.css">
+<link rel="stylesheet" href="../../sections/06-reviews/section.css">
+<script src="../../assets/vendor/gsap.min.js" defer></script>
+<script src="../../assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="../../assets/vendor/lenis.min.js" defer></script>
+<script src="../../assets/js/core.js" defer></script>
+<script src="../../assets/js/chrome.js" defer></script>
+<script src="../../sections/06-reviews/section.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+  <header class="hdr">
+    <div class="hdr__in">
+      <a class="hdr__logo" href="../../index.html" aria-label="duPont REGISTRY Select — home">
+        <img src="../../assets/img/dupont-registry-select_lockup_white.svg" alt="duPont REGISTRY | Select" width="185" height="40">
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="../../inventory.html">Inventory</a></li>
+          <li><a class="nav__link" href="#locations">Locations</a></li>
+          <li class="nav__item--drop" data-drop>
+            <button class="nav__link nav__trigger" type="button" aria-expanded="false" aria-controls="nav-services">
+              Services
+              <svg class="nav__caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+            </button>
+            <ul class="nav__drop" id="nav-services">
+              <li><a href="#insurance">Insurance</a></li>
+              <li><a href="#service">Service</a></li>
+              <li><a href="#ppf">Paint protection film (PPF)</a></li>
+            </ul>
+          </li>
+          <li><a class="nav__link" href="../../finance.html">Finance</a></li>
+          <li><a class="nav__link" href="#about">About</a></li>
+          <li><a class="nav__link" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="hdr__mobile">
+        <a class="hdr__icon" href="tel:+19512926100" aria-label="Call Southern California showroom, (951) 292-6100">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h3l1.5 4-2 1.3a10.5 10.5 0 0 0 6.1 6.1l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </a>
+        <button class="hdr__menu" type="button" aria-expanded="false" aria-controls="mnav" data-menu>
+          <span class="hdr__menu-label">Menu</span>
+          <span class="hdr__burger" aria-hidden="true"><i></i><i></i></span>
+        </button>
+      </div>
+    </div>
+    <div class="mnav" id="mnav" hidden>
+      <ul class="mnav__list">
+        <li><a href="../../inventory.html">Inventory</a></li>
+        <li><a href="#locations">Locations</a></li>
+        <li><a href="#insurance">Insurance</a></li>
+        <li><a href="#service">Service</a></li>
+        <li><a href="#ppf">Paint protection film</a></li>
+        <li><a href="../../finance.html">Finance</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <ul class="mnav__rooms" aria-label="Showrooms">
+        <li><span>Southern California</span><a href="tel:+19512926100">(951) 292-6100</a><small>26900 Jefferson Ave, Murrieta, CA</small></li>
+        <li><span>Miami</span><a href="tel:+16154710221">(615) 471-0221</a><small>5972 NE 4th Ave, Miami, FL</small></li>
+        <li><span>Naples</span><a href="tel:+12394499191">(239) 449-9191</a><small>2365 Linwood Ave, Naples, FL</small></li>
+      </ul>
+    </div>
+  </header>
+
+<main id="main">
+<section id="reviews" data-section="06-reviews" class="s-reviews" aria-labelledby="rv-title" aria-roledescription="carousel">
+  <!-- One slim typographic strip: no verified review exists, so the slot is a single flagged placeholder line with
+       small prev/next over three placeholder slots. No scroll motion; no blade. -->
+  <div class="rv__slot">
+    <p class="rv__eye"><span id="rv-title">The owners&rsquo; voice</span> <span class="rv__flag">Placeholder <i aria-hidden="true">·</i> No verified review on file</span></p>
+
+    <div class="rv__reel" aria-live="polite">
+      <figure class="rv__item is-on" data-i="0" role="group" aria-roledescription="slide" aria-label="1 of 3">
+        <blockquote class="rv__quote"><p data-q>&ldquo;[Owner review, quoted verbatim: awaiting client]&rdquo;</p></blockquote>
+        <figcaption class="rv__by" data-q>[Owner name] <i aria-hidden="true">·</i> [Car] <i aria-hidden="true">·</i> [Showroom] <i aria-hidden="true">·</i> [Source, date]</figcaption>
+      </figure>
+      <figure class="rv__item" data-i="1" role="group" aria-roledescription="slide" aria-label="2 of 3" hidden>
+        <blockquote class="rv__quote"><p data-q>&ldquo;[Buyer review, quoted verbatim: awaiting client]&rdquo;</p></blockquote>
+        <figcaption class="rv__by" data-q>[Owner name] <i aria-hidden="true">·</i> [Car] <i aria-hidden="true">·</i> [Showroom] <i aria-hidden="true">·</i> [Source, date]</figcaption>
+      </figure>
+      <figure class="rv__item" data-i="2" role="group" aria-roledescription="slide" aria-label="3 of 3" hidden>
+        <blockquote class="rv__quote"><p data-q>&ldquo;[Seller review, quoted verbatim: awaiting client]&rdquo;</p></blockquote>
+        <figcaption class="rv__by" data-q>[Owner name] <i aria-hidden="true">·</i> [Car] <i aria-hidden="true">·</i> [Showroom] <i aria-hidden="true">·</i> [Source, date]</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <p class="rv__src">More reviews on <span class="rv__tbc">[platform and link: awaiting client]</span></p>
+
+  <div class="rv__ctl" role="group" aria-label="Choose a review">
+    <p class="rv__count" aria-hidden="true"><b data-count>01</b> / 03</p>
+    <button class="rv__btn" type="button" data-prev aria-label="Previous review"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M14 8H3M7 4 3 8l4 4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+    <button class="rv__btn" type="button" data-next aria-label="Next review"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+  </div>
+</section>
+
+</main>
+
+</body>
+</html>

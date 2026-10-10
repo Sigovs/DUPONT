@@ -1,0 +1,55 @@
+/* 06 · THE OWNERS' VOICE — one slim strip on graphite (≈36vh at 1080): a flagged single-line placeholder quote, its
+   attribution, and small prev/next. A 2px red rule (the lockup's "|") stands before the quote. No blade, no motion
+   on scroll. Every selector is scoped to .s-reviews. */
+
+.s-reviews {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "slot ctl" "src src";
+  column-gap: var(--s-9); row-gap: var(--s-6);
+  padding: var(--s-9) var(--gutter) var(--s-8);
+  background: var(--c-graphite);
+  color: var(--c-ivory);
+}
+.s-reviews i { font-style: normal; }
+.s-reviews .rv__slot { grid-area: slot; min-width: 0; }
+.s-reviews .rv__eye, .s-reviews .rv__by, .s-reviews .rv__count, .s-reviews .rv__src {
+  margin: 0; font-size: var(--fs-ui); font-weight: 600; line-height: var(--lh-caps);
+  letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+}
+.s-reviews .rv__eye { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); }
+.s-reviews .rv__flag { display: inline-block; padding: var(--s-1) var(--s-3); color: var(--c-silver); border: 1px dashed var(--c-line-strong); }
+.s-reviews .rv__reel { margin-top: var(--s-6); }
+.s-reviews .rv__item { margin: 0; }
+.s-reviews .rv__item[hidden] { display: none; }
+.s-reviews .rv__quote { margin: 0; padding-left: var(--s-5); border-left: 2px solid var(--c-red); }
+.s-reviews .rv__quote p {
+  margin: 0;
+  font-family: var(--f-display); font-weight: 500;
+  font-size: calc(var(--fs-display) * 0.4); line-height: var(--lh-sub); letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+.s-reviews .rv__by { margin-top: var(--s-4); padding-left: calc(var(--s-5) + 2px); color: var(--c-silver); letter-spacing: var(--tr-plate); }
+
+.s-reviews .rv__ctl { grid-area: ctl; align-self: end; display: flex; align-items: center; gap: var(--s-3); }
+.s-reviews .rv__count { margin-right: var(--s-3); font-variant-numeric: tabular-nums; color: var(--c-silver); }
+.s-reviews .rv__count b { font-weight: 600; color: var(--c-ivory); }
+.s-reviews .rv__btn {
+  display: inline-grid; place-items: center; width: var(--tap); height: var(--tap); padding: 0;
+  background: transparent; color: var(--c-ivory);
+  border: 1px solid var(--c-line-strong); border-radius: 0; cursor: pointer;
+  transition: background-color var(--dur-ui) var(--ease-out), border-color var(--dur-ui) var(--ease-out);
+}
+.s-reviews .rv__btn svg { width: 14px; height: 14px; }
+.s-reviews .rv__btn:hover { background: rgba(242, 238, 230, 0.1); border-color: var(--c-ivory); }
+
+.s-reviews .rv__src { grid-area: src; padding-top: var(--s-5); border-top: 1px solid var(--c-line); letter-spacing: var(--tr-plate); }
+.s-reviews .rv__tbc { color: var(--c-silver); border-bottom: 1px dashed var(--c-line-strong); }
+
+@media (max-width: 767px) {
+  .s-reviews { grid-template-columns: minmax(0, 1fr); grid-template-areas: "slot" "ctl" "src"; padding: var(--s-8) var(--gutter); }
+  .s-reviews .rv__ctl { align-self: start; }
+  .s-reviews .rv__quote p { font-size: clamp(26px, 6.4vw, 36px); }
+  .s-reviews .rv__eye, .s-reviews .rv__by, .s-reviews .rv__src { letter-spacing: 0.12em; }
+}

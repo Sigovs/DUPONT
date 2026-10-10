@@ -1,0 +1,80 @@
+/* duPont REGISTRY Select — shared tokens + base (from the hero token layer). Every section resolves to these. */
+
+:root {
+  /* Colour — brand anchors + supporting neutrals (no #000) */
+  --c-red:        #AC1D28;   /* Deep Red — CTA fill and active index only */
+  --c-red-deep:   #8E1520;   /* pressed / hover state of the red fill */
+  --c-graphite:   #303137;   /* Graphite — solid UI surfaces over photos */
+  --c-charcoal:   #1D1E22;   /* charcoal — placeholder ground, menu panel */
+  --c-night:      #151413;   /* warm near-black — stage ground behind photos */
+  --c-silver:     #B9BBC0;   /* metallic silver — secondary text */
+  --c-ivory:      #F2EEE6;   /* soft ivory — primary text */
+  --c-line:       rgba(242, 238, 230, 0.22);   /* hairlines */
+  --c-line-strong:rgba(242, 238, 230, 0.40);
+
+  /* Type */
+  --f-display: 'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif;
+  --f-body:    'Manrope', 'Segoe UI', system-ui, sans-serif;
+  --fs-display: clamp(40px, 5.4vw, 104px);   /* 104 @1920 · 78 @1440 */
+  --fs-sub:     clamp(22px, 1.875vw, 36px);  /* 36 @1920 · 27 @1440 */
+  --fs-body:    clamp(16px, 0.89vw, 17px);
+  --fs-rec:     clamp(16px, 0.94vw, 18px);
+  --fs-ui:      14px;                        /* functional floor */
+  --lh-display: 1.0;
+  --lh-body:    1.65;
+  --tr-display: -0.025em;
+  --tr-ui:      0.1em;
+
+  /* Space — one scale */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px; --s-5: 24px;
+  --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px;
+  --gutter: clamp(20px, 6.25vw, 120px);      /* 120 @1920 */
+  --hdr-h:  clamp(64px, 5vw, 96px);
+  --bar-b:  clamp(20px, 4.45vh, 48px);       /* bottom bar offset */
+
+  /* Shape */
+  --r-pill: 999px;
+  --ctl:    48px;                            /* control height */
+
+  /* Display face: Bodoni Moda's auto optical size (96) drops its hairlines at 80-160px and letters split
+     ("N AME", "MI AMI"). Pin a low optical size so hairlines survive at display scale (render-checked). */
+  --fv-display: "opsz" 18;
+
+  /* Shared micro-tokens (promoted from sections) */
+  --tr-eyebrow: 0.22em; --tr-plate: 0.16em; --tr-cta: 0.18em;
+  --lh-caps: 1.35; --lh-head: 0.95; --lh-sub: 1.25;
+  --ctl-row: 56px; --tap: 44px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-ui:   240ms;
+
+}
+
+/* ---------- base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--c-night);
+  color: var(--c-ivory);
+  font-family: var(--f-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+img { display: block; max-width: none; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--c-ivory); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip {
+  position: absolute; left: var(--s-4); top: -100px; z-index: 100;
+  padding: var(--s-3) var(--s-4); background: var(--c-ivory); color: var(--c-night);
+  font-weight: 600; text-decoration: none;
+}
+.skip:focus { top: var(--s-4); }
+
+/* every display-face element gets the hairline-safe optical size */
+h1, h2, h3, .disp, [class*="head"], [class*="title"], [class*="quote"] { font-optical-sizing: none; font-variation-settings: var(--fv-display); }

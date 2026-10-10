@@ -1,0 +1,88 @@
+/* =====================================================================
+   HEADER — transparent, hairline under it, no fill over the photo
+   ===================================================================== */
+.hdr {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  height: var(--hdr-h);
+  /* Solid warm near-black band: the close-ups run detail (stitching, rims,
+     highlights) to the top edge, so the nav cannot borrow contrast from them. */
+  background: var(--c-night);
+}
+.hdr__in {
+  height: 100%;
+  padding: 0 var(--gutter);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.hdr__logo img { height: clamp(30px, 2.1vw, 40px); width: auto; }
+
+.nav__list { display: flex; gap: clamp(20px, 1.9vw, 36px); list-style: none; margin: 0; padding: 0; }
+.nav__link {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 44px;
+  font-family: var(--f-body); font-size: var(--fs-ui); font-weight: 600;
+  letter-spacing: var(--tr-ui); text-transform: uppercase;
+  color: var(--c-ivory); text-decoration: none;
+  background: none; border: 0; padding: 0; cursor: pointer;
+}
+.nav__link:hover { color: var(--c-silver); }
+.nav__caret { width: 12px; height: 12px; transition: transform var(--dur-ui) var(--ease-out); }
+.nav__item--drop { position: relative; }
+.nav__drop {
+  position: absolute; top: calc(100% + var(--s-3)); left: calc(-1 * var(--s-5));
+  min-width: 260px; margin: 0; padding: var(--s-3) 0; list-style: none;
+  background: var(--c-charcoal); border: 1px solid var(--c-line);
+  opacity: 0; visibility: hidden; transform: translateY(-4px);
+  transition: opacity var(--dur-ui) var(--ease-out), transform var(--dur-ui) var(--ease-out), visibility 0s linear var(--dur-ui);
+}
+.nav__drop a {
+  display: block; padding: var(--s-3) var(--s-5);
+  font-size: 15px; font-weight: 500; text-decoration: none; color: var(--c-ivory);
+}
+.nav__drop a:hover, .nav__drop a:focus-visible { background: var(--c-graphite); }
+.nav__item--drop.is-open .nav__drop,
+.nav__item--drop:hover .nav__drop,
+.nav__item--drop:focus-within .nav__drop {
+  opacity: 1; visibility: visible; transform: none;
+  transition: opacity var(--dur-ui) var(--ease-out), transform var(--dur-ui) var(--ease-out), visibility 0s;
+}
+.nav__item--drop.is-open .nav__caret,
+.nav__item--drop:hover .nav__caret { transform: rotate(180deg); }
+
+.hdr__mobile { display: none; align-items: center; gap: var(--s-2); }
+.hdr__icon, .hdr__menu {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-3);
+  height: 44px; min-width: 44px; padding: 0 var(--s-3);
+  background: var(--c-graphite); border: 1px solid var(--c-line); border-radius: var(--r-pill);
+  color: var(--c-ivory); text-decoration: none; cursor: pointer;
+}
+.hdr__icon svg { width: 18px; height: 18px; }
+.hdr__menu-label { font-size: var(--fs-ui); font-weight: 600; letter-spacing: var(--tr-ui); text-transform: uppercase; }
+.hdr__burger { display: grid; gap: 5px; width: 18px; }
+.hdr__burger i { display: block; height: 1.5px; background: currentColor; transition: transform var(--dur-ui) var(--ease-out); }
+.hdr__menu[aria-expanded="true"] .hdr__burger i:first-child { transform: translateY(3.25px) rotate(45deg); }
+.hdr__menu[aria-expanded="true"] .hdr__burger i:last-child  { transform: translateY(-3.25px) rotate(-45deg); }
+
+.mnav {
+  position: fixed; inset: var(--hdr-h) 0 0 0; z-index: 49;
+  background: var(--c-charcoal);
+  padding: var(--s-6) var(--gutter) var(--s-7);
+  overflow-y: auto;
+}
+.mnav[hidden] { display: none; }
+.mnav__list { list-style: none; margin: 0 0 var(--s-7); padding: 0; }
+.mnav__list a {
+  display: block; padding: var(--s-3) 0;
+  font-family: var(--f-display); font-size: 28px; font-weight: 600; letter-spacing: -0.01em;
+  text-decoration: none; border-bottom: 1px solid var(--c-line);
+}
+.mnav__rooms { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); }
+.mnav__rooms li { display: grid; gap: 2px; }
+.mnav__rooms span { font-size: var(--fs-ui); font-weight: 600; letter-spacing: var(--tr-ui); text-transform: uppercase; color: var(--c-silver); }
+.mnav__rooms a { font-size: 18px; font-weight: 600; text-decoration: none; font-variant-numeric: tabular-nums; }
+.mnav__rooms small { font-size: var(--fs-ui); color: var(--c-silver); }
+
+
+
+@media (max-width: 1180px) { .nav__list { gap: 18px; } }
+@media (max-width: 1023px) { .nav { display: none; } .hdr__mobile { display: flex; } }
+.nav__item--drop.is-closing .nav__drop { opacity: 0 !important; visibility: hidden !important; }
