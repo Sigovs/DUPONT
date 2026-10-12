@@ -145,3 +145,69 @@ html.motion .m { overflow-y: clip; }
 .rail .rcard__spec, .rail .rcard__asof { color: var(--graphite); }
 /* inventory photos: a small radius (Alex, 2026-10-12) — the end card matches */
 .rcard__ph, .rcard--all .rcard__ph, .rcard__allin { border-radius: 6px; overflow: hidden; }
+
+/* =========================================================================
+   02 · AVAILABLE NOW — inventory TILES (Kirsten via Alex, 2026-10-12: "actual vehicle tiles, not just an image
+   with text under it"). One contained card per car: graphite panel (#303137, the brand graphite) holding the
+   listing photograph (3:2, top) and, inside the same panel, showroom · model · price · spec · "View this car".
+   All tiles one size; ≥1280: four across the 120→1800 column (FW 390, GAP 40), the row runs off the right edge.
+   Ink on graphite: white 12.9:1 · label #c6c7cb 7.9:1 · spec #c6c7cb 7.9:1 (AA for every line).
+   ========================================================================= */
+.rail { --tile-pad: 22px; }
+.rail__track { align-items: stretch; }
+.rcard { display: flex; flex-direction: column; background: var(--graphite); border-radius: 6px; overflow: hidden; color: #fff;
+  transition: background-color var(--dur-2) var(--ease-out), top var(--dur-2) var(--ease-out); position: relative; top: 0; }
+.rcard .rcard__ph { flex: 0 0 auto; border-radius: 0; }
+.rcard__body { flex: 1 1 auto; display: flex; flex-direction: column; align-items: flex-start; padding: var(--tile-pad); }
+.rail .rcard__no { color: #c6c7cb; }
+.rail .rcard__title { color: #fff; margin-top: 12px; font-size: 26px; line-height: 1.08; min-height: 2.16em; }   /* two lines reserved */
+.rail .rcard__price { color: #fff; margin-top: 10px; }
+.rail .rcard__spec, .rail .rcard__asof { color: #c6c7cb; }
+.rail .rcard__spec { margin-top: 6px; margin-bottom: 16px; min-height: 2.9em; }                                                        /* two lines reserved */
+.rail .rcard__go.lnk { margin-top: auto; }
+.rcard__body > .rcard__go { align-self: flex-start; }
+/* the full list: the night card, as delivered — now the full tile */
+.rcard--all { background: var(--night); }
+.rcard--all .rcard__ph { flex: 1 1 auto; aspect-ratio: auto; }
+.rcard--all .rcard__body { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .rcard:not(.rcard--all):hover { background: #3a3b42; top: -4px; }   /* top, not translate: GSAP owns transform + clears translate */
+  .rail .rcard--all:hover { top: -4px; }
+}
+
+@media (min-width: 1280px) {
+  .rail { --tile-pad: max(16px, calc(22 * var(--u))); }
+  .rail .rcard__title { font-size: max(20px, calc(26 * var(--u))); margin-top: max(8px, calc(12 * var(--u))); }
+  .rail .rcard__price { font-size: max(16px, calc(18 * var(--u))); margin-top: max(6px, calc(10 * var(--u))); }
+  .rail .rcard__spec { font-size: max(14px, calc(15 * var(--u))); }
+  .rail .rcard__spec { margin-bottom: max(12px, calc(16 * var(--u))); }
+  /* the row (JS moves the track's tiles by x only): one flex row, tiles 390 wide, 40 apart, top at stage y 440 */
+  html.motion .rail__track { position: absolute; inset: auto; left: calc(var(--sl) + 120 * var(--u)); top: calc(var(--st) + 440 * var(--u));
+    display: flex; gap: calc(40 * var(--u)); width: max-content; padding: 0; }
+  html.motion .rcard, html:not(.motion) .rcard, html:not(.motion) .rcard:first-child { position: relative; left: auto; top: 0; width: calc(390 * var(--u)); margin: 0; }
+  html.motion .rcard__ph { transform: none; will-change: auto; }
+  html.motion .rcard__body { position: static; width: auto; top: auto; padding: var(--tile-pad); }
+  html.motion .rcard--all .rcard__ph { aspect-ratio: auto; }
+  html.motion .rcard__allin { gap: 3.6cqw; padding: 0 9cqw; }
+  html.motion .rcard__all-h { font-size: 8.2cqw; }
+  html:not(.motion) .rail__track { gap: calc(40 * var(--u)); }
+}
+/* short desktop viewports: the pixel floors of the type grow the plate, so the row starts higher and the photos step down */
+@media (min-width: 1280px) and (max-height: 920px) {
+  html.motion .rail__track { top: calc(var(--st) + 430 * var(--u)); }
+  html.motion .rcard { width: calc(390 * var(--u)); }
+  html.motion .rcard__body { width: auto; padding: var(--tile-pad); top: auto; }
+}
+/* ≤ 820 tall (1280 × 720): tiles step down to 330 so the plate's pixel floors keep ≥ 80 stage px of floor-air (scenes.js FW) */
+@media (min-width: 1280px) and (max-height: 820px) {
+  html.motion .rcard { width: calc(330 * var(--u)); }
+  .rail { --tile-pad: 14px; }
+  .rail .rcard__title { margin-top: 6px; }
+  .rail .rcard__price { margin-top: 4px; }
+  .rail .rcard__spec { margin-top: 4px; margin-bottom: 8px; }
+}
+@media (max-width: 1279.98px) {
+  .rcard { width: 80vw; max-width: 520px; }
+  .rcard--all .rcard__ph { min-height: 0; }
+  .rail .rcard__title { font-size: 24px; }
+}

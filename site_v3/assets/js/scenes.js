@@ -75,7 +75,7 @@
     });
     ScrollTrigger.refresh();
     jumpToHash();
-    return function () { ctx.revert(); root.classList.remove('motion'); $$('.rcard__more').forEach(function (n) { n.style.visibility = ''; }); };
+    return function () { ctx.revert(); root.classList.remove('motion'); $$('.rcard__more, [data-rcard]').forEach(function (n) { n.style.visibility = ''; n.style.transform = ''; n.style.opacity = ''; }); };
   });
   mm.add('(max-width: 1279.98px) and (prefers-reduced-motion: no-preference)', function () {
     root.classList.add('mrise');
@@ -166,41 +166,23 @@
     var sec = $('[data-scene="rail"]'); if (!sec) return;
     var view = $('[data-rail-view]', sec), cards = $$('[data-rcard]', sec), n = cards.length;
     var prev = $('[data-rail-prev]', sec), next = $('[data-rail-next]', sec), num = $('[data-rail-n]', sec), of = $('[data-rail-of]', sec);
-    /* layout (stage px): the tile in focus is 540 × 360, left edge on the head's column (x 120); the next tiles are the
-       same photograph at NEAR, bottoms on one line (y 800), a fixed gap, running off the right edge. Tiles already seen
-       slide out to the left. Neighbours stay fully visible (photo and plate); spec + link on the focus only; a plate is as wide as its tile. */
-    var FW = 540, GAP = 48, SLOT = 120, NEAR = 0.55, INK = 1, DIM = 0;   // Alex 2026-10-12: neighbours stay fully visible (no dimming)
-    var shortMQ = matchMedia('(max-height: 820px)');   // v3.css: the focus tile steps down to 380 on short desktop viewports
-    var fit = function () { FW = shortMQ.matches ? 380 : 540; };
+    /* layout (stage px) — inventory tiles (Kirsten via Alex, 2026-10-12): every tile the same size, FW × (3:2 photo +
+       plate) inside one graphite panel; the track starts on the head's column (x 120), tiles GAP apart, four across
+       the 120→1800 column, the rest running off the right edge. The row moves by x only; tiles already passed leave
+       to the left and fade as they cross the column edge. Full info on every tile. */
+    var FW = 390, GAP = 40;
+    var shortMQ = matchMedia('(max-height: 820px)');   // v3.css: tiles step down to 330 on short desktop viewports
+    var fit = function () { FW = shortMQ.matches ? 330 : 390; };
     fit();
     var st = { f: 0 }, cur = 0;
-    var ph = cards.map(function (c) { return $('.rcard__ph', c); });
-    var more = cards.map(function (c) { return $$('.rcard__more', c); });
-    var ink = cards.map(function (c) { return [$('.rcard__no', c), $('.rcard__title', c), $('.rcard__price .t-num', c)].filter(Boolean); });
-    var body = cards.map(function (c) { return $('.rcard__body', c); });
-    var set = cards.map(function (c, i) {
-      return { x: gsap.quickSetter(c, 'x', 'px'), sx: gsap.quickSetter(ph[i], 'scaleX'), sy: gsap.quickSetter(ph[i], 'scaleY'),
-        o: gsap.quickSetter(ph[i], 'opacity'), m: gsap.quickSetter(more[i], 'opacity'), k: gsap.quickSetter(ink[i], 'opacity') };
-    });
+    var set = cards.map(function (c) { return { x: gsap.quickSetter(c, 'x', 'px'), o: gsap.quickSetter(c, 'opacity') }; });
     function focus() {
-      var u = U(), xs = [], x = 0, f = st.f, sc = cards.map(function (c, i) {
-        var d = Math.min(1, Math.abs(i - f)), e = d * d * (3 - 2 * d);   // smoothstep: a lens pulling focus
-        return { s: 1 - (1 - NEAR) * e, e: e, d: d, D: Math.abs(i - f) };
-      });
-      sc.forEach(function (o) { xs.push(x); x += FW * o.s + GAP; });
-      var fc = Math.max(0, Math.min(n - 1, f)), fl = Math.min(n - 2, Math.floor(fc)), fr = fc - fl;
-      var at = xs[fl] + (xs[fl + 1] - xs[fl]) * fr + (f - fc) * (FW + GAP) * 0.6;   // rubber-band past either end
+      var u = U(), f = st.f;
       cards.forEach(function (c, i) {
-        var o = sc[i];
-        set[i].x((SLOT - at + xs[i]) * u);
-        set[i].sx(o.s); set[i].sy(o.s);
-        set[i].o(1 - DIM * o.e);
-        var m = Math.max(0, 1 - o.d * 2.4);
-        set[i].m(m); more[i].forEach(function (el) { el.style.visibility = m < 0.02 ? 'hidden' : ''; });
-        var k = INK;                                                     // every tile keeps its plate (title, price) visible
-        if (i < f) k *= Math.max(0, 1 - (f - i) * 2.5);                 // a tile leaving to the left takes its plate with it
-        set[i].k(k);
-        body[i].style.width = (FW * o.s * u).toFixed(1) + 'px';
+        set[i].x(-f * (FW + GAP) * u);
+        var o = i < f ? Math.max(0, 1 - (f - i) * 1.6) : 1;              // a tile leaving to the left takes itself with it
+        set[i].o(o);
+        c.style.visibility = o < 0.01 ? 'hidden' : '';
       });
     }
     function ui() {
@@ -225,15 +207,13 @@
     var dragged = false;
     cards.forEach(function (card, k) {
       card.addEventListener('focusin', function () { if (card.querySelector(':focus-visible') && k !== cur) go(k, 0.5); });
-      card.addEventListener('click', function (e) {   // a click on a neighbour focuses it first (as in RF v3); the focus follows its link
-        if (dragged) { e.preventDefault(); return; }
-        if (k === cur) return;
-        e.preventDefault(); go(k);
+      card.addEventListener('click', function (e) {   // every tile is a full card now: its link works wherever it sits; a drag never clicks
+        if (dragged) { e.preventDefault(); }
       });
     });
     /* drag / swipe: the row follows the pointer, then settles on the nearest tile (a flick moves one on) */
     var x0 = 0, f0 = 0, t0 = 0, down = false, pid = null;
-    var pitch = function () { return (FW * NEAR + GAP + FW * (1 - NEAR) * 0.5) * U(); };
+    var pitch = function () { return (FW + GAP) * U(); };
     view.addEventListener('pointerdown', function (e) {
       if (e.button !== 0) return;
       down = true; dragged = false; x0 = e.clientX; f0 = st.f; t0 = performance.now(); pid = e.pointerId;
