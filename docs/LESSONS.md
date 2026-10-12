@@ -39,3 +39,8 @@ The US map appeared ~4 times on one page — Alex flagged it. One device, one jo
   true 1920 QA and recordings (+ local ffmpeg).
 - No paid services; local, free tools only (ImageMagick, PIL, ffmpeg, Playwright).
 - Subagents can't write .md report files in some modes — the orchestrator saves them.
+
+## 9. Change only what was asked
+Alex flagged three repeated Services pills; we turned it into "no pills site-wide" and the designer also recoloured the
+inventory ground — both reverted. One note = one fix. Don't restyle grounds, colours or components nobody mentioned.
+Also: after a push, Pages caches index.html ~10 min — tell Alex to hard-refresh before judging.

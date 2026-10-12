@@ -16,6 +16,10 @@ Chronological. Each line: what, Alex's verdict, why. Source of truth for "what d
 - Home inventory: Robb Francis v3 "Available Now." behaviour (pinned horizontal card rail) — explicitly authorised.
 - V4 build authorised 2026-10-09: "stop iterating, start building"; storyboard = foundation, not locked.
 
+- V3 (2026-10-12, manager notes): continuous page, no pins, hero intro-only, inventory under the hero with listing
+  photos (not cut-outs), olive ground + pills unchanged, Services = one "Speak with us" button, Finance line removed.
+- Buttons: .02em letter-spacing everywhere — wide tracking on buttons rejected ("looks disgusting").
+
 ## Hard rules (never break)
 - No paid services or credit-consuming tools (fal.ai etc.) without explicit approval. No generated imagery.
 - No blurred/feathered photo edges, vignettes, artificial shadows at image borders, dark overlays hiding integration,

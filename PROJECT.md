@@ -9,6 +9,14 @@ Instagram, maps, phone) disabled; in-page anchors scroll. Treat this as the deli
 in a new commit on top and must not silently alter what the client saw. Other builds (site_v2/, _____TEST FINAL/) are
 explorations, not the delivery.
 
+## V3 — client preview in progress (2026-10-12)
+**https://sigovs.github.io/DUPONT/site_v3/** (repo `site_v3/`, copy of the delivered V4; build scripts repointed to
+site_v3/ — `index.html` is now hand-edited, `_build/gen.py` is out of date, don't regenerate). INDEX only: SRP/VDP/external
+links blocked (V4.HOME_ONLY). Manager notes: too much scrolling / sections felt separate → one continuous page
+(26.7 → 10.8 screens at 1920), no pins, hero = on-load intro only; inventory moved directly under the hero with real
+listing photos instead of cut-outs (same section, olive ground, pills kept, neighbours fully visible, 6px photo radius);
+closing rear trio kept with a short entrance; Services: one "Speak with us" button, Finance line removed.
+
 ## What it is
 Presentation prototype (HTML/CSS/JS + GSAP) for **duPont REGISTRY Select** — a national luxury/exotic dealer portal:
 three physical showrooms, one unified inventory. Client: duPont REGISTRY. Deadline was 2026-10-09.
