@@ -168,8 +168,8 @@
     var prev = $('[data-rail-prev]', sec), next = $('[data-rail-next]', sec), num = $('[data-rail-n]', sec), of = $('[data-rail-of]', sec);
     /* layout (stage px): the tile in focus is 540 × 360, left edge on the head's column (x 120); the next tiles are the
        same photograph at NEAR, bottoms on one line (y 800), a fixed gap, running off the right edge. Tiles already seen
-       slide out to the left. Neighbours dim (photo and plate); spec + link on the focus only; a plate is as wide as its tile. */
-    var FW = 540, GAP = 48, SLOT = 120, NEAR = 0.55, INK = 0.62, DIM = 0.5;
+       slide out to the left. Neighbours stay fully visible (photo and plate); spec + link on the focus only; a plate is as wide as its tile. */
+    var FW = 540, GAP = 48, SLOT = 120, NEAR = 0.55, INK = 1, DIM = 0;   // Alex 2026-10-12: neighbours stay fully visible (no dimming)
     var shortMQ = matchMedia('(max-height: 820px)');   // v3.css: the focus tile steps down to 380 on short desktop viewports
     var fit = function () { FW = shortMQ.matches ? 380 : 540; };
     fit();
@@ -197,7 +197,7 @@
         set[i].o(1 - DIM * o.e);
         var m = Math.max(0, 1 - o.d * 2.4);
         set[i].m(m); more[i].forEach(function (el) { el.style.visibility = m < 0.02 ? 'hidden' : ''; });
-        var k = o.D <= 1 ? 1 - (1 - INK) * o.e : INK * Math.max(0, Math.min(1, (1.6 - o.D) / 0.6));
+        var k = INK;                                                     // every tile keeps its plate (title, price) visible
         if (i < f) k *= Math.max(0, 1 - (f - i) * 2.5);                 // a tile leaving to the left takes its plate with it
         set[i].k(k);
         body[i].style.width = (FW * o.s * u).toFixed(1) + 'px';
