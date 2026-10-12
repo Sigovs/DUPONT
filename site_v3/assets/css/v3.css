@@ -118,6 +118,15 @@ html.motion .m { overflow-y: clip; }
   html.motion .rcard__body { top: calc(253.33 * var(--u)); }
   .lc__panel { height: calc(300 * var(--u)); }
 }
+/* short desktop viewports (≤ 920 px tall: 1280×720, 1440×900): the head's pixel floors push its button onto the row —
+   tighten the head, drop the row one step, keep ≥ 40 px between button and photo and the floor-air (Alex, 2026-10-12) */
+@media (min-width: 1280px) and (max-height: 920px) {
+  .rail__h { margin-top: calc(8 * var(--u)) !important; }
+  .rail__asof { margin-top: calc(10 * var(--u)) !important; }
+  .rail__all { margin-top: calc(20 * var(--u)) !important; }
+  html.motion .rcard { top: calc(var(--st) + 455 * var(--u)); }
+  html.motion .rcard__body { padding-top: calc(10 * var(--u)); }
+}
 /* Instagram on phones: two columns, the third column's posts run on underneath as a pair (no post off the edge) */
 @media (max-width: 639.98px) {
   html:not(.motion) .igs__wall { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
