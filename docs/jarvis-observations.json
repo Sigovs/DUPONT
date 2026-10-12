@@ -138,5 +138,10 @@
   "source": "user_feedback",
   "status": "open",
   "content": "Fact (Alex, 2026-10-12): duPont did NOT ask for the static/less-scroll changes. The manager requested them herself ('make the changes and I'll send them to the client'). V3 = manager's own variant, sent by her to the client; not a client requirement. Supersedes the earlier 'likely carried over from BRAMAN' hypothesis."
+ },
+ {
+  "source": "client_feedback",
+  "status": "open",
+  "content": "V3 2026-10-12 (Kirsten): showroom label 'Select SoCal' -> 'Southern California' on tiles and reviews (was read as 'social'); footer keeps the official dealer name. Inventory rebuilt as proper vehicle tiles: equal graphite #303137 cards with photo, showroom, model, price, spec and 'View this car' pill inside, 4 across, row pages with arrows/drag/swipe. To review later: pill contrast on graphite; label wraps at 1280x720."
  }
 ]
