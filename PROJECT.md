@@ -16,8 +16,8 @@ links blocked (V4.HOME_ONLY). Manager notes: too much scrolling / sections felt 
 (26.7 → 10.8 screens at 1920), no pins, hero = on-load intro only; inventory moved directly under the hero with real
 listing photos instead of cut-outs (same section, olive ground, pills kept, neighbours fully visible, 6px photo radius);
 closing rear trio kept with a short entrance; Services: one "Speak with us" button, Finance line removed.
-**Alex does not like V3 — it is the manager's variant.** His own direction remains the scroll-choreographed V4. Likely origin of the "static" note: client comments on BRAMAN
-(Bentley / Rolls-Royce), not duPont — verify with the duPont client before treating it as a requirement.
+**Alex does not like V3 — it is the manager's variant.** His own direction remains the scroll-choreographed V4. **duPont did not ask for the static changes** — the manager
+requested them herself and sends V3 to the client. V3 is her variant, not a client requirement.
 
 ## What it is
 Presentation prototype (HTML/CSS/JS + GSAP) for **duPont REGISTRY Select** — a national luxury/exotic dealer portal:

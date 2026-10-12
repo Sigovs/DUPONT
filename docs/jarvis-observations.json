@@ -131,7 +131,12 @@
  },
  {
   "source": "user_feedback",
-  "status": "open",
+  "status": "superseded",
   "content": "Context (Alex, 2026-10-12): the manager's 'make it static / less scrolling' note for DUPONT was most likely carried over from client comments on another project (BRAMAN Bentley / Rolls-Royce) — a newly learned term applied here, not a duPont client request. Treat the V3 static direction as a hypothesis to verify with the duPont client, not a confirmed requirement."
+ },
+ {
+  "source": "user_feedback",
+  "status": "open",
+  "content": "Fact (Alex, 2026-10-12): duPont did NOT ask for the static/less-scroll changes. The manager requested them herself ('make the changes and I'll send them to the client'). V3 = manager's own variant, sent by her to the client; not a client requirement. Supersedes the earlier 'likely carried over from BRAMAN' hypothesis."
  }
 ]
