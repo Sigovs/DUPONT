@@ -137,3 +137,8 @@ html.motion .m { overflow-y: clip; }
 .rcard__no { white-space: nowrap; }
 /* programmatic focus after an anchor jump (chrome.js V4.go) moves the reader, not a ring onto the headline */
 [tabindex="-1"]:focus:not(:focus-visible), h2[tabindex="-1"]:focus { outline: none; }
+
+/* Buttons and button-links: one tracking site-wide (Alex, 2026-10-12: no wide-spaced letters on buttons).
+   .02em = the setting already used on the approved "View the collection" / "View all" buttons. */
+.btn, .lnk, .btn *, .lnk *,
+.rcard__go.lnk, .sl__cta, .sv__go.btn, .sv__cta, .igs__cta.btn, .close__cta, .col__all, .rail__all, .lc__all { letter-spacing: .02em !important; }
