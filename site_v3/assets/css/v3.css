@@ -142,3 +142,9 @@ html.motion .m { overflow-y: clip; }
    .02em = the setting already used on the approved "View the collection" / "View all" buttons. */
 .btn, .lnk, .btn *, .lnk *,
 .rcard__go.lnk, .sl__cta, .sv__go.btn, .sv__cta, .igs__cta.btn, .close__cta, .col__all, .rail__all, .lc__all { letter-spacing: .02em !important; }
+
+/* tablet hero (640–1279): the car stage is wider than its column, so `margin: auto` pushed it right and left a gap on the
+   left edge (Alex, 2026-10-12, iPad) — centre it on the column instead: negative margins of half the overshoot */
+@media (min-width: 640px) and (max-width: 1279.98px) {
+  .hero__cars { --hw: min(100% + 2 * var(--gutter), 96vh); width: var(--hw); margin-left: calc((100% - var(--hw)) / 2); margin-right: calc((100% - var(--hw)) / 2); }
+}
