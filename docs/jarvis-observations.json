@@ -123,5 +123,10 @@
   "source": "user_feedback",
   "status": "open",
   "content": "Change only what was asked: one note = one fix. Services pills complaint was wrongly generalised to the whole site and the inventory ground was recoloured — both reverted."
+ },
+ {
+  "source": "user_feedback",
+  "status": "open",
+  "content": "Alex 2026-10-12: he does NOT like the static V3 (site_v3) — the changes came from his manager. V3 is the manager-driven variant for the client; Alex's own direction stays the scroll-choreographed V4."
  }
 ]
