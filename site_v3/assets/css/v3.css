@@ -144,3 +144,5 @@ html.motion .m { overflow-y: clip; }
 .rail__btn.rv__btn { color: var(--graphite); border-color: rgb(48 49 55 / .55); }
 /* spec line on the olive ground: pewter read ~2:1 (Alex, 2026-10-12) — graphite, same ink as the price */
 .rail .rcard__spec, .rail .rcard__asof { color: var(--graphite); }
+/* inventory photos: a small radius (Alex, 2026-10-12) — the end card matches */
+.rcard__ph, .rcard--all .rcard__ph, .rcard__allin { border-radius: 6px; overflow: hidden; }
