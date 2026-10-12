@@ -69,7 +69,7 @@ html.motion .approach > .hero { position: absolute; inset: 0; }
    06 · SERVICES — the same composition (photograph left, column right), all three chapters on one screen.
    Alex (2026-10-12): no per-row pills — ONE section action, the system's square button, under the list.
    Column baselines (stage): kicker 196 · 273 · 319 · sub 372 · rule 420 · chapter k at 462 + 140k
-   (number +0 · title +46 · one line of text +84 · rule +110) · Finance 890 · button 920–972 (floor-air ≥ 80).
+   (number +0 · title +46 · one line of text +84 · rule +110) · button 886–938, 60 under the last line (Finance line removed 2026-10-12; floor-air ≥ 80).
    ========================================================================= */
 @media (min-width: 1280px) {
   html.motion .sv__list { inset: 0; padding: 0; -webkit-mask-image: none; mask-image: none; }
@@ -80,14 +80,13 @@ html.motion .approach > .hero { position: absolute; inset: 0; }
   html.motion .sv__line { top: calc((var(--cy) + 84) * var(--u)); width: auto; max-width: none; white-space: nowrap; }
   html.motion .sv__track > .sv__rule:nth-of-type(1) { top: calc(572 * var(--u)); }
   html.motion .sv__track > .sv__rule:nth-of-type(2) { top: calc(712 * var(--u)); }
-  html.motion .sv__fin { top: calc(890 * var(--u)); margin-top: calc(-1em * var(--bl-text)); }
-  html.motion .sv__cta { top: calc(920 * var(--u)); height: calc(52 * var(--u)); min-height: 44px; letter-spacing: .12em; }
+  html.motion .sv__cta { top: calc(886 * var(--u)); height: calc(52 * var(--u)); min-height: 44px; letter-spacing: .12em; }
   html.motion .sv__ch:not(.is-on) .sv__name { color: #b9babe; }
   html.motion .sv__img { will-change: clip-path; }
   /* no JS at ≥1280: let the flow layouts grow past one screen instead of clipping */
   html:not(.motion) .sv, html:not(.motion) .rv, html:not(.motion) .igs { height: auto; min-height: var(--vh); }
 }
-html:not(.motion) .sv__cta { margin-top: 28px; }
+html:not(.motion) .sv__cta { margin-top: 48px; }
 
 /* pills restored as delivered (Alex, 2026-10-12): only the three Services pills were replaced by one section button */
 /* =========================================================================
