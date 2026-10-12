@@ -142,3 +142,5 @@ html.motion .m { overflow-y: clip; }
 /* the row's arrows/counter sit on the olive studio ground: graphite ink so "01 / 06" and the arrows read (≥4.5:1) */
 .rail__count, .rail__count [data-rail-n] { color: var(--graphite); }
 .rail__btn.rv__btn { color: var(--graphite); border-color: rgb(48 49 55 / .55); }
+/* spec line on the olive ground: pewter read ~2:1 (Alex, 2026-10-12) — graphite, same ink as the price */
+.rail .rcard__spec, .rail .rcard__asof { color: var(--graphite); }
