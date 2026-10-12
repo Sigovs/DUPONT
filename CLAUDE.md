@@ -15,6 +15,12 @@ External skills: **authorized 2026-10-08** as supporting specialists (see BRIEF.
 - `site/` — the prototype (designer / motion-designer)
 
 ## Feedback log
+- **CTAs (Alex, 2026-10-12):** no pill-shaped buttons and no repeated identical CTAs in a group (Services had three big
+  "ASK A SHOWROOM" pills overshooting the rows). One square system button per section, or quiet in-row text links.
+- **V3 from manager notes (2026-10-12) — `site_v3/` (copy of delivered V4; build scripts repointed to site_v3/).**
+  Too much scrolling / sections feel separate → one continuous page, few or no pins; inventory = real vehicle TILES
+  (listing photos, not cut-outs) placed directly under the hero. Plan: site_v3/PLAN-V3.md. Review/prep only until Alex
+  approves; client link site_v1/v4/ stays untouched.
 - **DELIVERED (Alex, 2026-10-09): https://sigovs.github.io/DUPONT/site_v1/v4/ is the final version sent to the client**
   (commit 382f1b2, home only). It is the baseline — don't change it silently; new work goes on top, after Alex asks.
 - **AUTONOMOUS PRODUCTION MODE (2026-10-09):** finish V4 to client-presentation standard without routine approvals:

@@ -1,0 +1,130 @@
+/* =============================================================================
+   V3 — one continuous page (manager's notes, 2026-10-12). Loaded after v4.css; only overrides.
+   - No pinned stages: every section is one screen (≥1280) in normal flow; motion rides the scroll.
+   - Order: Hero → Available now → Collection → About + Locations → Sell → Services → Reviews → Instagram
+     → Close → Showrooms.
+   - Available now: real listing photographs as tiles (not cut-outs) on the section's charcoal ground; the
+     row is driven by arrows / drag / swipe / ←→ (scenes.js), never by the page scroll.
+   html.motion = the ≥1280 stage layouts with JS (set for reduced motion too; reduced motion only drops the movement).
+   ============================================================================= */
+
+/* ---------------------------------------------------------------- header in flow
+   Content now scrolls under the header, so once the page has moved the header carries the ground of the section
+   beneath it (chrome.js writes --hdr-ground) and a hairline; it retracts while reading down and returns on any
+   scroll up (chrome.js). */
+@media (min-width: 1280px) {
+  .hdr { transition: transform var(--dur-3) var(--ease-out), background-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out); }
+  html.motion .hdr.is-scrolled { background: var(--hdr-ground, transparent); box-shadow: 0 1px 0 rgb(167 169 173 / 0.18); }
+  html.motion .hdr.is-scrolled[data-ground="ig"] { box-shadow: 0 1px 0 var(--hair-ivory); }
+}
+
+/* ---------------------------------------------------------------- stacking */
+html.motion .col, html.motion .rail { z-index: 2; }
+html.motion .approach { height: var(--vh); }
+html.motion .approach > .hero { position: absolute; inset: 0; }
+
+/* =========================================================================
+   02 · AVAILABLE NOW — photo tiles on charcoal (the hero's ground carries straight on)
+   ========================================================================= */
+.rail { background: var(--charcoal); color: #fff; }
+.rcard__ph { aspect-ratio: 3 / 2; overflow: hidden; background: #2c2d32; }
+.rcard__ph picture { display: block; width: 100%; height: 100%; }
+.rcard__ph img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; user-select: none; -webkit-user-drag: none; }
+.rcard__no { color: #c9c9cc; }
+.rcard__title { color: #fff; }
+.rcard__price { color: #fff; }
+.rcard__spec { color: #a7a9ad; }
+/* the full list: the darkest tone (night) with the outline button — kept from the delivered V4 */
+.rcard--all .rcard__ph { aspect-ratio: 3 / 2; background: var(--night); container-type: inline-size; }
+.rcard__allin { height: 100%; box-sizing: border-box; justify-content: center; border: 0; background: var(--night); }
+.rail__nav { display: none; }
+
+@media (min-width: 1280px) {
+  /* head: unchanged (kicker on the chapter line · Gloock 67 · caps line · red button), arrows on the right of its band */
+  .rail__nav { display: flex; align-items: center; gap: calc(16 * var(--u)); position: absolute; z-index: 3;
+    right: calc(var(--sl) + 120 * var(--u)); top: calc(var(--st) + 362 * var(--u)); }
+  .rail__btn.rv__btn { width: max(44px, calc(52 * var(--u))); height: max(44px, calc(52 * var(--u))); }
+  .rail__btn[disabled] { opacity: .3; cursor: default; }
+  .rail__btn--prev .arr, .rail__btn .arr { transform: none; }
+  .rail__count { font-family: var(--f-text); font-size: max(12px, calc(13 * var(--u))); letter-spacing: .14em; color: #8d8e93; min-width: 4.6em; text-align: center; }
+  .rail__count [data-rail-n] { color: #fff; }
+
+  /* the row (JS): tiles on one bottom line (stage y 800); the tile in focus 540 × 360 at x 760, neighbours at 0.55 */
+  html.motion .rail__view { position: absolute; inset: 0; overflow: visible; scroll-snap-type: none; touch-action: pan-y; cursor: grab; }
+  html.motion .rail__view.is-drag { cursor: grabbing; }
+  html.motion .rail__track { position: absolute; inset: 0; padding: 0; width: auto; display: block; }
+  html.motion .rcard { position: absolute; left: var(--sl); top: calc(var(--st) + 440 * var(--u)); width: calc(540 * var(--u)); min-width: 0; margin: 0; will-change: transform; }
+  html.motion .rcard__ph { transform-origin: 0 100%; will-change: transform, opacity; }
+  html.motion .rcard__body { position: absolute; left: 0; top: calc(360 * var(--u)); width: calc(540 * var(--u)); padding-top: calc(20 * var(--u)); }
+  html.motion .rcard--all .rcard__ph { aspect-ratio: 3 / 2; }
+  html.motion .rcard__allin { position: absolute; inset: 0; gap: 3.4cqw; padding: 0 8cqw; }
+  html.motion .rcard__all-h { font-size: 6cqw; }
+  html.motion .rcard__allin .btn { margin-top: 1.4cqw; }
+  /* static fallback (no JS): the first tile large, the rest on its bottom line */
+  html:not(.motion) .rcard { margin-top: calc(84 * var(--u)); width: calc(380 * var(--u)); }
+  html:not(.motion) .rcard:first-child { width: calc(540 * var(--u)); margin-top: 0; }
+}
+@media (max-width: 1279.98px) {
+  .rail { padding-bottom: 56px; }
+  .rcard--all .rcard__ph { aspect-ratio: auto; min-height: 220px; }
+}
+
+/* =========================================================================
+   06 · SERVICES — the same composition (photograph left, column right), all three chapters on one screen.
+   Alex (2026-10-12): no per-row pills — ONE section action, the system's square button, under the list.
+   Column baselines (stage): kicker 196 · 273 · 319 · sub 372 · rule 420 · chapter k at 462 + 140k
+   (number +0 · title +46 · one line of text +84 · rule +110) · Finance 890 · button 920–972 (floor-air ≥ 80).
+   ========================================================================= */
+@media (min-width: 1280px) {
+  html.motion .sv__list { inset: 0; padding: 0; -webkit-mask-image: none; mask-image: none; }
+  html.motion .sv__list .sv__track { left: 0; right: 0; }
+  html.motion .sv__rule--head { top: calc(420 * var(--u)); }
+  html.motion .sv__ch:nth-of-type(1) { --cy: 462; } html.motion .sv__ch:nth-of-type(2) { --cy: 602; } html.motion .sv__ch:nth-of-type(3) { --cy: 742; }
+  html.motion .sv__name { top: calc((var(--cy) + 46) * var(--u)); font-size: calc(41 * var(--u)); transition: color var(--dur-2) var(--ease-out); }
+  html.motion .sv__line { top: calc((var(--cy) + 84) * var(--u)); width: auto; max-width: none; white-space: nowrap; }
+  html.motion .sv__track > .sv__rule:nth-of-type(1) { top: calc(572 * var(--u)); }
+  html.motion .sv__track > .sv__rule:nth-of-type(2) { top: calc(712 * var(--u)); }
+  html.motion .sv__fin { top: calc(890 * var(--u)); margin-top: calc(-1em * var(--bl-text)); }
+  html.motion .sv__cta { top: calc(920 * var(--u)); height: calc(52 * var(--u)); min-height: 44px; letter-spacing: .12em; }
+  html.motion .sv__ch:not(.is-on) .sv__name { color: #b9babe; }
+  html.motion .sv__img { will-change: clip-path; }
+  /* no JS at ≥1280: let the flow layouts grow past one screen instead of clipping */
+  html:not(.motion) .sv, html:not(.motion) .rv, html:not(.motion) .igs { height: auto; min-height: var(--vh); }
+}
+html:not(.motion) .sv__cta { margin-top: 28px; }
+
+/* ---------------------------------------------------------------- one button system (Alex, 2026-10-12)
+   No pill buttons: every button is the square-cornered .btn; per-item actions are quiet text links. */
+.rcard__go.lnk { min-height: 44px; padding: 0; border-radius: 0; background: none; box-shadow: none; color: #fff; }
+.rcard__go.lnk:hover, .rcard__go.lnk:focus-visible { background: none; box-shadow: none; text-decoration: underline; text-underline-offset: 6px; }
+.igs__cta.btn { border-radius: 0; }
+.loc__actions .btn { border-radius: 0; }
+/* =========================================================================
+   09 · CLOSE — unpinned; the trio settles once on entry (scenes.js)
+   ========================================================================= */
+html.motion .cl .close__text { will-change: transform; }
+
+/* ------------------------------------------------- motion states (JS sets them, reduced motion never) */
+html.motion .m { overflow-y: clip; }
+
+/* footer showroom actions: labels never clip (they did at 1024 in the delivered V4) */
+.loc__actions { flex-wrap: wrap; }
+.loc__actions .btn { flex: 1 1 auto; padding-left: 16px; padding-right: 16px; }
+
+/* short desktop viewports (≤ 820 px tall, e.g. 1280 × 720): the type's pixel floors (14 px text, 44 px targets) outgrow
+   the stage, so the row's focus tile steps down to 380 × 253 and the showroom panels to 300 — floor-air ≥ 80 stage px */
+@media (min-width: 1280px) and (max-height: 820px) {
+  html.motion .rcard, html.motion .rcard__body { width: calc(380 * var(--u)); }
+  html.motion .rcard__body { top: calc(253.33 * var(--u)); }
+  .lc__panel { height: calc(300 * var(--u)); }
+}
+/* Instagram on phones: two columns, the third column's posts run on underneath as a pair (no post off the edge) */
+@media (max-width: 639.98px) {
+  html:not(.motion) .igs__wall { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  html:not(.motion) .igs__col { min-width: 0; }
+  html:not(.motion) .igs__col[data-ig-col="3"] { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .igs__cap { overflow-wrap: anywhere; }
+}
+.rcard__no { white-space: nowrap; }
+/* programmatic focus after an anchor jump (chrome.js V4.go) moves the reader, not a ring onto the headline */
+[tabindex="-1"]:focus:not(:focus-visible), h2[tabindex="-1"]:focus { outline: none; }

@@ -46,3 +46,13 @@ Thumbs.db
 
 # V4 Sell loop video is published with the site (Alex, 2026-10-09)
 !/site_v1/v4/assets/video/sell-loop.mp4
+
+# V3 (manager notes, 2026-10-12) — published for preview at /site_v3/
+!/site_v3/
+!/site_v3/assets/**/*.jpg
+!/site_v3/assets/**/*.jpeg
+!/site_v3/assets/**/*.png
+!/site_v3/assets/**/*.webp
+!/site_v3/assets/**/*.avif
+!/site_v3/assets/video/*.mp4
+/site_v3/_qa/
