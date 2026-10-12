@@ -128,5 +128,10 @@
   "source": "user_feedback",
   "status": "open",
   "content": "Alex 2026-10-12: he does NOT like the static V3 (site_v3) — the changes came from his manager. V3 is the manager-driven variant for the client; Alex's own direction stays the scroll-choreographed V4."
+ },
+ {
+  "source": "user_feedback",
+  "status": "open",
+  "content": "Context (Alex, 2026-10-12): the manager's 'make it static / less scrolling' note for DUPONT was most likely carried over from client comments on another project (BRAMAN Bentley / Rolls-Royce) — a newly learned term applied here, not a duPont client request. Treat the V3 static direction as a hypothesis to verify with the duPont client, not a confirmed requirement."
  }
 ]
