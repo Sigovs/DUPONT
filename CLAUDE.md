@@ -15,8 +15,13 @@ External skills: **authorized 2026-10-08** as supporting specialists (see BRIEF.
 - `site/` — the prototype (designer / motion-designer)
 
 ## Feedback log
-- **CTAs (Alex, 2026-10-12):** no pill-shaped buttons and no repeated identical CTAs in a group (Services had three big
-  "ASK A SHOWROOM" pills overshooting the rows). One square system button per section, or quiet in-row text links.
+- **Button tracking (Alex, 2026-10-12: "idiotic spaced letters… looks disgusting"):** buttons and button-links use
+  .02em letter-spacing, never wide tracking (.12–.16em). One setting site-wide.
+- **Client preview = INDEX only (2026-10-12):** links to SRP, VDP and external pages are blocked (V4.HOME_ONLY guard);
+  in-page anchors still scroll. Preview link: https://sigovs.github.io/DUPONT/site_v3/
+- **CTAs (Alex, 2026-10-12):** the fix was ONLY Services' three repeated "ASK A SHOWROOM" pills → one section button.
+  Pills elsewhere (rail "View this car", Instagram, footer) STAY as delivered. Don't generalise one note into a site-wide
+  restyle; don't change grounds/colours that weren't asked about (rail keeps the olive studio ground).
 - **V3 from manager notes (2026-10-12) — `site_v3/` (copy of delivered V4; build scripts repointed to site_v3/).**
   Too much scrolling / sections feel separate → one continuous page, few or no pins; inventory = real vehicle TILES
   (listing photos, not cut-outs) placed directly under the hero. Plan: site_v3/PLAN-V3.md. Review/prep only until Alex
