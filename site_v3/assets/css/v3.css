@@ -124,7 +124,7 @@ html.motion .m { overflow-y: clip; }
   html:not(.motion) .igs__col[data-ig-col="3"] { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .igs__cap { overflow-wrap: anywhere; }
 }
-.rcard__no { white-space: nowrap; }
+.rcard__no { white-space: normal; letter-spacing: .06em; }   /* 'Southern California' fits the small tiles (2026-10-12) */
 /* programmatic focus after an anchor jump (chrome.js V4.go) moves the reader, not a ring onto the headline */
 [tabindex="-1"]:focus:not(:focus-visible), h2[tabindex="-1"]:focus { outline: none; }
 
