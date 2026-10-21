@@ -15,6 +15,11 @@ External skills: **authorized 2026-10-08** as supporting specialists (see BRIEF.
 - `site/` — the prototype (designer / motion-designer)
 
 ## Feedback log
+- **V4 working copy (client notes, 2026-10-21) — `site_v4/` = copy of site_v3/ (what the client saw).** Client: remove the
+  three-locations section (merged into the "Visit a showroom" block at the foot — each card opens on its showroom photo,
+  the 04 about line under the block title; every Locations/Contact/"Talk to a specialist" route lands there); Services
+  off the home page (nav items stay, do nothing). Alex: Sell = pin stop, then its type lifts away FIRST, then the page
+  moves on. Next: SRP + VDP. site_v3/ and the delivered site_v1/v4/ stay untouched.
 - **Button tracking (Alex, 2026-10-12: "idiotic spaced letters… looks disgusting"):** buttons and button-links use
   .02em letter-spacing, never wide tracking (.12–.16em). One setting site-wide.
 - **Client preview = INDEX only (2026-10-12):** links to SRP, VDP and external pages are blocked (V4.HOME_ONLY guard);

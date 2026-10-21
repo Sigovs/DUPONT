@@ -56,3 +56,13 @@ Thumbs.db
 !/site_v3/assets/**/*.avif
 !/site_v3/assets/video/*.mp4
 /site_v3/_qa/
+
+# V4 working copy (client changes after V3, 2026-10-21) — copy of site_v3/, published at /site_v4/
+!/site_v4/
+!/site_v4/assets/**/*.jpg
+!/site_v4/assets/**/*.jpeg
+!/site_v4/assets/**/*.png
+!/site_v4/assets/**/*.webp
+!/site_v4/assets/**/*.avif
+!/site_v4/assets/video/*.mp4
+/site_v4/_qa/
