@@ -1358,3 +1358,9 @@ html.motion .igs__head .m { overflow-x: clip; }
 
 /* Find a showroom: normal tracking like every button (Alex, 2026-10-21; rule .02em site-wide) */
 .lm__face { letter-spacing: .02em; }
+
+/* V4 header (Alex, 2026-10-21): always on screen on the home page. Off the very top it sits on its own night bar
+   (translucent + blur, hairline under it) so the menu never lies on cards or photos; logo and nav go light on it. */
+.hdr.is-scrolled::before { content: ""; position: absolute; inset: 0 0 auto 0; height: calc(max(64px, 116 * var(--u))); z-index: -1; pointer-events: none;
+  background: rgb(22 23 26 / .86); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); box-shadow: 0 1px 0 rgb(255 255 255 / .08); }
+html .hdr.is-scrolled, html .hdr.is-scrolled .hdr__logo, html .hdr.is-scrolled .hdr__nav { color: var(--ivory); }

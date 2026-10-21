@@ -105,7 +105,7 @@
   var foot = document.querySelector('[data-scene="foot"]');
   function inFlow() {
     if (srp) return window.scrollY > window.innerHeight * 0.6;
-    return window.scrollY > window.innerHeight * 0.9;   // V3: one continuous page — past the hero the header retracts on the way down
+    return false;   // V4 (Alex, 2026-10-21: "the navigation disappears again"): on the home page the header never retracts
   }
   function hideTick() {
     hidT = false;
