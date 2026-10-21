@@ -21,6 +21,10 @@
       if (id === 'top' || document.getElementById(id) || (W.targets && W.targets[id])) return;
       e.preventDefault(); e.stopImmediatePropagation(); return;         // … unless their section is gone (Services, Finance)
     }
+    // V4 preview (Alex, 2026-10-21): three linked pages — home, inventory (SRP) and the car page (VDP). Links between
+    // them work; everything that leaves the prototype (dR listings, Instagram, maps, phone) stays blocked.
+    var page = url.pathname.split('/').pop();
+    if (url.origin === location.origin && !samePage && /^(|index\.html|inventory\.html|car\.html)$/.test(page)) return;
     e.preventDefault(); e.stopImmediatePropagation();
     if (samePage) { if (W.scrollTo) W.scrollTo(0); else window.scrollTo(0, 0); }   // the logo: back to the top
   }, true);

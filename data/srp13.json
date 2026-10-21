@@ -1,0 +1,296 @@
+{
+ "meta": {
+  "source": "dupontregistry.com listings (Select SoCal dealer page + listing pages), read in Alex's browser",
+  "accessed": "2026-10-21",
+  "note": "Spec values are exactly as listed on dupontregistry.com (some listing fields read 'Automatic' / '-' where the car may differ); 911 ST price not published (Contact for Price)."
+ },
+ "cars": [
+  {
+   "id": "602202",
+   "year": 2015,
+   "make": "Porsche",
+   "model": "918 Spyder",
+   "price": 2990070,
+   "miles": 20466,
+   "loc": "socal",
+   "vin": "WP0CA2A16FS800439",
+   "stock": null,
+   "body": null,
+   "trans": "Automatic",
+   "drive": "All-wheel drive",
+   "ext": "Racing Yellow",
+   "int": "Mocha Brown leather",
+   "photos": [
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-602202/photo/2015-porsche-918--spyder-2990070-601974386.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-602202/photo/2015-porsche-918--spyder-2990070-1889698194.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-602202/photo/2015-porsche-918--spyder-2990070-1404792290.webp"
+   ],
+   "title": "2015 Porsche 918 Spyder"
+  },
+  {
+   "id": "626613",
+   "year": 2015,
+   "make": "Ferrari",
+   "model": "458 Speciale",
+   "price": 1349075,
+   "miles": 6042,
+   "loc": "socal",
+   "vin": "ZFF75VFA7F0204804",
+   "stock": null,
+   "body": null,
+   "trans": "Automatic",
+   "drive": "Rear-wheel drive",
+   "ext": "Nero DS, Blu Nart stripe",
+   "int": "Nero",
+   "photos": [
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-626613/photo/2015-ferrari-458--speciale-1349075-1139427574.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-626613/photo/2015-ferrari-458--speciale-1349075-1247279322.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-626613/photo/2015-ferrari-458--speciale-1349075-1785324770.webp"
+   ],
+   "title": "2015 Ferrari 458 Speciale"
+  },
+  {
+   "id": "635108",
+   "year": 2020,
+   "make": "Ferrari",
+   "model": "488 Pista",
+   "price": 1250075,
+   "miles": 3299,
+   "loc": "socal",
+   "vin": "ZFF90HLA3L0249148",
+   "stock": "PW249148",
+   "body": "Coupe",
+   "trans": "Automatic",
+   "drive": "Rear-wheel drive",
+   "ext": "White",
+   "int": "Black",
+   "photos": [
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-635108/photo/2020-ferrari-488--pista-1250075-1308244917.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-635108/photo/2020-ferrari-488--pista-1250075-331650251.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-635108/photo/2020-ferrari-488--pista-1250075-1327933443.webp"
+   ],
+   "title": "2020 Ferrari 488 Pista"
+  },
+  {
+   "id": "642093",
+   "year": 2019,
+   "make": "Porsche",
+   "model": "911 GT2 RS",
+   "price": 799970,
+   "miles": 1272,
+   "loc": "socal",
+   "vin": "WP0AE2A93KS155325",
+   "stock": "PW155325",
+   "body": "Coupe",
+   "trans": "Automatic",
+   "drive": "Rear-wheel drive",
+   "ext": "Blue",
+   "int": "Black",
+   "photos": [
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-642093/photo/2019-porsche-911--gt2--rs-799970-1540284140.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-642093/photo/2019-porsche-911--gt2--rs-799970-314246300.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-642093/photo/2019-porsche-911--gt2--rs-799970-1739519712.webp"
+   ],
+   "title": "2019 Porsche 911 GT2 RS"
+  },
+  {
+   "id": "635078",
+   "year": 2021,
+   "make": "McLaren",
+   "model": "765LT",
+   "price": 799987,
+   "miles": 8195,
+   "loc": "socal",
+   "vin": "SBM14RCAXMW765633",
+   "stock": "PW765633",
+   "body": "Coupe",
+   "trans": "Automatic",
+   "drive": "Rear-wheel drive",
+   "ext": "McLaren Orange",
+   "int": "Black Alcantara",
+   "photos": [
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-635078/photo/2021-mclaren-765lt-799987-338998420.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-635078/photo/2021-mclaren-765lt-799987-1762962661.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-635078/photo/2021-mclaren-765lt-799987-1867004612.webp"
+   ],
+   "vdp": true,
+   "title": "2021 McLaren 765LT"
+  },
+  {
+   "id": "636828",
+   "year": 2019,
+   "make": "Porsche",
+   "model": "911 Speedster",
+   "price": 570075,
+   "miles": 3110,
+   "loc": "socal",
+   "vin": "WP0CF2A98KS172451",
+   "stock": null,
+   "body": "Convertible",
+   "trans": "6-speed manual",
+   "drive": "Rear-wheel drive",
+   "ext": "GT Silver Metallic",
+   "int": "Black / Cognac",
+   "photos": [
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-636828/photo/2019-porsche-911--speedster-570075-1505895883.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-636828/photo/2019-porsche-911--speedster-570075-972614143.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-636828/photo/2019-porsche-911--speedster-570075-1459395892.webp"
+   ],
+   "title": "2019 Porsche 911 Speedster"
+  },
+  {
+   "id": "643566",
+   "year": 2024,
+   "make": "Ferrari",
+   "model": "Purosangue",
+   "price": 510441,
+   "miles": 7427,
+   "loc": "naples",
+   "vin": "ZSG06VTA8R0306457",
+   "stock": null,
+   "body": "SUV",
+   "trans": "Automatic",
+   "drive": "All-wheel drive",
+   "ext": null,
+   "int": "Brown",
+   "photos": [
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-643566/photo/2024-ferrari-purosangue-510441-584538670.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-643566/photo/2024-ferrari-purosangue-510441-411175565.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-643566/photo/2024-ferrari-purosangue-510441-58871090.webp"
+   ],
+   "title": "2024 Ferrari Purosangue"
+  },
+  {
+   "id": "643567",
+   "year": 2025,
+   "make": "Porsche",
+   "model": "911 GT3 RS",
+   "price": 495299,
+   "miles": 2529,
+   "loc": "naples",
+   "vin": "WP0AF2A95SS279318",
+   "stock": "PN279318",
+   "body": "Coupe",
+   "trans": "Automatic",
+   "drive": "Rear-wheel drive",
+   "ext": "Black",
+   "int": "Black",
+   "photos": [
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-643567/photo/2025-porsche-911--gt3--rs-495299-1377368006.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-643567/photo/2025-porsche-911--gt3--rs-495299-650832419.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-643567/photo/2025-porsche-911--gt3--rs-495299-1020198230.webp"
+   ],
+   "title": "2025 Porsche 911 GT3 RS"
+  },
+  {
+   "id": "636826",
+   "year": 2013,
+   "make": "Ferrari",
+   "model": "458 Spider",
+   "price": 440035,
+   "miles": 11372,
+   "loc": "socal",
+   "vin": "ZFF68NHA5D0190771",
+   "stock": "D190771",
+   "body": "Convertible",
+   "trans": "Automatic",
+   "drive": "Rear-wheel drive",
+   "ext": "Red",
+   "int": "Black",
+   "photos": [
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-636826/photo/2013-ferrari-458--spider-440035-1902722025.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-636826/photo/2013-ferrari-458--spider-440035-825521352.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-636826/photo/2013-ferrari-458--spider-440035-1458356433.webp"
+   ],
+   "title": "2013 Ferrari 458 Spider"
+  },
+  {
+   "id": "642845",
+   "year": 2010,
+   "make": "Aston Martin",
+   "model": "DBS",
+   "price": 289905,
+   "miles": 8618,
+   "loc": "socal",
+   "vin": "SCFEBCAD3AGE01767",
+   "stock": "CWE01767",
+   "body": "Coupe",
+   "trans": "Automatic",
+   "drive": "Rear-wheel drive",
+   "ext": null,
+   "int": "Black",
+   "photos": [
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-642845/photo/2010-aston--martin-dbs-289905-1332321685.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-642845/photo/2010-aston--martin-dbs-289905-1884961397.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-642845/photo/2010-aston--martin-dbs-289905-1391020209.webp"
+   ],
+   "title": "2010 Aston Martin DBS"
+  },
+  {
+   "id": "634991",
+   "year": 2018,
+   "make": "Porsche",
+   "model": "911 GT3",
+   "price": 245080,
+   "miles": 9023,
+   "loc": "socal",
+   "vin": "WP0AC2A92JS176865",
+   "stock": "P4053",
+   "body": "Coupe",
+   "trans": null,
+   "drive": "Rear-wheel drive",
+   "ext": "Orange",
+   "int": "Black",
+   "photos": [
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-634991/photo/2018-porsche-911--gt3-245080-1011508050.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-634991/photo/2018-porsche-911--gt3-245080-227833357.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-634991/photo/2018-porsche-911--gt3-245080-1045770951.webp"
+   ],
+   "title": "2018 Porsche 911 GT3"
+  },
+  {
+   "id": "635051",
+   "year": 2015,
+   "make": "Dodge",
+   "model": "Viper",
+   "price": 179995,
+   "miles": 8491,
+   "loc": "socal",
+   "vin": "1C3ADEAZ6FV510419",
+   "stock": "PW510419",
+   "body": "Coupe",
+   "trans": "Automatic",
+   "drive": "Rear-wheel drive",
+   "ext": "Red",
+   "int": "Black",
+   "photos": [
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-635051/photo/2015-dodge-viper-179995-1991668899.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-635051/photo/2015-dodge-viper-179995-1794736780.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-635051/photo/2015-dodge-viper-179995-330352588.webp"
+   ],
+   "title": "2015 Dodge Viper"
+  },
+  {
+   "id": "641658",
+   "year": 2024,
+   "make": "Porsche",
+   "model": "911 ST",
+   "price": null,
+   "miles": 151,
+   "loc": "socal",
+   "vin": "WP0AF2A96RS272906",
+   "stock": "CW272906",
+   "body": "Coupe",
+   "trans": "Automatic",
+   "drive": "Rear-wheel drive",
+   "ext": null,
+   "int": "Black",
+   "photos": [
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-641658/photo/2024-porsche-911--st-0-1936854880.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-641658/photo/2024-porsche-911--st-0-44890853.webp",
+    "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-641658/photo/2024-porsche-911--st-0-1796307148.webp"
+   ],
+   "title": "2024 Porsche 911 ST"
+  }
+ ]
+}
