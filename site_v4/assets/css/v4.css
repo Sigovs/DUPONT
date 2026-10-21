@@ -1355,3 +1355,6 @@ html.motion .igs__head .m { overflow-x: clip; }
 .loc__ph::after { background: linear-gradient(180deg, rgb(48 49 55 / .18), rgb(22 23 26 / .34)); }
 .foot__about { grid-column: 1 / -1; margin: 22px 0 0; max-width: 46em; font-family: var(--f-text); font-weight: 600; font-size: 13px; letter-spacing: .01em; text-transform: uppercase; line-height: 2; color: #9a9ba0; }
 @media (min-width: 1280px) { .loc__ph { aspect-ratio: auto; height: calc(296 * var(--u)); } }
+
+/* Find a showroom: normal tracking like every button (Alex, 2026-10-21; rule .02em site-wide) */
+.lm__face { letter-spacing: .02em; }
