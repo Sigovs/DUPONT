@@ -99,10 +99,7 @@
      logo and nav inside it, so .hdr's own transform belongs to this rule alone. */
   var lastY = window.scrollY, hidT = false, srp = document.body.classList.contains('srp-page');
   var foot = document.querySelector('[data-scene="foot"]');
-  function inFlow() {
-    if (srp) return window.scrollY > window.innerHeight * 0.6;
-    return window.scrollY > window.innerHeight * 0.9;   // V3: one continuous page — past the hero the header retracts on the way down
-  }
+  function inFlow() { return false; }   // Alex 2026-10-21: the header NEVER retracts — on any page, any scroll direction
   function hideTick() {
     hidT = false;
     var y = window.scrollY, d = y - lastY;

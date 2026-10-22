@@ -110,7 +110,7 @@ address { font-style: normal; }
 /* scroll-direction retract (chrome.js). The header element's transform belongs to this rule only — the
    Approach timeline moves the logo and nav inside it, never .hdr itself (G6). */
 .hdr { transition: transform var(--dur-2) var(--ease-out); }
-.hdr.is-away { transform: translateY(-110%); transition: transform var(--dur-2) var(--ease-in); }
+.hdr.is-away { transform: none; }   /* never retracts (Alex, 2026-10-21) */
 .hdr.is-away:focus-within { transform: none; }
 html:not(.js) .hdr { position: absolute; }   /* no-JS: no ink switching, so the header stays with the ivory hero */
 .hdr__logo { position: absolute; left: calc(var(--sl) + 120 * var(--u)); top: max(16px, calc(40 * var(--u))); height: max(34px, calc(48 * var(--u))); color: inherit; display: block; }
