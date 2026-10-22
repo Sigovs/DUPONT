@@ -243,3 +243,12 @@ html.lbox-open { overflow: hidden; }
 .vdp__quick > div { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 14px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid rgb(255 255 255 / .10); }
 .vdp__quick > div:last-child { border-bottom: 0; }
 .vdp__quick dd { margin: 0; }
+
+/* CARFAX report link in the price panel (placeholder until the dealer's CARFAX partner link) */
+.vdp__carfax { flex: 1 0 100%; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; margin-top: 2px; padding: 0; border: 0; background: none; color: #fff; font: 600 14px/1 var(--f-text); letter-spacing: .02em; cursor: pointer; text-decoration: underline; text-decoration-color: rgb(255 255 255 / .35); text-underline-offset: 6px; }
+.vdp__carfax:hover, .vdp__carfax:focus-visible { text-decoration-color: #fff; }
+.vdp__carfax[aria-expanded="true"] .arr { transform: rotate(90deg); }
+.vdp__carfax .arr { transition: transform var(--dur-1, .2s) ease; }
+.vdp__carfax-note { flex: 1 0 100%; margin: 0; padding: 14px 16px; border-radius: 6px; background: rgb(255 255 255 / .06); font: 400 14px/1.5 var(--f-text); color: #d7d8db; }
+.vdp__carfax-note .vdp__code-in { font-variant-numeric: tabular-nums; white-space: nowrap; color: #fff; }
+.vdp__carfax-note .vdp__ph { display: block; margin-top: 6px; font-size: 12px; color: #9a9ba0; }
