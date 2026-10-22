@@ -127,12 +127,43 @@
 .vdp__optlist { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 40px; }
 .vdp__optlist li { break-inside: avoid; padding: 11px 0; border-top: 1px solid var(--hair-ivory, #d8d5cd); font: 400 15px/1.4 var(--f-text); }
 .vdp__close { margin: 30px 0 0; font: 400 15px/1.6 var(--f-text); color: var(--pewter); max-width: 44em; }
-.vdp__specs .vdp__h3 { margin-top: 36px; }
-.vdp__spec { margin: 0; }
-.vdp__spec div { display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 13px 0; border-top: 1px solid var(--hair-ivory, #d8d5cd); }
-.vdp__spec div:last-child { border-bottom: 1px solid var(--hair-ivory, #d8d5cd); }
-.vdp__spec dt { font: 600 13px/1.6 var(--f-text); letter-spacing: .06em; text-transform: uppercase; color: var(--pewter); }
-.vdp__spec dd { margin: 0; font: 400 15px/1.45 var(--f-text); overflow-wrap: anywhere; }
+/* Specifications (2026-10-21): key figures (Gloock numbers, small Inter units + captions, hairline dividers) →
+   two grouped definition lists, "The car" and "Record". The column is a size container so the figures scale with it. */
+.vdp__specs { container-type: inline-size; }
+.vdp__spec-k { padding: 0; background: none; }
+.vdp__figs { list-style: none; margin: 30px 0 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(min-content, 1fr);
+  border-top: 1px solid var(--graphite); border-bottom: 1px solid var(--hair-ivory, #d8d5cd); }
+.vdp__figs[hidden] { display: none; }
+.vdp__fig { padding: 26px 16px 22px; border-left: 1px solid var(--hair-ivory, #d8d5cd); }
+.vdp__fig:first-child { padding-left: 0; border-left: 0; }
+.vdp__fig-n { display: block; font: 400 clamp(28px, 8.2cqi, 46px)/1 var(--f-display); letter-spacing: -.01em; color: var(--graphite);
+  font-variant-numeric: lining-nums; white-space: nowrap; }
+.vdp__fig-n small { margin-left: .2em; font: 500 14px/1 var(--f-text); letter-spacing: 0; color: var(--graphite); }
+.vdp__fig-c { display: block; margin-top: 12px; font: 400 14px/1.35 var(--f-text); color: var(--pewter); }
+.vdp__groups { display: grid; gap: 36px; margin-top: 40px; }
+.vdp__grp-h { margin: 0 0 12px; font: 600 13px/1 var(--f-text); letter-spacing: .01em; text-transform: uppercase; color: var(--pewter); }
+.vdp__spec { margin: 0; border-bottom: 1px solid var(--hair-ivory, #d8d5cd); }
+.vdp__spec div { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 16px; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--hair-ivory, #d8d5cd); }
+.vdp__spec dt { font: 400 14px/1.5 var(--f-text); color: var(--pewter); }
+.vdp__spec dd { margin: 0; font: 400 15px/1.45 var(--f-text); color: var(--graphite); overflow-wrap: anywhere; }
+.vdp__spec dd.vdp__code { font-variant-numeric: tabular-nums lining-nums; letter-spacing: .02em; white-space: nowrap; overflow-wrap: normal; }
+.vdp__nw { white-space: nowrap; }
+/* phone: figures on a two-column grid; with three, the first (power) takes the full first row */
+@media (max-width: 759.98px) {
+  .vdp__figs { grid-auto-flow: row; grid-template-columns: 1fr 1fr; }
+  .vdp__fig { padding: 22px 16px 20px; border-top: 1px solid var(--hair-ivory, #d8d5cd); }
+  .vdp__fig:nth-child(-n+2) { border-top: 0; }
+  .vdp__fig:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .vdp__fig:first-child:nth-last-child(3) { grid-column: 1 / -1; }
+  .vdp__fig:first-child:nth-last-child(3) ~ .vdp__fig { border-top: 1px solid var(--hair-ivory, #d8d5cd); }
+  .vdp__fig:first-child:nth-last-child(3) ~ .vdp__fig:nth-child(2) { padding-left: 0; border-left: 0; }
+  .vdp__fig:first-child:nth-last-child(3) ~ .vdp__fig:nth-child(3) { padding-left: 16px; border-left: 1px solid var(--hair-ivory, #d8d5cd); }
+  .vdp__fig-n { font-size: 44px; }
+}
+@container (min-width: 640px) {
+  .vdp__groups { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 clamp(32px, 5cqi, 64px); }
+  .vdp__fig-n { font-size: 52px; }
+}
 
 .vdp__room-b { margin: clamp(80px, 7vw, 130px) calc(-1 * var(--g)) 0; padding: clamp(60px, 5vw, 96px) var(--g); background: var(--night); color: #fff;
   display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 80px); align-items: center; }

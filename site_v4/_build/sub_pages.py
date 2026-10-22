@@ -8,7 +8,7 @@ import os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 V4 = os.path.dirname(HERE)
-VER = 'v4-2'
+VER = 'v4-5'
 
 src = open(os.path.join(V4, 'index.html'), encoding='utf-8').read()
 
@@ -130,7 +130,7 @@ VDP = '''
         <div class="vdp__opts" data-vdp-opts-wrap><h3 class="vdp__h3">Options</h3><ul class="vdp__optlist" data-vdp-opts></ul></div>
         <p class="vdp__close" data-vdp-close></p>
       </div>
-      <div class="vdp__specs"><h3 class="vdp__h3">Specifications</h3><dl class="vdp__spec" data-vdp-spec></dl></div>
+      <div class="vdp__specs"><h3 class="sub__kicker vdp__spec-k">Specifications</h3><ul class="vdp__figs" data-vdp-figs></ul><div class="vdp__groups" data-vdp-spec></div></div>
     </section>
     <section class="vdp__room-b" id="vdp-contact" aria-labelledby="vdp-room-h" data-vdp-contact></section>
     <section class="vdp__more" aria-labelledby="vdp-more-h">

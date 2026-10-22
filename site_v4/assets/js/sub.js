@@ -155,10 +155,36 @@
       $('[data-vdp-ov]').innerHTML = '<p>The full description of this car is with the showroom — call ' + esc(R.phone) + ' or ask for a walk-around video.</p>';
       $('[data-vdp-opts-wrap]').hidden = true;
     }
-    var specs = [['Year', c.year], ['Make', c.make], ['Model', c.model], ['Mileage', miles(c.miles)], ['Body', c.body], ['Engine', c.engine],
-      ['Transmission', c.trans], ['Drivetrain', c.drive], ['Exterior', c.ext], ['Interior', c.int], ['VIN', c.vin], ['Stock', c.stock], ['Showroom', R.name]];
-    $('[data-vdp-spec]').innerHTML = specs.filter(function (r) { return r[1]; })
-      .map(function (r) { return '<div><dt>' + r[0] + '</dt><dd' + (r[0] === 'VIN' ? ' class="t-num"' : '') + '>' + esc(r[1]) + '</dd></div>'; }).join('');
+    /* specifications — key figures first (parsed from the listing's own engine line + odometer; a figure whose value
+       is absent is left out, never invented), then two short groups: the car, and the record */
+    var eng = c.engine || '', hp = /(\d[\d,]*)\s*hp\b/i.exec(eng), lit = /^(\d+(?:\.\d+)?)\s*L\b[\s,]*/i.exec(eng);
+    var engRest = lit ? eng.slice(lit[0].length).replace(/,?\s*\d[\d,]*\s*hp\b.*$/i, '').trim() : '';
+    var cap = function (t) { return t.charAt(0).toUpperCase() + t.slice(1); };
+    var DRV = { 'rear-wheel drive': 'RWD', 'all-wheel drive': 'AWD', 'front-wheel drive': 'FWD', 'four-wheel drive': '4WD' };
+    var drvCode = c.drive && DRV[c.drive.toLowerCase()];
+    var figs = [];
+    if (hp) figs.push([hp[1], 'hp', /combined/i.test(eng) ? 'Power, combined' : 'Power']);
+    if (lit) figs.push([lit[1], 'L', engRest ? cap(engRest) : 'Engine']);
+    if (c.miles != null) figs.push([c.miles.toLocaleString('en-US'), 'mi', 'Odometer']);
+    var driveFig = figs.length < 3 && drvCode;
+    if (driveFig) figs.push([drvCode, '', c.drive]);
+    var figEl = $('[data-vdp-figs]');
+    figEl.hidden = !figs.length;
+    figEl.innerHTML = figs.map(function (f) {
+      return '<li class="vdp__fig"><span class="vdp__fig-n">' + esc(f[0]) + (f[1] ? '<small>' + f[1] + '</small>' : '') +
+        '</span><span class="vdp__fig-c">' + esc(f[2]) + '</span></li>';
+    }).join('');
+    var groups = [
+      ['The car', [['Body', c.body], ['Engine', lit ? null : c.engine], ['Exterior', c.ext], ['Interior', c.int],
+        ['Transmission', c.trans], ['Drivetrain', driveFig ? null : c.drive]]],
+      ['Record', [['VIN', c.vin, 1], ['Stock no.', c.stock, 1], ['Showroom', R.name], ['Listed', 1, 0, 'duPont REGISTRY · <span class="vdp__nw">as of ' + esc(SEL.meta.asOf) + '</span>']]]
+    ];
+    $('[data-vdp-spec]').innerHTML = groups.map(function (g) {
+      var rows = g[1].filter(function (r) { return r[1]; });
+      return rows.length ? '<div class="vdp__grp"><h4 class="vdp__grp-h">' + g[0] + '</h4><dl class="vdp__spec">' + rows.map(function (r) {
+        return '<div><dt>' + r[0] + '</dt><dd' + (r[2] ? ' class="t-num vdp__code"' : '') + '>' + (r[3] || esc(r[1])) + '</dd></div>';
+      }).join('') + '</dl></div>' : '';
+    }).join('');
 
     /* the showroom it stands in */
     $('[data-vdp-contact]').innerHTML =
