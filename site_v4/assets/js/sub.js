@@ -141,13 +141,14 @@
     var quick = [['Exterior', c.ext], ['Interior', c.int], ['Transmission', c.trans], ['Drivetrain', c.drive], ['Engine', c.engine], ['Body', c.body]]
       .filter(function (r) { return r[1]; }).slice(0, 4);
     var inPanel = {}; quick.forEach(function (r) { inPanel[r[0]] = 1; });   // each fact appears once on the page (Alex, 2026-10-22)
-    $('[data-vdp-quick]').innerHTML = quick.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('');
+    $('[data-vdp-quick]').innerHTML = quick.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('') +
+      (c.vin ? '<div class="vdp__q-vin"><dt>VIN</dt><dd class="t-num vdp__vin">' + esc(c.vin) + '</dd></div>' : '');   // VIN lives in the panel (Alex, 2026-10-22)
     $('[data-vdp-call]').textContent = 'Call ' + R.phone;
     /* CARFAX (Alex, 2026-10-22): no report in the source listing and no dealer partner code yet — the button opens a
        note; in production it becomes the dealer's CARFAX link for this VIN. Nothing about the car's history is shown. */
     var cfb = $('[data-vdp-carfax]'), cfn = $('[data-vdp-carfax-note]');
     if (cfb && cfn) {
-      cfn.innerHTML = 'CARFAX Vehicle History Report for VIN <span class="vdp__code-in">' + esc(c.vin || '—') + '</span> is provided by the showroom on request. <span class="vdp__ph">Placeholder — dealer CARFAX link goes here.</span>';
+      cfn.innerHTML = 'The CARFAX Vehicle History Report for this car is provided by the showroom on request. <span class="vdp__ph">Placeholder — dealer CARFAX link goes here.</span>';
       cfb.addEventListener('click', function () { var o = cfn.hidden; cfn.hidden = !o; cfb.setAttribute('aria-expanded', o ? 'true' : 'false'); });
     }
     $('[data-vdp-asof]').textContent = 'Price and miles as listed on duPont REGISTRY, ' + SEL.meta.asOf + '.';
@@ -186,7 +187,6 @@
       ['Transmission', c.trans], ['Drivetrain', driveFig ? null : c.drive]]
       .filter(function (r) { return r[1] && !inPanel[r[0]]; });
     var meta = rest.map(function (r) { return '<li><span>' + r[0] + '</span> ' + esc(r[1]) + '</li>'; });
-    if (c.vin) meta.push('<li><span>VIN</span> <b class="t-num vdp__code">' + esc(c.vin) + '</b></li>');
     if (c.stock) meta.push('<li><span>Stock</span> <b class="t-num vdp__code">' + esc(c.stock) + '</b></li>');
     meta.push('<li>Listed on duPont REGISTRY, as of ' + esc(SEL.meta.asOf) + '</li>');
     $('[data-vdp-spec]').innerHTML = '<ul class="vdp__meta">' + meta.join('') + '</ul>';

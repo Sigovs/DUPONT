@@ -91,7 +91,9 @@
     "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-642093/photo/2019-porsche-911--gt2--rs-799970-314246300.webp",
     "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-642093/photo/2019-porsche-911--gt2--rs-799970-1739519712.webp"
    ],
-   "title": "2019 Porsche 911 GT2 RS"
+   "title": "2019 Porsche 911 GT2 RS",
+   "engine": "3.8L twin-turbocharged flat-six",
+   "engine_src": "listing description, dupontregistry.com, read 2026-10-22"
   },
   {
    "id": "635078",
@@ -180,7 +182,9 @@
     "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-643567/photo/2025-porsche-911--gt3--rs-495299-650832419.webp",
     "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-643567/photo/2025-porsche-911--gt3--rs-495299-1020198230.webp"
    ],
-   "title": "2025 Porsche 911 GT3 RS"
+   "title": "2025 Porsche 911 GT3 RS",
+   "engine": "4.0L flat-six",
+   "engine_src": "listing description, dupontregistry.com, read 2026-10-22"
   },
   {
    "id": "636826",
@@ -246,7 +250,9 @@
     "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-634991/photo/2018-porsche-911--gt3-245080-227833357.webp",
     "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-634991/photo/2018-porsche-911--gt3-245080-1045770951.webp"
    ],
-   "title": "2018 Porsche 911 GT3"
+   "title": "2018 Porsche 911 GT3",
+   "engine": "4.0L flat-six",
+   "engine_src": "listing description, dupontregistry.com, read 2026-10-22"
   },
   {
    "id": "635051",
@@ -268,7 +274,9 @@
     "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-635051/photo/2015-dodge-viper-179995-1794736780.webp",
     "https://d2ujs0u2ekt0bo.cloudfront.net/cache/width_1920/car/car-635051/photo/2015-dodge-viper-179995-330352588.webp"
    ],
-   "title": "2015 Dodge Viper"
+   "title": "2015 Dodge Viper",
+   "engine": "8.4L V10",
+   "engine_src": "listing description, dupontregistry.com, read 2026-10-22"
   },
   {
    "id": "641658",

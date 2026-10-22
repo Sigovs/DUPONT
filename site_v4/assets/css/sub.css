@@ -260,3 +260,12 @@ html.lbox-open { overflow: hidden; }
 .vdp__meta b { font-weight: 400; }
 .vdp__meta li:last-child { flex-basis: 100%; color: var(--pewter); }
 .vdp__groups { margin-top: 0 !important; display: block !important; }
+/* VIN in the panel + CARFAX logo button (Alex, 2026-10-22) */
+.vdp__quick .vdp__vin { font-variant-numeric: tabular-nums; letter-spacing: .02em; white-space: nowrap; }
+.vdp__carfax { gap: 12px; text-decoration: none; }
+.vdp__carfax span { text-decoration: underline; text-decoration-color: rgb(255 255 255 / .35); text-underline-offset: 6px; }
+.vdp__carfax:hover span, .vdp__carfax:focus-visible span { text-decoration-color: #fff; }
+.vdp__carfax-logo { display: block; height: 30px; width: auto; }
+@media (max-width: 480px) {
+  .vdp__quick > div.vdp__q-vin { grid-template-columns: 1fr; gap: 8px; }
+}
