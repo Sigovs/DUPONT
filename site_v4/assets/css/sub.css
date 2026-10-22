@@ -367,3 +367,7 @@ html.inq-open { overflow: hidden; }
 .vdp__act:hover, .vdp__act:focus-visible { background: none; border-color: var(--graphite); }
 .vdp__act[aria-pressed="true"] { border-color: var(--graphite); }
 @media (max-width: 600px) { .vdp__acts { margin: -4px 0 0; gap: 8px; } .vdp__act { padding: 0 14px; } .vdp__toast { left: 0; } }
+/* SRP: visible "Sort by" inside the sort pill (Alex, 2026-10-22) */
+.inv__f--sort { position: relative; }
+.inv__f-l { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font: 400 14px/1 var(--f-text); color: var(--pewter); pointer-events: none; }
+.inv__f--sort select { padding-left: 80px; }

@@ -51,7 +51,6 @@
     var so = $('[data-inv-sort]'), q = $('[data-inv-q]'), count = $('[data-inv-count]'), empty = $('[data-inv-empty]');
     var P = new URLSearchParams(location.search);
     var st = { room: P.get('showroom') || '', make: P.get('make') || '', model: P.get('model') || '', sort: P.get('sort') || 'featured', q: P.get('q') || '' };
-    $('[data-inv-asof]').textContent = CARS.length + ' cars · prices and miles as listed on duPont REGISTRY, ' + SEL.meta.asOf;
 
     rooms.innerHTML = '<button type="button" class="chip" data-room="">All <span>' + CARS.length + '</span></button>' + ORDER.map(function (k) {
       var n = CARS.filter(function (c) { return c.loc === k; }).length;

@@ -60,7 +60,6 @@ SRP = '''
     <header class="inv__head">
       <p class="sub__kicker">Inventory</p>
       <h1 class="sub__h disp"><span class="sub__h1">Available now</span> <span class="sub__h2">Three showrooms, one collection</span></h1>
-      <p class="sub__line" data-inv-asof>Prices and miles as listed on duPont REGISTRY</p>
     </header>
     <div class="inv__bar" data-inv-bar>
       <div class="inv__bar-in">
@@ -68,7 +67,7 @@ SRP = '''
         <div class="inv__filters">
           <label class="inv__f"><span class="vh">Make</span><select data-inv-make><option value="">All makes</option></select></label>
           <label class="inv__f"><span class="vh">Model</span><select data-inv-model disabled><option value="">All models</option></select></label>
-          <label class="inv__f"><span class="vh">Sort</span><select data-inv-sort>
+          <label class="inv__f inv__f--sort"><span class="inv__f-l" aria-hidden="true">Sort by</span><span class="vh">Sort by</span><select data-inv-sort>
             <option value="featured">Featured</option>
             <option value="price-desc">Price: high to low</option>
             <option value="price-asc">Price: low to high</option>
