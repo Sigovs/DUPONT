@@ -120,7 +120,6 @@ VDP = '''
           <button class="vdp__carfax" type="button" data-vdp-carfax aria-expanded="false" aria-controls="vdp-carfax-note"><img class="vdp__carfax-logo" src="assets/img/brand/carfax.svg" width="127" height="30" alt="CARFAX"> <span>Report</span> <svg class="arr" viewBox="0 0 16 10" width="16" height="10" aria-hidden="true" focusable="false"><path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
           <p class="vdp__carfax-note" id="vdp-carfax-note" data-vdp-carfax-note hidden></p>
         </div>
-        <p class="vdp__asof" data-vdp-asof></p>
       </aside>
     </div>
     <section class="vdp__body" aria-labelledby="vdp-ov">
