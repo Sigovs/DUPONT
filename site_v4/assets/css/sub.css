@@ -371,3 +371,13 @@ html.inq-open { overflow: hidden; }
 .inv__f--sort { position: relative; }
 .inv__f-l { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font: 400 14px/1 var(--f-text); color: var(--pewter); pointer-events: none; }
 .inv__f--sort select { padding-left: 80px; }
+/* SRP: active filters as small removable pills (Alex, 2026-10-22) */
+.inv__meta { flex-wrap: wrap; }
+.inv__tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.inv__tags[hidden] { display: none; }
+.inv__tag { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px 0 14px; border: 1px solid rgb(48 49 55 / .3); border-radius: 999px;
+  background: none; color: var(--graphite); font: 500 13px/1 var(--f-text); letter-spacing: .02em; cursor: pointer; transition: border-color var(--dur-1) var(--ease-out); }
+.inv__tag:hover, .inv__tag:focus-visible { border-color: var(--graphite); }
+.inv__tag:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.inv__tag svg { flex: none; opacity: .7; }
+.inv__tag:hover svg { opacity: 1; }

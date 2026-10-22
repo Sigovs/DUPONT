@@ -78,7 +78,7 @@ SRP = '''
         </div>
       </div>
     </div>
-    <div class="inv__meta"><p class="inv__count" aria-live="polite" data-inv-count></p><button class="inv__clear" type="button" data-inv-clear hidden>Clear filters</button></div>
+    <div class="inv__meta"><p class="inv__count" aria-live="polite" data-inv-count></p><ul class="inv__tags" data-inv-tags aria-label="Active filters"></ul><button class="inv__clear" type="button" data-inv-clear hidden>Clear filters</button></div>
     <ul class="inv__grid" data-inv-grid></ul>
     <div class="inv__empty" data-inv-empty hidden>
       <p class="sub__h2 disp">Nothing matches that search</p>

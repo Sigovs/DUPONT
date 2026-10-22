@@ -91,9 +91,15 @@
         '<span class="tile__title disp">Ask a showroom</span><span class="tile__spec">Three showrooms — Southern California, Naples and Miami.</span>' +
         '<span class="tile__go">Contact a showroom ' + ARR + '</span></span></a></li>' : '');
       var dirty = !!(st.room || st.make || st.model || st.q || st.sort !== 'featured');
-      count.textContent = list.length + (list.length === 1 ? ' car' : ' cars') + (st.room ? ' in ' + ROOMS[st.room].name : '');
+      count.textContent = list.length + (list.length === 1 ? ' car' : ' cars');   // the showroom shows as a pill beside it
       $$('[data-inv-clear]').forEach(function (b) { b.hidden = !dirty && b.closest('.inv__meta') !== null; });
       $('.inv__meta [data-inv-clear]').hidden = !dirty;
+      // active filters as small removable pills (Alex, 2026-10-22)
+      var X = '<svg viewBox="0 0 10 10" width="10" height="10" aria-hidden="true" focusable="false"><path d="M1 1l8 8M9 1L1 9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
+      tags.innerHTML = [['room', st.room && ROOMS[st.room].name, 'Showroom'], ['make', st.make, 'Make'], ['model', st.model, 'Model'], ['q', st.q.trim() && '“' + st.q.trim() + '”', 'Keyword']]
+        .filter(function (t) { return t[1]; })
+        .map(function (t) { return '<li><button type="button" class="inv__tag" data-tag="' + t[0] + '" aria-label="Remove ' + t[2] + ': ' + esc(t[1]) + '">' + esc(t[1]) + X + '</button></li>'; }).join('');
+      tags.hidden = !tags.children.length;
       empty.hidden = list.length > 0; grid.hidden = !list.length;
       $$('.chip', rooms).forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.room === st.room ? 'true' : 'false'); });
       if (push) {
@@ -104,6 +110,16 @@
       }
       requestAnimationFrame(function () { $$('.tile', grid).forEach(function (t) { t.classList.add('is-in'); }); });
     }
+    var tags = $('[data-inv-tags]');
+    tags.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-tag]'); if (!b) return;
+      var k = b.dataset.tag; st[k] = '';
+      if (k === 'make') { st.model = ''; mk.value = ''; models(); }
+      if (k === 'model') md.value = '';
+      if (k === 'q') q.value = '';
+      render(true);
+      var next = tags.querySelector('.inv__tag'); if (next) next.focus();   // keep the keyboard in the row
+    });
     rooms.addEventListener('click', function (e) { var b = e.target.closest('.chip'); if (!b || b.disabled) return; st.room = b.dataset.room; render(true); });
     mk.addEventListener('change', function () { st.make = mk.value; st.model = ''; models(); render(true); });
     md.addEventListener('change', function () { st.model = md.value; render(true); });
