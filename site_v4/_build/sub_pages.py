@@ -90,11 +90,19 @@ SRP = '''
 
 VDP = '''
   <main id="main" class="sub vdp" data-vdp>
+    <div class="vdp__bar">
     <nav class="vdp__crumbs" aria-label="Breadcrumb"><ol>
       <li><a href="inventory.html">Inventory</a></li>
       <li><a href="inventory.html" data-vdp-room-link></a></li>
       <li aria-current="page" data-vdp-crumb></li>
     </ol></nav>
+    <div class="vdp__acts">
+      <button class="vdp__act" type="button" data-vdp-save aria-pressed="false"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z" fill="var(--heart, none)" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span data-vdp-save-l>Save</span></button>
+      <button class="vdp__act" type="button" data-vdp-share><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 15V3.5M7.5 8 12 3.5 16.5 8M5 12.5V20h14v-7.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Share</span></button>
+      <button class="vdp__act" type="button" data-vdp-text><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 5.5h16v10.5H10l-4.5 3.5V16H4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 10.5h8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Text</span></button>
+      <p class="vdp__toast" data-vdp-toast role="status" aria-live="polite"></p>
+    </div>
+    </div>
     <div class="vdp__top">
       <section class="vdp__gal" aria-label="Photographs" data-vdp-gal>
         <div class="vdp__stage">

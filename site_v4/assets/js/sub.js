@@ -172,9 +172,16 @@
     var drvCode = c.drive && DRV[c.drive.toLowerCase()];
     var figs = [];
     if (hp) figs.push([hp[1], 'hp', /combined/i.test(eng) ? 'Power, combined' : 'Power']);
-    if (lit) figs.push([lit[1], 'L', engRest ? cap(engRest) : 'Engine']);
-    var driveFig = figs.length < 3 && drvCode && !inPanel.Drivetrain;
+    if (lit) figs.push([lit[1], 'L', 'Displacement']);
+    // cylinders — read from the listing's engine line only (V8, V10, flat-six …); caption = the rest of that line
+    var NUM = { four: 4, six: 6, eight: 8, ten: 10, twelve: 12 };
+    var cyl = /\b[VW](\d{1,2})\b/.exec(eng) || /\bflat[- ](four|six)\b/i.exec(eng);
+    var cylN = cyl && (NUM[cyl[1].toLowerCase()] || +cyl[1]);
+    if (cylN) figs.push([String(cylN), 'cyl', engRest ? cap(engRest.replace(/,\s*$/, '')) : 'Cylinders']);
+    if (c.options && c.options.length) figs.push([String(c.options.length), '', 'Options listed']);
+    var driveFig = figs.length < 4 && drvCode && !inPanel.Drivetrain;
     if (driveFig) figs.push([drvCode, '', c.drive]);
+    if (!figs.length && c.year) figs.push([String(c.year), '', 'Model year']);   // no engine line on dR: the one sure figure
     var figEl = $('[data-vdp-figs]');
     figEl.hidden = !figs.length;
     figEl.innerHTML = figs.map(function (f) {
@@ -187,6 +194,7 @@
       .filter(function (r) { return r[1] && !inPanel[r[0]]; });
     var meta = rest.map(function (r) { return '<li><span>' + r[0] + '</span> ' + esc(r[1]) + '</li>'; });
     if (c.stock) meta.push('<li><span>Stock</span> <b class="t-num vdp__code">' + esc(c.stock) + '</b></li>');
+    if (!c.engine) meta.push('<li class="vdp__meta-note">Engine and performance figures from the showroom on request.</li>');
     $('[data-vdp-spec]').innerHTML = meta.length ? '<ul class="vdp__meta">' + meta.join('') + '</ul>' : '';
 
     /* the showroom it stands in */
@@ -298,6 +306,32 @@
         '<p class="inq__ph">Prototype — nothing was sent.</p>' +
         '<button class="btn sub__btn sub__btn--line" type="button" data-inq-close>Close</button>';
       iqDone.hidden = false; iqDone.focus();
+    });
+
+    /* Save · Share · Text (Alex, 2026-10-22). Save = this browser only (localStorage) until accounts exist;
+       Share = the system share sheet, else the link is copied; Text = SMS to the showroom on phones, else its number. */
+    var toast = $('[data-vdp-toast]'), tt;
+    function say(m) { toast.textContent = m; toast.classList.add('is-on'); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('is-on'); }, 2600); }
+    var svB = $('[data-vdp-save]'), KEY = 'sel-saved';
+    function saved() { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { return []; } }
+    function paintSave() { var on = saved().indexOf(c.id) > -1; svB.setAttribute('aria-pressed', on ? 'true' : 'false'); $('[data-vdp-save-l]').textContent = on ? 'Saved' : 'Save'; }
+    svB.addEventListener('click', function () {
+      var l = saved(), i = l.indexOf(c.id);
+      if (i > -1) l.splice(i, 1); else l.push(c.id);
+      try { localStorage.setItem(KEY, JSON.stringify(l)); } catch (e) {}
+      paintSave(); say(i > -1 ? 'Removed from saved cars' : 'Saved on this device');
+    });
+    paintSave();
+    $('[data-vdp-share]').addEventListener('click', function () {
+      var data = { title: c.title + ' — duPont REGISTRY Select', text: c.title + (c.price ? ', ' + money(c.price) : ''), url: location.href };
+      if (navigator.share) { navigator.share(data).catch(function () {}); return; }
+      if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(function () { say('Link copied'); }, function () { say(location.href); });
+      else say(location.href);
+    });
+    $('[data-vdp-text]').addEventListener('click', function () {
+      var body = 'Hi, I\'m interested in the ' + c.title + (c.stock ? ' (stock ' + c.stock + ')' : '') + ': ' + location.href;
+      if (matchMedia('(pointer: coarse)').matches) location.href = 'sms:' + R.phone.replace(/[^\d+]/g, '') + '?&body=' + encodeURIComponent(body);
+      else say('Text ' + R.name + ': ' + R.phone);
     });
     show(0);
   })();
