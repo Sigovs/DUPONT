@@ -140,6 +140,7 @@
     $('[data-vdp-price]').innerHTML = money(c.price) + (c.miles != null ? '<span>' + miles(c.miles) + '</span>' : '');
     var quick = [['Exterior', c.ext], ['Interior', c.int], ['Transmission', c.trans], ['Drivetrain', c.drive], ['Engine', c.engine], ['Body', c.body]]
       .filter(function (r) { return r[1]; }).slice(0, 4);
+    var inPanel = {}; quick.forEach(function (r) { inPanel[r[0]] = 1; });   // each fact appears once on the page (Alex, 2026-10-22)
     $('[data-vdp-quick]').innerHTML = quick.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('');
     $('[data-vdp-call]').textContent = 'Call ' + R.phone;
     /* CARFAX (Alex, 2026-10-22): no report in the source listing and no dealer partner code yet — the button opens a
@@ -172,8 +173,7 @@
     var figs = [];
     if (hp) figs.push([hp[1], 'hp', /combined/i.test(eng) ? 'Power, combined' : 'Power']);
     if (lit) figs.push([lit[1], 'L', engRest ? cap(engRest) : 'Engine']);
-    if (c.miles != null) figs.push([c.miles.toLocaleString('en-US'), 'mi', 'Odometer']);
-    var driveFig = figs.length < 3 && drvCode;
+    var driveFig = figs.length < 3 && drvCode && !inPanel.Drivetrain;
     if (driveFig) figs.push([drvCode, '', c.drive]);
     var figEl = $('[data-vdp-figs]');
     figEl.hidden = !figs.length;
@@ -181,17 +181,15 @@
       return '<li class="vdp__fig"><span class="vdp__fig-n">' + esc(f[0]) + (f[1] ? '<small>' + f[1] + '</small>' : '') +
         '</span><span class="vdp__fig-c">' + esc(f[2]) + '</span></li>';
     }).join('');
-    var groups = [
-      ['The car', [['Body', c.body], ['Engine', lit ? null : c.engine], ['Exterior', c.ext], ['Interior', c.int],
-        ['Transmission', c.trans], ['Drivetrain', driveFig ? null : c.drive]]],
-      ['Record', [['VIN', c.vin, 1], ['Stock no.', c.stock, 1], ['Showroom', R.name], ['Listed', 1, 0, 'duPont REGISTRY · <span class="vdp__nw">as of ' + esc(SEL.meta.asOf) + '</span>']]]
-    ];
-    $('[data-vdp-spec]').innerHTML = groups.map(function (g) {
-      var rows = g[1].filter(function (r) { return r[1]; });
-      return rows.length ? '<div class="vdp__grp"><h4 class="vdp__grp-h">' + g[0] + '</h4><dl class="vdp__spec">' + rows.map(function (r) {
-        return '<div><dt>' + r[0] + '</dt><dd' + (r[2] ? ' class="t-num vdp__code"' : '') + '>' + (r[3] || esc(r[1])) + '</dd></div>';
-      }).join('') + '</dl></div>' : '';
-    }).join('');
+    /* everything else, once: facts the panel doesn't show + the record, as one quiet supporting line */
+    var rest = [['Body', c.body], ['Engine', lit ? null : c.engine], ['Exterior', c.ext], ['Interior', c.int],
+      ['Transmission', c.trans], ['Drivetrain', driveFig ? null : c.drive]]
+      .filter(function (r) { return r[1] && !inPanel[r[0]]; });
+    var meta = rest.map(function (r) { return '<li><span>' + r[0] + '</span> ' + esc(r[1]) + '</li>'; });
+    if (c.vin) meta.push('<li><span>VIN</span> <b class="t-num vdp__code">' + esc(c.vin) + '</b></li>');
+    if (c.stock) meta.push('<li><span>Stock</span> <b class="t-num vdp__code">' + esc(c.stock) + '</b></li>');
+    meta.push('<li>Listed on duPont REGISTRY, as of ' + esc(SEL.meta.asOf) + '</li>');
+    $('[data-vdp-spec]').innerHTML = '<ul class="vdp__meta">' + meta.join('') + '</ul>';
 
     /* the showroom it stands in */
     $('[data-vdp-contact]').innerHTML =
