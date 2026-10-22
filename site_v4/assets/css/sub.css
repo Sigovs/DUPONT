@@ -223,3 +223,23 @@ html.lbox-open { overflow: hidden; }
   .tile, .tile__alt, .tile .arr { transition: none; }
   .tile { opacity: 1; transform: none; }
 }
+
+/* gallery arrows on the photo's sides, vertically centred (Alex, 2026-10-22); the counter stays as a small pill bottom-right */
+.vdp__nav { position: absolute; inset: 0; display: block; padding: 0; border-radius: 0; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; pointer-events: none; }
+.vdp__nav > * { pointer-events: auto; }
+.vdp__arr { position: absolute; top: 50%; width: 52px; height: 52px; margin-top: -26px; background: rgb(22 23 26 / .62); border: 1px solid rgb(255 255 255 / .18); }
+.vdp__arr:hover, .vdp__arr:focus-visible { background: rgb(22 23 26 / .86); }
+.vdp__arr--prev { left: 18px; }
+[data-vdp-next].vdp__arr { right: 18px; }
+.vdp__n { position: absolute; right: 18px; bottom: 18px; min-width: 0; padding: 9px 14px; border-radius: 999px; background: rgb(22 23 26 / .62); }
+@media (max-width: 767.98px) {
+  .vdp__arr { width: 44px; height: 44px; margin-top: -22px; }
+  .vdp__arr--prev { left: 10px; } [data-vdp-next].vdp__arr { right: 10px; }
+  .vdp__n { right: 10px; bottom: 10px; padding: 7px 11px; }
+}
+
+/* price panel facts stacked one per row (Alex, 2026-10-22): label left, value right, hairline between */
+.vdp__quick { grid-template-columns: 1fr; gap: 0; padding-top: 4px; }
+.vdp__quick > div { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 14px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid rgb(255 255 255 / .10); }
+.vdp__quick > div:last-child { border-bottom: 0; }
+.vdp__quick dd { margin: 0; }
