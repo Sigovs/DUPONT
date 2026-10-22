@@ -115,7 +115,7 @@ VDP = '''
         <p class="vdp__price" data-vdp-price></p>
         <dl class="vdp__quick" data-vdp-quick></dl>
         <div class="vdp__cta">
-          <a class="btn btn--red sub__btn" href="#vdp-contact" data-vdp-avail>Check availability ''' + ARR + '''</a>
+          <button class="btn btn--red sub__btn" type="button" data-vdp-avail aria-haspopup="dialog">Inquire ''' + ARR + '''</button>
           <a class="btn sub__btn sub__btn--line" href="#vdp-contact" data-vdp-call></a>
           <button class="vdp__carfax" type="button" data-vdp-carfax aria-expanded="false" aria-controls="vdp-carfax-note"><img class="vdp__carfax-logo" src="assets/img/brand/carfax.svg" width="127" height="30" alt="CARFAX"> <span>Report</span> <svg class="arr" viewBox="0 0 16 10" width="16" height="10" aria-hidden="true" focusable="false"><path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
           <p class="vdp__carfax-note" id="vdp-carfax-note" data-vdp-carfax-note hidden></p>
@@ -147,6 +147,29 @@ VDP = '''
       <button class="lbox__arr lbox__arr--prev" type="button" data-lbox-prev aria-label="Previous photograph">''' + ARR + '''</button>
       <button class="lbox__arr" type="button" data-lbox-next aria-label="Next photograph">''' + ARR + '''</button>
       <span class="lbox__n t-num" data-lbox-n></span>
+    </div>
+    <div class="inq" data-inq hidden>
+      <div class="inq__scrim" data-inq-close></div>
+      <div class="inq__sheet" role="dialog" aria-modal="true" aria-labelledby="inq-h" data-lenis-prevent>
+        <div class="inq__top">
+          <p class="sub__kicker" id="inq-h">Inquire about this car</p>
+          <button class="inq__x" type="button" data-inq-close aria-label="Close">×</button>
+        </div>
+        <div class="inq__car" data-inq-car></div>
+        <form class="inq__form" data-inq-form novalidate>
+          <div class="inq__row">
+            <label class="inq__f"><span>First name</span><input name="first" autocomplete="given-name" required></label>
+            <label class="inq__f"><span>Last name</span><input name="last" autocomplete="family-name" required></label>
+          </div>
+          <label class="inq__f"><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+          <label class="inq__f"><span>Phone <i>optional</i></span><input name="phone" type="tel" autocomplete="tel"></label>
+          <label class="inq__f"><span>Message</span><textarea name="msg" rows="6" data-inq-msg></textarea></label>
+          <p class="inq__err" data-inq-err hidden>Please add your name and a valid email.</p>
+          <button class="btn btn--red sub__btn inq__send" type="submit">Send inquiry ''' + ARR + '''</button>
+          <p class="inq__ph">Prototype — the form is not connected yet; nothing is sent.</p>
+        </form>
+        <div class="inq__done" data-inq-done hidden tabindex="-1"></div>
+      </div>
     </div>
   </main>'''
 

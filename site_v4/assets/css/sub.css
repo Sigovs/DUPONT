@@ -269,3 +269,54 @@ html.lbox-open { overflow: hidden; }
 @media (max-width: 480px) {
   .vdp__quick > div.vdp__q-vin { grid-template-columns: 1fr; gap: 8px; }
 }
+
+/* ---------- Inquire drawer (Alex, 2026-10-22) — ivory side sheet over a graphite scrim, above the header */
+.inq { position: fixed; inset: 0; z-index: 210; }
+.inq[hidden] { display: none; }
+.inq__scrim { position: absolute; inset: 0; background: rgb(48 49 55 / .55); opacity: 0; transition: opacity var(--dur-3) var(--ease-in); }
+.inq__sheet { position: absolute; top: 0; right: 0; bottom: 0; width: min(560px, 100%); overflow-y: auto; overscroll-behavior: contain;
+  background: var(--ivory); color: var(--graphite); padding: 34px 48px 48px; transform: translateX(100%);
+  transition: transform var(--dur-3) var(--ease-in); }
+.inq.is-open .inq__scrim { opacity: 1; transition-timing-function: var(--ease-out); }
+.inq.is-open .inq__sheet { transform: none; transition-timing-function: var(--ease-out); }
+html.inq-open { overflow: hidden; }
+.inq__top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.inq__x { width: 44px; height: 44px; margin-right: -10px; border: 0; border-radius: 999px; background: none; color: var(--graphite); font-size: 30px; line-height: 1; cursor: pointer; }
+.inq__x:hover, .inq__x:focus-visible { background: rgb(48 49 55 / .08); }
+.inq__car { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 20px; align-items: center; margin: 26px 0 30px; padding-bottom: 28px; border-bottom: 1px solid rgb(48 49 55 / .14); }
+.inq__car img { display: block; width: 132px; height: 88px; object-fit: cover; object-position: 50% 60%; border-radius: 6px; }
+.inq__car p { margin: 0; }
+.inq__room { font: 600 13px/1 var(--f-text); letter-spacing: .06em; text-transform: uppercase; color: var(--pewter); }
+.inq__title { margin-top: 8px !important; font: 400 26px/1.05 var(--f-display); }
+.inq__price { margin-top: 8px !important; font: 600 16px/1 var(--f-text); }
+.inq__form { display: grid; gap: 18px; }
+.inq__row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.inq__f { display: grid; gap: 8px; }
+.inq__f > span { font: 500 13px/1 var(--f-text); color: var(--graphite); }
+.inq__f > span i { font-style: normal; color: var(--pewter); font-weight: 400; margin-left: 4px; }
+.inq__f input, .inq__f textarea { width: 100%; box-sizing: border-box; border: 1px solid rgb(48 49 55 / .3); border-radius: 6px; background: #fff;
+  color: var(--graphite); font: 400 16px/1.45 var(--f-text); padding: 0 14px; }
+.inq__f input { height: 48px; }
+.inq__f textarea { padding: 12px 14px; resize: vertical; min-height: 140px; }
+.inq__f input:focus-visible, .inq__f textarea:focus-visible { outline: 2px solid var(--red); outline-offset: 1px; border-color: transparent; }
+.inq__f [aria-invalid="true"] { border-color: var(--red); }
+.inq__err { margin: -4px 0 0; font: 500 14px/1.4 var(--f-text); color: var(--red); }
+.inq__send { justify-self: stretch; justify-content: center; margin-top: 6px; }
+.inq__ph { margin: 0; font: 400 13px/1.4 var(--f-text); color: var(--pewter); }
+.inq__done { display: grid; gap: 16px; font: 400 16px/1.5 var(--f-text); }
+.inq__done:focus { outline: none; }
+.inq__form[hidden], .inq__done[hidden], .inq__err[hidden] { display: none; }
+.inq__done p { margin: 0; }
+.inq__done a { color: inherit; }
+.inq__done-h { font-size: 40px; }
+.inq__done .btn { justify-self: start; margin-top: 8px; }
+@media (max-width: 600px) {
+  .inq__sheet { padding: 22px 20px 32px; }
+  .inq__row { grid-template-columns: 1fr; }
+  .inq__car { grid-template-columns: 104px minmax(0, 1fr); gap: 16px; }
+  .inq__car img { width: 104px; height: 70px; }
+  .inq__title { font-size: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .inq__sheet, .inq__scrim { transition: none; }
+}

@@ -242,10 +242,62 @@
     lb.addEventListener('click', function (e) { if (e.target === lb) lbClose(); });
     document.addEventListener('keydown', function (e) {
       var inLb = !lb.hidden;
+      if (!iq.hidden) return;
       if (e.key === 'Escape' && inLb) { lbClose(); return; }
       if (e.target.closest('input, textarea, select')) return;
       if (e.key === 'ArrowRight' && (inLb || gal.length)) { e.preventDefault(); show(k + 1); }
       if (e.key === 'ArrowLeft' && (inLb || gal.length)) { e.preventDefault(); show(k - 1); }
+    });
+
+    /* inquiry drawer (Alex, 2026-10-22): "Inquire" opens a side sheet with the message pre-written for THIS car.
+       Prototype: no backend — submit shows a confirmation and says plainly that nothing was sent. */
+    var iq = $('[data-inq]'), iqBtn = $('[data-vdp-avail]'), iqForm = $('[data-inq-form]'), iqDone = $('[data-inq-done]'), iqLast = null;
+    var iqRef = [c.vin ? 'VIN ' + c.vin : '', c.stock ? 'stock ' + c.stock : ''].filter(Boolean).join(', ');
+    var iqText = "Hello, I'm interested in the " + c.title + (c.price ? ' listed at ' + money(c.price) : '') +
+      (iqRef ? ' (' + iqRef + ')' : '') + ' at the ' + R.name + ' showroom. Is it still available? Please get in touch with more details.';
+    $('[data-inq-car]').innerHTML = '<img src="' + (gal[1] || gal[0]).small + '" alt="" width="132" height="88">' +
+      '<div><p class="inq__room">' + esc(R.name) + '</p><p class="inq__title">' + esc(c.title) + '</p>' +
+      (c.price ? '<p class="inq__price t-num">' + money(c.price) + '</p>' : '') + '</div>';
+    $('[data-inq-msg]').value = iqText;
+    function iqFocusables() { return $$('a[href], button:not([disabled]), input, textarea, [tabindex="-1"]:not([hidden])', iq).filter(function (el) { return el.offsetParent !== null; }); }
+    function iqOpen(e) {
+      if (e) e.preventDefault();
+      iqLast = document.activeElement;
+      iq.hidden = false; iq.offsetWidth; iq.classList.add('is-open');
+      document.documentElement.classList.add('inq-open'); if (window.V4 && V4.lenis) V4.lenis.stop();
+      iqBtn.setAttribute('aria-expanded', 'true');
+      setTimeout(function () { var f = iqForm.hidden ? iqDone : iqForm.querySelector('input'); if (f) f.focus({ preventScroll: true }); }, 60);
+    }
+    function iqClose() {
+      if (iq.hidden) return;
+      iq.classList.remove('is-open'); iqBtn.setAttribute('aria-expanded', 'false');
+      document.documentElement.classList.remove('inq-open'); if (window.V4 && V4.lenis) V4.lenis.start();
+      var t = parseFloat(getComputedStyle(iq.querySelector('.inq__sheet')).transitionDuration) * 1000 || 0;
+      setTimeout(function () { if (!iq.classList.contains('is-open')) iq.hidden = true; }, t);
+      if (iqLast) iqLast.focus({ preventScroll: true });
+    }
+    iqBtn.setAttribute('aria-expanded', 'false');
+    iqBtn.addEventListener('click', iqOpen);
+    iq.addEventListener('click', function (e) { if (e.target.closest('[data-inq-close]')) iqClose(); });
+    iq.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { e.stopPropagation(); iqClose(); return; }
+      if (e.key !== 'Tab') return;
+      var f = iqFocusables(); if (!f.length) return;
+      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+    });
+    iqForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var d = iqForm.elements, ok = d.first.value.trim() && d.last.value.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email.value.trim());
+      [d.first, d.last, d.email].forEach(function (el) { el.setAttribute('aria-invalid', el.value.trim() && (el !== d.email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim())) ? 'false' : 'true'); });
+      $('[data-inq-err]').hidden = !!ok;
+      if (!ok) { iqForm.querySelector('[aria-invalid="true"]').focus(); return; }
+      iqForm.hidden = true;
+      iqDone.innerHTML = '<p class="inq__done-h disp">Thank you, ' + esc(d.first.value.trim()) + '.</p>' +
+        '<p>' + esc(R.dealer) + ' will reply about the ' + esc(c.title) + ' by email' + (d.phone.value.trim() ? ' or phone' : '') + '. If it can\'t wait, call <a class="t-num" href="tel:' + R.phone.replace(/[^\d+]/g, '') + '">' + esc(R.phone) + '</a>.</p>' +
+        '<p class="inq__ph">Prototype — nothing was sent.</p>' +
+        '<button class="btn sub__btn sub__btn--line" type="button" data-inq-close>Close</button>';
+      iqDone.hidden = false; iqDone.focus();
     });
     show(0);
   })();
