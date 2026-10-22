@@ -361,3 +361,9 @@ html.inq-open { overflow: hidden; }
 }
 .vdp__specs .vdp__meta li.vdp__meta-note { flex-basis: 100%; white-space: normal; color: var(--pewter); }
 .vdp__fig:only-child { grid-column: 1 / -1; }
+/* Save / Share / Text as outlined pills (Alex, 2026-10-22) */
+.vdp__acts { gap: 10px; margin-right: 0; }
+.vdp__act { padding: 0 18px; border: 1px solid rgb(48 49 55 / .3); }
+.vdp__act:hover, .vdp__act:focus-visible { background: none; border-color: var(--graphite); }
+.vdp__act[aria-pressed="true"] { border-color: var(--graphite); }
+@media (max-width: 600px) { .vdp__acts { margin: -4px 0 0; gap: 8px; } .vdp__act { padding: 0 14px; } .vdp__toast { left: 0; } }
