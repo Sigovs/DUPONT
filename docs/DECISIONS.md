@@ -19,6 +19,11 @@ Chronological. Each line: what, Alex's verdict, why. Source of truth for "what d
 - V3 (2026-10-12, manager notes): continuous page, no pins, hero intro-only, inventory under the hero with listing
   photos (not cut-outs), olive ground + pills unchanged, Services = one "Speak with us" button, Finance line removed.
 - Buttons: .02em letter-spacing everywhere — wide tracking on buttons rejected ("looks disgusting").
+- Header never retracts on any page/version (2026-10-21).
+- V4 (site_v4/, 2026-10-21): locations merged into "Visit a showroom", Services off home, Sell pin stop; SRP 13 cars + VDP.
+- V4 VDP (2026-10-22): no fact repeated panel ↔ specs; VIN in the panel; no "as listed on dR, date" lines; specs card with
+  listing-only figures; "Inquire" side drawer (pre-written message); CARFAX logo (not the "1 Owner" badge);
+  Save/Share/Text outlined pills. SRP: "Sort by" label; selected filters as removable pills.
 
 ## Hard rules (never break)
 - No paid services or credit-consuming tools (fal.ai etc.) without explicit approval. No generated imagery.
