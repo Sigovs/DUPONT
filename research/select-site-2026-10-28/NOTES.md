@@ -39,3 +39,16 @@ disclaimer; Similar vehicles; Google/Yelp review widget.
   "duPont REGISTRY Dallas" if it closes. Not final.
 Sources: businesswire.com/news/home/20260721463702/en/ · gulfshorebusiness.com (Naples showroom) ·
 naplesillustrated.com/dupont-registry-naples-experience-center-arrives/ · select.dupontregistry.com/directions/
+
+## dupontregistry.com VDP — 2021 McLaren 765LT (635078), read 2026-10-28
+URL /car/mclaren/765lt/2021/SBM14RCAXMW765633/635078. Screens `dr-vdp-top.png`, `dr-vdp-full.png`, `dr-check.png`, `dr-pricing.png`.
+- Gallery: main photo + mosaic, "+87 More Photos". Section tabs: Specs · Overview · Dealer Info · Services.
+- Overview with "Read More" collapse; Options list; Specs (make, model, VIN, stock, year, mileage, body, engine "-",
+  transmission, drive train, colours); "Published: 10/04/2026".
+- Price panel: $799,987 · "Pricing Details" (note: dealer-provided, may exclude fees/taxes; confirm out-the-door) ·
+  miles · dealer rating 4.8 · Request Information · Check Availability · phone · **"FINANCE: est. $13,786 /mo* — Pre Qualify"**
+  (opens RouteOne digital-retail pre-qualification: name, email, phone, postal code, state).
+- Check Availability form: first/last name, email, phone (optional), message (optional), checkboxes **I Need Trade-In ·
+  I Need Finance · I Need CarFax**, consent text (reCAPTCHA).
+- Dealer Details: name, rating, "7 years on duPont REGISTRY and 52 Cars Listed", address, phone, map.
+- Data conflicts: dR says Body "Convertible" and Engine "-" for the 765LT; select site says Coupe / 4.0L twin-turbo V8.
