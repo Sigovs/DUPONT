@@ -112,6 +112,54 @@
       md.innerHTML = '<option value="">' + (st.make ? 'All models' : 'Choose a make first') + '</option>' + l.map(function (m) { return '<option>' + esc(m) + '</option>'; }).join('');
       md.disabled = !st.make; md.value = st.model;
     }
+
+    /* dropdowns in the site's own language (Alex, 2026-10-28: "not these clunky ones"): a label/value cell opening a
+       white listbox with car counts; it drives the hidden native <select>, so the filter state code is unchanged */
+    var DDS = [];
+    function dd(cell, countOf) {
+      var sel = $('select', cell), id = 'dd-' + DDS.length;
+      var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'inv__dd-btn';
+      btn.setAttribute('aria-haspopup', 'listbox'); btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', id);
+      btn.innerHTML = '<span class="inv__lab">' + esc(cell.dataset.ddLabel) + '</span><span class="inv__val"></span><svg class="inv__chev" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>';
+      var menu = document.createElement('ul'); menu.className = 'inv__menu'; menu.id = id; menu.setAttribute('role', 'listbox'); menu.hidden = true; menu.tabIndex = -1;
+      menu.setAttribute('aria-label', cell.dataset.ddLabel);
+      cell.appendChild(btn); cell.appendChild(menu);
+      var act = 0;
+      function refresh() {
+        var o = sel.options[sel.selectedIndex]; $('.inv__val', btn).textContent = o ? o.text : '';
+        btn.disabled = sel.disabled; cell.classList.toggle('is-off', sel.disabled);
+        cell.classList.toggle('is-set', !!sel.value && sel.value !== 'featured');
+      }
+      function build() {
+        menu.innerHTML = [].map.call(sel.options, function (o, i) {
+          var n = countOf && o.value ? countOf(o.value) : null;
+          return '<li role="option" id="' + id + '-' + i + '" data-i="' + i + '" aria-selected="' + (i === sel.selectedIndex) + '"><span>' + esc(o.text) + '</span>' + (n != null ? '<span class="inv__n">' + n + '</span>' : '') + '</li>';
+        }).join('');
+      }
+      function mark() { $$('li', menu).forEach(function (li, i) { li.classList.toggle('is-active', i === act); }); var a = menu.children[act]; if (a) { menu.setAttribute('aria-activedescendant', a.id); a.scrollIntoView({ block: 'nearest' }); } }
+      function open() { DDS.forEach(function (d) { if (d !== api) d.close(); }); closePop(); build(); act = Math.max(0, sel.selectedIndex); menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); cell.classList.add('is-open'); mark(); menu.focus({ preventScroll: true }); }
+      function close(back) { if (menu.hidden) return; menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); cell.classList.remove('is-open'); if (back) btn.focus(); }
+      function pick(i) { if (sel.selectedIndex !== i) { sel.selectedIndex = i; sel.dispatchEvent(new Event('change', { bubbles: true })); } refresh(); close(true); }
+      btn.addEventListener('click', function () { if (menu.hidden) open(); else close(); });
+      btn.addEventListener('keydown', function (e) { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); open(); } });
+      menu.addEventListener('click', function (e) { var li = e.target.closest('li'); if (li) pick(+li.dataset.i); });
+      menu.addEventListener('mousemove', function (e) { var li = e.target.closest('li'); if (li && +li.dataset.i !== act) { act = +li.dataset.i; mark(); } });
+      menu.addEventListener('keydown', function (e) {
+        var n = sel.options.length;
+        if (e.key === 'ArrowDown') { e.preventDefault(); act = Math.min(n - 1, act + 1); mark(); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); act = Math.max(0, act - 1); mark(); }
+        else if (e.key === 'Home') { e.preventDefault(); act = 0; mark(); }
+        else if (e.key === 'End') { e.preventDefault(); act = n - 1; mark(); }
+        else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(act); }
+        else if (e.key === 'Escape') { e.preventDefault(); close(true); }
+        else if (e.key === 'Tab') close();
+        else if (e.key.length === 1) { var k = e.key.toLowerCase(); for (var j = 1; j <= n; j++) { var t = (act + j) % n; if (sel.options[t].text.toLowerCase().indexOf(k) === 0) { act = t; mark(); break; } } }
+      });
+      var api = { refresh: refresh, close: close, cell: cell };
+      DDS.push(api); refresh(); return api;
+    }
+    document.addEventListener('click', function (e) { DDS.forEach(function (d) { if (!d.cell.contains(e.target)) d.close(); }); });
+    var countBy = function (f) { return function (v) { return CARS.filter(function (c) { return String(f(c)) === v; }).length; }; };
     // More filters panel: chips built from the values the cars actually have
     var adv = $('[data-inv-adv]');
     adv.innerHTML = '<div class="inv__grp"><p class="inv__grp-h">Mileage</p><div class="inv__grp-c">' + MILES.map(function (m) {
@@ -141,7 +189,8 @@
       clearTimeout(pt); pt = setTimeout(function () { render(true); }, 120);
     }
     pmin.addEventListener('input', onRange); pmax.addEventListener('input', onRange);
-    function popOpen(o) { pop.hidden = !o; pbtn.setAttribute('aria-expanded', o ? 'true' : 'false'); }
+    function popOpen(o) { if (o) DDS.forEach(function (d) { d.close(); }); pop.hidden = !o; pbtn.setAttribute('aria-expanded', o ? 'true' : 'false'); pbtn.parentNode.classList.toggle('is-open', o); }
+    function closePop() { if (!pop.hidden) popOpen(false); }
     pbtn.addEventListener('click', function () { popOpen(pop.hidden); });
     $('[data-inv-preset]').addEventListener('click', function () { st.lo = 0; st.hi = LAST; paintPrice(); render(true); });
     document.addEventListener('click', function (e) { if (!pop.hidden && !e.target.closest('[data-inv-price]')) popOpen(false); });
@@ -196,6 +245,7 @@
       $$('[data-mi]', adv).forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.mi === st.mi ? 'true' : 'false'); });
       $$('[data-facet]', adv).forEach(function (b) { b.setAttribute('aria-pressed', st[b.dataset.facet].indexOf(b.dataset.v) > -1 ? 'true' : 'false'); });
       paintSaved();
+      DDS.forEach(function (d) { d.refresh(); });
       var nAdv = (st.mi ? 1 : 0) + st.body.length + st.trans.length + st.drive.length + st.color.length;
       $('[data-inv-mcount]').textContent = nAdv ? ' · ' + nAdv : '';
       var nf = [st.year, st.make, st.model, st.q.trim(), st.lo || st.hi < LAST].filter(Boolean).length + nAdv;   // what the mobile Filters button hides
@@ -233,7 +283,7 @@
       render(true);
     });
     var more = $('[data-inv-more]');
-    more.addEventListener('click', function () { var o = adv.hidden; adv.hidden = !o; more.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+    more.addEventListener('click', function () { var o = adv.hidden; adv.hidden = !o; more.setAttribute('aria-expanded', o ? 'true' : 'false'); more.parentNode.classList.toggle('is-open', o); });
     function paintSaved() {
       var n = saved().filter(function (id) { return BY[id]; }).length, sb = $('[data-saved]', rooms);
       $('[data-saved-n]', sb).textContent = n;
@@ -253,7 +303,12 @@
     $$('[data-inv-clear]').forEach(function (b) { b.addEventListener('click', function () { st = fresh(); paintPrice(); syncInputs(); render(true); }); });
     if (makes.indexOf(st.make) < 0) st.make = '';
     if (years.indexOf(st.year) < 0) st.year = '';
-    paintPrice(); syncInputs(); render(false);
+    syncInputs();
+    dd($('.inv__cell--year'), countBy(function (c) { return c.year; }));
+    dd($('.inv__cell--make'), countBy(function (c) { return c.make; }));
+    dd($('.inv__cell--model'), function (v) { return CARS.filter(function (c) { return c.make === st.make && c.model === v; }).length; });
+    dd($('.inv__cell--sort'), null);
+    paintPrice(); render(false);
     // the filter bar stands still under the header once it reaches it (a hairline marks it)
     var bar = $('[data-inv-bar]');
     if ('IntersectionObserver' in window) {
