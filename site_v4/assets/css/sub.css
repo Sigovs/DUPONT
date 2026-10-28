@@ -474,3 +474,14 @@ html.inq-open { overflow: hidden; }
 .inv__grp-c { flex-wrap: nowrap; }
 .inv__grp--color .inv__grp-c { flex-wrap: wrap; }
 @media (max-width: 759.98px) { .inv__adv { display: grid; } .inv__grp-c, .inv__grp--color .inv__grp-c { flex-wrap: wrap; max-width: none; } }
+/* More filters, open state made unmistakable (Alex, 2026-10-28): a white card under the row, the button pressed
+   (graphite), and a short top-down hard-edged reveal — no fade */
+.inv__adv { margin-top: 14px; padding: 22px 24px 24px; border: 1px solid rgb(48 49 55 / .12); border-radius: 6px; background: #fff; }
+.inv__adv:not([hidden]) { animation: inv-adv-in 360ms cubic-bezier(.25, 1, .5, 1); }
+@keyframes inv-adv-in { from { clip-path: inset(0 0 100% 0 round 6px); } to { clip-path: inset(0 0 0 0 round 6px); } }
+.inv__more[aria-expanded="true"] { background: var(--graphite); border-color: var(--graphite); color: #fff; }
+.inv__more[aria-expanded="true"] circle { fill: var(--graphite); }
+.inv__adv .chip:not([aria-pressed="true"]) { background: #fff; }
+@media (prefers-reduced-motion: reduce) { .inv__adv:not([hidden]) { animation: none; } }
+@media (max-width: 759.98px) { .inv__adv { padding: 18px 16px 20px; } }
+@media (max-width: 759.98px) { .inv__f--q { order: 5; } .inv__more { order: 6; } }   /* the panel opens right under its button */
