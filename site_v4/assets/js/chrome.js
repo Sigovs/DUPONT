@@ -220,6 +220,8 @@
     var list = document.querySelector('.col__marques'), z = 1, cur = null, base = null;   // base = the make the scroll has selected
     var imgs = {}; [].forEach.call(swap.querySelectorAll('img[data-make]'), function (im) { imgs[im.getAttribute('data-make')] = im; });
     var links = [].slice.call(list.querySelectorAll('a[data-make]'));
+    // fetch all six once the page has loaded, so the first hover never wipes in an empty frame
+    window.addEventListener('load', function () { setTimeout(function () { for (var k in imgs) imgs[k].loading = 'eager'; }, 1500); });
     function show(make) {
       var im = imgs[make]; if (!im || im === cur) return;
       links.forEach(function (a) { a.classList.toggle('is-on', a.getAttribute('data-make') === make); });

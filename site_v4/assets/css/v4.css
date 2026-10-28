@@ -776,7 +776,7 @@ html.motion .rcard__allin .btn { margin-top: 1cqw; }
 .col__swap img.is-on { clip-path: polygon(-30% 0%, 130% 0%, 100% 100%, -60% 100%); }
 .col__swap img.is-reset { transition: none; }
 @media (prefers-reduced-motion: reduce) { .col__swap img { transition: none; } }
-@media (hover: none) { .col__swap { display: none; } }
+/* (hover: none) no longer hides the swap — Chrome reports it on touch-screen laptops with a mouse (Alex, 2026-10-28) */
 
 /* =========================================================================
    03 · AVAILABLE NOW — Alex's mockups (2026-10-09): olive studio ground lit from the centre;
