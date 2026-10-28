@@ -163,5 +163,10 @@
   "source": "client_feedback",
   "status": "open",
   "content": "2026-10-28: the client APPROVED V4 — https://sigovs.github.io/DUPONT/site_v4/ (home + SRP + VDP, commit 5fff6bf, tag client-approved-2026-10-28). It is the new baseline: no silent changes; further work only on Alex's request."
+ },
+ {
+  "source": "user_feedback",
+  "status": "open",
+  "content": "Alex 2026-10-28 V4 SRP/VDP: VDP panel only car · price · Inquire+Call · facts (Stock #, CARFAX 'History' row) — not 'a pile'; secondary actions live where they belong (viewing→showroom, 'Trade in your car'→Finance card, payment→section bar). Send to phone = to yourself. Video section only when a listing has video. SRP filters in one white card, listboxes with check marks, elevated pop-ups, no underline/dividers. Soft hovers."
  }
 ]

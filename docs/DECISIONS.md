@@ -4,6 +4,9 @@ Chronological. Each line: what, Alex's verdict, why. Source of truth for "what d
 
 ## Approved / binding
 - **2026-10-28: client approved V4** — https://sigovs.github.io/DUPONT/site_v4/ (5fff6bf, tag client-approved-2026-10-28).
+- 2026-10-28 SRP/VDP round: filter card + elevated listboxes (check mark, no underline/dividers); VDP panel slimmed to
+  price · Inquire/Call · facts (Stock #, CARFAX); Send to phone; video section; Finance + Buying cards; preview guard
+  fixed for car.html?id=A → ?id=B. Rejected: "a pile" panel, "Value my trade", red dots, double hairlines, "16 options listed".
 - Three locations: West Coast (SoCal–Murrieta), Naples, Miami. West Coast Exotics *website* is not a design reference
   (later allowed for COLOUR only).
 - Photography: dupontregistry.com listing photos are the client-authorised source (private prototype only).

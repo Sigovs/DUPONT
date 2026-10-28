@@ -17,17 +17,16 @@ Updated 2026-10-28. Owner: Alex (GDBuro). Design system: design_dna (`C:\____WOR
   `site_v4/_build/sub_pages.py` + `assets/js/sub.js` + `assets/css/sub.css`; data `assets/data/sel13.js`.
   Bump the `?v=` query on sub.css / sub.js after every change (Pages caches ~10 min; tell Alex Ctrl+Shift+R).
 
-## V4 VDP / SRP state (2026-10-22)
-- Header never retracts on any page (Alex: "once and for all").
-- VDP: gallery arrows on the photo sides; dark price panel = room, title, price + miles, stacked facts
-  (Exterior/Interior/Transmission/Drivetrain + VIN), **Inquire** (side drawer form, pre-written message for that car,
-  prototype — nothing sent), Call, CARFAX logo button (placeholder note until the dealer's CARFAX link).
-  Save / Share / Text outlined pills in the breadcrumb bar (Save = this browser only).
-  Specifications = white card with listing figures (hp, L, cylinders, options listed; model year fallback) + Body /
-  Stock. No fact repeated between panel and specs; no "as listed on duPont REGISTRY" date lines.
-- Engine lines exist only where dR listing text states them (918, 458 Speciale, 765LT, Speedster, GT2 RS, GT3 RS,
-  GT3, Viper). 488 Pista, Purosangue, 458 Spider, DBS, 911 ST have none → "figures from the showroom on request".
-- SRP: showroom chips, Make → Model, "Sort by" pill, keyword; selected filters = removable pills + Clear filters.
+## V4 SRP / VDP state (2026-10-28, after client approval)
+- SRP: filter card (Year · Make · Model · Price two-thumb slider · More filters: mileage, body, transmission, drivetrain,
+  colour · keyword), showroom chips + Saved (hearts on tiles, this browser) left, Sort by right, removable pills, all in
+  the URL; showrooms built from one registry (ready for Nashville / Dallas).
+- VDP: panel = car · price (doc fee breakdown for 918, 488 Pista, GT2 RS, 765LT) · Inquire + Call · facts incl. Stock # and
+  CARFAX; Save · Share · Send to phone; Walkaround video section (765LT shows a marked sample); Specs (hp · L · cyl);
+  Finance estimate (user's APR); Buying from Select; showroom block; section bar + phone Call/Inquire bar.
+- Data: engine lines from dR + select.dupontregistry.com (488 Pista, 458 Spider added); prices as of 21 Oct — 458 Speciale,
+  Speedster, 458 Spider have since dropped on the Select site (Alex to decide on refresh).
+- Research: research/select-site-2026-10-28/NOTES.md (client's live Select site + dR VDP features, footprint).
 
 ## What it is
 Presentation prototype (HTML/CSS/JS + GSAP) for **duPont REGISTRY Select** — national luxury/exotic dealer portal,
@@ -51,5 +50,5 @@ research/ (brand, provenance), data/ (srp13.json, vdp/*.json, inventory.json), a
 docs/DECISIONS.md (approved/rejected), docs/LESSONS.md, docs/OBSERVATIONS.md (Jarvis), site_v4/_qa/ (renders).
 
 ## Next
-Dealer CARFAX link and real engine data for the 5 cars; final cut-outs from Alex;
+Dealer CARFAX link; real walkaround videos; price refresh for 3 cars; SoCal phone (951-355-2308 on the Select site vs 292-6100); final cut-outs from Alex;
 form backend only if the client asks.
