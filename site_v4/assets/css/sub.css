@@ -894,3 +894,9 @@ html.inq-open { overflow: hidden; }
 .vdp__video-note { display: none; }
 .vdp__video-tag { position: absolute; top: 16px; right: 16px; z-index: 2; display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px; border-radius: 999px;
   background: rgb(255 255 255 / .9); color: var(--graphite); font: 600 12px/1 var(--f-text); letter-spacing: .06em; text-transform: uppercase; pointer-events: none; }
+
+/* Finance card: "Trade in your car" as the outlined partner of Get pre-qualified (Alex, 2026-10-28) */
+.vdp__calc-alt { background: transparent; color: #fff; border: 1px solid rgb(255 255 255 / .45); }
+.vdp__calc-alt:hover, .vdp__calc-alt:focus-visible { background: #fff; color: var(--graphite); border-color: #fff; }
+.vdp__calc-cta { gap: 10px; }
+.vdp__calc-cta .btn { flex: 1 1 auto; justify-content: center; }

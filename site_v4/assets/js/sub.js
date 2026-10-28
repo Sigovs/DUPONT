@@ -486,7 +486,7 @@
     var INT = {
       availability: ['Inquire about this car', iqText],
       viewing: ['Schedule a viewing', "Hello, I'd like to see the " + c.title + (iqRef ? ' (' + iqRef + ')' : '') + ' in person at the ' + R.name + ' showroom. Please confirm a time that suits.'],
-      trade: ['Value my trade', "Hello, I'm interested in the " + c.title + (iqRef ? ' (' + iqRef + ')' : '') + ' and would like a value for my current car — details above.'],
+      trade: ['Trade in your car', "Hello, I'm interested in the " + c.title + (iqRef ? ' (' + iqRef + ')' : '') + ' and would like a value for my current car — details above.'],
       finance: ['Finance this car', "Hello, I'd like to know the financing and leasing options for the " + c.title + (c.price ? ' listed at ' + money(c.price) : '') + (iqRef ? ' (' + iqRef + ')' : '') + '.'],
       video: ['Request a walkaround video', 'Hello, could you send me a walkaround video of the ' + c.title + (iqRef ? ' (' + iqRef + ')' : '') + '?']
     };

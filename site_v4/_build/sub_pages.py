@@ -204,7 +204,7 @@ VDP = '''
         <p class="vdp__calc-f" data-calc-f>Enter your rate to see the estimate.</p>
         <div class="vdp__calc-cta">
           <button class="btn btn--red sub__btn" type="button" data-inq-intent="finance">Get pre-qualified ''' + ARR + '''</button>
-          <button class="vdp__lnk" type="button" data-inq-intent="trade">Value my trade</button>
+          <button class="btn sub__btn vdp__calc-alt" type="button" data-inq-intent="trade">Trade in your car</button>
         </div>
         <p class="vdp__calc-legal">An estimate from the figures you enter, not an offer or a quote. It leaves out tax, title, registration and fees; the rate depends on the lender and your credit. Leasing is also available through the showroom.</p>
       </div>
