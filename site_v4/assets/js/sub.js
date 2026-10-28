@@ -601,11 +601,11 @@
     /* buying from Select — the showroom's own words from its listings (SoCal: inspection, financing, worldwide transport) */
     if (c.closing || c.loc === 'socal') {
       $('[data-vdp-buy-l]').innerHTML = [
-        ['Inspected', 'A full safety inspection by the showroom’s certified technicians.'],
-        ['Finance & leasing', 'Financing and leasing options through the showroom.'],
-        ['Delivery', 'Transportation can be arranged, anywhere in the world.'],
-        ['Showroom hours', R.hours]
-      ].map(function (b) { return '<li><p class="vdp__buy-k">' + b[0] + '</p><p class="vdp__buy-t">' + esc(b[1]) + '</p></li>'; }).join('');
+        ['<svg class="vdp__buy-i" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M12 3l7 3v5c0 4.4-3 8.2-7 9.5C8 19.2 5 15.4 5 11V6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M8.8 12l2.2 2.2 4.2-4.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>', 'Inspected', 'A full safety inspection by the showroom’s certified technicians.', ''],
+        ['<svg class="vdp__buy-i" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><rect x="3" y="6" width="18" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6.5 9.5v5M17.5 9.5v5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>', 'Finance & leasing', 'Financing and leasing options through the showroom.', c.price ? '<a class="vdp__lnk" href="#vdp-finance">Estimate a payment</a>' : ''],
+        ['<svg class="vdp__buy-i" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 12h17M12 3.5c2.6 2.4 3.8 5.3 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.3-3.8-8.5S9.4 5.9 12 3.5z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>', 'Delivery', 'Transportation can be arranged, anywhere in the world.', ''],
+        ['<svg class="vdp__buy-i" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>', 'Showroom hours', esc(R.hours), '<a class="vdp__lnk" href="#vdp-contact">' + esc(R.name) + ' showroom</a>']
+      ].map(function (b) { return '<li>' + b[0] + '<p class="vdp__buy-k">' + b[1] + '</p><p class="vdp__buy-t">' + b[2] + '</p>' + b[3] + '</li>'; }).join('');
       $('[data-vdp-buy]').hidden = false;
       var cl = $('[data-vdp-close]'); if (cl) { cl.textContent = ''; cl.hidden = true; }   // the band says it once — no repeat of the listing's closing lines
     }

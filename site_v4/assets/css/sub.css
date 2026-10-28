@@ -752,3 +752,29 @@ html.inq-open { overflow: hidden; }
 .vdp__s2p-done { margin: 0; font: 400 15px/1.5 var(--f-text); color: var(--graphite); outline: none; }
 @media (max-width: 600px) { .vdp__s2p { left: 0; right: auto; width: min(320px, calc(100vw - 48px)); } }
 @media (prefers-reduced-motion: reduce) { .vdp__s2p { animation: none; } }
+
+/* Buying from Select as a card (Alex, 2026-10-28) — same white card as Specifications / Finance:
+   heading on the left, a hairline 2×2 grid of the showroom's own promises on the right */
+.vdp__buy { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 32px clamp(32px, 4vw, 72px); align-items: start;
+  padding: clamp(28px, 2.6vw, 48px); background: #fff; border: 1px solid rgb(48 49 55 / .12); border-radius: 6px; }
+.vdp__buy[hidden] { display: none; }
+.vdp__buy-l { grid-template-columns: 1fr 1fr; border-top: 0; }
+.vdp__buy-l li, .vdp__buy-l li + li { padding: 22px 28px 24px; border-left: 0; }
+.vdp__buy-l li:nth-child(even) { border-left: 1px solid var(--hair-ivory, #d8d5cd); }
+.vdp__buy-l li:nth-child(n+3) { border-top: 1px solid var(--hair-ivory, #d8d5cd); }
+.vdp__buy-l li:nth-child(odd) { padding-left: 0; }
+.vdp__buy-l li:nth-child(-n+2) { padding-top: 0; }
+.vdp__buy-l li:nth-child(n+3) { padding-bottom: 0; }
+.vdp__buy-i { display: block; margin-bottom: 16px; color: var(--graphite); }
+.vdp__buy-k { margin-top: 0; }
+.vdp__buy-t { margin-top: 8px; }
+.vdp__buy-l .vdp__lnk { display: inline-block; margin-top: 10px; padding: 4px 0; font-size: 14px; }
+.vdp__buy + .vdp__fin { margin-top: 24px; }
+@media (max-width: 1279.98px) { .vdp__buy { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 599.98px) {
+  .vdp__buy { padding: 24px 20px; }
+  .vdp__buy-l { grid-template-columns: 1fr; }
+  .vdp__buy-l li, .vdp__buy-l li + li, .vdp__buy-l li:nth-child(odd), .vdp__buy-l li:nth-child(even) { padding: 20px 0; border-left: 0; border-top: 1px solid var(--hair-ivory, #d8d5cd); }
+  .vdp__buy-l li:first-child { border-top: 0; padding-top: 0; }
+  .vdp__buy-l li:last-child { padding-bottom: 0; }
+}

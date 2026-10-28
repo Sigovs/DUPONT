@@ -177,7 +177,7 @@ VDP = '''
       <div class="vdp__specs" id="vdp-specs"><h3 class="sub__kicker vdp__spec-k">Specifications</h3><ul class="vdp__figs" data-vdp-figs></ul><div class="vdp__groups" data-vdp-spec></div></div>
     </section>
     <section class="vdp__buy" aria-labelledby="vdp-buy-h" data-vdp-buy hidden>
-      <h2 class="vh" id="vdp-buy-h">Buying from Select</h2>
+      <div class="vdp__buy-hd"><p class="sub__kicker">The showroom</p><h2 class="vdp__h disp" id="vdp-buy-h">Buying from Select</h2></div>
       <ul class="vdp__buy-l" data-vdp-buy-l></ul>
     </section>
     <section class="vdp__fin" id="vdp-finance" aria-labelledby="vdp-fin-h" data-vdp-fin>
