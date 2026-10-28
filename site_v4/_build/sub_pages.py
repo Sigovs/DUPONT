@@ -111,7 +111,7 @@ VDP = '''
     <nav class="vdp__sn" aria-label="On this page" data-vdp-sn>
       <div class="vdp__sn-in">
         <p class="vdp__sn-t"><span class="disp" data-sn-title></span><span class="vdp__sn-p t-num" data-sn-price></span></p>
-        <ul class="vdp__sn-l"><li><a href="#vdp-ov">Overview</a></li><li data-sn-opt><a href="#vdp-options">Options</a></li><li><a href="#vdp-specs">Specifications</a></li><li><a href="#vdp-finance">Finance</a></li><li><a href="#vdp-contact">Showroom</a></li></ul>
+        <ul class="vdp__sn-l"><li data-sn-video hidden><a href="#vdp-video">Video</a></li><li><a href="#vdp-ov">Overview</a></li><li data-sn-opt><a href="#vdp-options">Options</a></li><li><a href="#vdp-specs">Specifications</a></li><li><a href="#vdp-finance">Finance</a></li><li><a href="#vdp-contact">Showroom</a></li></ul>
         <button class="btn btn--red sub__btn" type="button" data-inq-intent="availability">Inquire ''' + ARR + '''</button>
       </div>
     </nav>
@@ -166,6 +166,20 @@ VDP = '''
         <p class="vdp__carfax-note" id="vdp-carfax-note" data-vdp-carfax-note hidden></p>
       </aside>
     </div>
+    <section class="vdp__video" id="vdp-video" aria-labelledby="vdp-video-h" data-vdp-video hidden>
+      <div class="vdp__video-hd">
+        <p class="sub__kicker">On film</p>
+        <h2 class="vdp__h disp" id="vdp-video-h">Walkaround</h2>
+        <p class="vdp__video-note" data-vdp-video-note></p>
+      </div>
+      <div class="vdp__video-stage" data-vdp-video-stage>
+        <button class="vdp__video-play" type="button" data-vdp-video-play aria-label="Play the walkaround video">
+          <img data-vdp-video-poster alt="" loading="lazy" decoding="async">
+          <span class="vdp__video-btn"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+          <span class="vdp__video-cap" data-vdp-video-cap>Play the walkaround</span>
+        </button>
+      </div>
+    </section>
     <section class="vdp__body" aria-labelledby="vdp-ov">
       <div class="vdp__story">
         <p class="sub__kicker">The car</p>

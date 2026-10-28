@@ -626,22 +626,27 @@
       addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true }); spy();
     }
 
-    /* video (Alex, 2026-10-28): a car with a walkaround in its data (c.video = { youtube: id } or { mp4: url }) plays it
-       over the page; without one — none of the 13 has a verified video yet — the same button asks the showroom for one */
-    var vB = $('[data-vdp-vid]'), vbox = $('[data-vbox]'), vfr = $('[data-vbox-frame]');
-    if (c.video && (c.video.youtube || c.video.mp4)) {
-      $('[data-vdp-vid-l]').textContent = 'Play video';
-      var vOpen = function () {
-        vfr.innerHTML = c.video.youtube
-          ? '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(c.video.youtube) + '?autoplay=1&rel=0&modestbranding=1" title="' + esc(c.title) + ' — video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>'
-          : '<video src="' + esc(c.video.mp4) + '" controls autoplay playsinline></video>';
-        vbox.hidden = false; document.documentElement.classList.add('lbox-open'); if (window.V4 && V4.lenis) V4.lenis.stop(); $('[data-vbox-close]').focus();
+    /* video (Alex, 2026-10-28): listings that come with a walkaround get their own section under the gallery — a 16:9 stage
+       that plays in place (YouTube id or MP4). Without one, the pill on the photo asks the showroom for a walkaround. */
+    var vB = $('[data-vdp-vid]'), vSec = $('[data-vdp-video]'), V = c.video;
+    if (V && (V.youtube || V.mp4)) {
+      vSec.hidden = false; $('[data-sn-video]').hidden = false;
+      $('[data-vdp-video-poster]').src = V.poster || (V.youtube ? 'https://i.ytimg.com/vi/' + encodeURIComponent(V.youtube) + '/maxresdefault.jpg' : (gal[2] || gal[0]).big);
+      if (V.sample) { $('[data-vdp-video-note]').textContent = V.note || 'Sample footage — the listing video goes here.'; vSec.classList.add('is-sample'); }
+      $('[data-vdp-vid-l]').textContent = V.sample ? 'Play video (sample)' : 'Play video';
+      var vPlay = function () {
+        $('[data-vdp-video-stage]').innerHTML = V.youtube
+          ? '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(V.youtube) + '?autoplay=1&rel=0&modestbranding=1" title="' + esc(c.title) + ' — walkaround" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>'
+          : '<video src="' + esc(V.mp4) + '" controls autoplay playsinline' + (V.poster ? ' poster="' + esc(V.poster) + '"' : '') + '></video>';
       };
-      var vClose = function () { vfr.innerHTML = ''; vbox.hidden = true; document.documentElement.classList.remove('lbox-open'); if (window.V4 && V4.lenis) V4.lenis.start(); vB.focus(); };
-      vB.addEventListener('click', vOpen);
-      $('[data-vbox-close]').addEventListener('click', vClose);
-      vbox.addEventListener('click', function (e) { if (e.target === vbox) vClose(); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !vbox.hidden) vClose(); });
+      $('[data-vdp-video-play]').addEventListener('click', vPlay);
+      vB.addEventListener('click', function () {
+        if (window.V4 && V4.go) V4.go('vdp-video'); else vSec.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(vPlay, 900);
+      });
+      // the section bar's link list was read before the Video item showed — let it count
+      if (typeof links !== 'undefined') links = $$('.vdp__sn-l a', sn).filter(function (a) { return !a.parentNode.hidden; });
+      window.dispatchEvent(new Event('scroll'));
     } else {
       $('[data-vdp-vid-l]').textContent = 'Request a walkaround video';
       vB.setAttribute('data-inq-intent', 'video');
