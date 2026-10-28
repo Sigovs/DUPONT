@@ -125,7 +125,7 @@ VDP = '''
     <div class="vdp__acts">
       <button class="vdp__act" type="button" data-vdp-save aria-pressed="false"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z" fill="var(--heart, none)" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span data-vdp-save-l>Save</span></button>
       <button class="vdp__act" type="button" data-vdp-share><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 15V3.5M7.5 8 12 3.5 16.5 8M5 12.5V20h14v-7.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Share</span></button>
-      <button class="vdp__act" type="button" data-vdp-text aria-expanded="false" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><rect x="6.5" y="2.5" width="11" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 18.5h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span data-vdp-text-l>Send to phone</span></button><div class="vdp__s2p" data-s2p hidden role="dialog" aria-label="Send this car to your phone"><form data-s2p-form novalidate><label class="inq__f"><span>Your mobile number</span><input name="tel" type="tel" autocomplete="tel" placeholder="(555) 123-4567" required></label><button class="btn btn--red sub__btn" type="submit">Send link</button><p class="vdp__s2p-ph">We text you a link to this car. Prototype — nothing is sent.</p></form><p class="vdp__s2p-done" data-s2p-done hidden tabindex="-1"></p></div>
+      <button class="vdp__act" type="button" data-vdp-text aria-expanded="false" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><rect x="6.5" y="2.5" width="11" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 18.5h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span data-vdp-text-l>Send to phone</span></button><div class="vdp__s2p" data-s2p hidden role="dialog" aria-label="Send this car to your phone"><form data-s2p-form novalidate><label class="inq__f"><span>Your mobile number</span><input name="tel" type="tel" autocomplete="tel" placeholder="(555) 123-4567" required></label><button class="btn btn--red sub__btn" type="submit">Send link</button></form><p class="vdp__s2p-done" data-s2p-done hidden tabindex="-1"></p></div>
       <p class="vdp__toast" data-vdp-toast role="status" aria-live="polite"></p>
     </div>
     </div>
@@ -135,6 +135,7 @@ VDP = '''
           <button class="vdp__main" type="button" data-vdp-open aria-label="Open the photographs full screen">
             <img data-vdp-img alt="" decoding="async" fetchpriority="high">
           </button>
+          <button class="vdp__vid" type="button" data-vdp-vid><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 6.5v7l5.5-3.5z" fill="currentColor"/></svg><span data-vdp-vid-l>Play video</span></button>
           <div class="vdp__nav">
             <button class="vdp__arr vdp__arr--prev" type="button" data-vdp-prev aria-label="Previous photograph">''' + ARR + '''</button>
             <span class="vdp__n t-num" data-vdp-n></span>
@@ -217,6 +218,10 @@ VDP = '''
       <button class="lbox__arr lbox__arr--prev" type="button" data-lbox-prev aria-label="Previous photograph">''' + ARR + '''</button>
       <button class="lbox__arr" type="button" data-lbox-next aria-label="Next photograph">''' + ARR + '''</button>
       <span class="lbox__n t-num" data-lbox-n></span>
+    </div>
+    <div class="vbox" data-vbox hidden role="dialog" aria-modal="true" aria-label="Video" data-lenis-prevent>
+      <button class="lbox__x" type="button" data-vbox-close aria-label="Close">×</button>
+      <div class="vbox__frame" data-vbox-frame></div>
     </div>
     <div class="inq" data-inq hidden>
       <div class="inq__scrim" data-inq-close></div>

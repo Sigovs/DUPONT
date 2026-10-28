@@ -393,12 +393,12 @@
     var cyl = /\b[VW](\d{1,2})\b/.exec(eng) || /\bflat[- ](four|six)\b/i.exec(eng);
     var cylN = cyl && (NUM[cyl[1].toLowerCase()] || +cyl[1]);
     if (cylN) figs.push([String(cylN), 'cyl', engRest ? cap(engRest.replace(/,\s*$/, '')) : 'Cylinders']);
-    if (c.options && c.options.length) figs.push([String(c.options.length), '', 'Options listed']);
     var driveFig = figs.length < 4 && drvCode && !inPanel.Drivetrain;
     if (driveFig) figs.push([drvCode, '', c.drive]);
     if (!figs.length && c.year) figs.push([String(c.year), '', 'Model year']);   // no engine line on dR: the one sure figure
     var figEl = $('[data-vdp-figs]');
     figEl.hidden = !figs.length;
+    figEl.dataset.n = figs.length;   // 3 figures sit in one row (Alex: no 'options listed' count)
     figEl.innerHTML = figs.map(function (f) {
       return '<li class="vdp__fig"><span class="vdp__fig-n">' + esc(f[0]) + (f[1] ? '<small>' + f[1] + '</small>' : '') +
         '</span><span class="vdp__fig-c">' + esc(f[2]) + '</span></li>';
@@ -624,6 +624,27 @@
         links.forEach(function (a) { a.classList.toggle('is-cur', a === cur); if (a === cur) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
       }
       addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true }); spy();
+    }
+
+    /* video (Alex, 2026-10-28): a car with a walkaround in its data (c.video = { youtube: id } or { mp4: url }) plays it
+       over the page; without one — none of the 13 has a verified video yet — the same button asks the showroom for one */
+    var vB = $('[data-vdp-vid]'), vbox = $('[data-vbox]'), vfr = $('[data-vbox-frame]');
+    if (c.video && (c.video.youtube || c.video.mp4)) {
+      $('[data-vdp-vid-l]').textContent = 'Play video';
+      var vOpen = function () {
+        vfr.innerHTML = c.video.youtube
+          ? '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(c.video.youtube) + '?autoplay=1&rel=0&modestbranding=1" title="' + esc(c.title) + ' — video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>'
+          : '<video src="' + esc(c.video.mp4) + '" controls autoplay playsinline></video>';
+        vbox.hidden = false; document.documentElement.classList.add('lbox-open'); if (window.V4 && V4.lenis) V4.lenis.stop(); $('[data-vbox-close]').focus();
+      };
+      var vClose = function () { vfr.innerHTML = ''; vbox.hidden = true; document.documentElement.classList.remove('lbox-open'); if (window.V4 && V4.lenis) V4.lenis.start(); vB.focus(); };
+      vB.addEventListener('click', vOpen);
+      $('[data-vbox-close]').addEventListener('click', vClose);
+      vbox.addEventListener('click', function (e) { if (e.target === vbox) vClose(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !vbox.hidden) vClose(); });
+    } else {
+      $('[data-vdp-vid-l]').textContent = 'Request a walkaround video';
+      vB.setAttribute('data-inq-intent', 'video');
     }
     show(0);
   })();
