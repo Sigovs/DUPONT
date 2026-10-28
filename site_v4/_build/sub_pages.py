@@ -64,7 +64,8 @@ SRP = '''
     <div class="inv__bar" data-inv-bar>
       <div class="inv__bar-in">
         <div class="inv__rooms" role="group" aria-label="Showroom" data-inv-rooms></div>
-        <div class="inv__filters">
+        <button class="inv__ftoggle" type="button" data-inv-ftoggle aria-expanded="false" aria-controls="inv-filters"><svg viewBox="0 0 20 14" width="18" height="13" aria-hidden="true" focusable="false"><path d="M1 3h18M1 11h18" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="6" cy="3" r="2.2" fill="var(--ivory)" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="11" r="2.2" fill="var(--ivory)" stroke="currentColor" stroke-width="1.5"/></svg>Filters<span class="inv__fcount" data-inv-fcount></span></button>
+        <div class="inv__filters" id="inv-filters">
           <label class="inv__f"><span class="vh">Make</span><select data-inv-make><option value="">All makes</option></select></label>
           <label class="inv__f"><span class="vh">Model</span><select data-inv-model disabled><option value="">All models</option></select></label>
           <label class="inv__f inv__f--sort"><span class="inv__f-l" aria-hidden="true">Sort by</span><span class="vh">Sort by</span><select data-inv-sort>

@@ -22,7 +22,15 @@
     miami: { name: 'Miami', dealer: 'duPont REGISTRY Miami', addr: ['5972 NE 4th Ave', 'Miami, FL 33137'],
              phone: '(615) 471-0221', hours: 'Hours not published — call ahead', img: 'assets/img/locations/miami-showroom.webp?v=2' }
   };
-  var ORDER = ['socal', 'naples', 'miami'];
+  var ORDER = Object.keys(ROOMS);   // every list of showrooms (chips, counts, VDP) is built from ROOMS — a new showroom is one entry
+  var HEART = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z" fill="var(--heart, none)" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+  /* saved cars — this browser only until accounts exist; shared by the SRP hearts and the VDP Save pill */
+  var SAVE_KEY = 'sel-saved';
+  function saved() { try { return JSON.parse(localStorage.getItem(SAVE_KEY) || '[]'); } catch (e) { return []; } }
+  function isSaved(id) { return saved().indexOf(id) > -1; }
+  function toggleSaved(id) { var l = saved(), i = l.indexOf(id); if (i > -1) l.splice(i, 1); else l.push(id);
+    try { localStorage.setItem(SAVE_KEY, JSON.stringify(l)); } catch (e) {}
+    document.dispatchEvent(new CustomEvent('sel:saved', { detail: { id: id, on: i < 0 } })); return i < 0; }
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function money(p) { return p ? '$' + p.toLocaleString('en-US') : 'Price on request'; }
@@ -41,8 +49,15 @@
       '<span class="tile__title disp">' + esc(c.title) + '</span>' +
       '<span class="tile__price">' + money(c.price) + '</span>' +
       '<span class="tile__spec">' + esc(spec(c)) + '</span>' +
-      '<span class="tile__go">View this car ' + ARR + '</span></span></a></li>';
+      '<span class="tile__go">View this car ' + ARR + '</span></span></a>' +
+      '<button class="tile__save" type="button" data-save="' + c.id + '" aria-pressed="' + isSaved(c.id) + '" aria-label="Save the ' + esc(c.title) + '">' + HEART + '</button></li>';
   }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-save]'); if (!b) return;
+    e.preventDefault(); var on = toggleSaved(b.dataset.save);
+    $$('[data-save="' + b.dataset.save + '"]').forEach(function (x) { x.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+  });
 
   /* ============================================================ SRP */
   var srp = $('[data-srp]');
@@ -50,12 +65,12 @@
     var grid = $('[data-inv-grid]'), rooms = $('[data-inv-rooms]'), mk = $('[data-inv-make]'), md = $('[data-inv-model]');
     var so = $('[data-inv-sort]'), q = $('[data-inv-q]'), count = $('[data-inv-count]'), empty = $('[data-inv-empty]');
     var P = new URLSearchParams(location.search);
-    var st = { room: P.get('showroom') || '', make: P.get('make') || '', model: P.get('model') || '', sort: P.get('sort') || 'featured', q: P.get('q') || '' };
+    var st = { room: P.get('showroom') || '', make: P.get('make') || '', model: P.get('model') || '', sort: P.get('sort') || 'featured', q: P.get('q') || '', saved: P.get('saved') === '1' };
 
     rooms.innerHTML = '<button type="button" class="chip" data-room="">All <span>' + CARS.length + '</span></button>' + ORDER.map(function (k) {
       var n = CARS.filter(function (c) { return c.loc === k; }).length;
       return '<button type="button" class="chip" data-room="' + k + '"' + (n ? '' : ' disabled') + '>' + ROOMS[k].name + ' <span>' + n + '</span></button>';
-    }).join('');
+    }).join('') + '<button type="button" class="chip chip--saved" data-saved aria-pressed="false">' + HEART + 'Saved <span data-saved-n>0</span></button>';
     var makes = CARS.map(function (c) { return c.make; }).filter(function (m, i, a) { return a.indexOf(m) === i; }).sort();
     mk.insertAdjacentHTML('beforeend', makes.map(function (m) { return '<option>' + esc(m) + '</option>'; }).join(''));
 
@@ -68,6 +83,7 @@
     function results() {
       var s = st.q.trim().toLowerCase();
       var list = CARS.filter(function (c) {
+        if (st.saved && !isSaved(c.id)) return false;
         if (st.room && c.loc !== st.room) return false;
         if (st.make && c.make !== st.make) return false;
         if (st.model && c.model !== st.model) return false;
@@ -90,22 +106,26 @@
         '<a class="tile__a" href="index.html#showrooms"><span class="tile__body"><span class="tile__room">Not seeing it?</span>' +
         '<span class="tile__title disp">Ask a showroom</span><span class="tile__spec">Three showrooms — Southern California, Naples and Miami.</span>' +
         '<span class="tile__go">Contact a showroom ' + ARR + '</span></span></a></li>' : '');
-      var dirty = !!(st.room || st.make || st.model || st.q || st.sort !== 'featured');
+      var dirty = !!(st.room || st.make || st.model || st.q || st.saved || st.sort !== 'featured');
       count.textContent = list.length + (list.length === 1 ? ' car' : ' cars');   // the showroom shows as a pill beside it
       $$('[data-inv-clear]').forEach(function (b) { b.hidden = !dirty && b.closest('.inv__meta') !== null; });
       $('.inv__meta [data-inv-clear]').hidden = !dirty;
       // active filters as small removable pills (Alex, 2026-10-22)
       var X = '<svg viewBox="0 0 10 10" width="10" height="10" aria-hidden="true" focusable="false"><path d="M1 1l8 8M9 1L1 9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
-      tags.innerHTML = [['room', st.room && ROOMS[st.room].name, 'Showroom'], ['make', st.make, 'Make'], ['model', st.model, 'Model'], ['q', st.q.trim() && '“' + st.q.trim() + '”', 'Keyword']]
+      tags.innerHTML = [['saved', st.saved && 'Saved', 'Saved'], ['room', st.room && ROOMS[st.room].name, 'Showroom'], ['make', st.make, 'Make'], ['model', st.model, 'Model'], ['q', st.q.trim() && '“' + st.q.trim() + '”', 'Keyword']]
         .filter(function (t) { return t[1]; })
         .map(function (t) { return '<li><button type="button" class="inv__tag" data-tag="' + t[0] + '" aria-label="Remove ' + t[2] + ': ' + esc(t[1]) + '">' + esc(t[1]) + X + '</button></li>'; }).join('');
       tags.hidden = !tags.children.length;
       empty.hidden = list.length > 0; grid.hidden = !list.length;
-      $$('.chip', rooms).forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.room === st.room ? 'true' : 'false'); });
+      $$('.chip[data-room]', rooms).forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.room === st.room ? 'true' : 'false'); });
+      paintSaved();
+      var nf = [st.make, st.model, st.q.trim(), st.sort !== 'featured'].filter(Boolean).length;   // what the mobile Filters button hides
+      $('[data-inv-fcount]').textContent = nf ? ' · ' + nf : '';
       if (push) {
         var u = new URLSearchParams();
         ['room', 'make', 'model', 'q'].forEach(function (k) { if (st[k]) u.set(k === 'room' ? 'showroom' : k, st[k]); });
         if (st.sort !== 'featured') u.set('sort', st.sort);
+        if (st.saved) u.set('saved', '1');
         history.replaceState(null, '', location.pathname + (u.toString() ? '?' + u : ''));
       }
       requestAnimationFrame(function () { $$('.tile', grid).forEach(function (t) { t.classList.add('is-in'); }); });
@@ -113,20 +133,34 @@
     var tags = $('[data-inv-tags]');
     tags.addEventListener('click', function (e) {
       var b = e.target.closest('[data-tag]'); if (!b) return;
-      var k = b.dataset.tag; st[k] = '';
+      var k = b.dataset.tag; st[k] = k === 'saved' ? false : '';
       if (k === 'make') { st.model = ''; mk.value = ''; models(); }
       if (k === 'model') md.value = '';
       if (k === 'q') q.value = '';
       render(true);
       var next = tags.querySelector('.inv__tag'); if (next) next.focus();   // keep the keyboard in the row
     });
-    rooms.addEventListener('click', function (e) { var b = e.target.closest('.chip'); if (!b || b.disabled) return; st.room = b.dataset.room; render(true); });
+    rooms.addEventListener('click', function (e) {
+      var b = e.target.closest('.chip'); if (!b || b.disabled) return;
+      if (b.hasAttribute('data-saved')) st.saved = !st.saved; else st.room = b.dataset.room;
+      render(true);
+    });
+    function paintSaved() {
+      var n = saved().filter(function (id) { return BY[id]; }).length, sb = $('[data-saved]', rooms);
+      $('[data-saved-n]', sb).textContent = n;
+      sb.setAttribute('aria-pressed', st.saved ? 'true' : 'false');
+      sb.disabled = !n && !st.saved;
+    }
+    document.addEventListener('sel:saved', function () { if (st.saved) render(true); else paintSaved(); });
+    // phones: the make / model / sort / keyword group folds behind one Filters button
+    var ft = $('[data-inv-ftoggle]'), fg = $('#inv-filters');
+    ft.addEventListener('click', function () { var o = !fg.classList.contains('is-open'); fg.classList.toggle('is-open', o); ft.setAttribute('aria-expanded', o ? 'true' : 'false'); });
     mk.addEventListener('change', function () { st.make = mk.value; st.model = ''; models(); render(true); });
     md.addEventListener('change', function () { st.model = md.value; render(true); });
     so.addEventListener('change', function () { st.sort = so.value; render(true); });
     var qt; q.addEventListener('input', function () { clearTimeout(qt); qt = setTimeout(function () { st.q = q.value; render(true); }, 160); });
     $$('[data-inv-clear]').forEach(function (b) { b.addEventListener('click', function () {
-      st = { room: '', make: '', model: '', sort: 'featured', q: '' }; mk.value = ''; so.value = 'featured'; q.value = ''; models(); render(true);
+      st = { room: '', make: '', model: '', sort: 'featured', q: '', saved: false }; mk.value = ''; so.value = 'featured'; q.value = ''; models(); render(true);
     }); });
     if (makes.indexOf(st.make) < 0) st.make = '';
     mk.value = st.make; so.value = st.sort; q.value = st.q; models(); render(false);
@@ -327,15 +361,10 @@
        Share = the system share sheet, else the link is copied; Text = SMS to the showroom on phones, else its number. */
     var toast = $('[data-vdp-toast]'), tt;
     function say(m) { toast.textContent = m; toast.classList.add('is-on'); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('is-on'); }, 2600); }
-    var svB = $('[data-vdp-save]'), KEY = 'sel-saved';
-    function saved() { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { return []; } }
-    function paintSave() { var on = saved().indexOf(c.id) > -1; svB.setAttribute('aria-pressed', on ? 'true' : 'false'); $('[data-vdp-save-l]').textContent = on ? 'Saved' : 'Save'; }
-    svB.addEventListener('click', function () {
-      var l = saved(), i = l.indexOf(c.id);
-      if (i > -1) l.splice(i, 1); else l.push(c.id);
-      try { localStorage.setItem(KEY, JSON.stringify(l)); } catch (e) {}
-      paintSave(); say(i > -1 ? 'Removed from saved cars' : 'Saved on this device');
-    });
+    var svB = $('[data-vdp-save]');
+    function paintSave() { var on = isSaved(c.id); svB.setAttribute('aria-pressed', on ? 'true' : 'false'); $('[data-vdp-save-l]').textContent = on ? 'Saved' : 'Save'; }
+    svB.addEventListener('click', function () { var on = toggleSaved(c.id); paintSave(); say(on ? 'Saved on this device' : 'Removed from saved cars'); });
+    document.addEventListener('sel:saved', paintSave);
     paintSave();
     $('[data-vdp-share]').addEventListener('click', function () {
       var data = { title: c.title + ' — duPont REGISTRY Select', text: c.title + (c.price ? ', ' + money(c.price) : ''), url: location.href };

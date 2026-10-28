@@ -381,3 +381,39 @@ html.inq-open { overflow: hidden; }
 .inv__tag:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 .inv__tag svg { flex: none; opacity: .7; }
 .inv__tag:hover svg { opacity: 1; }
+
+/* ---------- SRP round 2 (Alex, 2026-10-28) ---------- */
+/* the filter bar sticks right under the full-height header (128u since the header-gap fix) */
+.inv__bar { top: calc(max(64px, 128 * var(--u, 1px))); }
+/* soft hover — the same feel as the home page's cards: a 3px lift, the ground lightens, the pill turns red, all slow */
+.tile { position: relative; }
+.tile__a { position: relative; top: 0; transition: top 520ms cubic-bezier(.25, 1, .5, 1), background-color 520ms cubic-bezier(.25, 1, .5, 1); }
+.tile__go { transition: background-color 450ms cubic-bezier(.25, 1, .5, 1); }
+.tile .arr { transition: transform 450ms cubic-bezier(.25, 1, .5, 1); }
+.tile:not(.tile--end) .tile__a:hover { top: -3px; background: #3a3b42; }
+.tile:not(.tile--end):has(.tile__a:hover) .tile__save { transform: translateY(-3px); }
+@media (prefers-reduced-motion: reduce) { .tile__a, .tile__go, .tile__save { transition: none; } .tile .tile__a:hover { top: 0; } }
+/* save heart — on the photograph's top-right corner, outside the link */
+.tile__save { position: absolute; top: 12px; right: 12px; z-index: 2; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 999px;
+  background: rgb(255 255 255 / .88); color: var(--graphite); cursor: pointer;
+  transition: transform 520ms cubic-bezier(.25, 1, .5, 1), background-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out); }
+.tile__save:hover { background: #fff; }
+.tile__save:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.tile__save[aria-pressed="true"] { --heart: var(--red); color: var(--red); }
+/* Saved chip — after the showrooms, a hairline apart */
+.chip--saved { margin-left: 8px; position: relative; }
+.chip--saved::before { content: ""; position: absolute; left: -9px; top: 10px; bottom: 10px; width: 1px; background: rgb(48 49 55 / .2); }
+.chip--saved svg { width: 16px; height: 16px; margin: 0 -2px 0 -4px; }
+.chip--saved[aria-pressed="true"] { --heart: var(--red); }
+/* phones: one Filters button */
+.inv__ftoggle { display: none; }
+@media (max-width: 759.98px) {
+  .inv__ftoggle { display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 44px; border: 1px solid rgb(48 49 55 / .3);
+    border-radius: 999px; background: #fff; color: var(--graphite); font: 500 14px/1 var(--f-text); letter-spacing: .02em; cursor: pointer; }
+  .inv__ftoggle[aria-expanded="true"] { border-color: var(--graphite); }
+  .inv__fcount { font-variant-numeric: tabular-nums; }
+  .inv__filters { display: none; }
+  .inv__filters.is-open { display: flex; }
+  .inv__bar-in { gap: 12px; }
+}
+@media (max-width: 759.98px) { .inv__bar:has(.inv__filters.is-open) { position: relative; top: auto; } }   /* an open filter panel never sticks over half the screen */
