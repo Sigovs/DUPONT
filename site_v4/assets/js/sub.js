@@ -344,7 +344,8 @@
     $('[data-vdp-quick]').innerHTML = quick.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('') +
       (c.vin ? '<div class="vdp__q-vin"><dt>VIN</dt><dd class="t-num vdp__vin">' + esc(c.vin) + '</dd></div>' : '') +   // VIN lives in the panel (Alex, 2026-10-22)
       (c.stock ? '<div><dt>Stock #</dt><dd class="t-num vdp__vin">' + esc(c.stock) + '</dd></div>' : '');   // Stock # always visible next to the VIN (Alex, 2026-10-28)
-    $('[data-vdp-call]').textContent = 'Call ' + R.phone;
+    $('[data-vdp-call]').innerHTML = '<svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M6.6 2.5H4.2A1.7 1.7 0 0 0 2.5 4.3c.3 7.1 6.1 12.9 13.2 13.2a1.7 1.7 0 0 0 1.8-1.7v-2.4l-3.4-1.4-1.6 1.6a10.7 10.7 0 0 1-4.9-4.9l1.6-1.6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><span class="t-num">' + esc(R.phone) + '</span>';
+    $('[data-vdp-call]').setAttribute('aria-label', 'Call ' + R.phone);
     /* CARFAX (Alex, 2026-10-22): no report in the source listing and no dealer partner code yet — the button opens a
        note; in production it becomes the dealer's CARFAX link for this VIN. Nothing about the car's history is shown. */
     var cfb = $('[data-vdp-carfax]'), cfn = $('[data-vdp-carfax-note]');

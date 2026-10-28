@@ -156,14 +156,14 @@ VDP = '''
           <button class="btn btn--red sub__btn" type="button" data-vdp-avail aria-haspopup="dialog">Inquire ''' + ARR + '''</button>
           <a class="btn sub__btn sub__btn--line" href="#vdp-contact" data-vdp-call></a>
         </div>
-        <dl class="vdp__quick" data-vdp-quick></dl>
         <ul class="vdp__tools">
-          <li><button type="button" data-inq-intent="viewing"><svg class="vdp__ti" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><rect x="2.5" y="4" width="15" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2.5 8h15M6.5 2v4M13.5 2v4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span>Schedule a viewing</span></button></li>
+          <li><button type="button" data-inq-intent="viewing"><svg class="vdp__ti" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><rect x="2.5" y="4" width="15" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2.5 8h15M6.5 2v4M13.5 2v4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span>Book a viewing</span></button></li>
           <li><button type="button" data-inq-intent="trade"><svg class="vdp__ti" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M3 7h12l-3-3M17 13H5l3 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Value my trade</span></button></li>
-          <li data-vdp-paycell><a href="#vdp-finance"><svg class="vdp__ti" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><rect x="4" y="2.5" width="12" height="15" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M7 6.5h6M7 10.5h.01M10 10.5h.01M13 10.5h.01M7 13.8h.01M10 13.8h.01M13 13.8h.01" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Estimate a payment</span></a></li>
+          <li data-vdp-paycell><a href="#vdp-finance"><svg class="vdp__ti" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><rect x="4" y="2.5" width="12" height="15" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M7 6.5h6M7 10.5h.01M10 10.5h.01M13 10.5h.01M7 13.8h.01M10 13.8h.01M13 13.8h.01" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Estimate payment</span></a></li>
           <li><button class="vdp__carfax" type="button" data-vdp-carfax aria-expanded="false" aria-controls="vdp-carfax-note"><img class="vdp__carfax-logo" src="assets/img/brand/carfax.svg" width="127" height="30" alt="CARFAX"><span>Report</span></button></li>
         </ul>
         <p class="vdp__carfax-note" id="vdp-carfax-note" data-vdp-carfax-note hidden></p>
+        <dl class="vdp__quick" data-vdp-quick></dl>
       </aside>
     </div>
     <section class="vdp__video" id="vdp-video" aria-labelledby="vdp-video-h" data-vdp-video hidden>

@@ -839,3 +839,41 @@ html.inq-open { overflow: hidden; }
 @media (max-width: 1279.98px) { .vdp__video { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 759.98px) { .vdp__video-btn { width: 68px; height: 68px; margin: -34px 0 0 -34px; } .vdp__video-cap { left: 12px; bottom: 12px; font-size: 13px; } }
 @media (prefers-reduced-motion: reduce) { .vdp__video-btn { transition: none; } }
+
+/* panel actions as one group (Alex, 2026-10-28: "make these like CTAs and organise them"):
+   Inquire + Call, then four smaller outlined pills 2×2 (viewing, trade, payment, CARFAX); facts follow below */
+.vdp__tools { display: grid; grid-template-columns: 1fr 1fr !important; gap: 8px; margin: 10px 0 0 !important; padding: 0; border: 0 !important; }
+.vdp__tools li, .vdp__tools li:nth-child(n) { border: 0 !important; }
+.vdp__tools button, .vdp__tools a, .vdp__tools li:nth-child(even) button, .vdp__tools li:nth-child(even) a {
+  justify-content: center; gap: 9px; min-height: 44px; padding: 0 12px !important; border: 1px solid rgb(255 255 255 / .28); border-radius: 999px;
+  font: 500 13px/1.1 var(--f-text); letter-spacing: .02em; white-space: nowrap;
+  transition: background-color 280ms cubic-bezier(.25, 1, .5, 1), border-color 280ms cubic-bezier(.25, 1, .5, 1), color 280ms cubic-bezier(.25, 1, .5, 1); }
+.vdp__tools button:hover, .vdp__tools a:hover, .vdp__tools button:focus-visible, .vdp__tools a:focus-visible { background: rgb(255 255 255 / .08); border-color: rgb(255 255 255 / .6); box-shadow: none; }
+.vdp__tools button:focus-visible, .vdp__tools a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.vdp__ti { width: 16px; height: 16px; color: #fff; opacity: .8; }
+.vdp__tools .vdp__carfax { justify-content: center; }
+.vdp__tools .vdp__carfax-logo { height: 18px; }
+.vdp__carfax-note { margin: 12px 0 0 !important; }
+.vdp__quick { margin-top: 26px; }
+.vdp__panel { padding-bottom: 30px; }
+@container (max-width: 420px) {
+  .vdp__tools { grid-template-columns: 1fr 1fr !important; }
+  .vdp__tools button, .vdp__tools a { min-height: 42px; font-size: 13px; }
+}
+@container (max-width: 300px) { .vdp__tools { grid-template-columns: 1fr !important; } }
+@media (max-width: 519.98px) { .vdp__tools { grid-template-columns: 1fr 1fr !important; } .vdp__tools button, .vdp__tools a { min-height: 44px !important; } }
+
+/* the two main actions are exactly equal; Call = phone icon + number (Alex, 2026-10-28) */
+.vdp__cta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.vdp__cta .btn { gap: 9px; min-width: 0; white-space: nowrap; }
+.vdp__cta .btn span { overflow: hidden; text-overflow: clip; }
+@media (max-width: 380px) {
+  .vdp__tools { gap: 6px; }
+  .vdp__tools button, .vdp__tools a, .vdp__tools li:nth-child(even) button, .vdp__tools li:nth-child(even) a { padding: 0 8px !important; gap: 6px; font-size: 12px; }
+  .vdp__ti { width: 14px; height: 14px; }
+  .vdp__tools .vdp__carfax-logo { height: 15px; }
+}
+/* the showroom block keeps its own CTA row (the panel rules above are for the price panel only) */
+.vdp__room-b .vdp__cta { display: flex; flex-wrap: wrap; grid-template-columns: none; margin-top: 28px; }
+.vdp__room-b .vdp__cta .btn { flex: 0 0 auto; width: auto; justify-content: center; white-space: nowrap; padding: 0 22px; }
+@media (max-width: 759.98px) { .vdp__room-b .vdp__cta .btn { flex: 1 1 100%; } }
