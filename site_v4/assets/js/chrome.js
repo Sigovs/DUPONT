@@ -15,7 +15,7 @@
     var W = window.V4 || {}; if (!W.HOME_ONLY) return;
     var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
     var url = new URL(a.getAttribute('href'), location.href);
-    var samePage = url.origin === location.origin && url.pathname === location.pathname;
+    var samePage = url.origin === location.origin && url.pathname === location.pathname && url.search === location.search;   // car.html?id=A → ?id=B is another page
     if (samePage && url.hash) {                                         // in-page anchors scroll as before …
       var id = decodeURIComponent(url.hash.slice(1));
       if (id === 'top' || document.getElementById(id) || (W.targets && W.targets[id])) return;
