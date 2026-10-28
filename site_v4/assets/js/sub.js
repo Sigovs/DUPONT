@@ -342,7 +342,8 @@
       .filter(function (r) { return r[1]; }).slice(0, 5);
     var inPanel = {}; quick.forEach(function (r) { inPanel[r[0]] = 1; });   // each fact appears once on the page (Alex, 2026-10-22)
     $('[data-vdp-quick]').innerHTML = quick.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('') +
-      (c.vin ? '<div class="vdp__q-vin"><dt>VIN</dt><dd class="t-num vdp__vin">' + esc(c.vin) + '</dd></div>' : '');   // VIN lives in the panel (Alex, 2026-10-22)
+      (c.vin ? '<div class="vdp__q-vin"><dt>VIN</dt><dd class="t-num vdp__vin">' + esc(c.vin) + '</dd></div>' : '') +   // VIN lives in the panel (Alex, 2026-10-22)
+      (c.stock ? '<div><dt>Stock #</dt><dd class="t-num vdp__vin">' + esc(c.stock) + '</dd></div>' : '');   // Stock # always visible next to the VIN (Alex, 2026-10-28)
     $('[data-vdp-call]').textContent = 'Call ' + R.phone;
     /* CARFAX (Alex, 2026-10-22): no report in the source listing and no dealer partner code yet — the button opens a
        note; in production it becomes the dealer's CARFAX link for this VIN. Nothing about the car's history is shown. */
@@ -407,7 +408,6 @@
       ['Transmission', c.trans], ['Drivetrain', driveFig ? null : c.drive]]
       .filter(function (r) { return r[1] && !inPanel[r[0]]; });
     var meta = rest.map(function (r) { return '<li><span>' + r[0] + '</span> ' + esc(r[1]) + '</li>'; });
-    if (c.stock) meta.push('<li><span>Stock</span> <b class="t-num vdp__code">' + esc(c.stock) + '</b></li>');
     if (!c.engine) meta.push('<li class="vdp__meta-note">Engine and performance figures from the showroom on request.</li>');
     $('[data-vdp-spec]').innerHTML = meta.length ? '<ul class="vdp__meta">' + meta.join('') + '</ul>' : '';
 

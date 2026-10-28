@@ -782,3 +782,13 @@ html.inq-open { overflow: hidden; }
 /* Buying from Select sits under the calculator (Alex, 2026-10-28) */
 .vdp__buy + .vdp__fin { margin-top: clamp(80px, 7vw, 130px); }
 .vdp__fin + .vdp__buy { margin-top: 24px; }
+/* tools follow the panel's own width: one list when the panel is narrow (1440 and below) */
+.vdp__panel { container-type: inline-size; }
+@container (max-width: 420px) {
+  .vdp__tools { grid-template-columns: 1fr; }
+  .vdp__tools li:nth-child(odd) { border-right: 0; }
+  .vdp__tools li { border-bottom: 1px solid rgb(255 255 255 / .1); }
+  .vdp__tools li:last-child { border-bottom: 0; }
+  .vdp__tools li:nth-child(even) button, .vdp__tools li:nth-child(even) a { padding-left: 34px; }
+  .vdp__tools button, .vdp__tools a { min-height: 54px; }
+}
