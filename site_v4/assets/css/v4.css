@@ -635,7 +635,7 @@ html.motion .rcard--all .rcard__ph { aspect-ratio: 100 / 36; container-type: inl
 html.motion .rcard__allin { position: absolute; left: 0; right: 0; top: 0; bottom: 14%; justify-content: center; gap: 3cqw; padding: 0 7cqw; }
 html.motion .rcard__all-h { font-size: 4.8cqw; }
 html.motion .rcard__allin .btn { margin-top: 1cqw; }
-@media (hover: hover) and (pointer: fine) {
+@media (any-hover: hover) {
   .rcard__allin { transition: border-color var(--dur-1) var(--ease-out); }
   .rcard__allin:hover { border-color: var(--graphite); }
   .rcard__allin:hover .btn .arr { transform: translateX(3px); }
@@ -684,7 +684,7 @@ html.motion .rcard__allin .btn { margin-top: 1cqw; }
 .lnk .arr, .btn .arr { transition: transform var(--dur-1) var(--ease-out); }
 /* rail: the photograph is the card — the link underline is the only hover state */
 .rcard { position: relative; }
-@media (hover: hover) and (pointer: fine) {
+@media (any-hover: hover) {
   .ig__tile a { position: relative; }
   .ig__tile a::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: 0 50%; transition: transform var(--dur-2) var(--ease-out); }
   .ig__tile a:hover::after { transform: scaleX(1); }
@@ -1341,7 +1341,7 @@ html.motion .igs__head .m { overflow-x: clip; }
 .rcard__allin .btn, .rcard__allin .btn.btn--red { background: transparent; border: 1px solid #fff; color: #fff; }
 .rcard__allin:hover .btn, .rcard__allin:focus-visible .btn,
 .rcard__allin:hover .btn.btn--red, .rcard__allin:focus-visible .btn.btn--red { background: #fff; border-color: #fff; color: var(--night); }
-@media (hover: hover) and (pointer: fine) { .rcard__allin:hover { border-color: var(--night); } }
+@media (any-hover: hover) { .rcard__allin:hover { border-color: var(--night); } }
 
 /* =========================================================================
    V4 (client notes, 2026-10-21): the three-locations section is merged into the showrooms block at the foot — each

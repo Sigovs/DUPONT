@@ -170,7 +170,7 @@ html.motion .m { overflow-y: clip; }
 .rcard--all { background: var(--night); }
 .rcard--all .rcard__ph { flex: 1 1 auto; aspect-ratio: auto; }
 .rcard--all .rcard__body { display: none; }
-@media (hover: hover) and (pointer: fine) {
+@media (min-width: 0px) {
   .rcard:not(.rcard--all):hover { background: #3a3b42; top: -4px; }   /* top, not translate: GSAP owns transform + clears translate */
   .rail .rcard--all:hover { top: -4px; }
 }
@@ -211,3 +211,18 @@ html.motion .m { overflow-y: clip; }
   .rcard--all .rcard__ph { min-height: 0; }
   .rail .rcard__title { font-size: 24px; }
 }
+
+/* Available now · card hover (Alex, 2026-10-28) — same as the SRP tile: the listing's next photograph wipes in with a
+   hard edge from the left (no zoom, no fade), the button turns red, the whole card is the link. */
+.rcard__ph { position: relative; }
+.rcard__alt { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; pointer-events: none;
+  user-select: none; -webkit-user-drag: none; clip-path: inset(0 100% 0 0); transition: clip-path .6s cubic-bezier(.65, 0, .35, 1); }
+.rail .rcard__go.lnk { position: static; }
+.rail .rcard__go.lnk::before { content: ""; position: absolute; inset: 0; z-index: 1; }
+.rcard:focus-within .rcard__alt { clip-path: inset(0 0 0 0); }
+.rcard:focus-within .rcard__go.lnk { background: var(--red); }
+/* not gated by a hover media query: Chrome reports "no hover" on touch-screen laptops; on phones a tap opens the car anyway */
+.rcard:not(.rcard--all):hover .rcard__alt { clip-path: inset(0 0 0 0); }
+.rcard:not(.rcard--all):hover .rcard__go.lnk { background: var(--red); }
+.rcard:not(.rcard--all):hover .rcard__go .arr { transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) { .rcard__alt { transition: none; } }
