@@ -562,11 +562,23 @@
       if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(function () { say('Link copied'); }, function () { say(location.href); });
       else say(location.href);
     });
-    $('[data-vdp-text]').addEventListener('click', function () {
-      var body = 'Hi, I\'m interested in the ' + c.title + (c.stock ? ' (stock ' + c.stock + ')' : '') + ': ' + location.href;
-      if (matchMedia('(pointer: coarse)').matches) location.href = 'sms:' + R.phone.replace(/[^\d+]/g, '') + '?&body=' + encodeURIComponent(body);
-      else say('Text ' + R.name + ': ' + R.phone);
+    /* Send to phone (Alex, 2026-10-28: "Text" meant sending the car to your own phone, as on the Select site).
+       Desktop: a small card asks for a mobile number (prototype — nothing is sent). On a phone you already hold it: copy the link. */
+    var tB = $('[data-vdp-text]'), s2p = $('[data-s2p]'), s2f = $('[data-s2p-form]'), s2d = $('[data-s2p-done]');
+    var onPhone = matchMedia('(pointer: coarse)').matches && innerWidth < 760;
+    if (onPhone) $('[data-vdp-text-l]').textContent = 'Copy link';
+    function s2pOpen(o) { s2p.hidden = !o; tB.setAttribute('aria-expanded', o ? 'true' : 'false'); if (o) { s2f.hidden = false; s2d.hidden = true; setTimeout(function () { s2f.elements.tel.focus(); }, 30); } }
+    tB.addEventListener('click', function () {
+      if (onPhone) { if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(function () { say('Link copied'); }, function () { say(location.href); }); else say(location.href); return; }
+      s2pOpen(s2p.hidden);
     });
+    s2f.addEventListener('submit', function (e) {
+      e.preventDefault(); var t = s2f.elements.tel, ok = t.value.replace(/\D/g, '').length >= 10;
+      t.setAttribute('aria-invalid', ok ? 'false' : 'true'); if (!ok) { t.focus(); return; }
+      s2f.hidden = true; s2d.textContent = 'A link to the ' + c.title + ' would go to ' + t.value.trim() + '. Prototype — nothing was sent.'; s2d.hidden = false; s2d.focus();
+    });
+    document.addEventListener('click', function (e) { if (!s2p.hidden && !e.target.closest('[data-s2p], [data-vdp-text]')) s2pOpen(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !s2p.hidden) { s2pOpen(false); tB.focus(); } });
 
     /* finance estimate (Alex, 2026-10-28): the visitor's own figures; no rate is assumed — nothing shows until they enter one */
     var calc = $('[data-vdp-calc]'), cn = $('[data-calc-n]'), cf = $('[data-calc-f]');

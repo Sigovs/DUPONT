@@ -737,3 +737,18 @@ html.inq-open { overflow: hidden; }
   .vdp__tools li:nth-child(even) button, .vdp__tools li:nth-child(even) a { padding-left: 22px; }
   .vdp__tools button, .vdp__tools a { min-height: 54px; font-size: 14px; }
 }
+
+/* Send to phone — a small white card under the pill (Alex, 2026-10-28) */
+.vdp__s2p { position: absolute; right: 0; top: calc(100% + 8px); z-index: 30; width: 320px; box-sizing: border-box; padding: 20px; border-radius: 6px; background: #fff;
+  border: 1px solid rgb(48 49 55 / .14); animation: inv-menu-in 240ms cubic-bezier(.25, 1, .5, 1); }
+.vdp__s2p[hidden] { display: none; }
+.vdp__s2p form { display: grid; gap: 12px; }
+.vdp__s2p form[hidden] { display: none; }
+.vdp__s2p .inq__f input { width: 100%; box-sizing: border-box; height: 46px; padding: 0 14px; border: 1px solid rgb(48 49 55 / .3); border-radius: 6px; background: #fff; font: 400 16px/1 var(--f-text); color: var(--graphite); }
+.vdp__s2p .inq__f input:focus-visible { outline: 2px solid var(--red); outline-offset: 1px; border-color: transparent; }
+.vdp__s2p .inq__f [aria-invalid="true"] { border-color: var(--red); }
+.vdp__s2p .btn { width: 100%; justify-content: center; }
+.vdp__s2p-ph { margin: 0; font: 400 13px/1.4 var(--f-text); color: var(--pewter); }
+.vdp__s2p-done { margin: 0; font: 400 15px/1.5 var(--f-text); color: var(--graphite); outline: none; }
+@media (max-width: 600px) { .vdp__s2p { left: 0; right: auto; width: min(320px, calc(100vw - 48px)); } }
+@media (prefers-reduced-motion: reduce) { .vdp__s2p { animation: none; } }
