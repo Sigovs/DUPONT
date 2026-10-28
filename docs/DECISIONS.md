@@ -3,6 +3,7 @@
 Chronological. Each line: what, Alex's verdict, why. Source of truth for "what did we already try".
 
 ## Approved / binding
+- **2026-10-28: client approved V4** — https://sigovs.github.io/DUPONT/site_v4/ (5fff6bf, tag client-approved-2026-10-28).
 - Three locations: West Coast (SoCal–Murrieta), Naples, Miami. West Coast Exotics *website* is not a design reference
   (later allowed for COLOUR only).
 - Photography: dupontregistry.com listing photos are the client-authorised source (private prototype only).

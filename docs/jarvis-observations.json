@@ -158,5 +158,10 @@
   "source": "decision",
   "status": "open",
   "content": "V4 SRP 2026-10-22: visible 'Sort by' inside the sort pill; selected filters (showroom, make, model, keyword) shown as small outlined pills with a remove ×, plus 'Clear filters'. Live: https://sigovs.github.io/DUPONT/site_v4/inventory.html"
+ },
+ {
+  "source": "client_feedback",
+  "status": "open",
+  "content": "2026-10-28: the client APPROVED V4 — https://sigovs.github.io/DUPONT/site_v4/ (home + SRP + VDP, commit 5fff6bf, tag client-approved-2026-10-28). It is the new baseline: no silent changes; further work only on Alex's request."
  }
 ]
