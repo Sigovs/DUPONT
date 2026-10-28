@@ -63,21 +63,37 @@ SRP = '''
     </header>
     <div class="inv__bar" data-inv-bar>
       <div class="inv__bar-in">
-        <div class="inv__rooms" role="group" aria-label="Showroom" data-inv-rooms></div>
         <button class="inv__ftoggle" type="button" data-inv-ftoggle aria-expanded="false" aria-controls="inv-filters"><svg viewBox="0 0 20 14" width="18" height="13" aria-hidden="true" focusable="false"><path d="M1 3h18M1 11h18" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="6" cy="3" r="2.2" fill="var(--ivory)" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="11" r="2.2" fill="var(--ivory)" stroke="currentColor" stroke-width="1.5"/></svg>Filters<span class="inv__fcount" data-inv-fcount></span></button>
         <div class="inv__filters" id="inv-filters">
+          <label class="inv__f"><span class="vh">Year</span><select data-inv-year><option value="">Any year</option></select></label>
           <label class="inv__f"><span class="vh">Make</span><select data-inv-make><option value="">All makes</option></select></label>
           <label class="inv__f"><span class="vh">Model</span><select data-inv-model disabled><option value="">All models</option></select></label>
-          <label class="inv__f inv__f--sort"><span class="inv__f-l" aria-hidden="true">Sort by</span><span class="vh">Sort by</span><select data-inv-sort>
-            <option value="featured">Featured</option>
-            <option value="price-desc">Price: high to low</option>
-            <option value="price-asc">Price: low to high</option>
-            <option value="miles-asc">Mileage: lowest first</option>
-            <option value="year-desc">Year: newest first</option>
-          </select></label>
+          <div class="inv__price" data-inv-price>
+            <button class="inv__pbtn" type="button" data-inv-pbtn aria-expanded="false" aria-controls="inv-pop"><span class="inv__f-l2">Price</span><span class="inv__pval" data-inv-pval>Any</span><svg class="inv__chev" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+            <div class="inv__pop" id="inv-pop" data-inv-pop hidden role="group" aria-label="Price range">
+              <div class="inv__pvals"><span data-pmin-l>No min</span><span data-pmax-l>No max</span></div>
+              <div class="inv__range"><span class="inv__track"><span class="inv__fill" data-pfill></span></span>
+                <input type="range" min="0" max="16" step="1" value="0" data-pmin aria-label="Minimum price">
+                <input type="range" min="0" max="16" step="1" value="16" data-pmax aria-label="Maximum price"></div>
+              <button class="inv__preset" type="button" data-inv-preset>Any price</button>
+            </div>
+          </div>
+          <button class="inv__more" type="button" data-inv-more aria-expanded="false" aria-controls="inv-adv"><svg viewBox="0 0 20 14" width="18" height="13" aria-hidden="true" focusable="false"><path d="M1 3h18M1 11h18" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="6" cy="3" r="2.2" fill="var(--ivory)" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="11" r="2.2" fill="var(--ivory)" stroke="currentColor" stroke-width="1.5"/></svg>More filters<span data-inv-mcount></span></button>
           <label class="inv__f inv__f--q"><span class="vh">Keyword</span><input type="search" placeholder="Make, model or keyword" data-inv-q autocomplete="off"></label>
         </div>
       </div>
+      <div class="inv__adv" id="inv-adv" data-inv-adv hidden></div>
+    </div>
+    <div class="inv__sub">
+      <div class="inv__rooms" role="group" aria-label="Showroom" data-inv-rooms></div>
+      <label class="inv__f inv__f--sort"><span class="inv__f-l" aria-hidden="true">Sort by</span><span class="vh">Sort by</span><select data-inv-sort>
+        <option value="featured">Featured</option>
+        <option value="price-desc">Price: high to low</option>
+        <option value="price-asc">Price: low to high</option>
+        <option value="miles-asc">Mileage: lowest first</option>
+        <option value="year-desc">Year: newest first</option>
+        <option value="year-asc">Year: oldest first</option>
+      </select></label>
     </div>
     <div class="inv__meta"><p class="inv__count" aria-live="polite" data-inv-count></p><ul class="inv__tags" data-inv-tags aria-label="Active filters"></ul><button class="inv__clear" type="button" data-inv-clear hidden>Clear filters</button></div>
     <ul class="inv__grid" data-inv-grid></ul>

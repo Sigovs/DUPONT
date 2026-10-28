@@ -60,33 +60,104 @@
   });
 
   /* ============================================================ SRP */
+  /* Alex 2026-10-28: main row = Year · Make · Model · Price (two-thumb slider) · More filters · keyword;
+     More filters (hidden until asked) = mileage, body, transmission, drivetrain, colour — values only from the cars;
+     showrooms on the left and Sort by on the right, on their own row above the results. State lives in the URL. */
   var srp = $('[data-srp]');
   if (srp) (function () {
-    var grid = $('[data-inv-grid]'), rooms = $('[data-inv-rooms]'), mk = $('[data-inv-make]'), md = $('[data-inv-model]');
-    var so = $('[data-inv-sort]'), q = $('[data-inv-q]'), count = $('[data-inv-count]'), empty = $('[data-inv-empty]');
+    var grid = $('[data-inv-grid]'), rooms = $('[data-inv-rooms]'), mk = $('[data-inv-make]'), md = $('[data-inv-model]'), yr = $('[data-inv-year]');
+    var so = $('[data-inv-sort]'), q = $('[data-inv-q]'), count = $('[data-inv-count]'), empty = $('[data-inv-empty]'), tags = $('[data-inv-tags]');
     var P = new URLSearchParams(location.search);
-    var st = { room: P.get('showroom') || '', make: P.get('make') || '', model: P.get('model') || '', sort: P.get('sort') || 'featured', q: P.get('q') || '', saved: P.get('saved') === '1' };
+    // price steps — non-linear, so the slider is useful from $150k to $3M
+    var STEPS = [0, 100000, 150000, 200000, 250000, 300000, 400000, 500000, 600000, 750000, 1000000, 1250000, 1500000, 2000000, 2500000, 3000000, Infinity];
+    var LAST = STEPS.length - 1;
+    function kM(v) { return v >= 1e6 ? '$' + (v / 1e6).toFixed(v % 1e6 ? 2 : 0).replace(/0$/, '').replace(/\.$/, '') + 'M' : '$' + Math.round(v / 1000) + 'k'; }
+    function plabel(lo, hi) { return lo === 0 && hi === LAST ? 'Any' : lo === 0 ? 'Up to ' + kM(STEPS[hi]) : hi === LAST ? kM(STEPS[lo]) + '+' : kM(STEPS[lo]) + ' – ' + kM(STEPS[hi]); }
+    var MILES = [['', 'Any'], ['5000', 'Under 5,000'], ['10000', 'Under 10,000'], ['25000', 'Under 25,000']];
+    var COLOURS = [['Black', /\b(black|nero)\b/], ['White', /\b(white|bianco)\b/], ['Silver', /\b(silver|grey|gray|argento)\b/], ['Red', /\b(red|rosso)\b/],
+      ['Blue', /\b(blue|blu)\b/], ['Yellow', /\byellow\b/], ['Orange', /\borange\b/], ['Green', /\b(green|verde)\b/]];
+    function colour(c) {   // the colour family named first in the listing's exterior line ("Nero DS, Blu Nart stripe" → Black)
+      var e = (c.ext || '').toLowerCase(), best = null, at = 1e9;
+      COLOURS.forEach(function (k) { var m = k[1].exec(e); if (m && m.index < at) { at = m.index; best = k[0]; } });
+      return best;
+    }
+    function trans(c) { return c.trans ? (/manual/i.test(c.trans) ? 'Manual' : 'Automatic') : null; }
+    var FACETS = {   // key → [label, value of a car]
+      body: ['Body style', function (c) { return c.body; }],
+      trans: ['Transmission', trans],
+      drive: ['Drivetrain', function (c) { return c.drive; }],
+      color: ['Exterior colour', colour]
+    };
+    var list0 = function (k) { return (P.get(k) || '').split(',').filter(Boolean); };
+    function fresh() { return { room: '', make: '', model: '', year: '', lo: 0, hi: LAST, mi: '', body: [], trans: [], drive: [], color: [], sort: 'featured', q: '', saved: false }; }
+    var st = fresh();
+    st.room = P.get('showroom') || ''; st.make = P.get('make') || ''; st.model = P.get('model') || ''; st.year = P.get('year') || '';
+    st.lo = Math.max(0, STEPS.indexOf(+P.get('pmin'))); var ph = STEPS.indexOf(+P.get('pmax')); st.hi = ph > 0 ? ph : LAST;
+    st.mi = P.get('mi') || ''; st.body = list0('body'); st.trans = list0('trans'); st.drive = list0('drive'); st.color = list0('color');
+    st.sort = P.get('sort') || 'featured'; st.q = P.get('q') || ''; st.saved = P.get('saved') === '1';
 
+    // showrooms + saved
     rooms.innerHTML = '<button type="button" class="chip" data-room="">All <span>' + CARS.length + '</span></button>' + ORDER.map(function (k) {
       var n = CARS.filter(function (c) { return c.loc === k; }).length;
       return '<button type="button" class="chip" data-room="' + k + '"' + (n ? '' : ' disabled') + '>' + ROOMS[k].name + ' <span>' + n + '</span></button>';
     }).join('') + '<button type="button" class="chip chip--saved" data-saved aria-pressed="false">' + HEART + 'Saved <span data-saved-n>0</span></button>';
-    var makes = CARS.map(function (c) { return c.make; }).filter(function (m, i, a) { return a.indexOf(m) === i; }).sort();
+    // selects
+    var uniq = function (a) { return a.filter(function (m, i) { return m != null && a.indexOf(m) === i; }); };
+    var makes = uniq(CARS.map(function (c) { return c.make; })).sort();
     mk.insertAdjacentHTML('beforeend', makes.map(function (m) { return '<option>' + esc(m) + '</option>'; }).join(''));
-
+    var years = uniq(CARS.map(function (c) { return String(c.year); })).sort().reverse();
+    yr.insertAdjacentHTML('beforeend', years.map(function (y) { return '<option>' + y + '</option>'; }).join(''));
     function models() {
-      var list = CARS.filter(function (c) { return c.make === st.make; }).map(function (c) { return c.model; })
-        .filter(function (m, i, a) { return a.indexOf(m) === i; }).sort();
-      md.innerHTML = '<option value="">' + (st.make ? 'All models' : 'Choose a make first') + '</option>' + list.map(function (m) { return '<option>' + esc(m) + '</option>'; }).join('');
+      var l = uniq(CARS.filter(function (c) { return c.make === st.make; }).map(function (c) { return c.model; })).sort();
+      md.innerHTML = '<option value="">' + (st.make ? 'All models' : 'Choose a make first') + '</option>' + l.map(function (m) { return '<option>' + esc(m) + '</option>'; }).join('');
       md.disabled = !st.make; md.value = st.model;
     }
+    // More filters panel: chips built from the values the cars actually have
+    var adv = $('[data-inv-adv]');
+    adv.innerHTML = '<div class="inv__grp"><p class="inv__grp-h">Mileage</p><div class="inv__grp-c">' + MILES.map(function (m) {
+        return '<button type="button" class="chip chip--s" data-mi="' + m[0] + '">' + m[1] + '</button>'; }).join('') + '</div></div>' +
+      Object.keys(FACETS).map(function (k) {
+        var vals = uniq(CARS.map(FACETS[k][1]));
+        if (k === 'color') vals = COLOURS.map(function (c) { return c[0]; }).filter(function (c) { return vals.indexOf(c) > -1; }); else vals.sort();
+        return '<div class="inv__grp inv__grp--' + k + '"><p class="inv__grp-h">' + FACETS[k][0] + '</p><div class="inv__grp-c">' + vals.map(function (v) {
+          return '<button type="button" class="chip chip--s" data-facet="' + k + '" data-v="' + esc(v) + '" aria-pressed="false">' + esc(v) + '</button>'; }).join('') + '</div></div>';
+      }).join('');
+    // price slider
+    var pmin = $('[data-pmin]'), pmax = $('[data-pmax]'), pval = $('[data-inv-pval]'), pbtn = $('[data-inv-pbtn]'), pop = $('[data-inv-pop]');
+    pmin.max = pmax.max = LAST;
+    function paintPrice() {
+      pmin.value = st.lo; pmax.value = st.hi;
+      $('[data-pfill]').style.cssText = 'left:' + (st.lo / LAST * 100) + '%;right:' + (100 - st.hi / LAST * 100) + '%';
+      $('[data-pmin-l]').textContent = st.lo ? kM(STEPS[st.lo]) : 'No min';
+      $('[data-pmax-l]').textContent = st.hi === LAST ? 'No max' : kM(STEPS[st.hi]);
+      pval.textContent = plabel(st.lo, st.hi);
+      pmin.setAttribute('aria-valuetext', $('[data-pmin-l]').textContent); pmax.setAttribute('aria-valuetext', $('[data-pmax-l]').textContent);
+    }
+    var pt;
+    function onRange(e) {
+      var a = +pmin.value, b = +pmax.value;
+      if (a >= b) { if (e.target === pmin) a = b - 1; else b = a + 1; }
+      st.lo = Math.max(0, a); st.hi = Math.min(LAST, b); paintPrice();
+      clearTimeout(pt); pt = setTimeout(function () { render(true); }, 120);
+    }
+    pmin.addEventListener('input', onRange); pmax.addEventListener('input', onRange);
+    function popOpen(o) { pop.hidden = !o; pbtn.setAttribute('aria-expanded', o ? 'true' : 'false'); }
+    pbtn.addEventListener('click', function () { popOpen(pop.hidden); });
+    $('[data-inv-preset]').addEventListener('click', function () { st.lo = 0; st.hi = LAST; paintPrice(); render(true); });
+    document.addEventListener('click', function (e) { if (!pop.hidden && !e.target.closest('[data-inv-price]')) popOpen(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) { popOpen(false); pbtn.focus(); } });
+
     function results() {
-      var s = st.q.trim().toLowerCase();
-      var list = CARS.filter(function (c) {
+      var s = st.q.trim().toLowerCase(), lo = STEPS[st.lo], hi = STEPS[st.hi], priced = st.lo > 0 || st.hi < LAST;
+      var l = CARS.filter(function (c) {
         if (st.saved && !isSaved(c.id)) return false;
         if (st.room && c.loc !== st.room) return false;
         if (st.make && c.make !== st.make) return false;
         if (st.model && c.model !== st.model) return false;
+        if (st.year && String(c.year) !== st.year) return false;
+        if (priced && (c.price == null || c.price < lo || c.price > hi)) return false;
+        if (st.mi && !(c.miles != null && c.miles < +st.mi)) return false;
+        for (var k in FACETS) if (st[k].length && st[k].indexOf(FACETS[k][1](c)) < 0) return false;
         if (s && (c.title + ' ' + (c.ext || '') + ' ' + (c.body || '') + ' ' + ROOMS[c.loc].name).toLowerCase().indexOf(s) < 0) return false;
         return true;
       });
@@ -94,10 +165,12 @@
         'price-desc': function (a, b) { return (b.price || 0) - (a.price || 0); },
         'price-asc': function (a, b) { return (a.price || Infinity) - (b.price || Infinity); },
         'miles-asc': function (a, b) { return a.miles - b.miles; },
-        'year-desc': function (a, b) { return b.year - a.year; }
+        'year-desc': function (a, b) { return b.year - a.year; },
+        'year-asc': function (a, b) { return a.year - b.year; }
       }[st.sort];
-      return by ? list.slice().sort(by) : list;
+      return by ? l.slice().sort(by) : l;
     }
+    var X = '<svg viewBox="0 0 10 10" width="10" height="10" aria-hidden="true" focusable="false"><path d="M1 1l8 8M9 1L1 9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
     function render(push) {
       var list = results();
       // the last row closes on a showroom tile that fills it (never a lone car with empty air beside it)
@@ -106,38 +179,46 @@
         '<a class="tile__a" href="index.html#showrooms"><span class="tile__body"><span class="tile__room">Not seeing it?</span>' +
         '<span class="tile__title disp">Ask a showroom</span><span class="tile__spec">Three showrooms — Southern California, Naples and Miami.</span>' +
         '<span class="tile__go">Contact a showroom ' + ARR + '</span></span></a></li>' : '');
-      var dirty = !!(st.room || st.make || st.model || st.q || st.saved || st.sort !== 'featured');
-      count.textContent = list.length + (list.length === 1 ? ' car' : ' cars');   // the showroom shows as a pill beside it
-      $$('[data-inv-clear]').forEach(function (b) { b.hidden = !dirty && b.closest('.inv__meta') !== null; });
-      $('.inv__meta [data-inv-clear]').hidden = !dirty;
+      count.textContent = list.length + (list.length === 1 ? ' car' : ' cars');
       // active filters as small removable pills (Alex, 2026-10-22)
-      var X = '<svg viewBox="0 0 10 10" width="10" height="10" aria-hidden="true" focusable="false"><path d="M1 1l8 8M9 1L1 9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
-      tags.innerHTML = [['saved', st.saved && 'Saved', 'Saved'], ['room', st.room && ROOMS[st.room].name, 'Showroom'], ['make', st.make, 'Make'], ['model', st.model, 'Model'], ['q', st.q.trim() && '“' + st.q.trim() + '”', 'Keyword']]
-        .filter(function (t) { return t[1]; })
-        .map(function (t) { return '<li><button type="button" class="inv__tag" data-tag="' + t[0] + '" aria-label="Remove ' + t[2] + ': ' + esc(t[1]) + '">' + esc(t[1]) + X + '</button></li>'; }).join('');
-      tags.hidden = !tags.children.length;
+      var T = [['saved', st.saved && 'Saved', 'Saved'], ['room', st.room && ROOMS[st.room].name, 'Showroom'], ['year', st.year, 'Year'], ['make', st.make, 'Make'],
+        ['model', st.model, 'Model'], ['price', (st.lo || st.hi < LAST) && plabel(st.lo, st.hi), 'Price'],
+        ['mi', st.mi && MILES.filter(function (m) { return m[0] === st.mi; })[0][1] + ' mi', 'Mileage']];
+      Object.keys(FACETS).forEach(function (k) { st[k].forEach(function (v) { T.push([k + ':' + v, v, FACETS[k][0]]); }); });
+      T.push(['q', st.q.trim() && '“' + st.q.trim() + '”', 'Keyword']);
+      T = T.filter(function (t) { return t[1]; });
+      tags.innerHTML = T.map(function (t) { return '<li><button type="button" class="inv__tag" data-tag="' + esc(t[0]) + '" aria-label="Remove ' + t[2] + ': ' + esc(t[1]) + '">' + esc(t[1]) + X + '</button></li>'; }).join('');
+      tags.hidden = !T.length;
+      var dirty = !!(T.length || st.sort !== 'featured');
+      $('.inv__meta [data-inv-clear]').hidden = !dirty;
       empty.hidden = list.length > 0; grid.hidden = !list.length;
       $$('.chip[data-room]', rooms).forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.room === st.room ? 'true' : 'false'); });
+      $$('[data-mi]', adv).forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.mi === st.mi ? 'true' : 'false'); });
+      $$('[data-facet]', adv).forEach(function (b) { b.setAttribute('aria-pressed', st[b.dataset.facet].indexOf(b.dataset.v) > -1 ? 'true' : 'false'); });
       paintSaved();
-      var nf = [st.make, st.model, st.q.trim(), st.sort !== 'featured'].filter(Boolean).length;   // what the mobile Filters button hides
+      var nAdv = (st.mi ? 1 : 0) + st.body.length + st.trans.length + st.drive.length + st.color.length;
+      $('[data-inv-mcount]').textContent = nAdv ? ' · ' + nAdv : '';
+      var nf = [st.year, st.make, st.model, st.q.trim(), st.lo || st.hi < LAST].filter(Boolean).length + nAdv;   // what the mobile Filters button hides
       $('[data-inv-fcount]').textContent = nf ? ' · ' + nf : '';
       if (push) {
         var u = new URLSearchParams();
-        ['room', 'make', 'model', 'q'].forEach(function (k) { if (st[k]) u.set(k === 'room' ? 'showroom' : k, st[k]); });
+        [['room', 'showroom'], ['make', 'make'], ['model', 'model'], ['year', 'year'], ['mi', 'mi'], ['q', 'q']].forEach(function (k) { if (st[k[0]]) u.set(k[1], st[k[0]]); });
+        if (st.lo) u.set('pmin', STEPS[st.lo]); if (st.hi < LAST) u.set('pmax', STEPS[st.hi]);
+        Object.keys(FACETS).forEach(function (k) { if (st[k].length) u.set(k, st[k].join(',')); });
         if (st.sort !== 'featured') u.set('sort', st.sort);
         if (st.saved) u.set('saved', '1');
         history.replaceState(null, '', location.pathname + (u.toString() ? '?' + u : ''));
       }
       requestAnimationFrame(function () { $$('.tile', grid).forEach(function (t) { t.classList.add('is-in'); }); });
     }
-    var tags = $('[data-inv-tags]');
     tags.addEventListener('click', function (e) {
       var b = e.target.closest('[data-tag]'); if (!b) return;
-      var k = b.dataset.tag; st[k] = k === 'saved' ? false : '';
-      if (k === 'make') { st.model = ''; mk.value = ''; models(); }
-      if (k === 'model') md.value = '';
-      if (k === 'q') q.value = '';
-      render(true);
+      var k = b.dataset.tag, i = k.indexOf(':');
+      if (i > 0) { var f = k.slice(0, i), v = k.slice(i + 1); st[f] = st[f].filter(function (x) { return x !== v; }); }
+      else if (k === 'saved') st.saved = false;
+      else if (k === 'price') { st.lo = 0; st.hi = LAST; paintPrice(); }
+      else { st[k] = ''; if (k === 'make') { st.model = ''; models(); } }
+      syncInputs(); render(true);
       var next = tags.querySelector('.inv__tag'); if (next) next.focus();   // keep the keyboard in the row
     });
     rooms.addEventListener('click', function (e) {
@@ -145,6 +226,14 @@
       if (b.hasAttribute('data-saved')) st.saved = !st.saved; else st.room = b.dataset.room;
       render(true);
     });
+    adv.addEventListener('click', function (e) {
+      var b = e.target.closest('.chip'); if (!b) return;
+      if (b.hasAttribute('data-mi')) st.mi = b.dataset.mi;
+      else { var k = b.dataset.facet, v = b.dataset.v, i = st[k].indexOf(v); if (i > -1) st[k].splice(i, 1); else st[k].push(v); }
+      render(true);
+    });
+    var more = $('[data-inv-more]');
+    more.addEventListener('click', function () { var o = adv.hidden; adv.hidden = !o; more.setAttribute('aria-expanded', o ? 'true' : 'false'); });
     function paintSaved() {
       var n = saved().filter(function (id) { return BY[id]; }).length, sb = $('[data-saved]', rooms);
       $('[data-saved-n]', sb).textContent = n;
@@ -152,23 +241,24 @@
       sb.disabled = !n && !st.saved;
     }
     document.addEventListener('sel:saved', function () { if (st.saved) render(true); else paintSaved(); });
-    // phones: the make / model / sort / keyword group folds behind one Filters button
+    // phones: everything but the showrooms folds behind one Filters button
     var ft = $('[data-inv-ftoggle]'), fg = $('#inv-filters');
     ft.addEventListener('click', function () { var o = !fg.classList.contains('is-open'); fg.classList.toggle('is-open', o); ft.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+    function syncInputs() { mk.value = st.make; yr.value = st.year; so.value = st.sort; q.value = st.q; models(); }
     mk.addEventListener('change', function () { st.make = mk.value; st.model = ''; models(); render(true); });
     md.addEventListener('change', function () { st.model = md.value; render(true); });
+    yr.addEventListener('change', function () { st.year = yr.value; render(true); });
     so.addEventListener('change', function () { st.sort = so.value; render(true); });
     var qt; q.addEventListener('input', function () { clearTimeout(qt); qt = setTimeout(function () { st.q = q.value; render(true); }, 160); });
-    $$('[data-inv-clear]').forEach(function (b) { b.addEventListener('click', function () {
-      st = { room: '', make: '', model: '', sort: 'featured', q: '', saved: false }; mk.value = ''; so.value = 'featured'; q.value = ''; models(); render(true);
-    }); });
+    $$('[data-inv-clear]').forEach(function (b) { b.addEventListener('click', function () { st = fresh(); paintPrice(); syncInputs(); render(true); }); });
     if (makes.indexOf(st.make) < 0) st.make = '';
-    mk.value = st.make; so.value = st.sort; q.value = st.q; models(); render(false);
+    if (years.indexOf(st.year) < 0) st.year = '';
+    paintPrice(); syncInputs(); render(false);
     // the filter bar stands still under the header once it reaches it (a hairline marks it)
     var bar = $('[data-inv-bar]');
     if ('IntersectionObserver' in window) {
       var s = document.createElement('div'); s.className = 'inv__sentinel'; bar.parentNode.insertBefore(s, bar);
-      new IntersectionObserver(function (es) { bar.classList.toggle('is-stuck', !es[0].isIntersecting); }, { rootMargin: '-117px 0px 0px 0px' }).observe(s);
+      new IntersectionObserver(function (es) { bar.classList.toggle('is-stuck', !es[0].isIntersecting); }, { rootMargin: '-129px 0px 0px 0px' }).observe(s);
     }
   })();
 
