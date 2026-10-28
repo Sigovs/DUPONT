@@ -343,8 +343,10 @@
     var inPanel = {}; quick.forEach(function (r) { inPanel[r[0]] = 1; });   // each fact appears once on the page (Alex, 2026-10-22)
     $('[data-vdp-quick]').innerHTML = quick.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('') +
       (c.vin ? '<div class="vdp__q-vin"><dt>VIN</dt><dd class="t-num vdp__vin">' + esc(c.vin) + '</dd></div>' : '') +   // VIN lives in the panel (Alex, 2026-10-22)
-      (c.stock ? '<div><dt>Stock #</dt><dd class="t-num vdp__vin">' + esc(c.stock) + '</dd></div>' : '');   // Stock # always visible next to the VIN (Alex, 2026-10-28)
-    $('[data-vdp-call]').innerHTML = '<svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M6.6 2.5H4.2A1.7 1.7 0 0 0 2.5 4.3c.3 7.1 6.1 12.9 13.2 13.2a1.7 1.7 0 0 0 1.8-1.7v-2.4l-3.4-1.4-1.6 1.6a10.7 10.7 0 0 1-4.9-4.9l1.6-1.6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><span class="t-num">' + esc(R.phone) + '</span>';
+      (c.stock ? '<div><dt>Stock #</dt><dd class="t-num vdp__vin">' + esc(c.stock) + '</dd></div>' : '') +
+      '<div class="vdp__q-cf"><dt>History</dt><dd><button class="vdp__carfax" type="button" data-vdp-carfax aria-expanded="false" aria-controls="vdp-carfax-note">' +
+      '<img class="vdp__carfax-logo" src="assets/img/brand/carfax.svg" width="127" height="30" alt="CARFAX"><span>Report</span></button></dd></div>';   // Stock # always visible next to the VIN (Alex, 2026-10-28)
+    $('[data-vdp-call]').innerHTML = '<svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M6.6 2.5H4.2A1.7 1.7 0 0 0 2.5 4.3c.3 7.1 6.1 12.9 13.2 13.2a1.7 1.7 0 0 0 1.8-1.7v-2.4l-3.4-1.4-1.6 1.6a10.7 10.7 0 0 1-4.9-4.9l1.6-1.6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><span class="t-num vdp__call-n">' + esc(R.phone) + '</span><span class="vdp__call-w">Call</span>';
     $('[data-vdp-call]').setAttribute('aria-label', 'Call ' + R.phone);
     /* CARFAX (Alex, 2026-10-22): no report in the source listing and no dealer partner code yet — the button opens a
        note; in production it becomes the dealer's CARFAX link for this VIN. Nothing about the car's history is shown. */
@@ -633,12 +635,13 @@
     if (V && (V.youtube || V.mp4)) {
       vSec.hidden = false; $('[data-sn-video]').hidden = false;
       $('[data-vdp-video-poster]').src = V.poster || (V.youtube ? 'https://i.ytimg.com/vi/' + encodeURIComponent(V.youtube) + '/maxresdefault.jpg' : (gal[2] || gal[0]).big);
-      if (V.sample) { $('[data-vdp-video-note]').textContent = V.note || 'Sample footage — the listing video goes here.'; vSec.classList.add('is-sample'); }
-      $('[data-vdp-vid-l]').textContent = V.sample ? 'Play video (sample)' : 'Play video';
+      if (V.sample) { $('[data-vdp-video-tag]').hidden = false; vSec.classList.add('is-sample'); }
+      $('[data-vdp-vid-l]').textContent = 'Play video';
       var vPlay = function () {
         $('[data-vdp-video-stage]').innerHTML = V.youtube
           ? '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(V.youtube) + '?autoplay=1&rel=0&modestbranding=1" title="' + esc(c.title) + ' — walkaround" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>'
           : '<video src="' + esc(V.mp4) + '" controls autoplay playsinline' + (V.poster ? ' poster="' + esc(V.poster) + '"' : '') + '></video>';
+        if (V.sample) $('[data-vdp-video-stage]').insertAdjacentHTML('beforeend', '<span class="vdp__video-tag">Sample</span>');
       };
       $('[data-vdp-video-play]').addEventListener('click', vPlay);
       vB.addEventListener('click', function () {

@@ -877,3 +877,20 @@ html.inq-open { overflow: hidden; }
 .vdp__room-b .vdp__cta { display: flex; flex-wrap: wrap; grid-template-columns: none; margin-top: 28px; }
 .vdp__room-b .vdp__cta .btn { flex: 0 0 auto; width: auto; justify-content: center; white-space: nowrap; padding: 0 22px; }
 @media (max-width: 759.98px) { .vdp__room-b .vdp__cta .btn { flex: 1 1 100%; } }
+
+/* panel = the car · the price · Inquire + Call · the facts (Alex, 2026-10-28: "not everything in the side bar");
+   viewing → showroom block, trade-in → Finance card, payment → section bar, CARFAX → a fact row next to the VIN */
+.vdp__call-w { display: none; }
+@container (max-width: 400px) { .vdp__call-n { display: none; } .vdp__call-w { display: inline; } }
+.vdp__q-cf dd { margin: 0; }
+.vdp__quick .vdp__carfax { display: inline-flex; align-items: center; gap: 10px; min-height: 0; margin: 0; padding: 2px 0; border: 0; background: none; color: #fff;
+  font: 500 14px/1 var(--f-text); letter-spacing: .02em; cursor: pointer; text-decoration: none; }
+.vdp__quick .vdp__carfax span { text-decoration: underline; text-decoration-color: rgb(255 255 255 / .35); text-underline-offset: 5px; }
+.vdp__quick .vdp__carfax:hover span, .vdp__quick .vdp__carfax:focus-visible span { text-decoration-color: #fff; }
+.vdp__quick .vdp__carfax-logo { height: 20px; }
+.vdp__carfax-note { margin: 4px 0 4px !important; }
+.vdp__panel { padding-bottom: 22px; }
+/* video: a small Sample tag in the stage's corner */
+.vdp__video-note { display: none; }
+.vdp__video-tag { position: absolute; top: 16px; right: 16px; z-index: 2; display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px; border-radius: 999px;
+  background: rgb(255 255 255 / .9); color: var(--graphite); font: 600 12px/1 var(--f-text); letter-spacing: .06em; text-transform: uppercase; pointer-events: none; }
