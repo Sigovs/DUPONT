@@ -156,7 +156,7 @@ html.motion .m { overflow-y: clip; }
 .rail { --tile-pad: 22px; }
 .rail__track { align-items: stretch; }
 .rcard { display: flex; flex-direction: column; background: var(--graphite); border-radius: 6px; overflow: hidden; color: #fff;
-  transition: background-color var(--dur-2) var(--ease-out), top var(--dur-2) var(--ease-out); position: relative; top: 0; }
+  transition: background-color 520ms cubic-bezier(.25, 1, .5, 1), top 520ms cubic-bezier(.25, 1, .5, 1); position: relative; top: 0; }   /* softer lift (Alex, 2026-10-28) */
 .rcard .rcard__ph { flex: 0 0 auto; border-radius: 0; }
 .rcard__body { flex: 1 1 auto; display: flex; flex-direction: column; align-items: flex-start; padding: var(--tile-pad); }
 .rail .rcard__no { color: #c6c7cb; }
@@ -171,8 +171,8 @@ html.motion .m { overflow-y: clip; }
 .rcard--all .rcard__ph { flex: 1 1 auto; aspect-ratio: auto; }
 .rcard--all .rcard__body { display: none; }
 @media (min-width: 0px) {
-  .rcard:not(.rcard--all):hover { background: #3a3b42; top: -4px; }   /* top, not translate: GSAP owns transform + clears translate */
-  .rail .rcard--all:hover { top: -4px; }
+  .rcard:not(.rcard--all):hover { background: #3a3b42; top: -3px; }   /* top, not translate: GSAP owns transform + clears translate */
+  .rail .rcard--all:hover { top: -3px; }
 }
 
 @media (min-width: 1280px) {
@@ -225,4 +225,4 @@ html.motion .m { overflow-y: clip; }
 .rcard:not(.rcard--all):hover .rcard__alt { clip-path: inset(0 0 0 0); }
 .rcard:not(.rcard--all):hover .rcard__go.lnk { background: var(--red); }
 .rcard:not(.rcard--all):hover .rcard__go .arr { transform: translateX(3px); }
-@media (prefers-reduced-motion: reduce) { .rcard__alt { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .rcard__alt { transition: none; } .rcard { transition: background-color 200ms linear; } .rcard:hover { top: 0 !important; } }
