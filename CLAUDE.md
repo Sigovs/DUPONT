@@ -16,7 +16,7 @@ External skills: **authorized 2026-10-08** as supporting specialists (see BRIEF.
 
 ## Feedback log
 - **CLIENT-APPROVED (Alex, 2026-10-28): https://sigovs.github.io/DUPONT/site_v4/ was approved by the client** — commit
-  5fff6bf, tag `client-approved-2026-10-28` (home + SRP + VDP as live that day; renders in site_v4/_qa/approved/).
+  5fff6bf, tag `client-approved-2026-10-28` (home + SRP + VDP as live that day; contact sheet: site_v4/_qa/approved/contact.png, local only).
   This is now the baseline: never change it silently; new work goes on top only when Alex asks, one note = one fix.
 - **HEADER NEVER DISAPPEARS (Alex, 2026-10-21: "fix it once and for all!!!"):** on every page (home, SRP, VDP) and every
   version, the header stays on screen in every scroll direction — no retract, no hide-on-scroll. `inFlow()` returns false;
