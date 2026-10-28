@@ -331,15 +331,15 @@
     var rl = $('[data-vdp-room-link]'); rl.textContent = R.name; rl.href = 'inventory.html?showroom=' + c.loc;
     $('[data-vdp-room]').textContent = R.name;
     $('[data-vdp-title]').textContent = c.title;
-    $('[data-vdp-price]').innerHTML = money(c.price) + (c.miles != null ? '<span>' + miles(c.miles) + '</span>' : '');
+    $('[data-vdp-price]').textContent = money(c.price);   // mileage moved into the facts list (one group, one job)
     /* itemised price only where the showroom's own listing breaks it down (select.dupontregistry.com, 2026-10-28) */
-    $('[data-vdp-pricing]').innerHTML = (c.docFee ? '<span class="t-num">Price ' + money(c.basePrice) + ' + doc fee ' + money(c.docFee) + '</span>' : '') +
-      '<button type="button" class="vdp__plink" aria-expanded="false" aria-controls="vdp-pnote" data-vdp-pdet>Pricing details</button>' +
-      (c.price ? '<a class="vdp__plink" href="#vdp-finance">Estimate a payment</a>' : '');
+    $('[data-vdp-pricing]').innerHTML = (c.docFee ? '<span class="t-num">' + money(c.basePrice) + ' + ' + money(c.docFee) + ' doc fee</span>' : '<span>Taxes and registration extra</span>') +
+      '<button type="button" class="vdp__pinfo" aria-expanded="false" aria-controls="vdp-pnote" aria-label="Pricing details" data-vdp-pdet>i</button>';
+    if (!c.price) { var pc = $('[data-vdp-paycell]'); if (pc) pc.hidden = true; }
     var pdet = $('[data-vdp-pdet]'), pnote = $('[data-vdp-pnote]');
     pdet.addEventListener('click', function () { var o = pnote.hidden; pnote.hidden = !o; pdet.setAttribute('aria-expanded', o ? 'true' : 'false'); });
-    var quick = [['Exterior', c.ext], ['Interior', c.int], ['Transmission', c.trans], ['Drivetrain', c.drive], ['Engine', c.engine], ['Body', c.body]]
-      .filter(function (r) { return r[1]; }).slice(0, 4);
+    var quick = [['Mileage', c.miles != null ? c.miles.toLocaleString('en-US') + ' mi' : null], ['Exterior', c.ext], ['Interior', c.int], ['Transmission', c.trans], ['Drivetrain', c.drive], ['Engine', c.engine], ['Body', c.body]]
+      .filter(function (r) { return r[1]; }).slice(0, 5);
     var inPanel = {}; quick.forEach(function (r) { inPanel[r[0]] = 1; });   // each fact appears once on the page (Alex, 2026-10-22)
     $('[data-vdp-quick]').innerHTML = quick.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('') +
       (c.vin ? '<div class="vdp__q-vin"><dt>VIN</dt><dd class="t-num vdp__vin">' + esc(c.vin) + '</dd></div>' : '');   // VIN lives in the panel (Alex, 2026-10-22)

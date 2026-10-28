@@ -691,3 +691,49 @@ html.inq-open { overflow: hidden; }
 .vdp__calc { align-self: start; }
 .vdp__calc .inq__f input, .vdp__calc .inq__f select { background-color: var(--ivory); border-color: rgb(48 49 55 / .22); }
 @media (max-width: 759.98px) { .vdp__fin { padding: 24px 20px; } }
+
+/* ---------- price panel recomposed (Alex, 2026-10-28: "a pile, everything dumped in one place") ----------
+   four groups, one job each: the car · the price · the two actions · the facts — then a 2×2 tool grid for the rest */
+.vdp__panel { padding: 34px 34px 8px; }
+.vdp__pbox { margin-top: 24px; padding-top: 22px; border-top: 1px solid rgb(255 255 255 / .14); }
+.vdp__price { margin: 0; font: 600 34px/1 var(--f-text); letter-spacing: -.005em; }
+.vdp__pricing { display: flex; align-items: center; gap: 10px; margin-top: 10px; font: 400 14px/1.3 var(--f-text); color: #b9babe; }
+.vdp__pinfo { display: inline-grid; place-items: center; width: 22px; height: 22px; padding: 0; border: 1px solid rgb(255 255 255 / .4); border-radius: 50%; background: none;
+  font: 600 12px/1 Georgia, serif; font-style: italic; color: #fff; cursor: pointer; transition: background-color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out); }
+.vdp__pinfo:hover, .vdp__pinfo[aria-expanded="true"] { background: #fff; border-color: #fff; color: var(--graphite); }
+.vdp__pinfo:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.vdp__pnote { margin-top: 12px; }
+.vdp__cta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px; }
+.vdp__cta .btn { width: 100%; padding: 0 12px; }
+.vdp__quick { margin-top: 26px; padding-top: 2px; border-top: 1px solid rgb(255 255 255 / .14); }
+.vdp__tools { list-style: none; display: grid; grid-template-columns: 1fr 1fr; margin: 8px -34px 0; padding: 0; border-top: 1px solid rgb(255 255 255 / .14); }
+.vdp__tools li { min-width: 0; }
+.vdp__tools li[hidden] { display: none; }
+.vdp__tools li:nth-child(odd) { border-right: 1px solid rgb(255 255 255 / .1); }
+.vdp__tools li:nth-child(-n+2) { border-bottom: 1px solid rgb(255 255 255 / .1); }
+.vdp__tools button, .vdp__tools a { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 60px; padding: 0 20px 0 34px; box-sizing: border-box;
+  border: 0; background: none; color: #fff; font: 500 14px/1.2 var(--f-text); letter-spacing: .02em; text-align: left; text-decoration: none; cursor: pointer;
+  transition: background-color 280ms cubic-bezier(.25, 1, .5, 1); }
+.vdp__tools li:nth-child(even) button, .vdp__tools li:nth-child(even) a { padding-left: 22px; }
+.vdp__tools button:hover, .vdp__tools a:hover, .vdp__tools button:focus-visible, .vdp__tools a:focus-visible { background: rgb(255 255 255 / .05); outline: none; }
+.vdp__tools button:focus-visible, .vdp__tools a:focus-visible { box-shadow: inset 0 0 0 2px rgb(255 255 255 / .6); }
+.vdp__ti { flex: none; color: #b9babe; }
+.vdp__tools .vdp__carfax { flex: none; justify-content: flex-start; margin: 0; text-decoration: none; }
+.vdp__tools .vdp__carfax span { text-decoration: none; }
+.vdp__tools .vdp__carfax-logo { height: 22px; }
+.vdp__tools .vdp__carfax .arr { display: none; }
+.vdp__carfax-note { margin: 0 0 26px; }
+@media (max-width: 759.98px) {
+  .vdp__panel { padding: 26px 22px 6px; }
+  .vdp__tools { margin: 8px -22px 0; }
+  .vdp__tools button, .vdp__tools a { padding: 0 12px 0 22px; font-size: 13px; }
+  .vdp__tools li:nth-child(even) button, .vdp__tools li:nth-child(even) a { padding-left: 16px; }
+}
+@media (max-width: 519.98px) {   /* phones: the tools read as one list, labels on one line */
+  .vdp__tools { grid-template-columns: 1fr; }
+  .vdp__tools li:nth-child(odd) { border-right: 0; }
+  .vdp__tools li { border-bottom: 1px solid rgb(255 255 255 / .1); }
+  .vdp__tools li:last-child { border-bottom: 0; }
+  .vdp__tools li:nth-child(even) button, .vdp__tools li:nth-child(even) a { padding-left: 22px; }
+  .vdp__tools button, .vdp__tools a { min-height: 54px; font-size: 14px; }
+}
