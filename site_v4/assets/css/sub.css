@@ -900,3 +900,27 @@ html.inq-open { overflow: hidden; }
 .vdp__calc-alt:hover, .vdp__calc-alt:focus-visible { background: #fff; color: var(--graphite); border-color: #fff; }
 .vdp__calc-cta { gap: 10px; }
 .vdp__calc-cta .btn { flex: 1 1 auto; justify-content: center; }
+
+/* ---------- SRP filter strip as one white card; check mark instead of the dot (Alex, 2026-10-28) ---------- */
+.inv__bar-in { background: #fff; border: 1px solid rgb(48 49 55 / .12); border-radius: 6px; padding: 4px 16px 4px 20px; }
+.inv__filters { margin-left: -12px; }
+.inv__bar:has(.inv__adv:not([hidden])) .inv__bar-in { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.inv__adv { margin-top: 0 !important; border-top: 0 !important; border-radius: 0 0 6px 6px !important; padding-top: 6px !important; }
+.inv__adv::before { content: ""; display: block; flex-basis: 100%; height: 1px; margin: 0 0 16px; background: var(--hair-ivory, #d8d5cd); }
+/* inside the white card: hover and open read as a soft grey wash, the list opens just below the cell */
+.inv__cell:not(.is-off):not(.is-open) .inv__dd-btn:hover { background: rgb(48 49 55 / .045); }
+.inv__cell.is-open .inv__dd-btn { background: rgb(48 49 55 / .07); border-radius: 6px; box-shadow: none; }
+.inv__cell.is-open .inv__menu, .inv__cell.is-open .inv__pop { left: 4px; top: calc(100% + 2px); border-top: 1px solid rgb(48 49 55 / .14); border-radius: 6px; }
+.inv__cell--more.is-open .inv__dd-btn { box-shadow: none; }
+.inv__cell--sort.is-open .inv__dd-btn { background: rgb(48 49 55 / .06); border-radius: 6px; }
+.inv__cell--sort.is-open .inv__menu { top: calc(100% + 4px); border-top: 1px solid rgb(48 49 55 / .14); border-radius: 6px; }
+.inv__cell--sort:not(.is-open) .inv__dd-btn:hover { background: rgb(48 49 55 / .05); }
+/* check mark on the chosen option */
+.inv__menu li[aria-selected="true"]::before { width: 9px; height: 5px; margin-top: -4px; border-radius: 0; background: none;
+  border-left: 1.6px solid var(--graphite); border-bottom: 1.6px solid var(--graphite); transform: rotate(-45deg); left: 11px; }
+@media (max-width: 759.98px) {
+  .inv__bar-in { padding: 10px 12px; }
+  .inv__filters { margin: 8px -4px 0; }
+  .inv__cell.is-open .inv__menu, .inv__cell.is-open .inv__pop { left: 0; right: 0; }
+}
+@media (max-width: 759.98px) { .inv__filters > .inv__cell + .inv__cell:not(.inv__cell--search) { border-left: 0 !important; } }
