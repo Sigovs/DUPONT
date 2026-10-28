@@ -685,3 +685,9 @@ html.inq-open { overflow: hidden; }
 /* in-page jumps land clear of the header and the section bar */
 .vdp [id^="vdp-"] { scroll-margin-top: calc(max(64px, 128 * var(--u, 1px)) + 84px); }
 @media (max-width: 759.98px) { .vdp [id^="vdp-"] { scroll-margin-top: 84px; } }
+/* Finance in its own card (Alex, 2026-10-28) — the same white card as Specifications */
+.vdp__fin { padding: clamp(28px, 2.6vw, 48px); background: #fff; border: 1px solid rgb(48 49 55 / .12); border-radius: 6px; align-items: stretch; }
+.vdp__fin-hd { align-self: start; }
+.vdp__calc { align-self: start; }
+.vdp__calc .inq__f input, .vdp__calc .inq__f select { background-color: var(--ivory); border-color: rgb(48 49 55 / .22); }
+@media (max-width: 759.98px) { .vdp__fin { padding: 24px 20px; } }
