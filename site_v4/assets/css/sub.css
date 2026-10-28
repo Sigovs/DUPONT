@@ -778,3 +778,7 @@ html.inq-open { overflow: hidden; }
   .vdp__buy-l li:first-child { border-top: 0; padding-top: 0; }
   .vdp__buy-l li:last-child { padding-bottom: 0; }
 }
+
+/* Buying from Select sits under the calculator (Alex, 2026-10-28) */
+.vdp__buy + .vdp__fin { margin-top: clamp(80px, 7vw, 130px); }
+.vdp__fin + .vdp__buy { margin-top: 24px; }

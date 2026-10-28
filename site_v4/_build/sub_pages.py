@@ -176,10 +176,6 @@ VDP = '''
       </div>
       <div class="vdp__specs" id="vdp-specs"><h3 class="sub__kicker vdp__spec-k">Specifications</h3><ul class="vdp__figs" data-vdp-figs></ul><div class="vdp__groups" data-vdp-spec></div></div>
     </section>
-    <section class="vdp__buy" aria-labelledby="vdp-buy-h" data-vdp-buy hidden>
-      <div class="vdp__buy-hd"><p class="sub__kicker">The showroom</p><h2 class="vdp__h disp" id="vdp-buy-h">Buying from Select</h2></div>
-      <ul class="vdp__buy-l" data-vdp-buy-l></ul>
-    </section>
     <section class="vdp__fin" id="vdp-finance" aria-labelledby="vdp-fin-h" data-vdp-fin>
       <div class="vdp__fin-hd">
         <p class="sub__kicker">Finance</p>
@@ -202,6 +198,10 @@ VDP = '''
         </div>
         <p class="vdp__calc-legal">An estimate from the figures you enter, not an offer or a quote. It leaves out tax, title, registration and fees; the rate depends on the lender and your credit. Leasing is also available through the showroom.</p>
       </div>
+    </section>
+    <section class="vdp__buy" aria-labelledby="vdp-buy-h" data-vdp-buy hidden>
+      <div class="vdp__buy-hd"><p class="sub__kicker">The showroom</p><h2 class="vdp__h disp" id="vdp-buy-h">Buying from Select</h2></div>
+      <ul class="vdp__buy-l" data-vdp-buy-l></ul>
     </section>
     <section class="vdp__room-b" id="vdp-contact" aria-labelledby="vdp-room-h" data-vdp-contact></section>
     <section class="vdp__more" aria-labelledby="vdp-more-h">
