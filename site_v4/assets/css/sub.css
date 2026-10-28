@@ -562,3 +562,30 @@ html.inq-open { overflow: hidden; }
   .inv__cell--sort .inv__dd-btn { grid-template-columns: auto 1fr 12px; }
 }
 @media (prefers-reduced-motion: reduce) { .inv__menu, .inv__pop { animation: none; } .inv__cell::after { transition: none; } }
+/* filter cells: no underlines (Alex, 2026-10-28) — hover = a soft white wash on the cell; open = the cell turns into a
+   white tab and its list / price panel continues it downward as one piece */
+.inv__cell::after { display: none !important; }
+.inv__filters { margin-left: -16px; }
+.inv__dd-btn { border-radius: 6px; transition: background-color 280ms cubic-bezier(.25, 1, .5, 1), box-shadow 280ms cubic-bezier(.25, 1, .5, 1); }
+.inv__filters > .inv__cell .inv__dd-btn, .inv__filters > .inv__cell:first-child .inv__dd-btn { padding: 0 20px 0 16px; margin: 6px 4px; min-height: 52px; }
+.inv__filters > .inv__cell + .inv__cell:not(.inv__cell--search) { border-left: 1px solid var(--hair-ivory, #d8d5cd); }
+.inv__cell:not(.is-off):not(.is-open) .inv__dd-btn:hover { background: rgb(255 255 255 / .6); }
+.inv__cell.is-open .inv__dd-btn { background: #fff; border-radius: 6px 6px 0 0;
+  box-shadow: inset 1px 0 0 rgb(48 49 55 / .14), inset -1px 0 0 rgb(48 49 55 / .14), inset 0 1px 0 rgb(48 49 55 / .14); }
+.inv__cell.is-open .inv__menu, .inv__cell.is-open .inv__pop { left: 4px; top: calc(100% - 6px); border-top: 0; border-radius: 0 6px 6px 6px; min-width: max(240px, calc(100% - 8px)); }
+.inv__cell--more.is-open .inv__dd-btn { border-radius: 6px; box-shadow: inset 0 0 0 1px rgb(48 49 55 / .14); }
+/* Sort by: same language, opening to the left */
+.inv__cell--sort .inv__dd-btn { padding: 0 14px; border-radius: 6px; }
+.inv__cell--sort.is-open .inv__menu { left: auto; right: 0; top: 100%; border-top: 0; border-radius: 6px 0 6px 6px; }
+.inv__cell--sort.is-open .inv__dd-btn { border-radius: 6px 6px 0 0; }
+.inv__cell--sort { margin-right: -14px; }
+@media (prefers-reduced-motion: reduce) { .inv__dd-btn { transition: none; } }
+@media (max-width: 759.98px) {
+  .inv__filters { margin: 0 -12px; }
+  .inv__filters > .inv__cell .inv__dd-btn, .inv__filters > .inv__cell:first-child .inv__dd-btn { margin: 4px 0; padding: 0 12px; width: 100%; }
+  .inv__filters > .inv__cell { border-bottom-color: transparent; }
+  .inv__filters > .inv__cell + .inv__cell:not(.inv__cell--search) { border-top: 1px solid var(--hair-ivory, #d8d5cd); }
+  .inv__cell.is-open .inv__menu, .inv__cell.is-open .inv__pop { left: 0; right: 0; top: calc(100% - 4px); min-width: 0; }
+  .inv__cell--search { padding: 8px 12px; }
+  .inv__cell--sort { margin-right: 0; }
+}
