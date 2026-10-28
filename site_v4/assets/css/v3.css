@@ -226,3 +226,7 @@ html.motion .m { overflow-y: clip; }
 .rcard:not(.rcard--all):hover .rcard__go.lnk { background: var(--red); }
 .rcard:not(.rcard--all):hover .rcard__go .arr { transform: translateX(3px); }
 @media (prefers-reduced-motion: reduce) { .rcard__alt { transition: none; } .rcard { transition: background-color 200ms linear; } .rcard:hover { top: 0 !important; } }
+/* softer colour change on the card button (Alex, 2026-10-28: "the colour changes very hard") */
+.rail .rcard__go.lnk { transition: background-color 450ms cubic-bezier(.25, 1, .5, 1), color 450ms cubic-bezier(.25, 1, .5, 1); }
+.rail .rcard__go .arr { transition: transform 450ms cubic-bezier(.25, 1, .5, 1); }
+@media (prefers-reduced-motion: reduce) { .rail .rcard__go.lnk { transition: background-color 200ms linear; } }
