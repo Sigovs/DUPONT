@@ -926,3 +926,27 @@ html.inq-open { overflow: hidden; }
 @media (max-width: 759.98px) { .inv__filters > .inv__cell + .inv__cell:not(.inv__cell--search) { border-left: 0 !important; } }
 /* SRP filter card: no vertical dividers between the cells (Alex, 2026-10-28) */
 .inv__filters > .inv__cell + .inv__cell, .inv__filters > .inv__cell + .inv__cell:not(.inv__cell--search) { border-left: 0 !important; }
+/* More filters open: one divider only — the card's own bottom edge goes, the inset hairline stays */
+.inv__bar:has(.inv__adv:not([hidden])) .inv__bar-in { border-bottom-color: transparent; }
+.inv__adv::before { margin: 0 0 18px; }
+
+/* ---------- More filters lives INSIDE the filter card (Alex, 2026-10-28: "a bazaar of lines") ----------
+   one card, one hairline between the row and the panel, groups aligned to the row's first label */
+.inv__bar-in { flex-wrap: wrap; border-color: rgb(48 49 55 / .12) !important; border-radius: 6px !important; }
+.inv__adv { flex: 1 0 100%; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 20px 48px;
+  margin: 4px 0 10px !important; padding: 20px 0 6px 8px !important; border: 0 !important; border-top: 1px solid var(--hair-ivory, #d8d5cd) !important;
+  border-radius: 0 !important; background: none !important; }
+.inv__adv[hidden] { display: none !important; }
+.inv__adv::before { content: none !important; display: none !important; }
+@media (max-width: 759.98px) { .inv__adv { display: grid; padding: 18px 0 4px 4px !important; margin: 8px 0 6px !important; } }
+
+/* pop-ups read as pop-ups (Alex, 2026-10-28: "the drop-downs don't read at all"): white surfaces opening over a white card
+   need real elevation — a firm hairline plus a soft functional shadow; the price panel gets its own title */
+.inv__menu, .inv__pop, .inv__cell.is-open .inv__menu, .inv__cell.is-open .inv__pop, .inv__cell--sort.is-open .inv__menu {
+  border: 1px solid rgb(48 49 55 / .16) !important; border-radius: 8px !important;
+  box-shadow: 0 18px 44px -12px rgb(22 23 26 / .28), 0 4px 12px rgb(22 23 26 / .08); }
+.inv__cell.is-open .inv__menu, .inv__cell.is-open .inv__pop { top: calc(100% + 6px); }
+.inv__pop { width: 340px; padding: 18px 22px 16px; }
+.inv__pop-h { margin: 0 0 14px; font: 600 13px/1 var(--f-text); letter-spacing: .01em; text-transform: uppercase; color: var(--pewter); }
+.inv__menu { padding: 8px; }
+.vdp__s2p { box-shadow: 0 18px 44px -12px rgb(22 23 26 / .28), 0 4px 12px rgb(22 23 26 / .08); border-radius: 8px; }

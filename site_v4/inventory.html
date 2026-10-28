@@ -12,7 +12,7 @@
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/vendor/lenis.css">
   <link rel="stylesheet" href="assets/css/v4.css?v=v4-8">
-  <link rel="stylesheet" href="assets/css/sub.css?v=v4-49">
+  <link rel="stylesheet" href="assets/css/sub.css?v=v4-52">
 </head>
 <body class="sub-page srp-page">
   <a class="skip t-label" href="#main">Skip to content</a>
@@ -106,7 +106,7 @@
           <div class="inv__cell inv__cell--price" data-inv-price>
             <button class="inv__dd-btn" type="button" data-inv-pbtn aria-expanded="false" aria-controls="inv-pop"><span class="inv__lab">Price</span><span class="inv__val" data-inv-pval>Any</span><svg class="inv__chev" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
             <div class="inv__pop" id="inv-pop" data-inv-pop hidden role="group" aria-label="Price range">
-              <div class="inv__pvals"><span data-pmin-l>No min</span><span data-pmax-l>No max</span></div>
+              <p class="inv__pop-h">Price range</p><div class="inv__pvals"><span data-pmin-l>No min</span><span data-pmax-l>No max</span></div>
               <div class="inv__range"><span class="inv__track"><span class="inv__fill" data-pfill></span></span>
                 <input type="range" min="0" max="16" step="1" value="0" data-pmin aria-label="Minimum price">
                 <input type="range" min="0" max="16" step="1" value="16" data-pmax aria-label="Maximum price"></div>
@@ -118,8 +118,8 @@
           </div>
           <label class="inv__cell inv__cell--search"><svg class="inv__loupe" viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="5.2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span class="vh">Keyword</span><input type="search" placeholder="Make, model or keyword" data-inv-q autocomplete="off"></label>
         </div>
+        <div class="inv__adv" id="inv-adv" data-inv-adv hidden></div>
       </div>
-      <div class="inv__adv" id="inv-adv" data-inv-adv hidden></div>
     </div>
     <div class="inv__sub">
       <div class="inv__rooms" role="group" aria-label="Showroom" data-inv-rooms></div>
@@ -254,7 +254,7 @@
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/lenis.min.js" defer></script>
   <script src="assets/js/chrome.js?v=v4-8" defer></script>
-  <script src="assets/js/sub.js?v=v4-32" defer></script>
+  <script src="assets/js/sub.js?v=v4-33" defer></script>
   <script src="assets/js/beam-footer.js?v=2" defer></script>
 </body>
 </html>

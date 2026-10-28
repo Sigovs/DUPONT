@@ -137,7 +137,7 @@
         }).join('');
       }
       function mark() { $$('li', menu).forEach(function (li, i) { li.classList.toggle('is-active', i === act); }); var a = menu.children[act]; if (a) { menu.setAttribute('aria-activedescendant', a.id); a.scrollIntoView({ block: 'nearest' }); } }
-      function open() { DDS.forEach(function (d) { if (d !== api) d.close(); }); closePop(); build(); act = Math.max(0, sel.selectedIndex); menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); cell.classList.add('is-open'); mark(); menu.focus({ preventScroll: true }); }
+      function open() { DDS.forEach(function (d) { if (d !== api) d.close(); }); closePop(); if (typeof advOpen === 'function' && !adv.hidden) advOpen(false); build(); act = Math.max(0, sel.selectedIndex); menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); cell.classList.add('is-open'); mark(); menu.focus({ preventScroll: true }); }
       function close(back) { if (menu.hidden) return; menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); cell.classList.remove('is-open'); if (back) btn.focus(); }
       function pick(i) { if (sel.selectedIndex !== i) { sel.selectedIndex = i; sel.dispatchEvent(new Event('change', { bubbles: true })); } refresh(); close(true); }
       btn.addEventListener('click', function () { if (menu.hidden) open(); else close(); });
@@ -189,7 +189,7 @@
       clearTimeout(pt); pt = setTimeout(function () { render(true); }, 120);
     }
     pmin.addEventListener('input', onRange); pmax.addEventListener('input', onRange);
-    function popOpen(o) { if (o) DDS.forEach(function (d) { d.close(); }); pop.hidden = !o; pbtn.setAttribute('aria-expanded', o ? 'true' : 'false'); pbtn.parentNode.classList.toggle('is-open', o); }
+    function popOpen(o) { if (o) { DDS.forEach(function (d) { d.close(); }); if (typeof advOpen === 'function' && !adv.hidden) advOpen(false); } pop.hidden = !o; pbtn.setAttribute('aria-expanded', o ? 'true' : 'false'); pbtn.parentNode.classList.toggle('is-open', o); }
     function closePop() { if (!pop.hidden) popOpen(false); }
     pbtn.addEventListener('click', function () { popOpen(pop.hidden); });
     $('[data-inv-preset]').addEventListener('click', function () { st.lo = 0; st.hi = LAST; paintPrice(); render(true); });
@@ -283,7 +283,8 @@
       render(true);
     });
     var more = $('[data-inv-more]');
-    more.addEventListener('click', function () { var o = adv.hidden; adv.hidden = !o; more.setAttribute('aria-expanded', o ? 'true' : 'false'); more.parentNode.classList.toggle('is-open', o); });
+    function advOpen(o) { adv.hidden = !o; more.setAttribute('aria-expanded', o ? 'true' : 'false'); more.parentNode.classList.toggle('is-open', o); }
+    more.addEventListener('click', function () { var o = adv.hidden; if (o) { DDS.forEach(function (d) { d.close(); }); closePop(); } advOpen(o); });
     function paintSaved() {
       var n = saved().filter(function (id) { return BY[id]; }).length, sb = $('[data-saved]', rooms);
       $('[data-saved-n]', sb).textContent = n;
