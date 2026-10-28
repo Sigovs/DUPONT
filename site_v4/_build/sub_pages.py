@@ -108,6 +108,14 @@ SRP = '''
 
 VDP = '''
   <main id="main" class="sub vdp" data-vdp>
+    <nav class="vdp__sn" aria-label="On this page" data-vdp-sn>
+      <div class="vdp__sn-in">
+        <p class="vdp__sn-t"><span class="disp" data-sn-title></span><span class="vdp__sn-p t-num" data-sn-price></span></p>
+        <ul class="vdp__sn-l"><li><a href="#vdp-ov">Overview</a></li><li data-sn-opt><a href="#vdp-options">Options</a></li><li><a href="#vdp-specs">Specifications</a></li><li><a href="#vdp-finance">Finance</a></li><li><a href="#vdp-contact">Showroom</a></li></ul>
+        <button class="btn btn--red sub__btn" type="button" data-inq-intent="availability">Inquire ''' + ARR + '''</button>
+      </div>
+    </nav>
+    <div class="vdp__mb" data-vdp-mb><a class="btn sub__btn sub__btn--line" data-mb-call href="#vdp-contact">Call</a><button class="btn btn--red sub__btn" type="button" data-inq-intent="availability">Inquire ''' + ARR + '''</button></div>
     <div class="vdp__bar">
     <nav class="vdp__crumbs" aria-label="Breadcrumb"><ol>
       <li><a href="inventory.html">Inventory</a></li>
@@ -139,10 +147,13 @@ VDP = '''
         <p class="vdp__room" data-vdp-room></p>
         <h1 class="vdp__title disp" data-vdp-title></h1>
         <p class="vdp__price" data-vdp-price></p>
+        <div class="vdp__pricing" data-vdp-pricing></div>
+        <p class="vdp__pnote" id="vdp-pnote" data-vdp-pnote hidden>Prices are set by the showroom and exclude taxes, title and registration. Confirm the final, out-the-door price with the showroom before you buy.</p>
         <dl class="vdp__quick" data-vdp-quick></dl>
         <div class="vdp__cta">
           <button class="btn btn--red sub__btn" type="button" data-vdp-avail aria-haspopup="dialog">Inquire ''' + ARR + '''</button>
           <a class="btn sub__btn sub__btn--line" href="#vdp-contact" data-vdp-call></a>
+          <p class="vdp__more-acts"><button type="button" data-inq-intent="viewing">Schedule a viewing</button><button type="button" data-inq-intent="trade">Value my trade</button></p>
           <button class="vdp__carfax" type="button" data-vdp-carfax aria-expanded="false" aria-controls="vdp-carfax-note"><img class="vdp__carfax-logo" src="assets/img/brand/carfax.svg" width="127" height="30" alt="CARFAX"> <span>Report</span> <svg class="arr" viewBox="0 0 16 10" width="16" height="10" aria-hidden="true" focusable="false"><path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
           <p class="vdp__carfax-note" id="vdp-carfax-note" data-vdp-carfax-note hidden></p>
         </div>
@@ -154,10 +165,37 @@ VDP = '''
         <h2 class="vdp__h disp" id="vdp-ov">Overview</h2>
         <p class="vdp__lead" data-vdp-lead></p>
         <div class="vdp__ov" data-vdp-ov></div>
-        <div class="vdp__opts" data-vdp-opts-wrap><h3 class="vdp__h3">Options</h3><ul class="vdp__optlist" data-vdp-opts></ul></div>
+        <div class="vdp__opts" data-vdp-opts-wrap id="vdp-options"><h3 class="vdp__h3">Options</h3><ul class="vdp__optlist" data-vdp-opts></ul></div>
         <p class="vdp__close" data-vdp-close></p>
       </div>
-      <div class="vdp__specs"><h3 class="sub__kicker vdp__spec-k">Specifications</h3><ul class="vdp__figs" data-vdp-figs></ul><div class="vdp__groups" data-vdp-spec></div></div>
+      <div class="vdp__specs" id="vdp-specs"><h3 class="sub__kicker vdp__spec-k">Specifications</h3><ul class="vdp__figs" data-vdp-figs></ul><div class="vdp__groups" data-vdp-spec></div></div>
+    </section>
+    <section class="vdp__buy" aria-labelledby="vdp-buy-h" data-vdp-buy hidden>
+      <h2 class="vh" id="vdp-buy-h">Buying from Select</h2>
+      <ul class="vdp__buy-l" data-vdp-buy-l></ul>
+    </section>
+    <section class="vdp__fin" id="vdp-finance" aria-labelledby="vdp-fin-h" data-vdp-fin>
+      <div class="vdp__fin-hd">
+        <p class="sub__kicker">Finance</p>
+        <h2 class="vdp__h disp" id="vdp-fin-h">Estimate a payment</h2>
+        <p class="vdp__fin-sub">Your own figures, worked out here in the browser. Nothing is sent.</p>
+      </div>
+      <form class="vdp__calc" data-vdp-calc novalidate>
+        <label class="inq__f"><span>Vehicle price</span><input name="price" inputmode="numeric" autocomplete="off"></label>
+        <label class="inq__f"><span>Down payment</span><input name="down" inputmode="numeric" autocomplete="off"></label>
+        <label class="inq__f"><span>Term</span><select name="term"><option value="36">36 months</option><option value="48">48 months</option><option value="60" selected>60 months</option><option value="72">72 months</option><option value="84">84 months</option></select></label>
+        <label class="inq__f"><span>APR <i>your rate</i></span><input name="apr" inputmode="decimal" placeholder="e.g. 7.5" autocomplete="off"></label>
+      </form>
+      <div class="vdp__calc-out" aria-live="polite">
+        <p class="vdp__calc-k">Estimated monthly payment</p>
+        <p class="vdp__calc-n disp" data-calc-n>—</p>
+        <p class="vdp__calc-f" data-calc-f>Enter your rate to see the estimate.</p>
+        <div class="vdp__calc-cta">
+          <button class="btn btn--red sub__btn" type="button" data-inq-intent="finance">Get pre-qualified ''' + ARR + '''</button>
+          <button class="vdp__lnk" type="button" data-inq-intent="trade">Value my trade</button>
+        </div>
+        <p class="vdp__calc-legal">An estimate from the figures you enter, not an offer or a quote. It leaves out tax, title, registration and fees; the rate depends on the lender and your credit. Leasing is also available through the showroom.</p>
+      </div>
     </section>
     <section class="vdp__room-b" id="vdp-contact" aria-labelledby="vdp-room-h" data-vdp-contact></section>
     <section class="vdp__more" aria-labelledby="vdp-more-h">
@@ -182,6 +220,9 @@ VDP = '''
           <button class="inq__x" type="button" data-inq-close aria-label="Close">×</button>
         </div>
         <div class="inq__car" data-inq-car></div>
+        <div class="inq__intents" role="radiogroup" aria-label="What can the showroom do for you?" data-inq-intents>
+          <button type="button" class="chip chip--s" role="radio" data-intent="availability">Availability</button><button type="button" class="chip chip--s" role="radio" data-intent="viewing">Viewing</button><button type="button" class="chip chip--s" role="radio" data-intent="trade">Trade-in</button><button type="button" class="chip chip--s" role="radio" data-intent="finance">Finance</button><button type="button" class="chip chip--s" role="radio" data-intent="video">Video</button>
+        </div>
         <form class="inq__form" data-inq-form novalidate>
           <div class="inq__row">
             <label class="inq__f"><span>First name</span><input name="first" autocomplete="given-name" required></label>
@@ -189,6 +230,21 @@ VDP = '''
           </div>
           <label class="inq__f"><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
           <label class="inq__f"><span>Phone <i>optional</i></span><input name="phone" type="tel" autocomplete="tel"></label>
+          <div class="inq__row" data-intent-f="viewing" hidden>
+            <label class="inq__f"><span>Preferred day</span><input name="vday" type="date"></label>
+            <label class="inq__f"><span>Time</span><select name="vtime"><option>Any time</option><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label>
+          </div>
+          <fieldset class="inq__fs" data-intent-f="trade" hidden>
+            <legend>Your current car</legend>
+            <div class="inq__row inq__row--3">
+              <label class="inq__f"><span>Year</span><input name="tyear" inputmode="numeric" maxlength="4"></label>
+              <label class="inq__f"><span>Make &amp; model</span><input name="tmodel"></label>
+              <label class="inq__f"><span>Mileage</span><input name="tmiles" inputmode="numeric"></label>
+            </div>
+          </fieldset>
+          <div class="inq__pref" role="radiogroup" aria-label="Best way to reach you" data-inq-pref>
+            <span class="inq__pref-k">Best way to reach you</span><button type="button" class="chip chip--s" role="radio" aria-checked="false" data-pref="Call">Call</button><button type="button" class="chip chip--s" role="radio" aria-checked="false" data-pref="Text">Text</button><button type="button" class="chip chip--s" role="radio" aria-checked="true" data-pref="Email">Email</button>
+          </div>
           <label class="inq__f"><span>Message</span><textarea name="msg" rows="6" data-inq-msg></textarea></label>
           <p class="inq__err" data-inq-err hidden>Please add your name and a valid email.</p>
           <button class="btn btn--red sub__btn inq__send" type="submit">Send inquiry ''' + ARR + '''</button>

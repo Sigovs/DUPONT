@@ -187,6 +187,7 @@
     var el = document.getElementById(id);
     if (!el) return null;
     var off = window.innerWidth < 1280 ? 64 : 0;
+    if (el.closest('.sub')) off = parseFloat(getComputedStyle(el).scrollMarginTop) || off;   // SRP / VDP only: land under the header + the VDP section bar (home untouched)
     return el.getBoundingClientRect().top + window.scrollY - off;
   }
   V4.go = function (id, immediate) {

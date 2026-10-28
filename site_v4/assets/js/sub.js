@@ -332,6 +332,12 @@
     $('[data-vdp-room]').textContent = R.name;
     $('[data-vdp-title]').textContent = c.title;
     $('[data-vdp-price]').innerHTML = money(c.price) + (c.miles != null ? '<span>' + miles(c.miles) + '</span>' : '');
+    /* itemised price only where the showroom's own listing breaks it down (select.dupontregistry.com, 2026-10-28) */
+    $('[data-vdp-pricing]').innerHTML = (c.docFee ? '<span class="t-num">Price ' + money(c.basePrice) + ' + doc fee ' + money(c.docFee) + '</span>' : '') +
+      '<button type="button" class="vdp__plink" aria-expanded="false" aria-controls="vdp-pnote" data-vdp-pdet>Pricing details</button>' +
+      (c.price ? '<a class="vdp__plink" href="#vdp-finance">Estimate a payment</a>' : '');
+    var pdet = $('[data-vdp-pdet]'), pnote = $('[data-vdp-pnote]');
+    pdet.addEventListener('click', function () { var o = pnote.hidden; pnote.hidden = !o; pdet.setAttribute('aria-expanded', o ? 'true' : 'false'); });
     var quick = [['Exterior', c.ext], ['Interior', c.int], ['Transmission', c.trans], ['Drivetrain', c.drive], ['Engine', c.engine], ['Body', c.body]]
       .filter(function (r) { return r[1]; }).slice(0, 4);
     var inPanel = {}; quick.forEach(function (r) { inPanel[r[0]] = 1; });   // each fact appears once on the page (Alex, 2026-10-22)
@@ -350,12 +356,26 @@
     if (c.overview) {
       $('[data-vdp-lead]').textContent = (c.headline || '').replace(/ is Now Available at duPont REGISTRY Select!$/i, '.').replace(/^This /, '');
       $('[data-vdp-ov]').innerHTML = '<p>' + esc(c.overview) + '</p>';
-      $('[data-vdp-opts]').innerHTML = (c.options || []).map(function (o) { return '<li>' + esc(o) + '</li>'; }).join('');
+      var OPT_N = 10, opts = c.options || [];
+      $('[data-vdp-opts]').innerHTML = opts.map(function (o, i) { return '<li' + (i >= OPT_N ? ' class="is-extra"' : '') + '>' + esc(o) + '</li>'; }).join('');
+      if (opts.length > OPT_N) {
+        var ow = $('[data-vdp-opts-wrap]'); ow.classList.add('is-short');
+        ow.insertAdjacentHTML('beforeend', '<button type="button" class="vdp__lnk vdp__showall" aria-expanded="false">Show all ' + opts.length + ' options</button>');
+        $('.vdp__showall', ow).addEventListener('click', function () { var o = ow.classList.toggle('is-short'); this.setAttribute('aria-expanded', o ? 'false' : 'true'); this.textContent = o ? 'Show all ' + opts.length + ' options' : 'Show fewer'; });
+      }
+      var ovb = $('[data-vdp-ov]');
+      requestAnimationFrame(function () {
+        ovb.classList.add('is-clamped');
+        if (ovb.scrollHeight - ovb.clientHeight > 8) {
+          ovb.insertAdjacentHTML('afterend', '<button type="button" class="vdp__lnk vdp__readmore" aria-expanded="false">Read more</button>');
+          $('.vdp__readmore').addEventListener('click', function () { var o = ovb.classList.toggle('is-clamped'); this.setAttribute('aria-expanded', o ? 'false' : 'true'); this.textContent = o ? 'Read more' : 'Read less'; });
+        } else ovb.classList.remove('is-clamped');
+      });
       $('[data-vdp-close]').textContent = c.closing || '';
     } else {
       $('[data-vdp-lead]').textContent = c.title + ', at ' + R.dealer + '.';
       $('[data-vdp-ov]').innerHTML = '<p>The full description of this car is with the showroom — call ' + esc(R.phone) + ' or ask for a walk-around video.</p>';
-      $('[data-vdp-opts-wrap]').hidden = true;
+      $('[data-vdp-opts-wrap]').hidden = true; var so = $('[data-sn-opt]'); if (so) so.hidden = true;
     }
     /* specifications — key figures first (parsed from the listing's own engine line + odometer; a figure whose value
        is absent is left out, never invented), then two short groups: the car, and the record */
@@ -399,7 +419,7 @@
       '<p class="vdp__room-d">' + esc(R.dealer) + '</p>' +
       '<address class="vdp__room-a">' + R.addr.map(esc).join('<br>') + '</address>' +
       '<dl class="vdp__room-f"><div><dt>Hours</dt><dd>' + esc(R.hours) + '</dd></div><div><dt>Phone</dt><dd class="t-num">' + esc(R.phone) + '</dd></div></dl>' +
-      '<div class="vdp__cta"><a class="btn btn--red sub__btn" href="#vdp-contact">Schedule a viewing ' + ARR + '</a>' +
+      '<div class="vdp__cta vdp__cta--room"><button class="btn btn--red sub__btn" type="button" data-inq-intent="viewing">Schedule a viewing ' + ARR + '</button>' +
       '<a class="btn sub__btn sub__btn--line" href="#vdp-contact">Directions</a></div></div>';
 
     /* more from Select — the same showroom first */
@@ -460,10 +480,34 @@
     $('[data-inq-car]').innerHTML = '<img src="' + (gal[1] || gal[0]).small + '" alt="" width="132" height="88">' +
       '<div><p class="inq__room">' + esc(R.name) + '</p><p class="inq__title">' + esc(c.title) + '</p>' +
       (c.price ? '<p class="inq__price t-num">' + money(c.price) + '</p>' : '') + '</div>';
-    $('[data-inq-msg]').value = iqText;
+    var INT = {
+      availability: ['Inquire about this car', iqText],
+      viewing: ['Schedule a viewing', "Hello, I'd like to see the " + c.title + (iqRef ? ' (' + iqRef + ')' : '') + ' in person at the ' + R.name + ' showroom. Please confirm a time that suits.'],
+      trade: ['Value my trade', "Hello, I'm interested in the " + c.title + (iqRef ? ' (' + iqRef + ')' : '') + ' and would like a value for my current car — details above.'],
+      finance: ['Finance this car', "Hello, I'd like to know the financing and leasing options for the " + c.title + (c.price ? ' listed at ' + money(c.price) : '') + (iqRef ? ' (' + iqRef + ')' : '') + '.'],
+      video: ['Request a walkaround video', 'Hello, could you send me a walkaround video of the ' + c.title + (iqRef ? ' (' + iqRef + ')' : '') + '?']
+    };
+    var iqMsg = $('[data-inq-msg]'), iqIntent = 'availability', iqAuto = iqText;
+    var DONE = { availability: 'about the ' + esc(c.title), viewing: 'to arrange your viewing of the ' + esc(c.title),
+      trade: 'with a value for your car and the details of the ' + esc(c.title), finance: 'with finance and leasing options for the ' + esc(c.title),
+      video: 'with a walkaround video of the ' + esc(c.title) };
+    function setIntent(k) {
+      if (!INT[k]) k = 'availability'; iqIntent = k;
+      $$('[data-intent]', iq).forEach(function (b) { b.setAttribute('aria-checked', b.dataset.intent === k ? 'true' : 'false'); b.setAttribute('aria-pressed', b.dataset.intent === k ? 'true' : 'false'); });
+      $$('[data-intent-f]', iq).forEach(function (f) { f.hidden = f.dataset.intentF !== k; });
+      $('#inq-h').textContent = INT[k][0];
+      if (iqMsg.value === iqAuto) iqMsg.value = INT[k][1];   // never overwrite what the visitor typed
+      iqAuto = INT[k][1];
+    }
+    iqMsg.value = iqText;
+    $('[data-inq-intents]').addEventListener('click', function (e) { var b = e.target.closest('[data-intent]'); if (b) setIntent(b.dataset.intent); });
+    $('[data-inq-pref]').addEventListener('click', function (e) { var b = e.target.closest('[data-pref]'); if (!b) return;
+      $$('[data-pref]', iq).forEach(function (x) { x.setAttribute('aria-checked', x === b ? 'true' : 'false'); x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); });
+    $$('[data-pref]', iq).forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('aria-checked')); });
     function iqFocusables() { return $$('a[href], button:not([disabled]), input, textarea, [tabindex="-1"]:not([hidden])', iq).filter(function (el) { return el.offsetParent !== null; }); }
-    function iqOpen(e) {
-      if (e) e.preventDefault();
+    function iqOpen(e, intent) {
+      if (e && e.preventDefault) e.preventDefault();
+      setIntent(intent || 'availability');
       iqLast = document.activeElement;
       iq.hidden = false; iq.offsetWidth; iq.classList.add('is-open');
       document.documentElement.classList.add('inq-open'); if (window.V4 && V4.lenis) V4.lenis.stop();
@@ -479,7 +523,8 @@
       if (iqLast) iqLast.focus({ preventScroll: true });
     }
     iqBtn.setAttribute('aria-expanded', 'false');
-    iqBtn.addEventListener('click', iqOpen);
+    iqBtn.addEventListener('click', function (e) { iqOpen(e, 'availability'); });
+    document.addEventListener('click', function (e) { var b = e.target.closest('[data-inq-intent]'); if (b && !iq.contains(b)) iqOpen(e, b.dataset.inqIntent); });
     iq.addEventListener('click', function (e) { if (e.target.closest('[data-inq-close]')) iqClose(); });
     iq.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { e.stopPropagation(); iqClose(); return; }
@@ -496,7 +541,7 @@
       if (!ok) { iqForm.querySelector('[aria-invalid="true"]').focus(); return; }
       iqForm.hidden = true;
       iqDone.innerHTML = '<p class="inq__done-h disp">Thank you, ' + esc(d.first.value.trim()) + '.</p>' +
-        '<p>' + esc(R.dealer) + ' will reply about the ' + esc(c.title) + ' by email' + (d.phone.value.trim() ? ' or phone' : '') + '. If it can\'t wait, call <a class="t-num" href="tel:' + R.phone.replace(/[^\d+]/g, '') + '">' + esc(R.phone) + '</a>.</p>' +
+        '<p>' + esc(R.dealer) + ' will reply ' + DONE[iqIntent] + ' by ' + ({ Call: 'phone', Text: 'text', Email: 'email' })[(($('[data-pref][aria-checked="true"]', iq) || {}).dataset || {}).pref || 'Email'] + '. If it can\'t wait, call <a class="t-num" href="tel:' + R.phone.replace(/[^\d+]/g, '') + '">' + esc(R.phone) + '</a>.</p>' +
         '<p class="inq__ph">Prototype — nothing was sent.</p>' +
         '<button class="btn sub__btn sub__btn--line" type="button" data-inq-close>Close</button>';
       iqDone.hidden = false; iqDone.focus();
@@ -522,6 +567,52 @@
       if (matchMedia('(pointer: coarse)').matches) location.href = 'sms:' + R.phone.replace(/[^\d+]/g, '') + '?&body=' + encodeURIComponent(body);
       else say('Text ' + R.name + ': ' + R.phone);
     });
+
+    /* finance estimate (Alex, 2026-10-28): the visitor's own figures; no rate is assumed — nothing shows until they enter one */
+    var calc = $('[data-vdp-calc]'), cn = $('[data-calc-n]'), cf = $('[data-calc-f]');
+    var num = function (v) { return parseFloat(String(v).replace(/[^\d.]/g, '')) || 0; };
+    var usd = function (v) { return '$' + Math.round(v).toLocaleString('en-US'); };
+    if (c.price) { calc.elements.price.value = c.price.toLocaleString('en-US'); calc.elements.down.value = Math.round(c.price * 0.2 / 1000) * 1000 ? (Math.round(c.price * 0.2 / 1000) * 1000).toLocaleString('en-US') : ''; }
+    function work() {
+      var P = num(calc.elements.price.value) - num(calc.elements.down.value), n = +calc.elements.term.value, apr = calc.elements.apr.value.trim();
+      if (!(P > 0) || apr === '' || isNaN(parseFloat(apr))) { cn.textContent = '—'; cf.textContent = P > 0 ? 'Enter your rate to see the estimate.' : 'Enter a price above the down payment.'; return; }
+      var r = parseFloat(apr) / 1200, m = r ? P * r / (1 - Math.pow(1 + r, -n)) : P / n;
+      cn.textContent = usd(m) + '/mo';
+      cf.textContent = usd(P) + ' financed over ' + n + ' months at ' + parseFloat(apr) + '% APR.';
+    }
+    calc.addEventListener('input', work); calc.addEventListener('change', work);
+    calc.addEventListener('focusout', function (e) { if (/price|down/.test(e.target.name) && e.target.value) e.target.value = Math.round(num(e.target.value)).toLocaleString('en-US'); });
+    calc.addEventListener('submit', function (e) { e.preventDefault(); });
+    if (!c.price) $('[data-vdp-fin]').hidden = true;
+    work();
+
+    /* buying from Select — the showroom's own words from its listings (SoCal: inspection, financing, worldwide transport) */
+    if (c.closing || c.loc === 'socal') {
+      $('[data-vdp-buy-l]').innerHTML = [
+        ['Inspected', 'A full safety inspection by the showroom’s certified technicians.'],
+        ['Finance & leasing', 'Financing and leasing options through the showroom.'],
+        ['Delivery', 'Transportation can be arranged, anywhere in the world.'],
+        ['Showroom hours', R.hours]
+      ].map(function (b) { return '<li><p class="vdp__buy-k">' + b[0] + '</p><p class="vdp__buy-t">' + esc(b[1]) + '</p></li>'; }).join('');
+      $('[data-vdp-buy]').hidden = false;
+      var cl = $('[data-vdp-close]'); if (cl) { cl.textContent = ''; cl.hidden = true; }   // the band says it once — no repeat of the listing's closing lines
+    }
+
+    /* section bar (desktop) and Call · Inquire bar (phones) appear once the price panel's buttons leave the screen */
+    var sn = $('[data-vdp-sn]'), mb = $('[data-vdp-mb]');
+    $('[data-sn-title]').textContent = c.title; $('[data-sn-price]').textContent = c.price ? money(c.price) : '';
+    $('[data-mb-call]').textContent = 'Call'; $('[data-mb-call]').href = 'tel:' + R.phone.replace(/[^\d+]/g, '');
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { var away = !es[0].isIntersecting && es[0].boundingClientRect.top < 0; sn.classList.toggle('is-on', away); mb.classList.toggle('is-on', away); },
+        { threshold: 0 }).observe($('.vdp__cta'));
+      var links = $$('.vdp__sn-l a', sn).filter(function (a) { return !a.parentNode.hidden; }), ticking = false;
+      function spy() {   // the current section = the last one whose top has passed 35 % of the screen
+        ticking = false; var cur = null, line = innerHeight * 0.35;
+        links.forEach(function (a) { var t = $(a.getAttribute('href')); if (t && t.getBoundingClientRect().top < line) cur = a; });
+        links.forEach(function (a) { a.classList.toggle('is-cur', a === cur); if (a === cur) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+      }
+      addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true }); spy();
+    }
     show(0);
   })();
 })();
