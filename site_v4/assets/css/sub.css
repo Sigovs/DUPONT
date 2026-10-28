@@ -924,3 +924,5 @@ html.inq-open { overflow: hidden; }
   .inv__cell.is-open .inv__menu, .inv__cell.is-open .inv__pop { left: 0; right: 0; }
 }
 @media (max-width: 759.98px) { .inv__filters > .inv__cell + .inv__cell:not(.inv__cell--search) { border-left: 0 !important; } }
+/* SRP filter card: no vertical dividers between the cells (Alex, 2026-10-28) */
+.inv__filters > .inv__cell + .inv__cell, .inv__filters > .inv__cell + .inv__cell:not(.inv__cell--search) { border-left: 0 !important; }
