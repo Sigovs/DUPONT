@@ -166,3 +166,11 @@ html.dr-open { overflow: hidden; }
 /* headings: Manrope 600 (guideline p.1) — every display role */
 .disp, h1, h2, h3, .vdp__title, .tile__title, .rcard__title, .inq__title { font-family: var(--f-display); font-weight: 600; letter-spacing: -0.01em; }
 @media (max-width: 759.98px) { .sub .btn, .sub .sub__btn, .vdp__panel .btn, .vdp__mb .btn { min-height: 46px; padding: 0 20px; font-size: 14px; line-height: 20px; } }
+/* home · Collection title on two lines (Alex, 2026-11-05): "Chosen." / "One at a time." — the sub-line and the marque
+   index move down by one title line so nothing overlaps */
+.col__h1, .col__h2 { display: block !important; }
+@media (min-width: 1280px) {
+  .col__h { line-height: 1.04; }
+  .col__sub { transform: translateY(calc(70 * var(--u))); }
+  .col__index { top: calc(var(--st) + 532.6 * var(--u)) !important; }
+}
