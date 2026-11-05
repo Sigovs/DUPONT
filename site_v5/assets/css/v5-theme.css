@@ -19,6 +19,7 @@ body.sub-page main .inv__f select { background: var(--card) url("data:image/svg+
 body.sub-page main .tile__a { background: var(--dk); }
 body.sub-page main .vdp__crumbs li + li::before { color: color-mix(in srgb, var(--on) 35.0%, transparent); }
 body.sub-page main .vdp__panel { background: var(--dk); }
+body.sub-page main .vdp__ov p { color: var(--on-v); }
 body.sub-page main .inq__x:hover, body.sub-page main .inq__x:focus-visible { background: color-mix(in srgb, var(--on) 8.0%, transparent); }
 body.sub-page main .inq__car { border-bottom: 1px solid color-mix(in srgb, var(--on) 14.0%, transparent); }
 body.sub-page main .inq__f input, body.sub-page main .inq__f textarea { border: 1px solid color-mix(in srgb, var(--on) 30.0%, transparent); background: var(--card); }
