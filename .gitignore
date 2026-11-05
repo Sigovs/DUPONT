@@ -66,3 +66,13 @@ Thumbs.db
 !/site_v4/assets/**/*.avif
 !/site_v4/assets/video/*.mp4
 /site_v4/_qa/
+
+# V5 (2026-11-05) — duPont REGISTRY guidelines applied to the approved V4, published at /site_v5/
+!/site_v5/
+!/site_v5/assets/**/*.jpg
+!/site_v5/assets/**/*.jpeg
+!/site_v5/assets/**/*.png
+!/site_v5/assets/**/*.webp
+!/site_v5/assets/**/*.avif
+!/site_v5/assets/video/*.mp4
+/site_v5/_qa/
