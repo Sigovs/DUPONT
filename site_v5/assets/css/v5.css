@@ -174,3 +174,5 @@ html.dr-open { overflow: hidden; }
   .col__sub { transform: translateY(calc(70 * var(--u))); }
   .col__index { top: calc(var(--st) + 532.6 * var(--u)) !important; }
 }
+/* one red: the guideline / Figma value #AC1C28 (V4 used #AC1D28 — one step apart, now unified) */
+:root { --red: #AC1C28; }
