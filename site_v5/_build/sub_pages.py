@@ -8,7 +8,7 @@ import os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 V4 = os.path.dirname(HERE)
-VER = 'v5-2'
+VER = 'v5-5'
 
 src = open(os.path.join(V4, 'index.html'), encoding='utf-8').read()
 
@@ -48,6 +48,7 @@ def page(name, title, desc, body_class, main):
     h = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="%s">' % desc, h)
     h += '  <link rel="stylesheet" href="assets/css/sub.css?v=%s">\n' % VER
     h += '  <link rel="stylesheet" href="assets/css/v5.css?v=%s">\n' % VER
+    h += '  <link rel="stylesheet" href="assets/css/v5-theme.css?v=%s">\n' % VER
     out = (h + '</head>\n<body class="%s">' % body_class + chrome + main + '\n  ' + footer + '\n' + SCRIPTS +
            '</body>\n</html>\n')
     open(os.path.join(V4, name), 'w', encoding='utf-8').write(out)
