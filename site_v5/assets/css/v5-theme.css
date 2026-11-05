@@ -79,3 +79,4 @@ body.sub-page .tile__save { color: #0D0D0D; }
 body.sub-page .tile__save[aria-pressed="true"] { color: var(--brand); --heart: var(--brand); }
 body.sub-page .chip[aria-pressed="true"] span { color: color-mix(in srgb, var(--s0) 60%, var(--on)); }
 body.sub-page .vdp__calc-alt:hover, body.sub-page .vdp__calc-alt:focus-visible { background: #fff; border-color: #fff; color: #0D0D0D; }
+body.sub-page .vdp__video-tag { background: rgb(255 255 255 / .92); color: #0D0D0D; }
