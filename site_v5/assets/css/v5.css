@@ -178,3 +178,5 @@ html.dr-open { overflow: hidden; }
 :root { --red: #AC1C28; }
 /* the grey footer sits on the page's bottom edge too — no dark strip under it */
 .foot__in:has(> .ftr:last-child), .foot:has(.ftr) { padding-bottom: 0 !important; }
+/* hero CTA sat under the cars layer (z 0 < 1) and could not be clicked on desktop (Alex, 2026-11-05) */
+.hero__cta { z-index: 5 !important; }
