@@ -119,7 +119,7 @@ html.dr-open { overflow: hidden; }
 .v5-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
 
 /* ---------- footer (Figma Footer-Desktop / -Mobile): logo + social centred, four columns, subscribe ---------- */
-.foot .ftr { margin-top: clamp(64px, 6vw, 110px); }
+.foot .ftr { margin-top: clamp(64px, 6vw, 110px); margin-inline: calc(50% - 50vw); padding-inline: max(24px, calc(50vw - 696px)); box-sizing: border-box; }  /* grey runs edge to edge (Alex, 2026-11-05) */
 .ftr { display: flex; flex-direction: column; align-items: center; gap: 24px; margin: 0 calc(-1 * var(--g, 24px)); padding: 24px; background: var(--sv); color: var(--on); }
 .ftr__top { display: flex; flex-direction: column; align-items: center; gap: 24px; }
 .ftr__logo { display: block; width: 230px; color: var(--on); }
@@ -176,3 +176,5 @@ html.dr-open { overflow: hidden; }
 }
 /* one red: the guideline / Figma value #AC1C28 (V4 used #AC1D28 — one step apart, now unified) */
 :root { --red: #AC1C28; }
+/* the grey footer sits on the page's bottom edge too — no dark strip under it */
+.foot__in:has(> .ftr:last-child), .foot:has(.ftr) { padding-bottom: 0 !important; }
