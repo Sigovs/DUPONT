@@ -434,6 +434,7 @@
 
     /* gallery */
     var img = $('[data-vdp-img]'), n = $('[data-vdp-n]'), th = $('[data-vdp-thumbs]'), k = 0;
+    var vbx = $('[data-vbox]');
     th.innerHTML = gal.map(function (g, i) {
       return '<li><button type="button" data-k="' + i + '" aria-label="Photograph ' + (i + 1) + ' of ' + gal.length + '"><img src="' + g.small + '" alt="" loading="' + (i < 10 ? 'eager' : 'lazy') + '" decoding="async"></button></li>';
     }).join('');
@@ -443,12 +444,12 @@
       img.src = gal[k].big; img.alt = c.title + ' — photograph ' + (k + 1) + ' of ' + gal.length;
       n.innerHTML = '<b>' + pad(k + 1) + '</b> / ' + pad(gal.length);
       $$('button', th).forEach(function (b) { b.setAttribute('aria-current', +b.dataset.k === k ? 'true' : 'false'); });
-      var cur = th.children[k];
+      var cur = (th.querySelector('[data-k="' + k + '"]') || {}).parentNode;
       if (cur && from !== 'thumb') th.scrollTo({ left: cur.offsetLeft - th.clientWidth / 2 + cur.offsetWidth / 2, behavior: 'smooth' });
       var pre = new Image(); pre.src = gal[(k + 1) % gal.length].big;
       if (lb && !lb.hidden) lbShow();
     }
-    th.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) show(+b.dataset.k, 'thumb'); });
+    th.addEventListener('click', function (e) { var b = e.target.closest('button[data-k]'); if (b) show(+b.dataset.k, 'thumb'); });
     $('[data-vdp-prev]').addEventListener('click', function () { show(k - 1); });
     $('[data-vdp-next]').addEventListener('click', function () { show(k + 1); });
     // swipe on the main photograph
@@ -469,6 +470,7 @@
     document.addEventListener('keydown', function (e) {
       var inLb = !lb.hidden;
       if (!iq.hidden) return;
+      if (vbx && !vbx.hidden) return;
       if (e.key === 'Escape' && inLb) { lbClose(); return; }
       if (e.target.closest('input, textarea, select')) return;
       if (e.key === 'ArrowRight' && (inLb || gal.length)) { e.preventDefault(); show(k + 1); }
@@ -630,28 +632,39 @@
       addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true }); spy();
     }
 
-    /* video (Alex, 2026-10-28): listings that come with a walkaround get their own section under the gallery — a 16:9 stage
-       that plays in place (YouTube id or MP4). Without one, the pill on the photo asks the showroom for a walkaround. */
-    var vB = $('[data-vdp-vid]'), vSec = $('[data-vdp-video]'), V = c.video;
-    if (V && (V.youtube || V.mp4)) {
-      vSec.hidden = false; $('[data-sn-video]').hidden = false;
-      $('[data-vdp-video-poster]').src = V.poster || (V.youtube ? 'https://i.ytimg.com/vi/' + encodeURIComponent(V.youtube) + '/maxresdefault.jpg' : (gal[2] || gal[0]).big);
-      if (V.sample) { $('[data-vdp-video-tag]').hidden = false; vSec.classList.add('is-sample'); }
-      $('[data-vdp-vid-l]').textContent = 'Play video';
-      var vPlay = function () {
-        $('[data-vdp-video-stage]').innerHTML = V.youtube
-          ? '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(V.youtube) + '?autoplay=1&rel=0&modestbranding=1" title="' + esc(c.title) + ' — walkaround" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>'
-          : '<video src="' + esc(V.mp4) + '" controls autoplay playsinline' + (V.poster ? ' poster="' + esc(V.poster) + '"' : '') + '></video>';
-        if (V.sample) $('[data-vdp-video-stage]').insertAdjacentHTML('beforeend', '<span class="vdp__video-tag">Sample</span>');
+    /* video (Alex, 2026-11-05): a listing that comes with a video gets it as the FIRST thumbnail under the main photograph -
+       a play button over the listing's own photo; it plays in a pop-up (YouTube id or MP4). The pill on the photo opens the
+       same pop-up. Without a video, the pill asks the showroom for a walkaround. */
+    var vB = $('[data-vdp-vid]'), V = c.video, vfr = $('[data-vbox-frame]'), vLast = null;
+    function vClose() {
+      if (!vbx || vbx.hidden) return;
+      vbx.hidden = true; vfr.innerHTML = ''; document.documentElement.classList.remove('lbox-open');
+      if (window.V4 && V4.lenis) V4.lenis.start(); if (vLast) vLast.focus({ preventScroll: true });
+    }
+    if (V && (V.youtube || V.mp4) && vbx) {
+      var vOpen = function () {
+        vLast = document.activeElement;
+        vfr.innerHTML = (V.youtube
+          ? '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(V.youtube) + '?autoplay=1&rel=0&modestbranding=1" title="' + esc(c.title) + ' - video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>'
+          : '<video src="' + esc(V.mp4) + '" controls autoplay playsinline' + (V.poster ? ' poster="' + esc(V.poster) + '"' : '') + '></video>')
+          + (V.sample ? '<span class="vdp__video-tag">Sample video</span>' : '');
+        vbx.hidden = false; document.documentElement.classList.add('lbox-open');
+        if (window.V4 && V4.lenis) V4.lenis.stop(); $('[data-vbox-close]').focus();
       };
-      $('[data-vdp-video-play]').addEventListener('click', vPlay);
-      vB.addEventListener('click', function () {
-        if (window.V4 && V4.go) V4.go('vdp-video'); else vSec.scrollIntoView({ behavior: 'smooth' });
-        setTimeout(vPlay, 900);
+      var vPoster = (gal[2] || gal[0]).small;
+      th.insertAdjacentHTML('afterbegin', '<li class="vdp__thumb-vid"><button type="button" data-vid aria-label="Play the video of the ' + esc(c.title) + '"><img src="' + vPoster + '" alt="" decoding="async"><span class="vdp__thumb-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" focusable="false"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span></button></li>');
+      $('[data-vid]', th).addEventListener('click', vOpen);
+      $('[data-vdp-vid-l]').textContent = 'Play video';
+      vB.addEventListener('click', vOpen);
+      $('[data-vbox-close]').addEventListener('click', vClose);
+      vbx.addEventListener('click', function (e) { if (e.target === vbx) vClose(); });
+      vbx.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { e.preventDefault(); vClose(); return; }
+        if (e.key !== 'Tab') return;
+        var f = $$('button, iframe, video[controls]', vbx); if (!f.length) return;
+        if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+        else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
       });
-      // the section bar's link list was read before the Video item showed — let it count
-      if (typeof links !== 'undefined') links = $$('.vdp__sn-l a', sn).filter(function (a) { return !a.parentNode.hidden; });
-      window.dispatchEvent(new Event('scroll'));
     } else {
       $('[data-vdp-vid-l]').textContent = 'Request a walkaround video';
       vB.setAttribute('data-inq-intent', 'video');

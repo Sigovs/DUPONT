@@ -73,6 +73,7 @@ body.sub-page main .inv__cell--sort.is-open .inv__menu { border-top: 1px solid c
 body.sub-page main .inv__cell--sort:not(.is-open) .inv__dd-btn:hover { background: color-mix(in srgb, var(--on) 5.0%, transparent); }
 body.sub-page main .inv__bar-in { border-color: color-mix(in srgb, var(--on) 12.0%, transparent) !important; }
 body.sub-page main .inv__menu, body.sub-page main .inv__pop, body.sub-page main .inv__cell.is-open .inv__menu, body.sub-page main .inv__cell.is-open .inv__pop, body.sub-page main .inv__cell--sort.is-open .inv__menu { border: 1px solid color-mix(in srgb, var(--on) 16.0%, transparent) !important; }
+body.sub-page main .vdp__thumb-play { background: var(--card); }
 
 /* hand fixes on top of the generated layer */
 body.sub-page .tile__save { color: #0D0D0D; }
