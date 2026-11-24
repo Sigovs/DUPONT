@@ -44,3 +44,13 @@ The US map appeared ~4 times on one page — Alex flagged it. One device, one jo
 Alex flagged three repeated Services pills; we turned it into "no pills site-wide" and the designer also recoloured the
 inventory ground — both reverted. One note = one fix. Don't restyle grounds, colours or components nobody mentioned.
 Also: after a push, Pages caches index.html ~10 min — tell Alex to hard-refresh before judging.
+
+## 10. A client design system arrives late — ask for it first
+The brand guidelines came after the client approved V4, then a full Figma after V5. Ask for guidelines, Figma access and one
+named approver before the first build. A client file where we only have a View seat runs out of MCP calls mid-build:
+have Alex duplicate it into the own team's Figma and read it there.
+
+## 11. Never strip code with a line regex
+Removing internal comments by sed cut live code in sub.js (the page broke, one fault was only a runtime error). Strip with a
+tokenizer, then diff against the previous build and load every page. Published code must carry no internal notes: the client
+imported our preview into Figma and our notes became their layer names.
