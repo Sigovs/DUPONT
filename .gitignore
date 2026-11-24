@@ -76,3 +76,13 @@ Thumbs.db
 !/site_v5/assets/**/*.avif
 !/site_v5/assets/video/*.mp4
 /site_v5/_qa/
+
+# V6 (2026-11-24) — the client's Figma design, published at /site_v6/
+!/site_v6/
+!/site_v6/assets/**/*.jpg
+!/site_v6/assets/**/*.jpeg
+!/site_v6/assets/**/*.png
+!/site_v6/assets/**/*.webp
+!/site_v6/assets/**/*.avif
+!/site_v6/assets/video/*.mp4
+/site_v6/_qa/
