@@ -7,10 +7,10 @@ sys.path.insert(0, HERE)
 import bodies
 inv = open(os.path.join(SITE, 'inventory.html'), encoding='utf-8').read()
 home = open(os.path.join(SITE, 'index.html'), encoding='utf-8').read()
-HEAD = inv[:inv.index('<link rel="stylesheet" href="assets/css/catalog.css">')] + '<link rel="stylesheet" href="assets/css/pages.css?v=16">\n</head>\n'
+HEAD = inv[:inv.index('<link rel="stylesheet" href="assets/css/catalog.css">')] + '<link rel="stylesheet" href="assets/css/pages.css?v=18">\n</head>\n'
 CHROME = inv[inv.index('  <a class="skip'):inv.index('  <main id="main"')]
 ROOMS = inv[inv.index('  <section class="showrooms"'):inv.index('  <footer class="site-footer">')]
-FOOT = inv[inv.index('  <footer class="site-footer">'):].replace('assets/js/inventory.js', 'assets/js/pages.js?v=6')
+FOOT = inv[inv.index('  <footer class="site-footer">'):].replace('assets/js/inventory.js', 'assets/js/pages.js?v=8')
 CTL = re.search(r'<div class="rail__ctl">.*?</div>', home, re.S).group(0)
 def ctl(what): return CTL.replace('Previous car', 'Previous ' + what).replace('Next car', 'Next ' + what)
 def m(t, d=0): return '<span class="line-mask" style="--d:%d"><span>%s</span></span>' % (d, t)
