@@ -3,8 +3,9 @@
 Chronological. Each line: what, Alex's verdict, why. Source of truth for "what did we already try".
 
 ## Approved / binding
+- **2026-11-25: V6 approved for build-out** — 0435285, tag approved-buildout-2026-11-25. Baseline for the production build.
 - **2026-11-24: V6 published** — https://sigovs.github.io/DUPONT/site_v6/ (0435285): the client's own Figma design built 1:1
-  (Home, SRP, VDP, dark + light, blue accent) on top of the approved V4 logic. Sent for feedback; NOT approved yet.
+  (Home, SRP, VDP, dark + light, blue accent) on top of the approved V4 logic. Approved 2026-11-25.
   Kept different from the Figma on purpose: Naples/Miami hours not published, 2006 Ford GT, "Mileage", "Six of 13",
   "Sample reviews". Open with the client: final accent, mobile page designs, hours, photo rights.
 - 2026-11-05: V5 published — guidelines shell (Manrope/Roboto, header, menu, footer, themes) on V4; superseded by V6.

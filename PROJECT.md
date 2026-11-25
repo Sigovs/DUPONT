@@ -1,6 +1,6 @@
 # duPont REGISTRY Select — project state (for Jarvis)
 
-Updated 2026-11-24. Owner: Alex (GDBuro). Design system: design_dna (`C:\____WORK\_____GDBURO SIGOFF\design_dna`).
+Updated 2026-11-25. Owner: Alex (GDBuro). Design system: design_dna (`C:\____WORK\_____GDBURO SIGOFF\design_dna`).
 
 ## Versions
 - **CLIENT-APPROVED 2026-10-28:** https://sigovs.github.io/DUPONT/site_v4/ (commit 5fff6bf, tag
@@ -18,7 +18,8 @@ Updated 2026-11-24. Owner: Alex (GDBuro). Design system: design_dna (`C:\____WOR
   Bump the `?v=` query on sub.css / sub.js after every change (Pages caches ~10 min; tell Alex Ctrl+Shift+R).
 
 - **V6 (2026-11-24):** https://sigovs.github.io/DUPONT/site_v6/ (`site_v6/`) — the client's own Figma design: Home, SRP, VDP,
-  dark + light. Built by `site_v6/_build/build.py`. Waiting for client feedback.
+  dark + light. Built by `site_v6/_build/build.py`. APPROVED for build-out 2026-11-25
+  (0435285, tag approved-buildout-2026-11-25) — current baseline.
 
 ## V4 SRP / VDP state (2026-10-28, after client approval)
 - SRP: filter card (Year · Make · Model · Price two-thumb slider · More filters: mileage, body, transmission, drivetrain,
