@@ -21,7 +21,7 @@ Home, Inventory and Vehicle were compared with the approved preview element by e
 | Ship, quote | `ship.html`, `ship-quote.html` | dupontregistry.com/ship, /ship/get-quote |
 | Finance & Lease | `finance.html` | dupontregistry.com/finance (the Customers, Lease, Collectors and Dealers tabs link to the live pages) |
 | Paint Protection | `paint-protection.html` | podiumprotectionfilm.com (West Coast Exotic Cars' PPF site); photos are the 765LT listing |
-| Service | `service.html` | westcoastexoticcars.com/services (West Coast Exotic Cars' service page); photos are our SoCal showroom, the 765LT listing, close-ups cropped from the client's Figma marques, the Finance and Insurance pages and a duPont REGISTRY News article (Range Rover) |
+| Service | `service.html` | westcoastexoticcars.com/services (West Coast Exotic Cars' service page); photos are our SoCal showroom, the 765LT listing, close-ups cropped from listing photos on dupontregistry.com |
 | About | `about.html` | dupontregistry.com/about |
 | Contact | `contact.html` | dupontregistry.com/contact (their form is a HubSpot embed; the fields and texts are the same) |
 

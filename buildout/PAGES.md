@@ -33,7 +33,7 @@
 | Page | File | What it is |
 |---|---|---|
 | Paint Protection (menu: Services › Paint Protection) | `paint-protection.html` | Not on dupontregistry.com. Paint Protection is in the navigation of the client's Figma design, so we built the page. Text taken from West Coast Exotic Cars' paint protection film site (podiumprotectionfilm.com); photos from the McLaren 765LT listing. We added four short headings because that page has almost none. |
-| Service (menu: Services › Service) | `service.html` | Not on dupontregistry.com. Service is in the navigation and footer of the client's Figma design, so we built the page. Text, service lists by make and the appointment form taken from West Coast Exotic Cars' service page (westcoastexoticcars.com/services); photos from our own SoCal showroom and the McLaren 765LT listing; the six close-ups in the make cards are cropped from photos in the client's Figma, the Finance and Insurance pages and a duPont REGISTRY News article. |
+| Service (menu: Services › Service) | `service.html` | Not on dupontregistry.com. Service is in the navigation and footer of the client's Figma design, so we built the page. Text, service lists by make and the appointment form taken from West Coast Exotic Cars' service page (westcoastexoticcars.com/services); photos from our own SoCal showroom and the McLaren 765LT listing; the six close-ups in the make cards (wheel, headlight, rear wing, headlight, Spirit of Ecstasy, side vent) are cropped from listing photos on dupontregistry.com. |
 
 ## Menu items that link out
 
