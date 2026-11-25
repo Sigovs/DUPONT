@@ -552,11 +552,14 @@
 .duo__b { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .duo__b .button { margin-top: 0; }
 .svc__g { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-.svc__c { padding: 28px; border-radius: var(--r); background: var(--s2); }
+.svc__c { padding: 12px 12px 28px; border-radius: var(--r); background: var(--s2); }
+.svc__ph { margin: 0 0 24px; aspect-ratio: 3 / 2; border-radius: 8px; overflow: hidden; background: var(--s3); }
+.svc__ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.svc__c > .svc__t, .svc__c > .svc__l { margin-inline: 16px; }
 .svc__lg { display: flex; align-items: center; gap: 20px; height: 56px; }
 .svc__lg img { height: 48px; width: auto; max-width: 110px; object-fit: contain; }
 :root[data-theme="dark"] .svc__lg .makes__invert { filter: invert(1); }
-.svc__t { margin: 0; font: 600 24px/32px var(--f-display); letter-spacing: 0; color: var(--on-strong); }
+.svc__t { margin: 0; font: 600 32px/40px var(--f-display); letter-spacing: 0; color: var(--on-strong); }
 .svc__l { margin: 16px 0 0; padding-left: 20px; columns: 2 150px; column-gap: 24px; font: 400 16px/28px var(--f-text); color: var(--on-v); }
 .svc__l li { break-inside: avoid; }
 .ask { padding-top: var(--sec); }
@@ -566,4 +569,4 @@
 .apf { display: grid; gap: 16px; align-content: start; margin: 0; padding: 0; border: 0; min-width: 0; }
 .apf legend { margin-bottom: 16px; padding: 0; font: 600 16px/24px var(--f-text); color: var(--on-strong); }
 @media (max-width: 1151.98px) { .svc__g { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 759.98px) { .svc__g { grid-template-columns: minmax(0, 1fr); gap: 16px; } .svc__c { padding: 20px 16px; } .svc__t { font-size: 20px; line-height: 28px; } .svc__l { font-size: 14px; line-height: 24px; } .quote__f--2 { grid-template-columns: minmax(0, 1fr); } .tags li { font-size: 14px; padding: 4px 10px; } .ask__in { padding-block: 32px; } .duo__b .button { flex: 1 1 100%; } }
+@media (max-width: 759.98px) { .svc__g { grid-template-columns: minmax(0, 1fr); gap: 16px; } .svc__c { padding: 8px 8px 20px; } .svc__c > .svc__t, .svc__c > .svc__l { margin-inline: 8px; } .svc__ph { margin-bottom: 16px; } .svc__t { font-size: 24px; line-height: 32px; } .svc__l { font-size: 14px; line-height: 24px; } .quote__f--2 { grid-template-columns: minmax(0, 1fr); } .tags li { font-size: 14px; padding: 4px 10px; } .ask__in { padding-block: 32px; } .duo__b .button { flex: 1 1 100%; } }
