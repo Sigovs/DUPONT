@@ -1,0 +1,60 @@
+/* Design tokens. Dark is the default theme; <html data-theme="light"> switches. The accent lives here only. */
+:root,
+:root[data-theme="dark"] {
+  /* surfaces (guidelines p. 6) */
+  --s0: #0D0D0D;
+  --s1: color-mix(in srgb, #C6C6C6 4%, #0D0D0D);
+  --s2: color-mix(in srgb, #C6C6C6 8%, #0D0D0D);
+  --s3: color-mix(in srgb, #C6C6C6 11%, #0D0D0D);
+  --s4: color-mix(in srgb, #C6C6C6 12%, #0D0D0D);
+  --sv: #464648;
+  /* ink and lines */
+  --on: #F2F2F2;
+  --on-strong: #FFFFFF;
+  --on-v: #C3C3C9;
+  --outline: #999999;
+  --outline-v: #5C5C5F;
+  /* accent: fill, text on it, hover, accent used as ink */
+  --acc: #93CEFF;
+  --on-acc: #001D34;
+  --acc-hi: #B3DCFF;
+  --acc-ink: #93CEFF;
+  color-scheme: dark;
+}
+:root[data-theme="light"] {
+  --s0: #FAFAFA;
+  --s1: color-mix(in srgb, #5E5E5E 4%, #FAFAFA);
+  --s2: color-mix(in srgb, #5E5E5E 8%, #FAFAFA);
+  --s3: color-mix(in srgb, #5E5E5E 11%, #FAFAFA);
+  --s4: color-mix(in srgb, #5E5E5E 12%, #FAFAFA);
+  --sv: #DFDFE5;
+  --on: #0D0D0D;
+  --on-strong: #000000;
+  --on-v: #464648;
+  --outline: #747478;
+  --outline-v: #C3C3C9;
+  --acc: #194A71;
+  --on-acc: #FFFFFF;
+  --acc-hi: #123A5A;
+  --acc-ink: #194A71;
+  color-scheme: light;
+}
+:root {
+  --f-display: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --f-text: "Roboto", "Helvetica Neue", Arial, sans-serif;
+  /* layout: gutter, space between sections, corner, header height */
+  --gut: 24px;
+  --sec: 80px;
+  --r: 12px;
+  --hd-h: 80px;
+  /* motion */
+  --ease-io: cubic-bezier(.65, 0, .35, 1);
+  --ease-o: cubic-bezier(.2, .8, .2, 1);
+}
+@media (max-width: 759.98px) {
+  :root {
+    --gut: 16px;
+    --sec: 56px;
+    --hd-h: 64px;
+  }
+}

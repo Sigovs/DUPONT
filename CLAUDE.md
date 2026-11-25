@@ -15,6 +15,26 @@ External skills: **authorized 2026-10-08** as supporting specialists (see BRIEF.
 - `site/` — the prototype (designer / motion-designer)
 
 ## Feedback log
+- **SUB PAGES GO STRAIGHT INTO THE BUILD OUT (Alex, 2026-11-25):** V6 stays exactly as approved, 3 pages only; no V7. New pages copied
+  from dupontregistry.com (client's texts + structure, V6 design) are built in `buildout/site/` one by one as Alex names them. Bodies in
+  `buildout/_tools/bodies.py` → `python3 buildout/_tools/build_pages.py` (shell = inventory.html); styles `pages.css`, code `pages.js`.
+  `_tools/` is internal: never in the zip. Built: Sell (`sell.html`, `sell-form.html`),
+  Insurance (`insurance.html`, `insurance-quote.html`), Finance (`finance.html`). **Header and footer are ALWAYS ours**, only the middle of a page is
+  copied. Source = dupontregistry.com ONLY; what isn't there, tell Alex (Service and Paint Protection aren't). Four Services pages: Insurance, Service,
+  Paint Protection (its own page), Finance. **EVERYTHING EXACTLY AS ON duPont (Alex, 2026-11-25: "VSE KAK U DUPONT NADO")**: texts verbatim incl. their mistakes, same
+  blocks, Read More hidden, their Most Popular Cars, their make/model lists (`data/models.json`); only header/footer and the Select design are ours.
+  Form steps after the first are the dev team's. Paint Protection (`paint-protection.html`) = text of podiumprotectionfilm.com (West Coast's PPF site),
+  photos = our 765LT listing. Drawer groups open softly by height (site.js `sub`). About (`about.html`) from dupontregistry.com/about,
+  footer About → about.html. Contact (`contact.html`) cloned too. **Final package: `duPont-REGISTRY-Select_handoff_2026-11-25_final.zip`** (15 pages;
+  `buildout/PAGES.md` lists cloned vs added — only Paint Protection is ours). **Everything new goes into the handoff
+  only; V6 stays exactly as approved (Alex, 2026-11-25: "vse tolko v handoff kladi, v6 ostavj kak bil").** Content copied from dupontregistry.com is CORRECT: no questions about rights, video
+  or claims; report only what differs from their page. **Scope = the SIDE MENU only**
+  (Alex, 2026-11-25): footer-only pages (About, Contact, Privacy, Terms) are not built. Events = a plain link to
+  https://dupontregistrygroup.com/events (no page); News = a plain link to https://news.dupontregistry.com/ (no page). Auctions section is not carried over; articles about them may stay. **Services dropdown = as on
+  dupontregistry.com: Insure, Protect (/protect = exotic car warranty), Ship (/ship = car transport)**; Finance & Lease = its own menu item. Protect
+  (`protect.html`, `protect-quote.html`) and Ship (`ship.html`, `ship-quote.html`) built 2026-11-25. Locations = links to Inventory filtered by showroom,
+  NO separate location pages. Kirsten: "We bring over their live pages to the dev site" (pages are carried over, not redirects; who does it and in which
+  design is still unanswered). HANDOFF.md + zip are rebuilt after Alex approves.
 - **V6 APPROVED FOR BUILD-OUT (Alex, 2026-11-25): https://sigovs.github.io/DUPONT/site_v6/** — commit 0435285, tag
   `approved-buildout-2026-11-25` (Home + SRP + VDP, dark + light). This is now the baseline: never change it silently;
   the production build reproduces it, new work goes on top only when Alex asks.

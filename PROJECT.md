@@ -20,6 +20,9 @@ Updated 2026-11-25. Owner: Alex (GDBuro). Design system: design_dna (`C:\____WOR
 - **V6 (2026-11-24):** https://sigovs.github.io/DUPONT/site_v6/ (`site_v6/`) — the client's own Figma design: Home, SRP, VDP,
   dark + light. Built by `site_v6/_build/build.py`. APPROVED for build-out 2026-11-25
   (0435285, tag approved-buildout-2026-11-25) — current baseline.
+- **Developer handoff (2026-11-25):** `buildout/` (published at /DUPONT/buildout/site/) — clean rebuild of V6 + sub pages from the side
+  menu: 11 cloned word for word from dupontregistry.com (Sell, Insurance, Protect, Ship + forms, Finance, About, Contact) + Paint Protection
+  (ours, text from podiumprotectionfilm.com). List: `buildout/PAGES.md`; tech: `buildout/HANDOFF.md`. V6 untouched.
 
 ## V4 SRP / VDP state (2026-10-28, after client approval)
 - SRP: filter card (Year · Make · Model · Price two-thumb slider · More filters: mileage, body, transmission, drivetrain,

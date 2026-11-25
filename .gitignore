@@ -86,3 +86,13 @@ Thumbs.db
 !/site_v6/assets/**/*.avif
 !/site_v6/assets/video/*.mp4
 /site_v6/_qa/
+
+# Developer handoff (2026-11-25): Home, Inventory, Vehicle + sub pages, for the dev team and Chris. Published at /buildout/site/
+!/buildout/
+!/buildout/**/*.jpg
+!/buildout/**/*.jpeg
+!/buildout/**/*.png
+!/buildout/**/*.webp
+!/buildout/**/*.mp4
+!/buildout/**/*.webm
+/buildout/**/__pycache__/

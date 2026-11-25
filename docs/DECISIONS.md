@@ -35,6 +35,9 @@ Chronological. Each line: what, Alex's verdict, why. Source of truth for "what d
   listing-only figures; "Inquire" side drawer (pre-written message); CARFAX logo (not the "1 Owner" badge);
   Save/Share/Text outlined pills. SRP: "Sort by" label; selected filters as removable pills.
 
+- Sub pages (2026-11-25): mirror dupontregistry.com exactly (texts, blocks, forms); header/footer and Select design ours; Events/News
+  = links; Locations = Inventory by showroom; new work goes only into `buildout/`, V6 stays as approved.
+
 ## Hard rules (never break)
 - No paid services or credit-consuming tools (fal.ai etc.) without explicit approval. No generated imagery.
 - No blurred/feathered photo edges, vignettes, artificial shadows at image borders, dark overlays hiding integration,
