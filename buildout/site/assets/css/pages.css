@@ -556,7 +556,7 @@
 .svc__lg { display: flex; align-items: center; gap: 20px; height: 56px; }
 .svc__lg img { height: 48px; width: auto; max-width: 110px; object-fit: contain; }
 :root[data-theme="dark"] .svc__lg .makes__invert { filter: invert(1); }
-.svc__t { margin: 20px 0 0; font: 600 24px/32px var(--f-display); letter-spacing: 0; color: var(--on-strong); }
+.svc__t { margin: 0; font: 600 24px/32px var(--f-display); letter-spacing: 0; color: var(--on-strong); }
 .svc__l { margin: 16px 0 0; padding-left: 20px; columns: 2 150px; column-gap: 24px; font: 400 16px/28px var(--f-text); color: var(--on-v); }
 .svc__l li { break-inside: avoid; }
 .ask { padding-top: var(--sec); }

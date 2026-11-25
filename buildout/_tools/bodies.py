@@ -873,7 +873,7 @@ def service_page(m, ARR):
     I = 'assets/img/service/'; T = 'href="tel:+18444889232" data-external-ok'
     def photo(n, alt, extra): return '<picture><source media="(max-width: 759px)" srcset="%s%s-phone-780.webp"><img src="%s%s-1200.webp" srcset="%s%s-1200.webp 1200w, %s%s-1920.webp 1920w" sizes="100vw" width="1920" height="998" alt="%s" %s decoding="async"></picture>' % (I, n, I, n, I, n, I, n, alt, extra)
     def logos(ls): return ''.join(('<img class="makes__invert" src="assets/img/makes/%s" alt="" loading="lazy" decoding="async">' if k == 'invert' else '<img src="assets/img/makes/%s" alt="" loading="lazy" decoding="async">') % f for f, k in ls)
-    cards = ''.join('<li class="svc__c"><div class="svc__lg" aria-hidden="true">%s</div><h3 class="svc__t">%s</h3><ul class="svc__l">%s</ul></li>' % (logos(ls), n, ''.join('<li>%s</li>' % x for x in items)) for n, ls, items in SVC_MAKES)
+    cards = ''.join('<li class="svc__c"><h3 class="svc__t">%s</h3><ul class="svc__l">%s</ul></li>' % (n, ''.join('<li>%s</li>' % x for x in items)) for n, ls, items in SVC_MAKES)
     tags = ''.join('<li>%s</li>' % x for x in ('Paint Correction', 'Paint Protection Film', 'Suspension/ Exhaust', 'Wheels &amp; Calipers', 'Brake Service', 'Oil Service'))
     f = field
     sel = '<label class="field"><select name="request"><option value="" selected disabled hidden></option>%s</select><span class="field__l">Select Requested Service</span></label>' % ''.join('<option value="%s">%s</option>' % x for x in SVC_REQ)
