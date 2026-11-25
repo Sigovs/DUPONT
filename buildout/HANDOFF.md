@@ -4,7 +4,7 @@ Approved design, 25 November 2026. Dark and light themes, desktop and phone.
 
 - **Home**, **Inventory** (SRP), **Vehicle** (VDP): the approved design.
 - **Sub pages from the side menu**, carried over from the live duPont REGISTRY pages (same text, sections and order) in the Select design:
-  Sell + Sell form, Insurance + quote form, Protect + quote form, Ship + quote form, Finance & Lease, About, Contact; plus Paint Protection, added by us.
+  Sell + Sell form, Insurance + quote form, Protect + quote form, Ship + quote form, Finance & Lease, About, Contact; plus Paint Protection and Service, added by us (both are in the client's Figma navigation).
   The full list, with what was cloned and what was added, is in **PAGES.md**.
 - **Events** and **News** in the menu link to dupontregistrygroup.com/events and news.dupontregistry.com. **Locations** link to Inventory filtered by showroom.
 
@@ -20,7 +20,8 @@ Home, Inventory and Vehicle were compared with the approved preview element by e
 | Protect, quote | `protect.html`, `protect-quote.html` | dupontregistry.com/protect, /protect/get-quote |
 | Ship, quote | `ship.html`, `ship-quote.html` | dupontregistry.com/ship, /ship/get-quote |
 | Finance & Lease | `finance.html` | dupontregistry.com/finance (the Customers, Lease, Collectors and Dealers tabs link to the live pages) |
-| Paint Protection | `paint-protection.html` | podiumprotectionfilm.com (the PPF page of the SoCal showroom); photos are the 765LT listing |
+| Paint Protection | `paint-protection.html` | podiumprotectionfilm.com (West Coast Exotic Cars' PPF site); photos are the 765LT listing |
+| Service | `service.html` | westcoastexoticcars.com/services (West Coast Exotic Cars' service page); photos are our SoCal showroom and the 765LT listing |
 | About | `about.html` | dupontregistry.com/about |
 | Contact | `contact.html` | dupontregistry.com/contact (their form is a HubSpot embed; the fields and texts are the same) |
 
@@ -63,6 +64,7 @@ document.addEventListener('site:inquiry', e => { /* e.detail */ });
 | `site:insurance-quote`, `site:protect-quote`, `site:ship-quote`, `site:paint-quote` | `{ fields }` |
 | `site:prequalify` | `{ fields }` (Finance window, includes both consent checkboxes) |
 | `site:contact` | `{ fields }` (Contact form, includes the two optional SMS consents) |
+| `site:service-appointment` | `{ fields }` (Service appointment request) |
 
 The events fire after validation. The pages show "thank you" straight away, so add sending and error states when connecting.
 
@@ -72,7 +74,7 @@ The events fire after validation. The pages show "thank you" straight away, so a
 site/
   index.html  inventory.html  car.html?id=…
   sell.html  sell-form.html  insurance.html  insurance-quote.html  protect.html  protect-quote.html
-  ship.html  ship-quote.html  paint-protection.html  finance.html  about.html  contact.html
+  ship.html  ship-quote.html  paint-protection.html  service.html  finance.html  about.html  contact.html
   data/inventory.json          cars + showrooms
   data/models.json             makes and models for the Sell and Ship forms (131 makes, as listed on duPont REGISTRY on 25 Nov 2026; replace with the live feed)
   assets/css/  tokens.css → site.css → home.css (Home), catalog.css (Inventory, Vehicle) or pages.css (sub pages). Order matters
@@ -182,7 +184,7 @@ Data is as listed on 21 October 2026, 13 cars. Only the 2021 McLaren 765LT (`635
 3. **Reviews:** the five quotes are samples.
 4. **Video:** the Vehicle page uses sample footage (`sample: true`). The Sell video on the home page is 10 MB; compress it or stream it.
 5. **Marques:** Lamborghini and Ford are shown, but none of the 13 cars are. "View All" opens the full list for those two.
-6. **Pages not built** (footer only): Privacy Policy, Terms and Conditions. "Service" in the footer has no page.
+6. **Pages not built** (footer only): Privacy Policy, Terms and Conditions.
 
 ## Two differences from the live preview
 

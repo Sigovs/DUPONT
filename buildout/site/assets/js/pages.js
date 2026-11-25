@@ -102,7 +102,7 @@
 
   /* ---- field errors, shared by the forms */
   var TEXT = { plate: 'Enter the license plate.', state: 'Choose a state.', zip: 'Enter a five-digit zip code.', vin: 'Enter the VIN: 11 to 17 letters and digits, without I, O or Q.', make: 'Choose a make.', model: 'Enter the model.', year: 'Choose a year.',
-    first: 'Enter your first name.', last: 'Enter your last name.', address: 'Enter your home address.', email: 'Enter a valid email address.', phone: 'Enter a phone number with area code.', income: 'Enter your annual income.', score: 'Choose a credit score.', city: 'Enter the city.', from: 'Enter a city or ZIP code.', to: 'Enter a city or ZIP code.', type: 'Choose a vehicle type.', name: 'Enter your name.', car: 'Enter the year, make and model.', service: 'Choose a service.', inquiry: 'Choose an inquiry type.', message: 'Tell us how we can help.' };
+    first: 'Enter your first name.', last: 'Enter your last name.', address: 'Enter your home address.', email: 'Enter a valid email address.', phone: 'Enter a phone number with area code.', income: 'Enter your annual income.', score: 'Choose a credit score.', city: 'Enter the city.', from: 'Enter a city or ZIP code.', to: 'Enter a city or ZIP code.', type: 'Choose a vehicle type.', name: 'Enter your name.', car: 'Enter the year, make and model.', service: 'Choose a service.', inquiry: 'Choose an inquiry type.', request: 'Choose a service.', message: 'Tell us how we can help.' };
   function mark(el, show) {
     var w = el.closest('.field'), e = $('.field__e', w), bad = show && !el.checkValidity();
     w.classList.toggle('is-bad', bad); el.setAttribute('aria-invalid', bad ? 'true' : 'false');

@@ -855,3 +855,73 @@ def contact(m, ARR):
        chk('sms_marketing', 'Yes, I agree to receive marketing/promotional SMS messages from duPont Registry, including special offers, exclusive incentives, event invitations, and dealership news.'),
        chk('sms_info', 'Yes, I agree to receive informational/transactional SMS messages from duPont Registry, such as appointment reminders, service updates, vehicle status notifications, and important account-related information.'),
        EXT, EXT, one, one.replace(EXT, EXT + ' tabindex="-1"'))
+
+
+# ------------------------------------------------------------------ service (West Coast Exotic Cars service page)
+SVC_MAKES = [('Ferrari', [('ferrari.svg', '')], ['Oil change', 'Brake fluid change', 'Coolant change', 'Exhaust', 'Wheel color change', 'Brake service', 'Caliper color change', 'Scrape protectors', 'Interior repair/sticky buttons', 'Light suspension work', 'Tint', 'PPF', 'Detail']),
+             ('Audi/Lamborghini', [('audi.svg', 'invert'), ('lamborghini-208.webp', '')], ['Oil change', 'Brake fluid change', 'Coolant change', 'Spark plugs', 'Exhaust', 'Caliper color change', 'Scrape protectors', 'Wheel color change', 'Brake service', 'Interior repair', 'Light suspension work', 'Tint', 'PPF', 'Detail']),
+             ('Porsche', [('porsche.svg', '')], ['Oil change', 'Brake fluid change', 'Coolant change', 'Spark plugs', 'Exhaust', 'Caliper color change', 'Wheel color change', 'Brake service', 'Interior repair', 'Light suspension work', 'Tint', 'PPF', 'Detail']),
+             ('Mercedes/BMW', [('mercedes-benz.svg', ''), ('bmw.svg', '')], ['Oil change', 'Brake fluid change', 'Coolant change', 'Spark plugs', 'Caliper color change', 'Exhaust', 'Wheel color change', 'Brake service', 'Interior repair', 'Light suspension work', 'Tint', 'PPF', 'Detail']),
+             ('Rolls Royce/Bentley', [('rolls-royce.svg', ''), ('bentley.svg', '')], ['Oil change', 'Brake fluid change', 'Coolant change', 'Spark plugs', 'Exhaust', 'Caliper color change', 'Wheel color change', 'Brake service', 'Interior repair', 'Light suspension work', 'Tint', 'PPF', 'Detail']),
+             ('Land Rover', [('land-rover.svg', '')], ['Oil change', 'Brake fluid change', 'Coolant change', 'Spark plugs', 'Exhaust', 'Caliper color change', 'Wheel color change', 'Brake service', 'Interior repair', 'Light suspension work', 'Tint', 'PPF', 'Detail'])]
+SVC_WC_MAKES = 'ACURA,ALFA ROMEO,AM GENERAL,AMC,AMERICAN MOTORS,ASTON MARTIN,AUBURN,AUSTIN,AUSTIN HEALEY,AUDI,AVANTI,A.C.,BENTLEY,BMC,BMW,BUELL,BUICK,BUCKBOARD,CADILLAC,CHEVROLET,CHRYSLER,CORD,CROSLEY,CUSHMAN,DAEWOO,DAIHATSU,DELOREAN,DETOMASO,DODGE,DUCATI,DUESENBERG,EAGLE,EDSEL,ESSEX,EXCALIBUR,FERRARI,FIAT,FIRESTONE,FORD,GEO,GMC,HARLEY-DAVIDSON,HOLLYWOOD,HOLLYWOOD+PROP,HONDA,HUMMER,HYUNDAI,INTERNATIONAL,INFINITI,ISUZU,JAGUAR,JEEP,JENSEN,JENSEN HEALEY,JOHN,KARMA,KAWASAKI,KENT,KIA,KIT CARS,LAMBORGHINI,LAND ROVER,LA SALLE,LEXUS,LINCOLN,LOTUS,MASERATI,MAYBACH,MAZDA,MAXWELL,MCLAREN,MERCEDES-BENZ,MERCURY,MERKUR,MINI,MITSUBISHI,MORGAN,MG,MGA,MGB,NISSAN,OLDSMOBILE,OTHER,PANOZ,PACKARD,PATHFINDER,PEUGEOT,PONTIAC,PORSCHE,PLYMOUTH,QVALE,RENAULT,ROLLS-ROYCE,SAAB,SALEEN,SATURN,SCHWIN,SCION,SMART,STERLING,STUDEBAKER,SUBARU,SUZUKI,TESLA,TEXACO,TOYOTA,TRIUMPH,ULTRA,VOLKSWAGEN,VOLVO,WHIPPET,WOOD,YAMAHA,YUGO,ZIMMER'.split(',')
+SVC_REQ = [('oil_change', 'Oil change'), ('fuel_filter', 'Fuel filter'), ('spark_plugs', 'Spark plugs'), ('trans', 'Transmission'), ('brake_inspection', 'Brake inspection'), ('air_filter', 'Air filter'),
+           ('wheel_alignment', 'Wheel alignment'), ('cooling_system', 'Cooling system'), ('shocks', 'Shocks'), ('air_conditioner', 'Air conditioner')]
+
+
+def service_page(m, ARR):
+    I = 'assets/img/service/'; T = 'href="tel:+18444889232" data-external-ok'
+    def photo(n, alt, extra): return '<picture><source media="(max-width: 759px)" srcset="%s%s-phone-780.webp"><img src="%s%s-1200.webp" srcset="%s%s-1200.webp 1200w, %s%s-1920.webp 1920w" sizes="100vw" width="1920" height="998" alt="%s" %s decoding="async"></picture>' % (I, n, I, n, I, n, I, n, alt, extra)
+    def logos(ls): return ''.join(('<img class="makes__invert" src="assets/img/makes/%s" alt="" loading="lazy" decoding="async">' if k == 'invert' else '<img src="assets/img/makes/%s" alt="" loading="lazy" decoding="async">') % f for f, k in ls)
+    cards = ''.join('<li class="svc__c"><div class="svc__lg" aria-hidden="true">%s</div><h3 class="svc__t">%s</h3><ul class="svc__l">%s</ul></li>' % (logos(ls), n, ''.join('<li>%s</li>' % x for x in items)) for n, ls, items in SVC_MAKES)
+    tags = ''.join('<li>%s</li>' % x for x in ('Paint Correction', 'Paint Protection Film', 'Suspension/ Exhaust', 'Wheels &amp; Calipers', 'Brake Service', 'Oil Service'))
+    f = field
+    sel = '<label class="field"><select name="request"><option value="" selected disabled hidden></option>%s</select><span class="field__l">Select Requested Service</span></label>' % ''.join('<option value="%s">%s</option>' % x for x in SVC_REQ)
+    return '''  <main id="main" class="page">
+  <section class="page-hero page-hero--c page-hero--s" id="top" aria-labelledby="sv-h">
+    <div class="page-hero__in" data-in>
+      %s
+      <div class="page-hero__t">
+        <h1 class="page-hero__h" id="sv-h">%s %s</h1>
+        <p class="page-hero__p">Expert Service for Your Exotic &amp; Luxury Vehicle</p>
+        <ul class="tags">%s</ul>
+        <a class="button button--photo" href="#appointment">Request Appointment</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="duo duo--svc" aria-labelledby="us-h" data-in>
+    <div class="wrap duo__g">
+      <div class="duo__t"><h2 class="heading" id="us-h">%s %s</h2>
+        <p class="duo__p">At duPont REGISTRY Select, we specialize in exotic maintenance, and expert repairs tailored to the world’s most elite vehicles. With a deep passion for automotive excellence, our experienced technicians provide a meticulous approach to caring for your Ferrari, Audi, Lamborghini, Porsche, Mercedes, BMW, Rolls Royce, Bentley and Land Rover. Put your trust in the Experts at duPont REGISTRY Select – your vehicle deserves only the best.</p>
+        <div class="duo__b"><a class="button button--line t-num" %s>Call Us: 844-488-9232</a><a class="button" href="#appointment">Request Appointment</a></div></div>
+      <figure class="duo__ph photo-open"><img src="assets/img/showrooms/socal-wide.webp" width="1324" height="823" alt="The showroom floor at duPont REGISTRY Select SoCal" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+  <section class="svc" aria-labelledby="sm-h" data-in>
+    <div class="wrap">
+      <h2 class="vh" id="sm-h">Service by make</h2>
+      <ul class="svc__g">%s</ul>
+    </div>
+  </section>
+
+  <section class="ask" aria-labelledby="qs-h" data-in>
+    <div class="wrap ask__in"><h2 class="heading" id="qs-h">%s</h2><a class="button t-num" %s>Call Us: 844-488-9232</a></div>
+  </section>
+
+  <section class="quote quote--p" id="appointment" aria-labelledby="ap-h">
+    <div class="quote__card quote__card--w" data-quote="service-appointment" data-quote-done-text="Thank you. The service team would be in touch to confirm your appointment.">
+      <h2 class="quote__h" id="ap-h">Appointment Request</h2>
+      <form class="quote__f quote__f--2" id="ap-f" novalidate>
+        <fieldset class="apf"><legend>Personal Information</legend>%s%s%s%s</fieldset>
+        <fieldset class="apf"><legend>Vehicle Information</legend>%s%s%s%s</fieldset>
+        <div class="quote__go"><button class="button" type="submit">Request Appointment</button></div>
+      </form>
+      <div class="sell-form__done" data-quote-done tabindex="-1" hidden></div>
+    </div>
+  </section>
+''' % (photo('hero', 'The orange caliper and carbon wheel of a McLaren 765LT', 'fetchpriority="high"'), m('Precision Performance'), m('Upgrades &amp; Maintenance', 1), tags,
+       m('Uncompromising Service'), m('for Exotic &amp; Luxury Vehicles', 1), T, cards, m('Questions?'), T,
+       f('Your First Name', 'first', extra='autocomplete="given-name"'), f('Your Last Name', 'last', extra='autocomplete="family-name"'), f('Email', 'email', 'email', 'autocomplete="email"'), f('Phone', 'phone', 'tel', 'autocomplete="tel" pattern="[0-9+() .-]{10,20}"'),
+       f('Year', 'year', opts=range(2027, 1919, -1)), f('Make', 'make', opts=SVC_WC_MAKES), f('Model', 'model', extra='maxlength="40" autocomplete="off"'), sel)

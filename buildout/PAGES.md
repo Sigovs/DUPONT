@@ -1,6 +1,6 @@
 # duPont REGISTRY Select: pages in this package
 
-25 November 2026. 15 pages, every one in dark and light, desktop and phone. Open `site/` from any static server (see HANDOFF.md).
+25 November 2026. 16 pages, every one in dark and light, desktop and phone. Open `site/` from any static server (see HANDOFF.md).
 
 **Cloned** means the page was copied from the live duPont REGISTRY page: same text word for word, same sections in the same order, same form fields. Only the header, the footer, the "Visit a showroom" block and the Select visual design are ours.
 
@@ -32,7 +32,8 @@
 
 | Page | File | What it is |
 |---|---|---|
-| Paint Protection (menu: Services › Paint Protection) | `paint-protection.html` | Not on dupontregistry.com. The text is from podiumprotectionfilm.com, the paint protection film studio of the SoCal showroom. The photos are from the McLaren 765LT listing. We added four short headings because that page has almost none. |
+| Paint Protection (menu: Services › Paint Protection) | `paint-protection.html` | Not on dupontregistry.com. Paint Protection is in the navigation of the client's Figma design, so we built the page. Text taken from West Coast Exotic Cars' paint protection film site (podiumprotectionfilm.com); photos from the McLaren 765LT listing. We added four short headings because that page has almost none. |
+| Service (menu: Services › Service) | `service.html` | Not on dupontregistry.com. Service is in the navigation and footer of the client's Figma design, so we built the page. Text, service lists by make and the appointment form taken from West Coast Exotic Cars' service page (westcoastexoticcars.com/services); photos from our own SoCal showroom and the McLaren 765LT listing. |
 
 ## Menu items that link out
 
@@ -44,7 +45,7 @@
 
 ## Not in this package
 
-Privacy Policy and Terms and Conditions (footer only). "Service" in the footer has no page.
+Privacy Policy and Terms and Conditions (footer only).
 
 ## Notes for development
 

@@ -7,7 +7,7 @@ sys.path.insert(0, HERE)
 import bodies
 inv = open(os.path.join(SITE, 'inventory.html'), encoding='utf-8').read()
 home = open(os.path.join(SITE, 'index.html'), encoding='utf-8').read()
-HEAD = inv[:inv.index('<link rel="stylesheet" href="assets/css/catalog.css">')] + '<link rel="stylesheet" href="assets/css/pages.css?v=8">\n</head>\n'
+HEAD = inv[:inv.index('<link rel="stylesheet" href="assets/css/catalog.css">')] + '<link rel="stylesheet" href="assets/css/pages.css?v=9">\n</head>\n'
 CHROME = inv[inv.index('  <a class="skip'):inv.index('  <main id="main"')]
 ROOMS = inv[inv.index('  <section class="showrooms"'):inv.index('  <footer class="site-footer">')]
 FOOT = inv[inv.index('  <footer class="site-footer">'):].replace('assets/js/inventory.js', 'assets/js/pages.js?v=6')
@@ -33,3 +33,4 @@ write('ship-quote.html', 'Ship Quote — duPont REGISTRY Select', 'Get a quote t
 write('paint-protection.html', 'Paint Protection — duPont REGISTRY Select', 'Clear paint protection film, installed with Xpel: full body, full nose and individual coverage.', 'page-paint', bodies.paint(m, ARR))
 write('about.html', 'About Us — duPont REGISTRY Select', 'Driving luxury since 1985: the premier exotic and luxury car marketplace.', 'page-about', bodies.about(m, ARR))
 write('contact.html', 'Contact Us — duPont REGISTRY Select', 'Get in touch with duPont REGISTRY: advertising, buying, selling and support.', 'page-contact', bodies.contact(m, ARR))
+write('service.html', 'Service — duPont REGISTRY Select', 'Expert service for your exotic and luxury vehicle: maintenance, repairs, PPF, tint and detail.', 'page-service', bodies.service_page(m, ARR))

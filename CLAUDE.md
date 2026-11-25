@@ -25,8 +25,9 @@ External skills: **authorized 2026-10-08** as supporting specialists (see BRIEF.
   blocks, Read More hidden, their Most Popular Cars, their make/model lists (`data/models.json`); only header/footer and the Select design are ours.
   Form steps after the first are the dev team's. Paint Protection (`paint-protection.html`) = text of podiumprotectionfilm.com (West Coast's PPF site),
   photos = our 765LT listing. Drawer groups open softly by height (site.js `sub`). About (`about.html`) from dupontregistry.com/about,
-  footer About → about.html. Contact (`contact.html`) cloned too. **Final package: `duPont-REGISTRY-Select_handoff_2026-11-25_final.zip`** (15 pages;
-  `buildout/PAGES.md` lists cloned vs added — only Paint Protection is ours). **Everything new goes into the handoff
+  footer About → about.html. Contact (`contact.html`) cloned too. **Final package: `duPont-REGISTRY-Select_handoff_2026-11-25_final.zip`** (16 pages;
+  `buildout/PAGES.md` lists cloned vs added — ours: Paint Protection + Service, both in the client's Figma nav, text from West Coast).
+  On git: `buildout/` (live /DUPONT/buildout/site/) + release `handoff-2026-11-25` (the zip). **Everything new goes into the handoff
   only; V6 stays exactly as approved (Alex, 2026-11-25: "vse tolko v handoff kladi, v6 ostavj kak bil").** Content copied from dupontregistry.com is CORRECT: no questions about rights, video
   or claims; report only what differs from their page. **Scope = the SIDE MENU only**
   (Alex, 2026-11-25): footer-only pages (About, Contact, Privacy, Terms) are not built. Events = a plain link to

@@ -142,7 +142,7 @@
     Site.emit('subscribe', { email: em.value.trim() });
     say('Thanks — new listings would go to ' + em.value.trim() + ' (prototype, nothing sent).'); em.value = '';
   });
-  var SOON = { privacy: 'Privacy Policy', terms: 'Terms and Conditions', service: 'Service' };
+  var SOON = { privacy: 'Privacy Policy', terms: 'Terms and Conditions' };
   window.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href*="#"]'); if (!a) return;
     var id = a.getAttribute('href').split('#')[1]; if (!SOON[id] || document.getElementById(id)) return;
